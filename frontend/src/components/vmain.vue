@@ -8,6 +8,8 @@
 
             <p>{{ parag2 }}</p>
 
+            <p>{{ parag2 }}</p>
+
             <img class="bloc--section--index__style" src="../assets/backgroud_index.png" alt="logo de groupomania">{{ image }}
             
         </section>
