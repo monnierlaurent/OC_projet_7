@@ -1,0 +1,268 @@
+    html {
+        --noir: #212121;
+        --blanc: #FAFAFA;
+        --violet: #9C27B0;
+        --vert: #76FF03;
+        --gris1: #616161;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    /*header*/
+    
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .header--bgc--width--flex {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(to bottom right, var(--violet), var(--noir));
+        padding-top: 0.4em;
+        box-shadow: 15px 15px 15px var(--gris1);
+        border: solid 1px black;
+    }
+    
+    .bloc--header__seize {
+        width: 65%;
+    }
+    
+    .header--bgc--width--flex2 {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(to bottom right, var(--violet), var(--noir));
+        padding-top: 0.4em;
+        box-shadow: 15px 15px 15px var(--gris1);
+        border: solid 1px black;
+    }
+    
+    .header__nav__a--style {
+        font-size: 1.7em;
+        color: var(--blanc);
+        padding-right: 1.5em;
+        text-decoration: none;
+        font-family: sans-serif;
+    }
+    
+    .header__nav__a--style:hover {
+        color: var(--blanc);
+        cursor: pointer;
+    }
+    
+    .header__nav__a--style:active {
+        color: var(--vert);
+    }
+    /*section index*/
+    
+    .bloc--section--index__style {
+        opacity: 0.3;
+        width: 30%;
+        height: auto;
+    }
+    /*footer*/
+    
+    .footer--bgc--position {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom right, var(--violet), var(--noir));
+        padding-top: 0.5em;
+        border: solid 1px var(--noir);
+    }
+    
+    .footer--bgc--flex {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: cornflowerblue;
+        padding-top: 0.5em;
+        border: solid 1px var(--noir);
+    }
+    
+    .footer--div--flex {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .footer__icons--padding {
+        padding-right: 1em;
+    }
+    
+    .fab {
+        padding-top: 0.1em;
+        padding-bottom: 0.1em;
+        color: var(--noir);
+    }
+    
+    .fab:hover {
+        color: white;
+        cursor: pointer;
+    }
+    
+    .fab:active {
+        color: var(--vert);
+    }
+    
+    .footer__a--texte {
+        text-align: center;
+    }
+    
+    .footer__logo--seize {
+        width: 25%;
+        height: auto;
+    }
+    /*section central*/
+    
+    .section--style--width {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 3em;
+        width: 100%;
+        height: auto;
+        text-align: center;
+    }
+    /*modal inscription*/
+    
+    .modal {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        animation: appear 0.3s;
+    }
+    
+    @keyframes appear {
+        from {
+            transform: translateY(-760px);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+    
+    .modal-wrapper {
+        background: linear-gradient(to bottom right, var(--violet), var(--noir));
+        width: 50%;
+        padding: 3em;
+        border: solid 1px black;
+        box-shadow: 15px 15px 15px var(--gris1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .modal__h2--style {
+        font-family: sans-serif;
+        color: var(--blanc);
+        font-size: 2em;
+    }
+    
+    .modal__btn__inscription--flex--style {
+        margin-top: 2em;
+        font-size: 1.5em;
+        padding: 0.5em;
+        border: var(--noir) solid 1px;
+        box-shadow: 5px 5px 5px var(--noir);
+        background-color: var(--blanc);
+        border-radius: 10px;
+    }
+    
+    .modal__btn__quitter--flex--style {
+        margin-top: 2em;
+        font-size: 1.5em;
+        padding: 0.5em;
+        border: black solid 1px;
+        background-color: var(--blanc);
+        box-shadow: 5px 5px 5px var(--noir);
+        border-radius: 10px;
+    }
+    
+    .modal__btn__inscription--flex--style:hover,
+    .modal__btn__quitter--flex--style:hover {
+        opacity: 0.5;
+        cursor: pointer;
+    }
+    
+    .modal__btn__inscription--flex--style:active,
+    .modal__btn__quitter--flex--style:active {
+        color: var(--vert);
+    }
+    
+    .modal__div--seize {
+        width: 55%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 2em;
+    }
+    
+    .modal__label--style {
+        font-size: 2em;
+        font-family: sans-serif;
+        color: var(--blanc);
+    }
+    
+    .modal__input--style {
+        font-size: 2em;
+        border-radius: 10px;
+        border: solid 1px var(--noir);
+        padding: 0.2em 1em 0.2em 1em;
+        box-shadow: 5px 5px 5px var(--noir);
+    }
+    /*------forum-----*/
+    
+    .forum--flex {
+        margin-top: 8em;
+        margin-bottom: 2em;
+        width: 90%;
+        display: flex;
+    }
+    
+    .section1 {
+        width: 15%;
+        height: 1000px;
+        border: solid 1px var(--noir);
+        margin-right: 1em;
+        background-color: rgba(100, 149, 237, 0.3);
+    }
+    
+    .section2 {
+        width: 70%;
+        background-color: white;
+        border: solid 1px var(--noir);
+    }
+    
+    .section3 {
+        width: 15%;
+        border: solid 1px var(--noir);
+        margin-left: 1em;
+        background-color: rgba(100, 149, 237, 0.3);
+    }
