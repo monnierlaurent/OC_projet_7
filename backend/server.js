@@ -1,4 +1,4 @@
-/*const http = require('http');
+const http = require('http');
 const app = require('./app');
 
 const normalizePort = val => {
@@ -44,4 +44,4 @@ server.on('listening', () => {
     console.log('Listening on ' + bind);
 });
 
-server.listen(port);*/
+server.listen(port);

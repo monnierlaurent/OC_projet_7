@@ -5,10 +5,10 @@
  <header id="header" class="header--bgc--width--flex">
                <h1><img class="bloc--header__seize" src="../assets/logo_white.png" alt="logo du reseaux social"></h1>
 
-                <nav id="nav" class="header__nav--padding">
+                <!--   <nav id="nav" class="header__nav--padding">
                     <a id="inscription" class="header__nav__a--style" >{{ lien1 }}</a>
                     <a id="connection" class="header__nav__a--style" >{{ lien2 }}</a>
-                </nav>
+                </nav>-->
             </header>
  </a>
  
@@ -29,8 +29,6 @@
 <style>
 
 .header--bgc--width--flex {
-  /*position: fixed;*/
-        width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
