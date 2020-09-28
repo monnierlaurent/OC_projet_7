@@ -7,6 +7,8 @@
           <router-link class="bloc__link--padding" :to="{name: 'login'}">Login</router-link>
           <router-link class="bloc__link--padding" :to="{name: 'signup'}">Signup</router-link>
           <router-link class="bloc__link--padding" :to="{name: 'forum'}">Forum</router-link>
+          <router-link class="bloc__link--padding" :to="{name: 'post'}">Post</router-link>
+     
       </div>
 
     <router-view/>

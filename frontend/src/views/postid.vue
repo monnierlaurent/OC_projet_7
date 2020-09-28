@@ -1,37 +1,43 @@
 <template>
-   <div class="flex">
-  <a   href="#">
-      <div  v-for="titre in titres" :key="titre.titre"  id="app" class="bloc__post--flex" >
- 
-        <h2 >{{ titre.titre }}</h2>
-        <p class="bloc__post__p--style">{{ titre.auteur }}</p>
-        <p class="bloc__post__p--style">{{ titre.contenu }}</p>
-      {{ titre.id}}
- <router-link class="bloc__link--padding" :to="{name: 'postId', params:{id: titre.id} }">PostID</router-link>
-    </div>
-       </a>
+<div class="flex">
+
+      <div v-for="post in postID" :key="post.post" id="app" class="bloc__post--flex" >
+
+        <h2 >{{ post.titre }}</h2>
+        <p class="bloc__post__p--style">{{ post.auteur }}</p>
+        <p class="bloc__post__p--style">{{ post.contenu}}</p>
+            
+      </div>
+    
 </div>
 </template>
  
 
 <script>
- 
+
+
+
 export default {
 
 data(){
     return {
-           titres: [],
-           
+          postID: [],
           }// fin return
     },
 
+
+
+
+
+
+
 mounted () {
 
-    this.$http.get('http://localhost:3000/api/post/').then((response) =>{
+  this.$http.get('http://localhost:3000/api'+ document.location.pathname).then((response) =>{
 
       console.log('success', response);
 
-      this.titres = response.body.results
+      this.postID = response.body.results
   
 }, (response)=>{
 
@@ -43,20 +49,19 @@ console.log('erreur', response);
 
 
 methods:{
- 
   
 }// fin methode
 
 
     
 }//fin exports
+
+ 
 </script>
 
 
 <style>
-a{
- color:var(--noir);
-}
+
 .flex{
   width: 40%;
   margin: auto;
