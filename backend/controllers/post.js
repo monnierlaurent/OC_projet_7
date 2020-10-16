@@ -4,7 +4,7 @@ const db = require('../request');
 const Post = require('../models/post');
 
 //----enregister un post sur la table POSTS la  BDD----
-exports.creatPost = (req, res, next) => {
+exports.createPost = (req, res, next) => {
 
     const post = new Post({
         titre: req.body.titre,
@@ -17,10 +17,10 @@ exports.creatPost = (req, res, next) => {
 
     db.query(sqlPost, function(err, results) {
         if (err) throw err;
-        console.log("Table post pas creer");
+        console.log("message non posté");
     });
 
-    res.status(201).json({ message: 'Post enregistrée !!!' });
+    res.status(201).json({ message: 'message enregistré !!!' });
 
 };
 
@@ -33,7 +33,7 @@ exports.displayPost = (req, res, next) => {
         if (results.length > 0) {
             return res.status(200).json({ results });
         } else {
-            return res.status(403).json({ message: "Aucun post présent !" });
+            return res.status(403).json({ message: "Aucun message présent !" });
         }
     });
 
@@ -43,8 +43,6 @@ exports.displayPost = (req, res, next) => {
 
 exports.displayPostId = (req, res, next) => {
 
-    const idPost = req.params.id;
-    //console.log(idPost);
     const sqlGetId = `SELECT * FROM posts WHERE ID='${req.params.id}' `;
 
     db.query(sqlGetId, function(err, results) {
@@ -53,7 +51,7 @@ exports.displayPostId = (req, res, next) => {
             return res.status(200).json({ results });
 
         } else {
-            return res.status(403).json({ message: "Aucun post présent !" });
+            return res.status(403).json({ message: "Aucun message présent !" });
         }
     });
 
@@ -84,7 +82,7 @@ exports.deletePostId = (req, res, next) => {
 
     db.query(sqlGetId, function(err, results) {
 
-        res.status(200).json({ message: "POST SUPPRIMER !!!!" });
+        res.status(200).json({ message: "Message supprimé !" });
     });
 
 }; //fin exports

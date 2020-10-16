@@ -5,7 +5,8 @@ const conn = mysql.createConnection({
     database: 'groupomania',
     host: "localhost",
     user: "root",
-    password: ""
+    password: "Leane140304",
+    port: '3400'
 });
 conn.connect(function(err) {
     if (err) throw err;
