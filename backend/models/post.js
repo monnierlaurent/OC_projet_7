@@ -7,12 +7,12 @@ const postSchema = mongoose.Schema({
     auteur: { type: String, required: true },
     titre: { type: String, required: true },
     contenu: { type: String, required: true },
-    //dateCreation: { type: String, required: true },
-    //dateModification: { type: String, required: true },
+    dateCrea: { type: String, required: true },
+    dateModif: { type: String, required: true },
     likes: { type: Number, default: 0, required: true },
     dislikes: { type: Number, default: 0, required: true },
-    usersLiked: { type: [String], required: true },
-    usersDisliked: { type: [String], required: true },
+    //usersLiked: { type: [String], required: true },
+    //usersDisliked: { type: [String], required: true },
 });
 
 

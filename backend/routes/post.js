@@ -1,10 +1,12 @@
-/*const express = require('express');
+const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
+
 const postCtrl = require('../controllers/post');
 
 
 
-router.post('/', postCtrl.createPost);
+router.post('/', auth, postCtrl.createPost);
 
 router.get('/', postCtrl.displayPost);
 
@@ -15,6 +17,6 @@ router.put('/:id', postCtrl.updatePostId);
 router.delete('/:id', postCtrl.deletePostId);
 
 //like
-router.post('/', postCtrl.likePost);
+//router.post('/', postCtrl.likePost);
 
-module.exports = router;*/
+module.exports = router;
