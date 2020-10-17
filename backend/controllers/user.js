@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const mask = require('mask-email-phone');
 const emailValidator = require("email-validator");
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const schemaPassword = require('../models/shemaPassword');
 const db = require('../request');
@@ -69,7 +69,7 @@ exports.createUser = (req, res, next) => {
             };
         });
     } else {
-        res.status(201).json({ message: 'Le mot de passe doit comporter entre 4 et 8 caratheres maximum ,1 majuscule , 1 chiffre' });
+        res.status(400).json({ message: 'Le mot de passe doit comporter entre 4 et 8 caratheres maximum ,1 majuscule , 1 chiffre' });
     };
 };
 
@@ -82,18 +82,44 @@ exports.loginUser = (req, res, next) => {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 
-    //chiffrage de l'email de la requête pour conparaison avec l'email de la bdd
-    const hashEmail2 = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel')
-        .update(req.body.email)
+    const hashpseudo = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel')
+        .update(req.body.pseudo)
         .digest('hex');
 
-    const sqlLogin = 'SELECT pseudo, email, password FROM  users';
+    const sqlLogin = 'SELECT pseudo FROM  users';
 
     db.query(sqlLogin, function(err, results) {
         if (err) throw err;
 
-        console.log(results);
-        res.status(201).json({ message: 'Utilisateur autentifié !!!' });
-    });
+        const resultData = JSON.stringify(results);
+
+        if (resultData.includes(hashpseudo)) {
+
+            const sqlLogin = `SELECT id, pseudo, password FROM  users WHERE pseudo = '${hashpseudo}'`;
+
+            db.query(sqlLogin, function(err, results) {
+                if (err) throw err;
+
+                results.forEach(rep => {
+                    bcrypt.compare(req.body.password, rep.password)
+                        .then(valid => {
+
+                            if (!valid) {
+                                return res.status(401).json({ error: 'L\'email ou le mot de passe est invalide !' });
+                            };
+
+                            res.status(200).json({
+                                userId: rep.id,
+                                token: jwt.sign({ userId: rep.id },
+                                    'eyJhbGciOiJIUzI1NiIs@InR5cCI6IkpXVCJ9.eyJz#dWIiOiIxMjM0NTY3ODkwIiw/ibmFtZSI6IkpvaG4g&RG9lIiwiYWRtaW4iOnRydWV9.TJVA95Or/M7E2cBab30RM@HrHDcEfxjoYZgeFONFh7HgQ', { expiresIn: '24h' },
+                                )
+                            });
+                        }).catch(() => res.status(500).json({ error: 'Erreur interne du serveur ' }));
+                });
+            }); //fin db
+        } else {
+            res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+        };
+    }); //fin de db
 
 }; //fin function login user
