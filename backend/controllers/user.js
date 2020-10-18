@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const mask = require('mask-email-phone');
 const emailValidator = require("email-validator");
 const jwt = require('jsonwebtoken');
+const sanitize = require('mongo-sanitize');
 
 const schemaPassword = require('../models/shemaPassword');
 const db = require('../request');
@@ -11,16 +12,17 @@ const User = require('../models/user');
 
 
 exports.createUser = (req, res, next) => {
-
-    if (req.body.pseudo === undefined, req.body.email === undefined, req.body.password === undefined) {
+    const reqBody = sanitize(req.body);
+    if (reqBody.pseudo === undefined, reqBody.email === undefined, reqBody.password === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 
-    if (!emailValidator.validate(req.body.email)) {
+
+    if (!emailValidator.validate(reqBody.email)) {
         return res.status(400).json({ error: 'L\'email ou le mot de passe est invalide !!!' });
     };
 
-    if (schemaPassword.validate(req.body.password)) {
+    if (schemaPassword.validate(reqBody.password)) {
 
         const sql = 'SELECT email,pseudo FROM users';
         db.query(sql, function(err, results) {
@@ -30,11 +32,11 @@ exports.createUser = (req, res, next) => {
             const data1 = JSON.stringify(results);
 
             const hashEmail = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel')
-                .update(req.body.email)
+                .update(reqBody.email)
                 .digest('hex');
 
             const hashpeseudo = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel')
-                .update(req.body.pseudo)
+                .update(reqBody.pseudo)
                 .digest('hex');
 
             if (data1.includes(hashpeseudo)) {
@@ -44,10 +46,10 @@ exports.createUser = (req, res, next) => {
                     res.status(400).json({ error: 'Email déja utilisé !!!' });
                 } else {
 
-                    const email = req.body.email;
+                    const email = reqBody.email;
                     const emailMask = mask(email);
 
-                    bcrypt.hash(req.body.password, 10)
+                    bcrypt.hash(reqBody.password, 10)
                         .then(hash => {
                             const user = new User({
 
@@ -76,14 +78,15 @@ exports.createUser = (req, res, next) => {
 
 
 exports.loginUser = (req, res, next) => {
-
+    const reqBody = sanitize(req.body);
     // vérification que la requête n'est pas vide
-    if (req.body.pseudo === undefined, req.body.email === undefined, req.body.password === undefined) {
+    if (reqBody.pseudo === undefined, reqBody.email === undefined, reqBody.password === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 
+
     const hashpseudo = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel')
-        .update(req.body.pseudo)
+        .update(reqBody.pseudo)
         .digest('hex');
 
     const sqlLogin = 'SELECT pseudo FROM  users';
@@ -101,7 +104,7 @@ exports.loginUser = (req, res, next) => {
                 if (err) throw err;
 
                 results.forEach(rep => {
-                    bcrypt.compare(req.body.password, rep.password)
+                    bcrypt.compare(reqBody.password, rep.password)
                         .then(valid => {
 
                             if (!valid) {

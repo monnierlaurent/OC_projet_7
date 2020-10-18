@@ -7,33 +7,30 @@ const comCtrl = require('../controllers/com');
 
 
 
-
+// routes messages
 router.post('/', auth, postCtrl.createPost);
 
+router.get('/', auth, postCtrl.displayPost);
+router.get('/:id', auth, postCtrl.displayPostId);
 
-router.get('/', postCtrl.displayPost);
+router.put('/:id', auth, postCtrl.updatePostId);
 
-router.get('/:id', postCtrl.displayPostId);
+router.delete('/:id', auth, postCtrl.deletePostId);
 
-router.put('/:id', postCtrl.updatePostId);
+//likes
 
-router.delete('/:id', postCtrl.deletePostId);
 
-//like
-//router.post('/', postCtrl.likePost);
-
-// routes commentaire
+// routes commentaires
 router.post('/:id/com', auth, comCtrl.createCom);
 
 router.get('/:id/com', auth, comCtrl.displayCom);
 router.get('/:id/com/:comId', auth, comCtrl.displayComId);
 
-router.put('/:id/com/:comId', comCtrl.updateComId);
+router.put('/:id/com/:comId', auth, comCtrl.updateComId);
 
-router.delete('/:id/com/:comId', comCtrl.deleteComId);
+router.delete('/:id/com/:comId', auth, comCtrl.deleteComId);
 
-//like
-//router.post('/:id', comCtrl.likeComId);
+//likes
 
 
 module.exports = router;

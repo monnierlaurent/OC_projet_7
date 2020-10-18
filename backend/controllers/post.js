@@ -1,4 +1,5 @@
 const express = require('express');
+const sanitize = require('mongo-sanitize');
 
 const db = require('../request');
 const Post = require('../models/post');
@@ -12,17 +13,20 @@ exports.createPost = (req, res, next) => {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 
+    const postClean = sanitize(req.body);
+    const userIdClean = sanitize(req.userIdAuth);
+
     const post = new Post({
         id: null,
-        userId: req.userIdAuth,
-        titre: req.body.titre,
-        auteur: req.body.auteur,
-        contenu: req.body.contenu,
+        userId: userIdClean,
+        titre: postClean.titre,
+        auteur: postClean.auteur,
+        contenu: postClean.contenu,
         likes: 0,
         dislikes: 0
 
     });
-    console.log(post);
+    // console.log(post);
 
     const sqlPost = `INSERT INTO posts (userid ,titre, auteur, contenu, dateCrea, dateModif, likes ,dislikes) VALUES ('${post.userId}','${post.titre}', '${post.auteur}','${post.contenu}',now(),now(),'${post.likes}','${post.dislikes}')`;
 
@@ -34,7 +38,6 @@ exports.createPost = (req, res, next) => {
     res.status(201).json({ message: 'message enregistré !!!' });
 
 };
-
 
 //----recuperer tous post de la BDD----
 exports.displayPost = (req, res, next) => {
@@ -54,7 +57,9 @@ exports.displayPost = (req, res, next) => {
 
 exports.displayPostId = (req, res, next) => {
 
-    const sqlGetId = `SELECT * FROM posts WHERE id='${req.params.id}'`;
+    const id = sanitize(req.params.id);
+
+    const sqlGetId = `SELECT * FROM posts WHERE id='${id}'`;
     db.query(sqlGetId, function(err, results) {
         if (results) {
             // console.log(results)
@@ -72,7 +77,9 @@ exports.deletePostId = (req, res, next) => {
 
     if (req.body.userId === req.userIdAuth) {
 
-        const sqlGetId = `DELETE FROM posts WHERE id='${req.params.id}'`;
+        const id = sanitize(req.params.id);
+
+        const sqlGetId = `DELETE FROM posts WHERE id='${id}'`;
 
         db.query(sqlGetId, function(err, results) {
 
@@ -89,7 +96,9 @@ exports.updatePostId = (req, res, next) => {
 
     if (req.body.userId === req.userIdAuth) {
 
-        const sqlGetId = `UPDATE posts SET titre='${req.body.titre}',auteur='${req.body.auteur}',contenu='${req.body.contenu}',dateModif=now()  WHERE id='${req.params.id}' `;
+        const id = sanitize(req.params.id);
+
+        const sqlGetId = `UPDATE posts SET titre='${req.body.titre}',auteur='${req.body.auteur}',contenu='${req.body.contenu}',dateModif=now()  WHERE id='${id}'`;
 
         db.query(sqlGetId, function(err, results) {
             if (results) {
