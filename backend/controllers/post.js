@@ -8,20 +8,20 @@ const Post = require('../models/post');
 
 //----enregister un post sur la table POSTS la  BDD----
 exports.createPost = (req, res, next) => {
-    //console.log(req.body);
-    if (req.body.titre === undefined || req.body.auteur === undefined || req.body.contenu === undefined) {
+
+    const reqBody = sanitize(req.body);
+    const userIdAuth = sanitize(req.userIdAuth);
+
+    if (reqBody.titre === undefined || reqBody.auteur === undefined || reqBody.contenu === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 
-    const postClean = sanitize(req.body);
-    const userIdClean = sanitize(req.userIdAuth);
-
     const post = new Post({
         id: null,
-        userId: userIdClean,
-        titre: postClean.titre,
-        auteur: postClean.auteur,
-        contenu: postClean.contenu,
+        userId: userIdAuth,
+        titre: reqBody.titre,
+        auteur: reqBody.auteur,
+        contenu: reqBody.contenu,
         likes: 0,
         dislikes: 0
 
@@ -57,9 +57,9 @@ exports.displayPost = (req, res, next) => {
 
 exports.displayPostId = (req, res, next) => {
 
-    const id = sanitize(req.params.id);
+    const reqParamsId = sanitize(req.params.id);
 
-    const sqlGetId = `SELECT * FROM posts WHERE id='${id}'`;
+    const sqlGetId = `SELECT * FROM posts WHERE id='${reqParamsId}'`;
     db.query(sqlGetId, function(err, results) {
         if (results) {
             // console.log(results)
@@ -75,11 +75,11 @@ exports.displayPostId = (req, res, next) => {
 //----suppresion  d'un post par son ID----
 exports.deletePostId = (req, res, next) => {
 
+    const reqParamsId = sanitize(req.params.id);
+
     if (req.body.userId === req.userIdAuth) {
 
-        const id = sanitize(req.params.id);
-
-        const sqlGetId = `DELETE FROM posts WHERE id='${id}'`;
+        const sqlGetId = `DELETE FROM posts WHERE id='${reqParamsId}'`;
 
         db.query(sqlGetId, function(err, results) {
 
@@ -92,13 +92,14 @@ exports.deletePostId = (req, res, next) => {
 
 //----modification d'un post par son ID----
 exports.updatePostId = (req, res, next) => {
-    //console.log(req.body)
 
-    if (req.body.userId === req.userIdAuth) {
+    const reqParamsId = sanitize(req.params.id);
+    const reqBody = sanitize(req.body);
+    const userIdAuth = sanitize(req.userIdAuth);
 
-        const id = sanitize(req.params.id);
+    if (reqBody.userId === userIdAuth) {
 
-        const sqlGetId = `UPDATE posts SET titre='${req.body.titre}',auteur='${req.body.auteur}',contenu='${req.body.contenu}',dateModif=now()  WHERE id='${id}'`;
+        const sqlGetId = `UPDATE posts SET titre='${reqBody.titre}',auteur='${reqBody.auteur}',contenu='${reqBody.contenu}',dateModif=now()  WHERE id='${reqParamsId}'`;
 
         db.query(sqlGetId, function(err, results) {
             if (results) {

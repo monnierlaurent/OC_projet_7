@@ -1,4 +1,5 @@
 const express = require('express');
+const sanitize = require('mongo-sanitize');
 
 const db = require('../request');
 const Com = require('../models/com');
@@ -6,17 +7,21 @@ const Com = require('../models/com');
 //------logique métier commentaires------
 
 exports.createCom = (req, res, next) => {
-    //console.log(req.body);
-    if (req.body.comAuteur === undefined || req.body.comContenu === undefined) {
+
+    const reqBody = sanitize(req.body);
+    const userIdAuth = sanitize(erq.userIdAuth);
+    const reqParamsId = sanitize(req.params.id);
+
+    if (reqBody.comAuteur === undefined || reqBody.comContenu === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 
     const com = new Com({
         id: null,
-        userId: req.userIdAuth,
-        postId: req.params.id,
-        comAuteur: req.body.comAuteur,
-        comContenu: req.body.comContenu,
+        userId: userIdAuth,
+        postId: reqParamsId,
+        comAuteur: reqBody.comAuteur,
+        comContenu: reqBody.comContenu,
         comLikes: 0,
         comDislikes: 0
 
@@ -37,7 +42,10 @@ exports.createCom = (req, res, next) => {
 
 //----recuperer tous post de la BDD----
 exports.displayCom = (req, res, next) => {
-    const sqlGet = `SELECT * FROM coms WHERE postId='${req.params.id}'`;
+
+    const reqParamsId = sanitize(req.params.id);
+
+    const sqlGet = `SELECT * FROM coms WHERE postId='${reqParamsId}'`;
 
     db.query(sqlGet, function(err, results) {
         if (results.length > 0) {
@@ -53,8 +61,9 @@ exports.displayCom = (req, res, next) => {
 
 exports.displayComId = (req, res, next) => {
 
+    const reqParamsComId = sanitize(req.params.comId);
 
-    const sqlGetId = `SELECT * FROM coms WHERE comId='${req.params.comId}'`;
+    const sqlGetId = `SELECT * FROM coms WHERE comId='${reqParamsComId}'`;
     db.query(sqlGetId, function(err, results) {
         if (results) {
             // console.log(results)
@@ -69,27 +78,49 @@ exports.displayComId = (req, res, next) => {
 //----suppresion  d'un post par son ID----
 exports.deleteComId = (req, res, next) => {
 
-    const sqlGetId = `DELETE FROM coms WHERE comId='${req.params.comId}'`;
+    const reqParamsComId = sanitize(req.params.comId);
+    const reqBody = sanitize(req.body);
+    const userIdAuth = sanitize(erq.userIdAuth);
 
-    db.query(sqlGetId, function(err, results) {
+    if (reqBody.userId === userIdAuth) {
+        const sqlGetId = `DELETE FROM coms WHERE comId='${reqParamsComId}'`;
 
-        res.status(200).json({ message: "Message supprimé !" });
-    });
+        db.query(sqlGetId, function(err, results) {
+
+            res.status(200).json({ message: "Message supprimé !" });
+        });
+
+    } else {
+        res.status(403).json({ error: 'suppression impossible ,vous n\'êtes pas sont auteur !' });
+    };
 
 }; //fin exports
 
 exports.updateComId = (req, res, next) => {
-    //console.log(req.body)
+    const reqBody = sanitize(req.body);
+    const reqParamsComId = sanitize(req.params.comId);
+    const userIdAuth = sanitize(erq.userIdAuth);
 
-    const sqlGetId = `UPDATE coms SET comAuteur='${req.body.comAuteur}',comContenu='${req.body.comContenu}',comDateModif=now()  WHERE comId='${req.params.comId}'`;
+    if (reqBody.comAuteur === undefined || reqBody.comContenu === undefined) {
+        return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+    };
 
-    db.query(sqlGetId, function(err, results) {
-        if (results) {
-            // console.log(results)
-            return res.status(200).json({ message: "Message modifié !" });
 
-        } else {
-            return res.status(403).json({ message: "Aucun post présent !" });
-        };
-    });
+    if (reqBody.userId === userIdAuth) {
+
+        const sqlGetId = `UPDATE coms SET comAuteur='${reqBody.comAuteur}',comContenu='${reqBody.comContenu}',comDateModif=now()  WHERE comId='${reqParamsComId}'`;
+
+        db.query(sqlGetId, function(err, results) {
+            if (results) {
+                // console.log(results)
+                return res.status(200).json({ message: "Message modifié !" });
+
+            } else {
+                return res.status(403).json({ message: "Aucun post présent !" });
+            };
+        });
+    } else {
+        res.status(403).json({ error: 'modification impossible ,vous n\'êtes pas sont auteur !' });
+    };
+
 }; //fin exports

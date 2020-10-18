@@ -12,7 +12,9 @@ const User = require('../models/user');
 
 
 exports.createUser = (req, res, next) => {
+
     const reqBody = sanitize(req.body);
+
     if (reqBody.pseudo === undefined, reqBody.email === undefined, reqBody.password === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
@@ -78,6 +80,7 @@ exports.createUser = (req, res, next) => {
 
 
 exports.loginUser = (req, res, next) => {
+
     const reqBody = sanitize(req.body);
     // vérification que la requête n'est pas vide
     if (reqBody.pseudo === undefined, reqBody.email === undefined, reqBody.password === undefined) {
