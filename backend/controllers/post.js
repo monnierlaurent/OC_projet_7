@@ -3,6 +3,8 @@ const express = require('express');
 const db = require('../request');
 const Post = require('../models/post');
 
+
+
 //----enregister un post sur la table POSTS la  BDD----
 exports.createPost = (req, res, next) => {
     //console.log(req.body);
@@ -52,8 +54,7 @@ exports.displayPost = (req, res, next) => {
 
 exports.displayPostId = (req, res, next) => {
 
-    const sqlGetId = `SELECT * FROM posts WHERE id='${req.params.id}' `;
-
+    const sqlGetId = `SELECT * FROM posts WHERE id='${req.params.id}'`;
     db.query(sqlGetId, function(err, results) {
         if (results) {
             // console.log(results)
@@ -64,6 +65,7 @@ exports.displayPostId = (req, res, next) => {
         }
     });
 }; //fin exports
+
 
 //----suppresion  d'un post par son ID----
 exports.deletePostId = (req, res, next) => {
@@ -101,7 +103,5 @@ exports.updatePostId = (req, res, next) => {
     } else {
         res.status(403).json({ error: 'suppression modifié ce post ,vous n\'êtes pas sont auteur !' });
     };
-
-
 
 }; //fin exports
