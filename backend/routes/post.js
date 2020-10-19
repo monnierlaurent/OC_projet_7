@@ -18,7 +18,7 @@ router.put('/:id', auth, postCtrl.updatePostId);
 router.delete('/:id', auth, postCtrl.deletePostId);
 
 //likes
-
+router.post('/:id', postCtrl.likeSauce);
 
 // routes commentaires
 router.post('/:id/com', auth, comCtrl.createCom);
@@ -31,6 +31,6 @@ router.put('/:id/com/:comId', auth, comCtrl.updateComId);
 router.delete('/:id/com/:comId', auth, comCtrl.deleteComId);
 
 //likes
-
+//router.post('/:id/like', auth, comCtrl.createCom);
 
 module.exports = router;

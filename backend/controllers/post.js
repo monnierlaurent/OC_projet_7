@@ -115,3 +115,80 @@ exports.updatePostId = (req, res, next) => {
     };
 
 }; //fin exports
+
+exports.likeSauce = (req, res, next) => {
+    const reqBody = sanitize(req.body);
+
+    const sqlLikes = `SELECT userId FROM postLikes WHERE postId='${req.params.id}'`;
+    const sqlDislikes = `SELECT userId FROM postDislikes WHERE postId='${req.params.id}'`;
+
+    const sqlUpLike = `UPDATE posts SET likes=likes+1 WHERE id='${req.params.id}'`;
+
+    const sqlUserIdpostLike = `INSERT INTO postLikes (postId,userID) values (${req.params.id},${reqBody.userId})`;
+
+
+    if (reqBody.like === 1) {
+
+        db.query(sqlLikes, function(err, results) {
+            if (err) throw err;
+            const data1 = JSON.stringify(results);
+
+            if (data1.includes(req.body.userId)) {
+                res.status(201).json({ message: 'Vous avez déja liké !' });
+            } else {
+                db.query(sqlDislikes, function(err, results) {
+                    if (err) throw err;
+                    const data2 = JSON.stringify(results);
+                    if (data2.includes(req.body.userId)) {
+                        res.status(201).json({ message: 'Vous avez déja disliké !' });
+                    } else {
+                        db.query(sqlUserIdpostLike, function(err, results) {
+                            if (err) throw err;
+
+                            db.query(sqlUpLike, function(err, results) {
+                                if (err) throw err;
+                                res.status(201).json({ message: 'like enregisté !' });
+                            });
+                        });
+                    };
+                });
+            };
+        });
+    };
+};
+
+
+
+/*db.query(sqlUserIdpostLike, function(err, results) {
+    if (err) throw err;
+
+    db.query(sqlUpLike, function(err, results) {
+        if (err) throw err;
+        res.status(201).json({ message: 'like enregisté !' });
+    });
+});*/
+
+
+/*db.query(sqlLikes, function(err, results) {
+    if (err) throw err;
+
+    const tableUserId = JSON.stringify(results);
+
+    if (tableUserId.includes(req.body.userId)) {
+        res.status(201).json({ message: 'Vous avez déja liké !' });
+    } else {
+        const sqlUpLike = `UPDATE posts SET likes=likes+1`;
+
+        db.query(sqlUpLike, function(err, results) {
+            if (err) throw err;
+            res.status(201).json({ message: 'like enregisté !' });
+        });
+    };
+});*/
+
+/* if (reqBody.like === undefined, reqBody.userId === undefined) {
+         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+     };*/
+
+//if (reqBody.like === -1) {};
+//if (reqBody.like === 0) {};

@@ -29,7 +29,6 @@ exports.createUser = (req, res, next) => {
         const sql = 'SELECT email,pseudo FROM users';
         db.query(sql, function(err, results) {
             if (err) throw err;
-            console.log("UTilisateur enregisté !");
 
             const data1 = JSON.stringify(results);
 
