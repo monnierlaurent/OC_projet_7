@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use('/api/auth', userRoutes);
-app.use('/api/post', postRoutes);
+//app.use('/api/post', postRoutes);
 
 app.use('*', (req, res) => {
     res.status(400).json({ error: 'code erreur 404' });

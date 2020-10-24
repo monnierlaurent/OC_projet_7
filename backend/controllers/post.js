@@ -116,7 +116,7 @@ exports.updatePostId = (req, res, next) => {
 
 }; //fin exports
 
-exports.likeSauce = (req, res, next) => {
+/*exports.likeSauce = (req, res, next) => {
     const reqBody = sanitize(req.body);
 
     const sqlLikes = `SELECT userId FROM postLikes WHERE postId='${req.params.id}'`;
@@ -127,6 +127,9 @@ exports.likeSauce = (req, res, next) => {
 
     const sqlUpLike0 = `UPDATE posts SET likes=likes-1 WHERE id='${req.params.id}'`;
     const sqlUpDislike0 = `UPDATE posts SET dislikes=dislikes-1 WHERE id='${req.params.id}'`;
+
+    const sqlUpLike1 = `UPDATE posts SET likes=likes WHERE id='${req.params.id}'`;
+    const sqlUpDislike1 = `UPDATE posts SET dislikes=dislikes WHERE id='${req.params.id}'`;
 
     const sqlUserIdpostLike = `INSERT INTO postLikes (postId,userID) values (${req.params.id},${reqBody.userId})`;
     const sqlUserIdpostDislike = `INSERT INTO postDislikes (postId,userID) values (${req.params.id},${reqBody.userId})`;
@@ -163,7 +166,7 @@ exports.likeSauce = (req, res, next) => {
         });
     };
     // gestion des dislikes
-    if (reqBody.like === 1) {
+    if (reqBody.like === -1) {
         db.query(sqlUpDislike, function(err, results) {
             if (err) throw err;
             const data1 = JSON.stringify(results);
@@ -193,35 +196,48 @@ exports.likeSauce = (req, res, next) => {
         });
     };
     //suppression d'un like ou dislike
-    if (reqBody.like === 0) {
-        db.query(sqlUpLike, function(err, results) {
-            if (err) throw err;
-            const data1 = JSON.stringify(results);
-            if (data1.includes(req.body.userId)) {
-                db.query(sqlUpLike0, function(err, results) {
-                    if (err) throw err;
-                    res.status(201).json({ message: 'like supprimé !' });
-                });
-            } else {
-                res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
-            };
-        });
-        db.query(sqlUpDislike, function(err, results) {
-            if (err) throw err;
-            const data2 = JSON.stringify(results);
-            if (data2.includes(req.body.userId)) {
-                db.query(sqlUpDislike0, function(err, results) {
-                    if (err) throw err;
-                    res.status(201).json({ message: 'Dislike supprimé !' });
-                });
-            } else {
-                res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
-            };
-        });
+     if (reqBody.like === 0) {
+         db.query(sqlLikes, function(err, results) {
+             if (err) throw err;
 
-    };
+             const data1 = JSON.stringify(results);
+
+             if (data1.includes(req.body.userId)) {
+                 db.query(sqlUpLike0, function(err, results) {
+                     if (err) throw err;
+                     res.status(201).json({ message: 'like supprimé !' });
+                 });
+             } else {
+                 db.query(sqlUpLike1, function(err, results) {
+                     if (err) throw err;
+                     res.status(201).json({ message: 'like supprimé 10!' });
+                 });
+
+             };
+         });
+
+         db.query(sqlDislikes, function(err, results) {
+             if (err) throw err;
+             const data2 = JSON.stringify(results);
+
+             if (data2.includes(req.body.userId)) {
+
+                 db.query(sqlUpDislike0, function(err, results) {
+                     if (err) throw err;
+                     res.status(201).json({ message: 'Dislike supprimé !' });
+                 });
+             } else {
+                 b.query(sqlUpDislike1, function(err, results) {
+                     if (err) throw err;
+                     res.status(201).json({ message: 'Dislike supprimé 10!' });
+                 });
+             };
+         });
+
+     };
+
 }; //fin likeSauce
 
-
+*/
 
 //if (reqBody.like === 0) {};
