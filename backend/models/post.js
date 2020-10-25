@@ -9,10 +9,9 @@ const postSchema = mongoose.Schema({
     contenu: { type: String, required: true },
     dateCrea: { type: String, required: true },
     dateModif: { type: String, required: true },
+    imageUrl: { type: String, required: true },
     likes: { type: Number, default: 0, required: true },
     dislikes: { type: Number, default: 0, required: true },
-    //usersLiked: { type: [String], required: true },
-    //usersDisliked: { type: [String], required: true },
 });
 
 

@@ -11,8 +11,6 @@ const comSchema = mongoose.Schema({
     comDateModif: { type: String, required: true },
     comLikes: { type: Number, default: 0, required: true },
     comDislikes: { type: Number, default: 0, required: true },
-    //usersLiked: { type: [String], required: true },
-    //usersDisliked: { type: [String], required: true },
 });
 
 module.exports = mongoose.model('com', comSchema);

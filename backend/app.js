@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require("helmet");
+const path = require('path');
 //const mongoose = require('mongoose');
-//const path = require('path');
 
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
@@ -21,10 +21,12 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use('/api/auth', userRoutes);
-//app.use('/api/post', postRoutes);
+app.use('/api/post', postRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 
 app.use('*', (req, res) => {
-    res.status(400).json({ error: 'code erreur 404' });
+    res.status(400).json({ error: 'Cette route n\'existe pas !!' });
 });
 
 module.exports = app;

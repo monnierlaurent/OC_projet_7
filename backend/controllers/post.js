@@ -1,5 +1,6 @@
 const express = require('express');
 const sanitize = require('mongo-sanitize');
+const fs = require('fs');
 
 const db = require('../request');
 const Post = require('../models/post');
@@ -9,34 +10,37 @@ const Post = require('../models/post');
 //----enregister un post sur la table POSTS la  BDD----
 exports.createPost = (req, res, next) => {
 
-    const reqBody = sanitize(req.body);
     const userIdAuth = sanitize(req.userIdAuth);
 
-    if (reqBody.titre === undefined || reqBody.auteur === undefined || reqBody.contenu === undefined) {
+    let postsObject;
+    if (req.body.posts) {
+        postsObject = JSON.parse(req.body.posts);
+
+    } else {
+        const filename = image.split("/images")[1]; // a regler -----------------------IMPORTANT
+        fs.unlink(`images/${filename}`, () => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }) });
+    }
+    if (postsObject.titre === undefined || postsObject.auteur === undefined || postsObject.contenu === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 
+    if (!req.file) {
+        return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+    };
+
+    delete postsObject._id;
+
     const post = new Post({
-        id: null,
-        userId: userIdAuth,
-        titre: reqBody.titre,
-        auteur: reqBody.auteur,
-        contenu: reqBody.contenu,
-        likes: 0,
-        dislikes: 0
-
+        ...postsObject,
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
-    // console.log(post);
 
-    const sqlPost = `INSERT INTO posts (userid ,titre, auteur, contenu, dateCrea, dateModif, likes ,dislikes) VALUES ('${post.userId}','${post.titre}', '${post.auteur}','${post.contenu}',now(),now(),'${post.likes}','${post.dislikes}')`;
+    const sqlPost = `INSERT INTO posts (userid ,titre, auteur, contenu, dateCrea, dateModif,imageUrl, likes ,dislikes) VALUES ('${userIdAuth}','${post.titre}', '${post.auteur}','${post.contenu}',now(),now(),'${post.imageUrl}','${post.likes}','${post.dislikes}')`;
 
     db.query(sqlPost, function(err, results) {
         if (err) throw err;
-        console.log("message non posté");
+        res.status(201).json({ message: 'message enregistré !!!' });
     });
-
-    res.status(201).json({ message: 'message enregistré !!!' });
-
 };
 
 //----recuperer tous post de la BDD----
@@ -59,7 +63,7 @@ exports.displayPostId = (req, res, next) => {
 
     const reqParamsId = sanitize(req.params.id);
 
-    const sqlGetId = `SELECT * FROM posts WHERE id='${reqParamsId}'`;
+    const sqlGetId = `SELECT * FROM posts WHERE postId='${reqParamsId}'`;
     db.query(sqlGetId, function(err, results) {
         if (results) {
             // console.log(results)
@@ -74,20 +78,31 @@ exports.displayPostId = (req, res, next) => {
 
 //----suppresion  d'un post par son ID----
 exports.deletePostId = (req, res, next) => {
-
     const reqParamsId = sanitize(req.params.id);
+    const userIdAuth = sanitize(req.userIdAuth);
 
-    if (req.body.userId === req.userIdAuth) {
+    const sqlUserRecup = `SELECT role FROM users WHERE id='${userIdAuth}'`;
+    db.query(sqlUserRecup, function(err, results) {
 
-        const sqlGetId = `DELETE FROM posts WHERE id='${reqParamsId}'`;
+        const data1 = JSON.stringify(results);
+        const role = '"role":1';
 
-        db.query(sqlGetId, function(err, results) {
+        if (req.body.userId === req.userIdAuth || data1.includes(role)) {
 
-            res.status(200).json({ message: "Message supprimé !" });
-        });
-    } else {
-        res.status(403).json({ error: 'suppression impossible ,vous n\'êtes pas sont créateur !' });
-    };
+            const sqlGetId = `DELETE FROM posts WHERE postId='${reqParamsId}'`;
+
+            db.query(sqlGetId, function(err, results) {
+
+                res.status(200).json({ message: "Message supprimé !" });
+            });
+        } else {
+            res.status(403).json({ error: 'suppression impossible ,vous n\'êtes pas sont créateur !' });
+        };
+
+    });
+
+
+
 }; //fin exports
 
 //----modification d'un post par son ID----
@@ -97,22 +112,30 @@ exports.updatePostId = (req, res, next) => {
     const reqBody = sanitize(req.body);
     const userIdAuth = sanitize(req.userIdAuth);
 
-    if (reqBody.userId === userIdAuth) {
+    const sqlUserRecup = `SELECT role FROM users WHERE id='${userIdAuth}'`;
+    db.query(sqlUserRecup, function(err, results) {
 
-        const sqlGetId = `UPDATE posts SET titre='${reqBody.titre}',auteur='${reqBody.auteur}',contenu='${reqBody.contenu}',dateModif=now()  WHERE id='${reqParamsId}'`;
+        const data1 = JSON.stringify(results);
+        const role = '"role":1';
 
-        db.query(sqlGetId, function(err, results) {
-            if (results) {
-                // console.log(results)
-                return res.status(200).json({ message: "Message modifié !" });
+        if (reqBody.userId === userIdAuth || data1.includes(role)) {
 
-            } else {
-                return res.status(403).json({ message: "Aucun post présent !" });
-            };
-        });
-    } else {
-        res.status(403).json({ error: 'suppression modifié ce post ,vous n\'êtes pas sont auteur !' });
-    };
+            const sqlGetId = `UPDATE posts SET titre='${reqBody.titre}',auteur='${reqBody.auteur}',contenu='${reqBody.contenu}',dateModif=now() ,imageUrl='${reqBody.imageUrl}'  WHERE postId='${reqParamsId}'`;
+
+            db.query(sqlGetId, function(err, results) {
+                if (results) {
+                    // console.log(results)
+                    return res.status(200).json({ message: "Message modifié !" });
+
+                } else {
+                    return res.status(403).json({ message: "Aucun post présent !" });
+                };
+            });
+        } else {
+            res.status(403).json({ error: 'suppression modifié ce post ,vous n\'êtes pas sont auteur !' });
+        };
+    });
+
 
 }; //fin exports
 

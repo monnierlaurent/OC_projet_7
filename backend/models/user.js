@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     dateInscrip: { type: String, required: true },
+    dateModif: { type: String, required: true },
     role: { type: Number, required: true }
 
 });

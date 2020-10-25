@@ -67,7 +67,7 @@ exports.createUser = (req, res, next) => {
                             role: req.body.role
                         });
 
-                        const sqlSignup = `INSERT INTO users (nom, prenom, emailMask, email, password,dateInscrip,role) VALUES ('${user.nom}','${user.prenom}','${user.emailMask}','${user.email}','${user.password}',NOW(),'${user.role}')`;
+                        const sqlSignup = `INSERT INTO users (nom, prenom, emailMask, email, password,dateInscrip,dateModif,role) VALUES ('${user.nom}','${user.prenom}','${user.emailMask}','${user.email}','${user.password}',NOW(),NOW(),'${user.role}')`;
 
                         db.query(sqlSignup, function(err, results) {
                             if (err) throw err;
@@ -234,8 +234,8 @@ exports.updateUser = (req, res, next) => {
                 .then(hash => {
                     const hashPassword = hash;
 
-                    const sqlUpdateId = `UPDATE users SET nom='${hashNom}',prenom='${hashPrenom}',emailMask='${emailMask}',email='${hashEmail}',password='${hashPassword}', dateInscrip=now(), role='${reqBody.role}' WHERE id='${reqParamsId}'`;
-                    console.log(sqlUpdateId);
+                    const sqlUpdateId = `UPDATE users SET nom='${hashNom}',prenom='${hashPrenom}',emailMask='${emailMask}',email='${hashEmail}',password='${hashPassword}', dateModif=now(), role='${reqBody.role}' WHERE id='${reqParamsId}'`;
+
                     db.query(sqlUpdateId, function(err, results) {
                         if (err) throw err;
 
