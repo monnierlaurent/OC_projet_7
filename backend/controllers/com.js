@@ -3,40 +3,49 @@ const sanitize = require('mongo-sanitize');
 
 const db = require('../request');
 const Com = require('../models/com');
-
+//const crypto = require('crypto');
 //------logique métier commentaires------
 
 exports.createCom = (req, res, next) => {
 
     const reqBody = sanitize(req.body);
-    const userIdAuth = sanitize(erq.userIdAuth);
+    const userIdAuth = sanitize(req.userIdAuth);
     const reqParamsId = sanitize(req.params.id);
 
     if (reqBody.comAuteur === undefined || reqBody.comContenu === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 
-    const com = new Com({
-        id: null,
-        userId: userIdAuth,
-        postId: reqParamsId,
-        comAuteur: reqBody.comAuteur,
-        comContenu: reqBody.comContenu,
-        comLikes: 0,
-        comDislikes: 0
+    const sqlAuteur = `SELECT nom, prenom FROM users WHERE id='${userIdAuth}'`;
+    //console.log(sqlAuteur);
 
+    db.query(sqlAuteur, function(err, results) {
+
+        const dataNom = JSON.stringify(results[0].nom);
+        const hashNomString = dataNom.split('"').join('');
+
+        const dataPrenom = JSON.stringify(results[0].prenom);
+        const hashPrenomString = dataPrenom.split('"').join('');
+
+        //const auteur = hashNomString + ' ' + hashPrenomString;
+        const auteur = 'laurent' + ' ' + 'monnier';
+        const com = new Com({
+            userId: userIdAuth,
+            postId: reqParamsId,
+            comContenu: reqBody.comContenu,
+            comLikes: 0,
+            comDislikes: 0
+        });
+
+        const sqlPost = `INSERT INTO coms (userId ,postId, comContenu, comDateCrea, comDateModif, comLikes ,comDislikes) VALUES ('${com.userId}','${com.postId}','${com.comContenu}',now(),now(),'${com.comLikes}','${com.comDislikes}')`;
+
+        db.query(sqlPost, function(err, results) {
+            if (err) throw err;
+            console.log("commentaire posté");
+        });
+        res.status(201).json({ message: 'message enregistré !!!' });
     });
-    console.log(com);
-
-    const sqlPost = `INSERT INTO coms (userId ,postId, comAuteur, comContenu, comDateCrea, comDateModif, comLikes ,comDislikes) VALUES ('${com.userId}','${com.postId}','${com.comAuteur}','${com.comContenu}',now(),now(),'${com.comLikes}','${com.comDislikes}')`;
-
-    db.query(sqlPost, function(err, results) {
-        if (err) throw err;
-        console.log("commentaire posté");
-    });
-
-    res.status(201).json({ message: 'message enregistré !!!' });
-
+    //console.log(com);
 };
 
 
@@ -82,18 +91,23 @@ exports.deleteComId = (req, res, next) => {
     const reqBody = sanitize(req.body);
     const userIdAuth = sanitize(erq.userIdAuth);
 
-    if (reqBody.userId === userIdAuth) {
-        const sqlGetId = `DELETE FROM coms WHERE comId='${reqParamsComId}'`;
+    const sqlUserRecup = `SELECT role FROM users WHERE id='${userIdAuth}'`;
 
-        db.query(sqlGetId, function(err, results) {
+    db.query(sqlUserRecup, function(err, results) {
 
-            res.status(200).json({ message: "Message supprimé !" });
-        });
+        const data1 = JSON.stringify(results);
+        const role = '"role":1';
 
-    } else {
-        res.status(403).json({ error: 'suppression impossible ,vous n\'êtes pas sont auteur !' });
-    };
+        if (reqBody.userId === userIdAuth || data1.includes(role)) {
+            const sqlGetId = `DELETE FROM coms WHERE comId='${reqParamsComId}'`;
+            db.query(sqlGetId, function(err, results) {
 
+                res.status(200).json({ message: "Message supprimé !" });
+            });
+        } else {
+            res.status(403).json({ error: 'suppression impossible ,vous n\'êtes pas sont auteur !' });
+        };
+    });
 }; //fin exports
 
 exports.updateComId = (req, res, next) => {
@@ -105,22 +119,27 @@ exports.updateComId = (req, res, next) => {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 
+    const sqlUserRecup = `SELECT role FROM users WHERE id='${userIdAuth}'`;
 
-    if (reqBody.userId === userIdAuth) {
+    db.query(sqlUserRecup, function(err, results) {
 
-        const sqlGetId = `UPDATE coms SET comAuteur='${reqBody.comAuteur}',comContenu='${reqBody.comContenu}',comDateModif=now()  WHERE comId='${reqParamsComId}'`;
+        const data1 = JSON.stringify(results);
+        const role = '"role":1';
 
-        db.query(sqlGetId, function(err, results) {
-            if (results) {
-                // console.log(results)
-                return res.status(200).json({ message: "Message modifié !" });
+        if (reqBody.userId === userIdAuth || data1.includes(role)) {
+            const sqlGetId = `UPDATE coms SET comAuteur='${reqBody.comAuteur}',comContenu='${reqBody.comContenu}',comDateModif=now()  WHERE comId='${reqParamsComId}'`;
 
-            } else {
-                return res.status(403).json({ message: "Aucun post présent !" });
-            };
-        });
-    } else {
-        res.status(403).json({ error: 'modification impossible ,vous n\'êtes pas sont auteur !' });
-    };
+            db.query(sqlGetId, function(err, results) {
+                if (results) {
+                    // console.log(results)
+                    return res.status(200).json({ message: "Message modifié !" });
 
+                } else {
+                    return res.status(403).json({ message: "Aucun post présent !" });
+                };
+            });
+        } else {
+            res.status(403).json({ error: 'modification impossible ,vous n\'êtes pas sont auteur !' });
+        };
+    });
 }; //fin exports

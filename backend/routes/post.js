@@ -22,14 +22,14 @@ router.delete('/:id', auth, postCtrl.deletePostId);
 router.post('/:id/like', auth, postCtrl.likeSauce);
 
 // routes commentaires
-//router.post('/:id/com', auth, comCtrl.createCom);
+router.post('/:id/com', auth, comCtrl.createCom);
 
-//router.get('/:id/com', auth, comCtrl.displayCom);
-//router.get('/:id/com/:comId', auth, comCtrl.displayComId);
+router.get('/:id/com', auth, comCtrl.displayCom);
+router.get('/:id/com/:comId', auth, comCtrl.displayComId);
 
-//router.put('/:id/com/:comId', auth, comCtrl.updateComId);
+router.put('/:id/com/:comId', auth, comCtrl.updateComId);
 
-//router.delete('/:id/com/:comId', auth, comCtrl.deleteComId);
+router.delete('/:id/com/:comId', auth, comCtrl.deleteComId);
 
 //likes
 //router.post('/:id/like', auth, comCtrl.createCom);
