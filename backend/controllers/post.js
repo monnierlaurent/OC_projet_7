@@ -173,7 +173,7 @@ exports.updatePostId = (req, res, next) => {
 
 }; //fin exports
 
-exports.likeSauce = (req, res, next) => {
+exports.likePost = (req, res, next) => {
     const reqBody = sanitize(req.body);
     const reqParamsId = sanitize(req.params.id);
     const userIdAuth = sanitize(req.userIdAuth);

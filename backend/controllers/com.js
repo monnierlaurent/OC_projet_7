@@ -143,3 +143,83 @@ exports.updateComId = (req, res, next) => {
         };
     });
 }; //fin exports
+
+
+exports.likeCom = (req, res, next) => {
+    const reqBody = sanitize(req.body);
+    const reqParamsId = sanitize(req.params.id);
+    const userIdAuth = sanitize(req.userIdAuth);
+
+    if (reqBody.userId === undefined || reqBody.like === undefined) {
+        return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+    };
+
+    if (reqBody.like) {
+        const sqlPostLikeUser = `SELECT * FROM comLikes WHERE userId='${userIdAuth}' AND comId='${reqParamsId}'`;
+
+        db.query(sqlPostLikeUser, function(err, results) {
+            const likePositif = '"comLikeValeur":1';
+            const likeNegatif = '"comLikeValeur":-1';
+
+            const data = JSON.stringify(results);
+
+            if (reqBody.like === 1) {
+
+                if (data.includes(likePositif)) {
+                    res.status(201).json({ message: 'Vous avez déja liké !' });
+                } else if (data.includes(likeNegatif)) {
+                    res.status(201).json({ message: 'Vous avez déja disliké !' });
+                } else {
+                    const sqlLike = `INSERT INTO comLikes (comId, userId, comLikeValeur) VALUES ('${reqParamsId}','${reqBody.userId}','${reqBody.like}')`
+                    db.query(sqlLike, function(err, results) {
+
+                        const sqlLikeCount = `UPDATE coms SET likes=likes+1 WHERE comId='${reqParamsId}'`;
+                        db.query(sqlLikeCount, function(err, results) {
+                            res.status(201).json({ message: 'Like enregistré !' });
+                        });
+                    });
+                };
+            };
+            if (reqBody.like === -1) {
+
+                if (data.includes(likePositif)) {
+                    res.status(201).json({ message: 'Vous avez déja liké !' });
+                } else if (data.includes(likeNegatif)) {
+                    res.status(201).json({ message: 'Vous avez déja disliké !' });
+                } else {
+                    const sqlLike = `INSERT INTO comLikes (comId, userId, comLikeValeur) VALUES ('${reqParamsId}','${reqBody.userId}','${reqBody.like}')`
+                    db.query(sqlLike, function(err, results) {
+
+                        const sqlDilsikeCount = `UPDATE coms SET dislikes=dislikes+1 WHERE postId='${reqParamsId}'`;
+                        db.query(sqlDilsikeCount, function(err, results) {
+                            res.status(201).json({ message: 'Dislike enregistré !' });
+                        });
+                    });
+                };
+            };
+            if (reqBody.like === 2) {
+
+                const sqlDeleteLike = `DELETE FROM comLikes WHERE comId='${reqParamsId}' AND userId='${reqBody.userId}'`;
+
+                if (data.includes(likePositif)) {
+                    db.query(sqlDeleteLike, function(err, results) {
+                        const sqllikeOff = `UPDATE coms SET likes=likes-1 WHERE comId='${reqParamsId}'`;
+                        db.query(sqllikeOff, function(err, results) {
+                            res.status(201).json({ message: 'Like supprimé !' });
+                        });
+                    });
+                };
+                if (data.includes(likeNegatif)) {
+                    db.query(sqlDeleteLike, function(err, results) {
+                        const sqlDislikeOff = `UPDATE coms SET dislikes=dislikes-1 WHERE comId='${reqParamsId}'`;
+                        db.query(sqlDislikeOff, function(err, results) {
+                            res.status(201).json({ message: 'Like supprimé !' });
+                        });
+                    });
+                };
+            };
+        });
+    } else {
+        res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+    };
+}; //fin likeSauce

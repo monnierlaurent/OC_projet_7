@@ -19,7 +19,7 @@ router.put('/:id', auth, multer, postCtrl.updatePostId);
 router.delete('/:id', auth, postCtrl.deletePostId);
 
 //likes
-router.post('/:id/like', auth, postCtrl.likeSauce);
+router.post('/:id/like', auth, postCtrl.likePost);
 
 // routes commentaires
 router.post('/:id/com', auth, comCtrl.createCom);
@@ -32,6 +32,6 @@ router.put('/:id/com/:comId', auth, comCtrl.updateComId);
 router.delete('/:id/com/:comId', auth, comCtrl.deleteComId);
 
 //likes
-//router.post('/:id/like', auth, comCtrl.createCom);
+router.post('/:id/like', auth, comCtrl.likeCom);
 
 module.exports = router;
