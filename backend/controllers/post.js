@@ -5,8 +5,6 @@ const fs = require('fs');
 const db = require('../request');
 const Post = require('../models/post');
 
-
-
 //----enregister un post sur la table POSTS la  BDD----
 exports.createPost = (req, res, next) => {
 
@@ -39,7 +37,6 @@ exports.createPost = (req, res, next) => {
             res.status(201).json({ message: 'message enregistré !!!' });
         });
     } else {
-        //const filename = image.split("/images")[1]; // a regler -----------------------IMPORTANT
         fs.unlink(`${req.file.filename}`, () => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }) });
     };
 };
@@ -67,7 +64,7 @@ exports.displayPostId = (req, res, next) => {
     const sqlGetId = `SELECT * FROM posts WHERE postId='${reqParamsId}'`;
     db.query(sqlGetId, function(err, results) {
         if (results) {
-            // console.log(results)
+
             return res.status(200).json({ results });
 
         } else {
@@ -75,7 +72,6 @@ exports.displayPostId = (req, res, next) => {
         }
     });
 }; //fin exports
-
 
 //----suppresion  d'un post par son ID----
 exports.deletePostId = (req, res, next) => {
@@ -95,9 +91,9 @@ exports.deletePostId = (req, res, next) => {
                 const data = JSON.stringify(results);
                 const data1 = data.split('[{"imageUrl":"http://localhost:3000').join('');
                 const data2 = data1.split('"}]').join('');
-                console.log(data2);
+
                 const filename = data2.split("/images")[1];
-                console.log(filename);
+
                 fs.unlink(`images/${filename}`, () => {
 
                     const sqlGetId = `DELETE FROM posts WHERE postId='${reqParamsId}'`;
@@ -113,14 +109,6 @@ exports.deletePostId = (req, res, next) => {
         };
     });
 }; //fin exports
-
-
-/* const sqlGetId = `DELETE FROM posts WHERE postId='${reqParamsId}'`;
-
- db.query(sqlGetId, function(err, results) {
-
-     res.status(200).json({ message: "Message supprimé !" });
- });*/
 
 //----modification d'un post par son ID----
 exports.updatePostId = (req, res, next) => {
@@ -148,9 +136,9 @@ exports.updatePostId = (req, res, next) => {
                     const data = JSON.stringify(results);
                     const data1 = data.split('[{"imageUrl":"http://localhost:3000').join('');
                     const data2 = data1.split('"}]').join('');
-                    //console.log(data2);
+
                     const filename = data2.split("/images")[1];
-                    //console.log(filename);
+
                     fs.unlink(`images/${filename}`, () => {
 
                         const sqlGetId = `UPDATE posts SET titre='${reqBody.titre}',auteur='${reqBody.auteur}',contenu='${reqBody.contenu}',dateModif=now() ,imageUrl='${reqBody.imageUrl}'  WHERE postId='${reqParamsId}'`;
@@ -187,8 +175,60 @@ exports.updatePostId = (req, res, next) => {
 
 exports.likeSauce = (req, res, next) => {
     const reqBody = sanitize(req.body);
+    const reqParamsId = sanitize(req.params.id);
+    const userIdAuth = sanitize(req.userIdAuth);
 
+    if (reqBody.userId === undefined || reqBody.like === undefined) {
+        return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+    };
 
+    if (reqBody.like) {
+        const sqlPostLikeUser = `SELECT * FROM postLikes WHERE userId='${userIdAuth}' AND postId='${reqParamsId}'`;
 
+        db.query(sqlPostLikeUser, function(err, results) {
+            const likePositif = '"postLikeValeur":1';
+            const likeNegatif = '"postLikeValeur":-1';
 
+            const data = JSON.stringify(results);
+
+            if (reqBody.like === 1) {
+
+                if (data.includes(likePositif)) {
+                    res.status(201).json({ message: 'Vous avez déja liké !' });
+                } else if (data.includes(likeNegatif)) {
+                    res.status(201).json({ message: 'Vous avez déja disliké !' });
+                } else {
+                    const sqlLike = `INSERT INTO postLikes (postId, userId, postLikeValeur) VALUES ('${reqParamsId}','${reqBody.userId}','${reqBody.like}')`
+                    db.query(sqlLike, function(err, results) {
+                        res.status(201).json({ message: 'Like enregistré !' });
+                    });
+                };
+            };
+            if (reqBody.like === -1) {
+
+                if (data.includes(likePositif)) {
+                    res.status(201).json({ message: 'Vous avez déja liké !' });
+                } else if (data.includes(likeNegatif)) {
+                    res.status(201).json({ message: 'Vous avez déja disliké !' });
+                } else {
+                    const sqlLike = `INSERT INTO postLikes (postId, userId, postLikeValeur) VALUES ('${reqParamsId}','${reqBody.userId}','${reqBody.like}')`
+                    db.query(sqlLike, function(err, results) {
+                        res.status(201).json({ message: 'Disike enregistré !' });
+                    });
+                };
+            };
+            if (reqBody.like === 2) {
+
+                const sqlDeleteLike = `DELETE FROM postLikes WHERE postId='${reqParamsId}' AND userId='${reqBody.userId}'`;
+
+                if (data.includes(likePositif) || data.includes(likeNegatif)) {
+                    db.query(sqlDeleteLike, function(err, results) {
+                        res.status(201).json({ message: 'Like supprimé !' });
+                    });
+                };
+            };
+        });
+    } else {
+        res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+    };
 }; //fin likeSauce
