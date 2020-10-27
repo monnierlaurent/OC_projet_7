@@ -12,7 +12,7 @@ exports.createCom = (req, res, next) => {
     const userIdAuth = sanitize(req.userIdAuth);
     const reqParamsId = sanitize(req.params.id);
 
-    if (reqBody.comAuteur === undefined || reqBody.comContenu === undefined) {
+    if (reqBody.comContenu === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 
@@ -21,14 +21,6 @@ exports.createCom = (req, res, next) => {
 
     db.query(sqlAuteur, function(err, results) {
 
-        const dataNom = JSON.stringify(results[0].nom);
-        const hashNomString = dataNom.split('"').join('');
-
-        const dataPrenom = JSON.stringify(results[0].prenom);
-        const hashPrenomString = dataPrenom.split('"').join('');
-
-        //const auteur = hashNomString + ' ' + hashPrenomString;
-        const auteur = 'laurent' + ' ' + 'monnier';
         const com = new Com({
             userId: userIdAuth,
             postId: reqParamsId,
@@ -89,7 +81,7 @@ exports.deleteComId = (req, res, next) => {
 
     const reqParamsComId = sanitize(req.params.comId);
     const reqBody = sanitize(req.body);
-    const userIdAuth = sanitize(erq.userIdAuth);
+    const userIdAuth = sanitize(req.userIdAuth);
 
     const sqlUserRecup = `SELECT role FROM users WHERE id='${userIdAuth}'`;
 
@@ -113,9 +105,9 @@ exports.deleteComId = (req, res, next) => {
 exports.updateComId = (req, res, next) => {
     const reqBody = sanitize(req.body);
     const reqParamsComId = sanitize(req.params.comId);
-    const userIdAuth = sanitize(erq.userIdAuth);
+    const userIdAuth = sanitize(req.userIdAuth);
 
-    if (reqBody.comAuteur === undefined || reqBody.comContenu === undefined) {
+    if (reqBody.comContenu === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 
@@ -127,7 +119,7 @@ exports.updateComId = (req, res, next) => {
         const role = '"role":1';
 
         if (reqBody.userId === userIdAuth || data1.includes(role)) {
-            const sqlGetId = `UPDATE coms SET comAuteur='${reqBody.comAuteur}',comContenu='${reqBody.comContenu}',comDateModif=now()  WHERE comId='${reqParamsComId}'`;
+            const sqlGetId = `UPDATE coms SET comContenu='${reqBody.comContenu}',comDateModif=now()  WHERE comId='${reqParamsComId}'`;
 
             db.query(sqlGetId, function(err, results) {
                 if (results) {
@@ -148,6 +140,8 @@ exports.updateComId = (req, res, next) => {
 exports.likeCom = (req, res, next) => {
     const reqBody = sanitize(req.body);
     const reqParamsId = sanitize(req.params.id);
+    const reqParamsComId = sanitize(req.params.comId);
+
     const userIdAuth = sanitize(req.userIdAuth);
 
     if (reqBody.userId === undefined || reqBody.like === undefined) {
@@ -156,6 +150,7 @@ exports.likeCom = (req, res, next) => {
 
     if (reqBody.like) {
         const sqlPostLikeUser = `SELECT * FROM comLikes WHERE userId='${userIdAuth}' AND comId='${reqParamsId}'`;
+
 
         db.query(sqlPostLikeUser, function(err, results) {
             const likePositif = '"comLikeValeur":1';
@@ -173,7 +168,8 @@ exports.likeCom = (req, res, next) => {
                     const sqlLike = `INSERT INTO comLikes (comId, userId, comLikeValeur) VALUES ('${reqParamsId}','${reqBody.userId}','${reqBody.like}')`
                     db.query(sqlLike, function(err, results) {
 
-                        const sqlLikeCount = `UPDATE coms SET likes=likes+1 WHERE comId='${reqParamsId}'`;
+                        const sqlLikeCount = `UPDATE coms SET comLikes=comLikes+1 WHERE comId='${reqParamsComId}'`;
+                        console.log(sqlLikeCount);
                         db.query(sqlLikeCount, function(err, results) {
                             res.status(201).json({ message: 'Like enregistré !' });
                         });
@@ -190,7 +186,7 @@ exports.likeCom = (req, res, next) => {
                     const sqlLike = `INSERT INTO comLikes (comId, userId, comLikeValeur) VALUES ('${reqParamsId}','${reqBody.userId}','${reqBody.like}')`
                     db.query(sqlLike, function(err, results) {
 
-                        const sqlDilsikeCount = `UPDATE coms SET dislikes=dislikes+1 WHERE postId='${reqParamsId}'`;
+                        const sqlDilsikeCount = `UPDATE coms SET comDislikes=comDislikes+1 WHERE comId='${reqParamsComId}'`;
                         db.query(sqlDilsikeCount, function(err, results) {
                             res.status(201).json({ message: 'Dislike enregistré !' });
                         });
@@ -203,7 +199,7 @@ exports.likeCom = (req, res, next) => {
 
                 if (data.includes(likePositif)) {
                     db.query(sqlDeleteLike, function(err, results) {
-                        const sqllikeOff = `UPDATE coms SET likes=likes-1 WHERE comId='${reqParamsId}'`;
+                        const sqllikeOff = `UPDATE coms SET comLikes=comLikes-1 WHERE comId='${reqParamsComId}'`;
                         db.query(sqllikeOff, function(err, results) {
                             res.status(201).json({ message: 'Like supprimé !' });
                         });
@@ -211,9 +207,9 @@ exports.likeCom = (req, res, next) => {
                 };
                 if (data.includes(likeNegatif)) {
                     db.query(sqlDeleteLike, function(err, results) {
-                        const sqlDislikeOff = `UPDATE coms SET dislikes=dislikes-1 WHERE comId='${reqParamsId}'`;
+                        const sqlDislikeOff = `UPDATE coms SET comDislikes=comDislikes-1 WHERE comId='${reqParamsComId}'`;
                         db.query(sqlDislikeOff, function(err, results) {
-                            res.status(201).json({ message: 'Like supprimé !' });
+                            res.status(201).json({ message: 'Dislike supprimé !' });
                         });
                     });
                 };

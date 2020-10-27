@@ -43,9 +43,11 @@ exports.createPost = (req, res, next) => {
 
 //----recuperer tous post de la BDD----
 exports.displayPost = (req, res, next) => {
-    const sqlGet = 'SELECT * FROM posts';
 
-    db.query(sqlGet, function(err, results) {
+    results = postModel.findAll();
+    const sqlGet = 'SELECT * FROM posts'; ///postmoDEL
+
+    db.query(sqlGet, function(err, results) { //postmoDEL
         if (results.length > 0) {
             return res.status(200).json({ results });
         } else {

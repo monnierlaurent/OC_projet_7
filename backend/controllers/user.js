@@ -5,6 +5,7 @@ const mask = require('mask-email-phone');
 const emailValidator = require("email-validator");
 const jwt = require('jsonwebtoken');
 const sanitize = require('mongo-sanitize');
+const Cryptr = require('cryptr');
 
 const schemaPassword = require('../models/shemaPassword');
 const db = require('../request');
@@ -40,13 +41,22 @@ exports.createUser = (req, res, next) => {
                 .update(reqBody.email)
                 .digest('hex');
 
-            const hashNom = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel9')
-                .update(reqBody.nom)
-                .digest('hex');
+            const cryptr = new Cryptr('@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel');
 
-            const hashPrenom = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel10')
-                .update(reqBody.prenom)
-                .digest('hex');
+            const encryptedNom = cryptr.encrypt(reqBody.nom);
+            //const decryptedNom = cryptr.decrypt(encryptedNom);
+
+            const encryptedPrenom = cryptr.encrypt(reqBody.prenom);
+            //const decryptedPrenom = cryptr.decrypt(encryptedPrenom);
+
+
+            /* const hashNom = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel9')
+                 .update(reqBody.nom)
+                 .digest('hex');
+
+             const hashPrenom = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel10')
+                 .update(reqBody.prenom)
+                 .digest('hex');*/
 
 
             if (data1.includes(hashEmail)) {
@@ -59,8 +69,8 @@ exports.createUser = (req, res, next) => {
                 bcrypt.hash(reqBody.password, 10)
                     .then(hash => {
                         const user = new User({
-                            nom: hashNom,
-                            prenom: hashPrenom,
+                            nom: encryptedNom,
+                            prenom: encryptedPrenom,
                             emailMask: emailMask,
                             email: hashEmail,
                             password: hash,
@@ -119,6 +129,8 @@ exports.loginUser = (req, res, next) => {
                             };
 
                             res.status(200).json({
+                                //nom: ,
+                                //prenom: ,
                                 role: rep.role,
                                 userId: rep.id,
                                 token: jwt.sign({ userId: rep.id },
@@ -154,7 +166,7 @@ exports.displayIdUser = (req, res, next) => {
 
     const sqlGetId = `SELECT * FROM users WHERE id='${userIdAuth}'`;
     db.query(sqlGetId, function(err, results) {
-        if (err) throw err;
+        if (err) throw err; // A VIRER ET REMPLACER PART UNE ERR 500
 
         const data1 = JSON.stringify(results);
         const role = '"role":1';
