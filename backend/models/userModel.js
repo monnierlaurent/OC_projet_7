@@ -1,5 +1,5 @@
 const db = require('../request');
-const mysql = require('mysql');
+//const mysql = require('mysql');
 
 class UserModel {
     constructor() {}

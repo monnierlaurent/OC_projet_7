@@ -1,26 +1,68 @@
 const db = require('../request');
-const mysql = require('mysql');
+//const mysql = require('mysql');
 
-class PostsModels {
+class PostsModel {
     constructor() {};
+
+    save(userId, titre, contenu, image) {
+        const sql = `INSERT INTO posts (userid ,titre, contenu, dateCrea, dateModif,imageUrl, likes ,dislikes) VALUES ('${userId}','${titre}', '${contenu}',now(),now(),'${image}',0,0)`;
+        return new Promise((resolve) => {
+            db.query(sql, function(err, result, fields) {
+                //if (err) throw err;
+
+                resolve(result);
+
+
+            });
+        });
+    }; //fin de save
+
 
     findAll() {
         let sql = `SELECT * FROM posts`;
         return new Promise((resolve) => {
             db.query(sql, function(err, result, fields) {
-                if (err) throw err;
-                resolve(result)
+
+                resolve(result);
+
             });
         });
-    }; //fin de  findAll
+    }; //fin de findAll
 
-    findOne() {
-        let sql = `SELECT * FROM posts WHERE id='${req.params.id}'`;
+    findOne(table, idType, paramsId) {
+        let sql = `SELECT * FROM ${table} WHERE ${idType}=${paramsId}`;
         return new Promise((resolve) => {
             db.query(sql, (err, result, fields) => {
-                if (err) throw err;
-                resolve(result)
+
+                resolve(result);
+
             });
         });
-    }; //fin de  findOne
+    }; //fin de findOne
+
+    deleteOne(paramsId) {
+        const sql = `DELETE FROM posts WHERE postId='${paramsId}'`;
+        return new Promise((resolve) => {
+            db.query(sql, (err, result, fields) => {
+
+                resolve(result);
+
+            });
+        });
+    }; //fin de deleteOne
+
+    updateOne(titre, contenu, image, paramsId) {
+        const sql = `UPDATE posts SET titre='${titre}', contenu='${contenu}', dateModif=now(), imageUrl='${image}' WHERE postId='${paramsId}'`;
+
+        return new Promise((resolve) => {
+            db.query(sql, (err, result, fields) => {
+
+                resolve(result);
+
+            });
+        });
+    }; //fin de updateOne
+
 };
+
+module.exports = PostsModel;

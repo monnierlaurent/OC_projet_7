@@ -1,20 +1,23 @@
 const sanitize = require('mongo-sanitize');
 const fs = require('fs');
-
+const PostModel = require('../models/postModel');
 const db = require('../request');
+const { response } = require('express');
+const { json } = require('body-parser');
+
+const postModel = new PostModel();
 
 
 //----enregister un post sur la table POSTS la  BDD----
 exports.createPost = (req, res, next) => {
 
     const userIdAuth = sanitize(req.userIdAuth);
-
-    let postsObject;
+    const reqBody = sanitize(req.body);
 
     if (req.body.posts) {
+        const postsObject = JSON.parse(reqBody.posts);
 
-        postsObject = JSON.parse(req.body.posts);
-        if (postsObject.titre === undefined || postsObject.auteur === undefined || postsObject.contenu === undefined) {
+        if (postsObject.titre === undefined || postsObject.contenu === undefined) {
             return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
         };
 
@@ -24,12 +27,10 @@ exports.createPost = (req, res, next) => {
 
         const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
 
-        const sqlPost = `INSERT INTO posts (userid ,titre, contenu, dateCrea, dateModif,imageUrl, likes ,dislikes) VALUES ('${userIdAuth}','${ postsObject.titre}', '${ postsObject.contenu}',now(),now(),'${imageUrl}',0,0)`;
-
-        db.query(sqlPost, function(err, results) {
-            if (err) throw err;
-            res.status(201).json({ message: 'message enregistré !!!' });
-        });
+        postModel.save(userIdAuth, postsObject.titre, postsObject.contenu, imageUrl)
+            .then(reponse => {
+                res.status(201).json({ message: 'message enregistré !!!' });
+            }); //faire un catch
     } else {
         fs.unlink(`${req.file.filename}`, () => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }) });
     };
@@ -37,73 +38,48 @@ exports.createPost = (req, res, next) => {
 
 //----recuperer tous post de la BDD----
 exports.displayPost = (req, res, next) => {
-
-    results = postModel.findAll();
-    const sqlGet = 'SELECT * FROM posts'; ///postmoDEL
-
-    db.query(sqlGet, function(err, results) { //postmoDEL
-        if (results.length > 0) {
-            return res.status(200).json({ results });
-        } else {
-            return res.status(403).json({ message: "Aucun message présent !" });
-        }
-    });
-
+    postModel.findAll()
+        .then(reponse => {
+            res.status(201).json(reponse);
+        }); //faire un catch
 }; ////fin exports
 
 //----recuperer un post par son ID----
 
 exports.displayPostId = (req, res, next) => {
-
     const reqParamsId = sanitize(req.params.id);
 
-    const sqlGetId = `SELECT * FROM posts WHERE postId='${reqParamsId}'`;
-    db.query(sqlGetId, function(err, results) {
-        if (results) {
-
-            return res.status(200).json({ results });
-
-        } else {
-            return res.status(403).json({ message: "Aucun message présent !" });
-        }
-    });
+    postModel.findOne('posts', 'postId', reqParamsId)
+        .then(reponse => {
+            res.status(201).json(reponse);
+        }); //faire un catch
 }; //fin exports
+
 
 //----suppresion  d'un post par son ID----
 exports.deletePostId = (req, res, next) => {
     const reqParamsId = sanitize(req.params.id);
     const userIdAuth = sanitize(req.userIdAuth);
 
-    const sqlUserRecup = `SELECT role FROM users WHERE id='${userIdAuth}'`;
-    db.query(sqlUserRecup, function(err, results) {
+    postModel.findOne('users', 'id', userIdAuth)
+        .then(response => {
+            const userIdRec = response[0].id;
+            const roleRec = response[0].role;
 
-        const data1 = JSON.stringify(results);
-        const role = '"role":1';
+            postModel.findOne('posts', 'postId', reqParamsId)
+                .then((response) => {
 
-        if (req.body.userId === req.userIdAuth || data1.includes(role)) {
-            const sqlGetImageUrl = `SELECT imageUrl FROM posts WHERE postId='${reqParamsId}'`
-            db.query(sqlGetImageUrl, function(err, results) {
+                    if (response[0].userId === userIdRec || roleRec === 1) {
 
-                const data = JSON.stringify(results);
-                const data1 = data.split('[{"imageUrl":"http://localhost:3000').join('');
-                const data2 = data1.split('"}]').join('');
-
-                const filename = data2.split("/images")[1];
-
-                fs.unlink(`images/${filename}`, () => {
-
-                    const sqlGetId = `DELETE FROM posts WHERE postId='${reqParamsId}'`;
-                    db.query(sqlGetId, function(err, results) {
-
-                        res.status(200).json({ message: "Message supprimé !" });
-                    });
-                });
-            });
-
-        } else {
-            res.status(403).json({ error: 'suppression impossible ,vous n\'êtes pas sont créateur !' });
-        };
-    });
+                        postModel.deleteOne(reqParamsId)
+                            .then(() => {
+                                res.status(200).json({ message: 'posts bien supprimé !' });
+                            }); //faire un catch
+                    } else {
+                        res.status(403).json({ error: 'suppression impossible ,vous n\'êtes pas sont créateur !' });
+                    };
+                }); //faire un catch
+        }); //faire un catch
 }; //fin exports
 
 //----modification d'un post par son ID----
@@ -113,60 +89,39 @@ exports.updatePostId = (req, res, next) => {
     const reqBody = sanitize(req.body);
     const userIdAuth = sanitize(req.userIdAuth);
 
-    const sqlUserRecup = `SELECT role FROM users WHERE id='${userIdAuth}'`;
-    db.query(sqlUserRecup, function(err, results) {
+    postModel.findOne('users', 'id', userIdAuth)
+        .then(response => {
+            const userIdRec = response[0].id;
+            const roleRec = response[0].role;
+            postModel.findOne('posts', 'postId', reqParamsId)
+                .then((response) => {
+                    if (response[0].userId === userIdRec || roleRec === 1) {
 
-        const data1 = JSON.stringify(results);
-        const role = '"role":1';
-
-        if (reqBody.userId === userIdAuth || data1.includes(role)) {
-
-            const postObject = req.file ? {...JSON.parse(req.body.posts),
-                imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-            } : {...req.body };
-
-            if (req.file) {
-                const sqlGetImageUrl = `SELECT imageUrl FROM posts WHERE postId='${reqParamsId}'`
-                db.query(sqlGetImageUrl, function(err, results) {
-
-                    const data = JSON.stringify(results);
-                    const data1 = data.split('[{"imageUrl":"http://localhost:3000').join('');
-                    const data2 = data1.split('"}]').join('');
-
-                    const filename = data2.split("/images")[1];
-
-                    fs.unlink(`images/${filename}`, () => {
-
-                        const sqlGetId = `UPDATE posts SET titre='${reqBody.titre}',auteur='${reqBody.auteur}',contenu='${reqBody.contenu}',dateModif=now() ,imageUrl='${reqBody.imageUrl}'  WHERE postId='${reqParamsId}'`;
-                        db.query(sqlGetId, function(err, results) {
-                            if (results) {
-                                // console.log(results)
-                                return res.status(200).json({ message: "Message modifié !" });
-
-                            } else {
-                                return res.status(403).json({ message: "Aucun post présent !" });
-                            };
-                        });
-                    });
-                });
-            } else {
-                const sqlGetId = `UPDATE posts SET titre='${reqBody.titre}',auteur='${reqBody.auteur}',contenu='${reqBody.contenu}',dateModif=now() ,imageUrl='${reqBody.imageUrl}'  WHERE postId='${reqParamsId}'`;
-                db.query(sqlGetId, function(err, results) {
-                    if (results) {
-                        // console.log(results)
-                        return res.status(200).json({ message: "Message modifié !" });
+                        const postObject = req.file ? {...JSON.parse(req.body.posts),
+                            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                        } : {...req.body };
+                        console.log(postObject)
+                        if (req.file) {
+                            const filename = response[0].imageUrl.split("/images")[1];
+                            fs.unlink(`images/${filename}`, () => {
+                                postModel.updateOne(postObject.titre, postObject.contenu, postObject.imageUrl, reqParamsId)
+                                    .then(() => {
+                                        res.status(200).json({ message: 'posts bien mis a jour !' });
+                                    }); //faire un catch
+                            });
+                        } else {
+                            const imageUrl = response[0].imageUrl;
+                            postModel.updateOne(postObject.titre, postObject.contenu, imageUrl, reqParamsId)
+                                .then(() => {
+                                    res.status(200).json({ message: 'posts bien mis a jour !' });
+                                }); //faire un catch
+                        };
 
                     } else {
-                        return res.status(403).json({ message: "Aucun post présent !" });
+                        res.status(403).json({ error: 'vous ne pouvez pas modifié ce post !' });
                     };
-                });
-            };
-        } else {
-            res.status(403).json({ error: 'suppression modifié ce post ,vous n\'êtes pas sont auteur !' });
-        };
-    });
-
-
+                }); //faire un catch
+        });
 }; //fin exports
 
 exports.likePost = (req, res, next) => {
