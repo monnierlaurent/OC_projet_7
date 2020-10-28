@@ -1,9 +1,8 @@
-const express = require('express');
 const sanitize = require('mongo-sanitize');
 const fs = require('fs');
 
 const db = require('../request');
-const Post = require('../models/post');
+
 
 //----enregister un post sur la table POSTS la  BDD----
 exports.createPost = (req, res, next) => {
@@ -23,14 +22,9 @@ exports.createPost = (req, res, next) => {
             return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
         };
 
-        delete postsObject._id;
+        const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
 
-        const post = new Post({
-            ...postsObject,
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-        });
-
-        const sqlPost = `INSERT INTO posts (userid ,titre, auteur, contenu, dateCrea, dateModif,imageUrl, likes ,dislikes) VALUES ('${userIdAuth}','${post.titre}', '${post.auteur}','${post.contenu}',now(),now(),'${post.imageUrl}','${post.likes}','${post.dislikes}')`;
+        const sqlPost = `INSERT INTO posts (userid ,titre, contenu, dateCrea, dateModif,imageUrl, likes ,dislikes) VALUES ('${userIdAuth}','${ postsObject.titre}', '${ postsObject.contenu}',now(),now(),'${imageUrl}',0,0)`;
 
         db.query(sqlPost, function(err, results) {
             if (err) throw err;

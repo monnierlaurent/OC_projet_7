@@ -1,9 +1,8 @@
-const express = require('express');
 const sanitize = require('mongo-sanitize');
 
 const db = require('../request');
-const Com = require('../models/com');
-//const crypto = require('crypto');
+
+
 //------logique métier commentaires------
 
 exports.createCom = (req, res, next) => {
@@ -20,16 +19,7 @@ exports.createCom = (req, res, next) => {
     //console.log(sqlAuteur);
 
     db.query(sqlAuteur, function(err, results) {
-
-        const com = new Com({
-            userId: userIdAuth,
-            postId: reqParamsId,
-            comContenu: reqBody.comContenu,
-            comLikes: 0,
-            comDislikes: 0
-        });
-
-        const sqlPost = `INSERT INTO coms (userId ,postId, comContenu, comDateCrea, comDateModif, comLikes ,comDislikes) VALUES ('${com.userId}','${com.postId}','${com.comContenu}',now(),now(),'${com.comLikes}','${com.comDislikes}')`;
+        const sqlPost = `INSERT INTO coms (userId ,postId, comContenu, comDateCrea, comDateModif, comLikes ,comDislikes) VALUES ('${userIdAuth}','${reqParamsId}','${reqBody.comContenu}',now(),now(),0,0)`;
 
         db.query(sqlPost, function(err, results) {
             if (err) throw err;
