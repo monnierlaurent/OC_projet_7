@@ -1,7 +1,8 @@
 const sanitize = require('mongo-sanitize');
-
+const ComModel = require('../models/comModel')
 const db = require('../request');
 
+const comModel = new ComModel();
 
 //------logique métier commentaires------
 
@@ -14,82 +15,63 @@ exports.createCom = (req, res, next) => {
     if (reqBody.comContenu === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
-
-    const sqlAuteur = `SELECT nom, prenom FROM users WHERE id='${userIdAuth}'`;
-    //console.log(sqlAuteur);
-
-    db.query(sqlAuteur, function(err, results) {
-        const sqlPost = `INSERT INTO coms (userId ,postId, comContenu, comDateCrea, comDateModif, comLikes ,comDislikes) VALUES ('${userIdAuth}','${reqParamsId}','${reqBody.comContenu}',now(),now(),0,0)`;
-
-        db.query(sqlPost, function(err, results) {
-            if (err) throw err;
-            console.log("commentaire posté");
-        });
-        res.status(201).json({ message: 'message enregistré !!!' });
-    });
-    //console.log(com);
+    userId, paramsId, contenu
+    comModel.save(userIdAuth, reqParamsId, reqBody.comContenu)
+        .then(response => {
+            res.status(201).json(response);
+        }); //faire un catch
 };
 
 
 //----recuperer tous post de la BDD----
 exports.displayCom = (req, res, next) => {
-
     const reqParamsId = sanitize(req.params.id);
 
-    const sqlGet = `SELECT * FROM coms WHERE postId='${reqParamsId}'`;
+    comModel.findAll(reqParamsId)
+        .then(response => {
+            res.status(201).json(response);
+        }); //faire un catch
+}; //fin exports
 
-    db.query(sqlGet, function(err, results) {
-        if (results.length > 0) {
-            return res.status(200).json({ results });
-        } else {
-            return res.status(403).json({ message: "Aucun message présent !" });
-        }
-    });
-
-}; ////fin exports
 
 //----recuperer un post par son ID----
 
 exports.displayComId = (req, res, next) => {
-
     const reqParamsComId = sanitize(req.params.comId);
 
-    const sqlGetId = `SELECT * FROM coms WHERE comId='${reqParamsComId}'`;
-    db.query(sqlGetId, function(err, results) {
-        if (results) {
-            // console.log(results)
-            return res.status(200).json({ results });
-
-        } else {
-            return res.status(403).json({ message: "Aucun message présent !" });
-        }
-    });
+    comModel.findOne('coms', 'comId', reqParamsComId)
+        .then(response => {
+            res.status(201).json(response);
+        }); //faire un catch
 }; //fin exports
 
 //----suppresion  d'un post par son ID----
 exports.deleteComId = (req, res, next) => {
 
     const reqParamsComId = sanitize(req.params.comId);
-    const reqBody = sanitize(req.body);
+    //const reqParamsId = sanitize(req.params.id);
+    //const reqBody = sanitize(req.body);
     const userIdAuth = sanitize(req.userIdAuth);
 
-    const sqlUserRecup = `SELECT role FROM users WHERE id='${userIdAuth}'`;
+    comModel.findOne('users', 'id', userIdAuth)
+        .then(response => {
 
-    db.query(sqlUserRecup, function(err, results) {
+            const userIdRec = response[0].id;
+            const roleRec = response[0].role;
 
-        const data1 = JSON.stringify(results);
-        const role = '"role":1';
+            comModel.findOne('coms', 'comId', reqParamsComId)
+                .then(response => {
 
-        if (reqBody.userId === userIdAuth || data1.includes(role)) {
-            const sqlGetId = `DELETE FROM coms WHERE comId='${reqParamsComId}'`;
-            db.query(sqlGetId, function(err, results) {
-
-                res.status(200).json({ message: "Message supprimé !" });
-            });
-        } else {
-            res.status(403).json({ error: 'suppression impossible ,vous n\'êtes pas sont auteur !' });
-        };
-    });
+                    if (response[0].userId === userIdRec || roleRec === 1) {
+                        comModel.deleteOne(reqParamsComId)
+                            .then(() => {
+                                res.status(200).json({ message: 'coms bien supprimé !' });
+                            }); //faire un catch
+                    } else {
+                        res.status(403).json({ error: 'suppression impossible ,vous n\'êtes pas sont auteur !' });
+                    };
+                }); //faire un catch
+        }); //faire un catch
 }; //fin exports
 
 exports.updateComId = (req, res, next) => {
@@ -100,30 +82,25 @@ exports.updateComId = (req, res, next) => {
     if (reqBody.comContenu === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
+    comModel.findOne('users', 'id', userIdAuth)
+        .then(response => {
 
-    const sqlUserRecup = `SELECT role FROM users WHERE id='${userIdAuth}'`;
+            const userIdRec = response[0].id;
+            const roleRec = response[0].role;
 
-    db.query(sqlUserRecup, function(err, results) {
-
-        const data1 = JSON.stringify(results);
-        const role = '"role":1';
-
-        if (reqBody.userId === userIdAuth || data1.includes(role)) {
-            const sqlGetId = `UPDATE coms SET comContenu='${reqBody.comContenu}',comDateModif=now()  WHERE comId='${reqParamsComId}'`;
-
-            db.query(sqlGetId, function(err, results) {
-                if (results) {
-                    // console.log(results)
-                    return res.status(200).json({ message: "Message modifié !" });
-
-                } else {
-                    return res.status(403).json({ message: "Aucun post présent !" });
-                };
-            });
-        } else {
-            res.status(403).json({ error: 'modification impossible ,vous n\'êtes pas sont auteur !' });
-        };
-    });
+            contenu, paramsId
+            comModel.findOne('coms', 'comId', reqParamsComId)
+                .then(response => {
+                    if (response[0].userId === userIdRec || roleRec === 1) {
+                        comModel.updateOne(reqBody.contenu, reqParamsComId)
+                            .then(() => {
+                                res.status(200).json({ message: 'coms bien mis a jour !' });
+                            }); //faire un catch
+                    } else {
+                        res.status(403).json({ error: 'modification impossible ,vous n\'êtes pas sont auteur !' });
+                    };
+                }); //faire un catch
+        }); //faire un catch
 }; //fin exports
 
 
