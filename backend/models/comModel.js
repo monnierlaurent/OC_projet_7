@@ -17,6 +17,43 @@ class ComsModel {
         const sql = `SELECT * FROM coms INNER JOIN users ON userId = id WHERE postId='${paramsId}'`;
         return new Promise((resolve) => {
             db.query(sql, function(err, result, fields) {
+
+                const tablePost = [];
+
+                result.forEach(rep => {
+
+                    const nom = rep.nom;
+                    const prenom = rep.prenom;
+                    const email = rep.emailRec;
+
+                    const decryptNom = cryptr.decrypt(nom);
+                    const decryptPrenom = cryptr.decrypt(prenom);
+                    const decryptEmail = cryptr.decrypt(email);
+
+                    const allcoms = {
+                        userId: rep.userId,
+                        titre: rep.titre,
+                        contenu: rep.contenu,
+                        dateCrea: rep.dateCrea,
+                        dateModif: rep.dateModif,
+                        imageUrl: rep.imageUrl,
+                        likes: rep.likes,
+                        dislikes: rep.dislikes,
+                        postId: rep.postId,
+                        nom: decryptNom,
+                        prenom: decryptPrenom,
+                        email: rep.email,
+                        emailMask: rep.emailMask,
+                        password: rep.password,
+                        dateInscrip: rep.dateInscrip,
+                        role: rep.role,
+                        id: rep.id,
+                        emailRec: decryptEmail
+                    };
+
+                    tablePost.push(allPosts);
+                });
+
                 resolve(result);
             });
         });

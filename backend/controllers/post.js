@@ -37,9 +37,12 @@ exports.createPost = (req, res, next) => {
 //----recuperer tous post de la BDD----
 exports.displayPost = (req, res, next) => {
     postModel.findAll()
-        .then(response => {
-            res.status(201).json(response);
-        }); //faire un catch
+
+    .then(response => {
+        console.log(response)
+        res.status(201).json(response);
+
+    }); //faire un catch
 }; ////fin exports
 
 //----recuperer un post par son ID----
@@ -49,6 +52,8 @@ exports.displayPostId = (req, res, next) => {
 
     postModel.findOne('posts', 'postId', reqParamsId)
         .then(response => {
+
+
             res.status(201).json(response);
         }); //faire un catch
 }; //fin exports
