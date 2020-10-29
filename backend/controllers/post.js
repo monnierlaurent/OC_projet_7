@@ -2,9 +2,6 @@ const sanitize = require('mongo-sanitize');
 const fs = require('fs');
 const PostModel = require('../models/postModel');
 const LikeModel = require('../models/likeModel');
-const { constants } = require('buffer');
-
-
 
 const postModel = new PostModel();
 const likeModel = new LikeModel();

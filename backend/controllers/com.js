@@ -1,10 +1,11 @@
 const sanitize = require('mongo-sanitize');
-const ComModel = require('../models/comModel');
-const conn = require('../request');
 const db = require('../request');
 
-const comModel = new ComModel();
+const ComModel = require('../models/comModel');
+const LikeModel = require('../models/likeModel');
 
+const comModel = new ComModel();
+const likeModel = new LikeModel();
 //------logique métier commentaires------
 
 exports.createCom = (req, res, next) => {
@@ -50,8 +51,6 @@ exports.displayComId = (req, res, next) => {
 exports.deleteComId = (req, res, next) => {
 
     const reqParamsComId = sanitize(req.params.comId);
-    //const reqParamsId = sanitize(req.params.id);
-    //const reqBody = sanitize(req.body);
     const userIdAuth = sanitize(req.userIdAuth);
 
     comModel.findOne('users', 'id', userIdAuth)
@@ -79,8 +78,6 @@ exports.updateComId = (req, res, next) => {
     const reqBody = sanitize(req.body);
     const reqParamsComId = sanitize(req.params.comId);
     const userIdAuth = sanitize(req.userIdAuth);
-
-    //console.log(reqBody);
 
     if (reqBody.comContenu === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
@@ -114,9 +111,7 @@ exports.updateComId = (req, res, next) => {
 
 exports.likeCom = (req, res, next) => {
     const reqBody = sanitize(req.body);
-    const reqParamsId = sanitize(req.params.id);
     const reqParamsComId = sanitize(req.params.comId);
-
     const userIdAuth = sanitize(req.userIdAuth);
 
     if (reqBody.userId === undefined || reqBody.like === undefined) {
@@ -124,6 +119,75 @@ exports.likeCom = (req, res, next) => {
     };
 
     if (reqBody.like) {
+
+        likeModel.likeFindOne('comLikes', 'userId', userIdAuth, 'comId', reqParamsComId)
+            .then((response) => {
+
+                if (reqBody.like === 1) {
+                    if (response[0] === undefined) {
+                        likeModel.likeSave('comLikes', 'comId', 'userId', 'comLikeValeur', reqParamsComId, reqBody.userId, reqBody.like)
+                            .then(() => {
+                                likeModel.likeUpdateOne('coms', 'comLikes', 'comLikes+1', 'comId', reqParamsComId)
+                                    .then(() => {
+                                        res.status(201).json({ message: 'like enregistré !' });
+                                    }); //faire un catch
+                            }); //faire un catch
+                    } else if (response[0].comLikeValeur === 1) {
+                        res.status(201).json({ message: 'Vous avez déja liké !' });
+                    } else if (response[0].comLikeValeur === -1) {
+                        res.status(201).json({ message: 'Vous avez déja disliké !' });
+                    };
+                };
+
+                if (reqBody.like === -1) {
+                    if (response[0] === undefined) {
+                        likeModel.likeSave('comLikes', 'comId', 'userId', 'comLikeValeur', reqParamsComId, reqBody.userId, reqBody.like)
+                            .then(() => {
+                                likeModel.likeUpdateOne('coms', 'comDislikes', 'comDislikes+1', 'comId', reqParamsComId)
+                                    .then(() => {
+                                        res.status(201).json({ message: 'Dislike enregistré !' });
+                                    }); //faire un catch
+                            }); //faire un catch
+                    } else if (response[0].comLikeValeur === 1) {
+                        res.status(201).json({ message: 'Vous avez déja liké !' });
+                    } else if (response[0].comLikeValeur === -1) {
+                        res.status(201).json({ message: 'Vous avez déja disliké !' });
+                    };
+                };
+
+                if (reqBody.like === 2) {
+
+                    if (response[0] === undefined) {
+                        return res.status(400).json({ error: 'Vous n\'avez aucuns likes ou dislikes a supprimer !!' });
+                    };
+                    if (response[0].comLikeValeur === 1) {
+
+                        likeModel.likeDeleteOne('comLikes', 'comId', reqParamsComId, 'userId', reqBody.userId)
+                            .then(() => {
+                                likeModel.likeUpdateOne('coms', 'comLikes', 'comLikes-1', 'comId', reqParamsComId)
+                                    .then(() => {
+                                        res.status(201).json({ message: 'Like supprimé !' });
+                                    }); //faire un catch
+                            }); //faire un catch
+                    };
+                    if (response[0].comLikeValeur === -1) {
+                        likeModel.likeDeleteOne('comLikes', 'comId', reqParamsComId, 'userId', reqBody.userId)
+                            .then(() => {
+                                likeModel.likeUpdateOne('coms', 'comDislikes', 'comDislikes-1', 'comId', reqParamsComId)
+                                    .then(() => {
+                                        res.status(201).json({ message: 'Dislike supprimé !' });
+                                    }); //faire un catch
+                            }); //faire un catch
+                    };
+                };
+
+            }); //faire un catch
+    } else {
+        res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+    };
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*if (reqBody.like) {
         const sqlPostLikeUser = `SELECT * FROM comLikes WHERE userId='${userIdAuth}' AND comId='${reqParamsId}'`;
 
 
@@ -193,4 +257,5 @@ exports.likeCom = (req, res, next) => {
     } else {
         res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
+    */
 }; //fin likeSauce
