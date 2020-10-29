@@ -1,5 +1,6 @@
 const sanitize = require('mongo-sanitize');
-const ComModel = require('../models/comModel')
+const ComModel = require('../models/comModel');
+const conn = require('../request');
 const db = require('../request');
 
 const comModel = new ComModel();
@@ -15,10 +16,10 @@ exports.createCom = (req, res, next) => {
     if (reqBody.comContenu === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
-    userId, paramsId, contenu
+
     comModel.save(userIdAuth, reqParamsId, reqBody.comContenu)
         .then(response => {
-            res.status(201).json(response);
+            res.status(201).json({ message: 'commentaire enregisté !' });
         }); //faire un catch
 };
 
@@ -79,6 +80,8 @@ exports.updateComId = (req, res, next) => {
     const reqParamsComId = sanitize(req.params.comId);
     const userIdAuth = sanitize(req.userIdAuth);
 
+    //console.log(reqBody);
+
     if (reqBody.comContenu === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
@@ -88,11 +91,16 @@ exports.updateComId = (req, res, next) => {
             const userIdRec = response[0].id;
             const roleRec = response[0].role;
 
-            contenu, paramsId
+
             comModel.findOne('coms', 'comId', reqParamsComId)
                 .then(response => {
                     if (response[0].userId === userIdRec || roleRec === 1) {
-                        comModel.updateOne(reqBody.contenu, reqParamsComId)
+
+                        console.log(reqParamsComId)
+
+                        console.log(reqBody.comContenu)
+
+                        comModel.updateOne(reqBody.comContenu, reqParamsComId)
                             .then(() => {
                                 res.status(200).json({ message: 'coms bien mis a jour !' });
                             }); //faire un catch

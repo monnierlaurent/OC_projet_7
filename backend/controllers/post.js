@@ -1,12 +1,13 @@
 const sanitize = require('mongo-sanitize');
 const fs = require('fs');
 const PostModel = require('../models/postModel');
-const db = require('../request');
-const { response } = require('express');
-const { json } = require('body-parser');
+const LikeModel = require('../models/likeModel');
+const { constants } = require('buffer');
+
+
 
 const postModel = new PostModel();
-
+const likeModel = new LikeModel();
 
 //----enregister un post sur la table POSTS la  BDD----
 exports.createPost = (req, res, next) => {
@@ -28,7 +29,7 @@ exports.createPost = (req, res, next) => {
         const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
 
         postModel.save(userIdAuth, postsObject.titre, postsObject.contenu, imageUrl)
-            .then(reponse => {
+            .then(() => {
                 res.status(201).json({ message: 'message enregistré !!!' });
             }); //faire un catch
     } else {
@@ -39,8 +40,8 @@ exports.createPost = (req, res, next) => {
 //----recuperer tous post de la BDD----
 exports.displayPost = (req, res, next) => {
     postModel.findAll()
-        .then(reponse => {
-            res.status(201).json(reponse);
+        .then(response => {
+            res.status(201).json(response);
         }); //faire un catch
 }; ////fin exports
 
@@ -50,8 +51,8 @@ exports.displayPostId = (req, res, next) => {
     const reqParamsId = sanitize(req.params.id);
 
     postModel.findOne('posts', 'postId', reqParamsId)
-        .then(reponse => {
-            res.status(201).json(reponse);
+        .then(response => {
+            res.status(201).json(response);
         }); //faire un catch
 }; //fin exports
 
@@ -134,70 +135,69 @@ exports.likePost = (req, res, next) => {
     };
 
     if (reqBody.like) {
-        const sqlPostLikeUser = `SELECT * FROM postLikes WHERE userId='${userIdAuth}' AND postId='${reqParamsId}'`;
 
-        db.query(sqlPostLikeUser, function(err, results) {
-            const likePositif = '"postLikeValeur":1';
-            const likeNegatif = '"postLikeValeur":-1';
+        likeModel.likeFindOne('postLikes', 'userId', userIdAuth, 'postId', reqParamsId)
+            .then((response) => {
 
-            const data = JSON.stringify(results);
+                if (reqBody.like === 1) {
+                    if (response[0] === undefined) {
+                        likeModel.likeSave('postLikes', 'postId', 'userId', 'postLikeValeur', reqParamsId, reqBody.userId, reqBody.like)
+                            .then(() => {
+                                likeModel.likeUpdateOne('posts', 'likes', 'likes+1', 'postId', reqParamsId)
+                                    .then(() => {
+                                        res.status(201).json({ message: 'like enregistré !' });
+                                    });
+                            });
+                    } else if (response[0].postLikeValeur === 1) {
+                        res.status(201).json({ message: 'Vous avez déja liké !' });
+                    } else if (response[0].postLikeValeur === -1) {
+                        res.status(201).json({ message: 'Vous avez déja disliké !' });
+                    };
+                }; //fin de if valeur 1
 
-            if (reqBody.like === 1) {
+                if (reqBody.like === -1) {
+                    if (response[0] === undefined) {
+                        likeModel.likeSave('postLikes', 'postId', 'userId', 'postLikeValeur', reqParamsId, reqBody.userId, reqBody.like)
+                            .then(() => {
+                                likeModel.likeUpdateOne('posts', 'dislikes', 'dislikes+1', 'postId', reqParamsId)
+                                    .then(() => {
+                                        res.status(201).json({ message: 'Dislike enregistré !' });
+                                    });
+                            });
+                    } else if (response[0].postLikeValeur === 1) {
+                        res.status(201).json({ message: 'Vous avez déja liké !' });
+                    } else if (response[0].postLikeValeur === -1) {
+                        res.status(201).json({ message: 'Vous avez déja disliké !' });
+                    };
+                }; //fin de if valeur 1
 
-                if (data.includes(likePositif)) {
-                    res.status(201).json({ message: 'Vous avez déja liké !' });
-                } else if (data.includes(likeNegatif)) {
-                    res.status(201).json({ message: 'Vous avez déja disliké !' });
-                } else {
-                    const sqlLike = `INSERT INTO postLikes (postId, userId, postLikeValeur) VALUES ('${reqParamsId}','${reqBody.userId}','${reqBody.like}')`
-                    db.query(sqlLike, function(err, results) {
+                if (reqBody.like === 2) {
 
-                        const sqlLikeCount = `UPDATE posts SET likes=likes+1 WHERE postId='${reqParamsId}'`;
-                        db.query(sqlLikeCount, function(err, results) {
-                            res.status(201).json({ message: 'Like enregistré !' });
-                        });
-                    });
+                    if (response[0] === undefined) {
+                        return res.status(400).json({ error: 'Vous n\'avez aucuns likes ou dislikes a supprimer !!' });
+                    };
+                    if (response[0].postLikeValeur === 1) {
+
+                        likeModel.likeDeleteOne('postLikes', 'postId', reqParamsId, 'userId', reqBody.userId)
+                            .then(() => {
+                                likeModel.likeUpdateOne('posts', 'likes', 'likes-1', 'postId', reqParamsId)
+                                    .then(() => {
+                                        res.status(201).json({ message: 'Like supprimé !' });
+                                    });
+                            });
+                    };
+                    if (response[0].postLikeValeur === -1) {
+                        likeModel.likeDeleteOne('postLikes', 'postId', reqParamsId, 'userId', reqBody.userId)
+                            .then(() => {
+                                likeModel.likeUpdateOne('posts', 'dislikes', 'dislikes-1', 'postId', reqParamsId)
+                                    .then(() => {
+                                        res.status(201).json({ message: 'Dislike supprimé !' });
+                                    });
+                            });
+                    };
                 };
-            };
-            if (reqBody.like === -1) {
 
-                if (data.includes(likePositif)) {
-                    res.status(201).json({ message: 'Vous avez déja liké !' });
-                } else if (data.includes(likeNegatif)) {
-                    res.status(201).json({ message: 'Vous avez déja disliké !' });
-                } else {
-                    const sqlLike = `INSERT INTO postLikes (postId, userId, postLikeValeur) VALUES ('${reqParamsId}','${reqBody.userId}','${reqBody.like}')`
-                    db.query(sqlLike, function(err, results) {
-
-                        const sqlDilsikeCount = `UPDATE posts SET dislikes=dislikes+1 WHERE postId='${reqParamsId}'`;
-                        db.query(sqlDilsikeCount, function(err, results) {
-                            res.status(201).json({ message: 'Disike enregistré !' });
-                        });
-                    });
-                };
-            };
-            if (reqBody.like === 2) {
-
-                const sqlDeleteLike = `DELETE FROM postLikes WHERE postId='${reqParamsId}' AND userId='${reqBody.userId}'`;
-
-                if (data.includes(likePositif)) {
-                    db.query(sqlDeleteLike, function(err, results) {
-                        const sqllikeOff = `UPDATE posts SET likes=likes-1 WHERE postId='${reqParamsId}'`;
-                        db.query(sqllikeOff, function(err, results) {
-                            res.status(201).json({ message: 'Like supprimé !' });
-                        });
-                    });
-                };
-                if (data.includes(likeNegatif)) {
-                    db.query(sqlDeleteLike, function(err, results) {
-                        const sqlDislikeOff = `UPDATE posts SET dislikes=dislikes-1 WHERE postId='${reqParamsId}'`;
-                        db.query(sqlDislikeOff, function(err, results) {
-                            res.status(201).json({ message: 'Like supprimé !' });
-                        });
-                    });
-                };
-            };
-        });
+            }); //faire un catch
     } else {
         res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
