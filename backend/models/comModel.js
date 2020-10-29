@@ -14,7 +14,7 @@ class ComsModel {
     }; //fin de save
 
     findAll(paramsId) {
-        const sql = `SELECT * FROM coms WHERE postId='${paramsId}'`;
+        const sql = `SELECT * FROM coms INNER JOIN users ON userId = id WHERE postId='${paramsId}'`;
         return new Promise((resolve) => {
             db.query(sql, function(err, result, fields) {
                 resolve(result);

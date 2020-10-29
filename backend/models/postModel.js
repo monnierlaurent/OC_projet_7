@@ -19,7 +19,7 @@ class PostsModel {
 
 
     findAll() {
-        let sql = `SELECT * FROM posts`;
+        let sql = `SELECT * FROM posts INNER JOIN users ON userId = id`;
         return new Promise((resolve) => {
             db.query(sql, function(err, result, fields) {
 
@@ -30,7 +30,7 @@ class PostsModel {
     }; //fin de findAll
 
     findOne(table, idType, paramsId) {
-        let sql = `SELECT * FROM ${table} WHERE ${idType}=${paramsId}`;
+        let sql = `SELECT * FROM ${table} INNER JOIN users ON userId = id WHERE ${idType}=${paramsId}`;
         return new Promise((resolve) => {
             db.query(sql, (err, result, fields) => {
 
