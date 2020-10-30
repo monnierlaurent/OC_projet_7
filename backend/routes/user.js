@@ -5,8 +5,6 @@ const auth = require('../middleware/auth');
 const rateLimiter = require('../middleware/rateLimite');
 const userCtrl = require('../controllers/user');
 
-
-
 router.post('/signup', userCtrl.createUser);
 router.post('/login', rateLimiter, userCtrl.loginUser);
 

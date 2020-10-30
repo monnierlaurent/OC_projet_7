@@ -87,7 +87,6 @@ exports.deletePostId = (req, res, next) => {
 exports.updatePostId = (req, res, next) => {
 
     const reqParamsId = sanitize(req.params.id);
-    // const reqBody = sanitize(req.body);
     const userIdAuth = sanitize(req.userIdAuth);
 
     postModel.findOne('users', 'id', userIdAuth)

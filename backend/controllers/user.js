@@ -1,5 +1,3 @@
-//const express = require('express');
-
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const mask = require('mask-email-phone');
@@ -85,8 +83,8 @@ exports.loginUser = (req, res, next) => {
     userModel.findAll()
         .then((response) => {
 
-
             const tableEmail = [];
+
             response.forEach(rep => {
 
                 tableEmail.push(rep.email);
@@ -153,7 +151,6 @@ exports.displayIdUser = (req, res, next) => {
 exports.deleteUser = (req, res, next) => {
     const reqParamsId = sanitize(req.params.id);
     const userIdAuth = sanitize(req.userIdAuth);
-    //const reqBody = sanitize(req.body);
 
     userModel.findOne('id', userIdAuth)
         .then((response) => {

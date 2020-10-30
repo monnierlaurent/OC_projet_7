@@ -1,5 +1,4 @@
 const sanitize = require('mongo-sanitize');
-//const db = require('../request');
 
 const ComModel = require('../models/comModel');
 const LikeModel = require('../models/likeModel');

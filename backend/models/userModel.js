@@ -1,5 +1,4 @@
 const db = require('../request');
-//const mysql = require('mysql');
 const Cryptr = require('cryptr');
 
 const cryptr = new Cryptr('@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel');

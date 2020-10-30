@@ -1,5 +1,4 @@
 const db = require('../request');
-//const mysql = require('mysql');
 const Cryptr = require('cryptr');
 
 const cryptr = new Cryptr('@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel');
@@ -140,14 +139,10 @@ class PostsModel {
         return new Promise((resolve) => {
             db.query(sql, (err, result, fields) => {
 
-
-
                 resolve(result);
-
             });
         });
     }; //fin de updateOne
-
 };
 
 module.exports = PostsModel;

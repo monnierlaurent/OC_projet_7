@@ -1,5 +1,4 @@
 const db = require('../request');
-
 const Cryptr = require('cryptr');
 
 const cryptr = new Cryptr('@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel');
@@ -11,7 +10,6 @@ class ComsModel {
         const sql = `INSERT INTO coms (userId ,postId, comContenu, comDateCrea, comDateModif, comLikes ,comDislikes) VALUES ('${userId}','${paramsId}','${contenu}',now(),now(),0,0)`;
         return new Promise((resolve) => {
             db.query(sql, function(err, result, fields) {
-                //if (err) throw err;
                 resolve(result);
             });
         });
@@ -19,10 +17,9 @@ class ComsModel {
 
     findAll(paramsId) {
         const sql = `SELECT * FROM coms INNER JOIN users ON userId = id WHERE postId='${paramsId}' ORDER BY comDateCrea ASC`;
-        console.log(sql)
         return new Promise((resolve) => {
             db.query(sql, function(err, result, fields) {
-                console.log(result)
+
                 const tablePost = [];
 
                 result.forEach(rep => {
@@ -58,7 +55,6 @@ class ComsModel {
 
                     tablePost.push(allComs);
                 });
-
                 resolve(tablePost);
             });
         });
