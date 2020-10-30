@@ -22,7 +22,7 @@ class PostsModel {
 
 
     findAll() {
-        let sql = `SELECT * FROM posts INNER JOIN users ON userId = id`;
+        let sql = `SELECT * FROM posts INNER JOIN users ON userId = id ORDER BY dateCrea ASC`;
         return new Promise((resolve) => {
             db.query(sql, function(err, result, fields) {
                 const tablePost = [];
