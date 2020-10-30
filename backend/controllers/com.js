@@ -1,5 +1,5 @@
 const sanitize = require('mongo-sanitize');
-const db = require('../request');
+//const db = require('../request');
 
 const ComModel = require('../models/comModel');
 const LikeModel = require('../models/likeModel');
@@ -19,7 +19,7 @@ exports.createCom = (req, res, next) => {
     };
 
     comModel.save(userIdAuth, reqParamsId, reqBody.comContenu)
-        .then(response => {
+        .then(() => {
             res.status(201).json({ message: 'commentaire enregisté !' });
         }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
 };
@@ -41,7 +41,7 @@ exports.displayCom = (req, res, next) => {
 exports.displayComId = (req, res, next) => {
     const reqParamsComId = sanitize(req.params.comId);
 
-    comModel.findOne('coms', 'comId', reqParamsComId)
+    comModel.findOneJoint('coms', 'comId', reqParamsComId)
         .then(response => {
             res.status(201).json(response);
         }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
@@ -92,10 +92,6 @@ exports.updateComId = (req, res, next) => {
             comModel.findOne('coms', 'comId', reqParamsComId)
                 .then(response => {
                     if (response[0].userId === userIdRec || roleRec === 1) {
-
-                        console.log(reqParamsComId)
-
-                        console.log(reqBody.comContenu)
 
                         comModel.updateOne(reqBody.comContenu, reqParamsComId)
                             .then(() => {

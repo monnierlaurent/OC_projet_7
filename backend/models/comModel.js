@@ -18,10 +18,11 @@ class ComsModel {
     }; //fin de save
 
     findAll(paramsId) {
-        const sql = `SELECT * FROM coms INNER JOIN users ON userId = id WHERE postId='${paramsId}' ORDER BY comDateCrea DESC`;
+        const sql = `SELECT * FROM coms INNER JOIN users ON userId = id WHERE postId='${paramsId}' ORDER BY comDateCrea ASC`;
+        console.log(sql)
         return new Promise((resolve) => {
             db.query(sql, function(err, result, fields) {
-
+                console.log(result)
                 const tablePost = [];
 
                 result.forEach(rep => {
@@ -64,6 +65,15 @@ class ComsModel {
     }; //fin de findAll
 
     findOne(table, idType, paramsComId) {
+        const sql = `SELECT * FROM ${table} WHERE ${idType}='${paramsComId}'`;
+        return new Promise((resolve) => {
+            db.query(sql, (err, result, fields) => {
+                resolve(result);
+            });
+        });
+    }; //fin de findOne
+
+    findOneJoint(table, idType, paramsComId) {
         const sql = `SELECT * FROM ${table} INNER JOIN users ON userId = id WHERE ${idType}='${paramsComId}'`;
         return new Promise((resolve) => {
             db.query(sql, (err, result, fields) => {

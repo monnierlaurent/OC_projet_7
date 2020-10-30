@@ -38,7 +38,7 @@ exports.createPost = (req, res, next) => {
 exports.displayPost = (req, res, next) => {
     postModel.findAll()
         .then(response => {
-            console.log(response)
+
             res.status(201).json(response);
 
         }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
@@ -49,9 +49,8 @@ exports.displayPost = (req, res, next) => {
 exports.displayPostId = (req, res, next) => {
     const reqParamsId = sanitize(req.params.id);
 
-    postModel.findOne('posts', 'postId', reqParamsId)
+    postModel.findOneAll('posts', 'postId', reqParamsId)
         .then(response => {
-
 
             res.status(201).json(response);
         }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
@@ -88,24 +87,25 @@ exports.deletePostId = (req, res, next) => {
 exports.updatePostId = (req, res, next) => {
 
     const reqParamsId = sanitize(req.params.id);
-    const reqBody = sanitize(req.body);
+    // const reqBody = sanitize(req.body);
     const userIdAuth = sanitize(req.userIdAuth);
 
     postModel.findOne('users', 'id', userIdAuth)
         .then(response => {
-            const userIdRec = response[0].id;
-            const roleRec = response[0].role;
+
+            const userIdRec = response.id;
+            const roleRec = response.role;
 
             postModel.findOne('posts', 'postId', reqParamsId)
                 .then((response) => {
-                    if (response[0].userId === userIdRec || roleRec === 1) {
+                    if (response.userId === userIdRec || roleRec === 1) {
 
                         const postObject = req.file ? {...JSON.parse(req.body.posts),
                             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
                         } : {...req.body };
-                        console.log(postObject)
+
                         if (req.file) {
-                            const filename = response[0].imageUrl.split("/images")[1];
+                            const filename = response.imageUrl.split("/images")[1];
                             fs.unlink(`images/${filename}`, () => {
                                 postModel.updateOne(postObject.titre, postObject.contenu, postObject.imageUrl, reqParamsId)
                                     .then(() => {

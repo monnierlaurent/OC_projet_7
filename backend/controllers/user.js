@@ -1,4 +1,5 @@
-const express = require('express');
+//const express = require('express');
+
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const mask = require('mask-email-phone');
@@ -8,7 +9,6 @@ const sanitize = require('mongo-sanitize');
 const Cryptr = require('cryptr');
 
 const schemaPassword = require('../models/shemaPassword');
-const db = require('../request');
 const UserModel = require('../models/userModel')
 
 let userModel = new UserModel();
@@ -84,19 +84,21 @@ exports.loginUser = (req, res, next) => {
 
     userModel.findAll()
         .then((response) => {
+
+
             const tableEmail = [];
             response.forEach(rep => {
 
                 tableEmail.push(rep.email);
-            }); //faire catch
+            });
             if (tableEmail.includes(hashEmail)) {
 
-                userModel.findOne('email', hashEmail)
+                userModel.findOneLog('email', hashEmail)
                     .then((response) => {
-                        //console.log();
+
                         bcrypt.compare(reqBody.password, response[0].password)
                             .then(valid => {
-                                console.log(valid);
+
                                 if (valid === false) {
                                     return res.status(401).json({ error: 'L\'email ou le mot de passe est invalide !' });
                                 };
@@ -108,7 +110,7 @@ exports.loginUser = (req, res, next) => {
                                     )
                                 });
                             }).catch(() => res.status(500).json({ error: 'Erreur interne du serveur ' }));
-                    }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+                    }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !10' }));
 
             } else {
                 res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
@@ -151,7 +153,7 @@ exports.displayIdUser = (req, res, next) => {
 exports.deleteUser = (req, res, next) => {
     const reqParamsId = sanitize(req.params.id);
     const userIdAuth = sanitize(req.userIdAuth);
-    const reqBody = sanitize(req.body);
+    //const reqBody = sanitize(req.body);
 
     userModel.findOne('id', userIdAuth)
         .then((response) => {
