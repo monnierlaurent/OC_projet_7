@@ -31,11 +31,11 @@ class PostsModel {
 
                     const nom = rep.nom;
                     const prenom = rep.prenom;
-                    const email = rep.emailRec;
+                    //const email = rep.emailRec;
 
                     const decryptNom = cryptr.decrypt(nom);
                     const decryptPrenom = cryptr.decrypt(prenom);
-                    const decryptEmail = cryptr.decrypt(email);
+                    //const decryptEmail = cryptr.decrypt(email);
 
                     const allPosts = {
                         userId: rep.userId,
@@ -49,13 +49,13 @@ class PostsModel {
                         postId: rep.postId,
                         nom: decryptNom,
                         prenom: decryptPrenom,
-                        email: rep.email,
-                        emailMask: rep.emailMask,
-                        password: rep.password,
-                        dateInscrip: rep.dateInscrip,
-                        role: rep.role,
-                        id: rep.id,
-                        emailRec: decryptEmail
+                        //email: rep.email,
+                        //emailMask: rep.emailMask,
+                        //password: rep.password,
+                        //dateInscrip: rep.dateInscrip,
+                        //role: rep.role,
+                        //id: rep.id,
+                        //emailRec: decryptEmail
                     };
 
                     tablePost.push(allPosts);

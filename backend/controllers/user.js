@@ -133,12 +133,13 @@ exports.displayIdUser = (req, res, next) => {
     userModel.findOne('id', userIdAuth)
         .then((response) => {
 
-            const role = response[0].role; // role du recuperateur
-            const userIdRec = response[0].id; //  id du recuperateur
+            const role = response.role; // role du recuperateur
+            const userIdRec = response.id; //  id du recuperateur
+
             userModel.findOne('id', reqParamsId)
                 .then((response) => {
 
-                    if (userIdRec === response[0].id || role === 1) {
+                    if (userIdRec === response.id || role === 1) {
                         res.status(200).json(response);
                     } else {
                         res.status(403).json({ error: 'vous n\'êtes pas autoridé a accéder a cette page !' });
