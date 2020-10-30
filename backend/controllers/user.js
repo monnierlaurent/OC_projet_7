@@ -50,7 +50,6 @@ exports.createUser = (req, res, next) => {
                     res.status(400).json({ error: 'Email déja utilisé !!!' });
                 } else {
 
-
                     const encryptedEmail = cryptr.encrypt(reqBody.email); //const decryptedEmail = cryptr.decrypt(encryptedEmail);
                     const encryptedNom = cryptr.encrypt(reqBody.nom); //const decryptedNom = cryptr.decrypt(encryptedNom);
                     const encryptedPrenom = cryptr.encrypt(reqBody.prenom); //const decryptedPrenom = cryptr.decrypt(encryptedPrenom);
@@ -63,10 +62,10 @@ exports.createUser = (req, res, next) => {
                             userModel.save(encryptedNom, encryptedPrenom, hashEmail, emailMask, hash, reqBody.role, encryptedEmail)
                                 .then((response) => {
                                     res.status(200).json({ message: 'Utilisateur enregistré !' });
-                                }); // faire catch
-                        });
+                                }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
+                        }).catch(() => res.status(500).json({ error: 'Erreur interne du serveur ' }));
                 };
-            });
+            }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
     } else {
         res.status(400).json({ message: 'Le mot de passe doit comporter entre 4 et 8 caratheres maximum ,1 majuscule , 1 chiffre' });
     };
@@ -75,7 +74,7 @@ exports.createUser = (req, res, next) => {
 exports.loginUser = (req, res, next) => {
 
     const reqBody = sanitize(req.body);
-    // vérification que la requête n'est pas vide
+
     if (reqBody.nom === undefined, reqBody.prenom === undefined, reqBody.email === undefined, reqBody.password === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
@@ -109,19 +108,19 @@ exports.loginUser = (req, res, next) => {
                                     )
                                 });
                             }).catch(() => res.status(500).json({ error: 'Erreur interne du serveur ' }));
-                    }); //faire catch
+                    }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
 
             } else {
                 res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
             };
-        });
+        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
 }; //fin login
 
 exports.displayUsers = (req, res, next) => {
     userModel.findAll()
         .then((response) => {
             res.status(200).json(response);
-        }); // faire catch
+        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
 };
 
 
@@ -144,8 +143,8 @@ exports.displayIdUser = (req, res, next) => {
                     } else {
                         res.status(403).json({ error: 'vous n\'êtes pas autoridé a accéder a cette page !' });
                     };
-                }); // faire catch
-        }); // faire catch
+                }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
 };
 
 
@@ -161,16 +160,15 @@ exports.deleteUser = (req, res, next) => {
             userModel.findOne('id', reqParamsId)
                 .then((response) => {
                     if (userIdRec === response[0].id || role === 1) {
-                        userModel.findOne(reqParamsId)
+                        userModel.deleteOne(reqParamsId)
                             .then(() => {
                                 res.status(200).json({ message: "Utilisateur supprimé !" });
-                            });
+                            }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                     } else {
                         res.status(403).json({ error: 'vous n\'êtes pas autoridé a supprimer un utilisateur !' });
                     };
-                }); // faire catch
-
-        }); // faire catch
+                }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
 };
 
 exports.updateUser = (req, res, next) => {
@@ -202,18 +200,17 @@ exports.updateUser = (req, res, next) => {
 
                         const role = reqBody.role;
 
-
                         bcrypt.hash(reqBody.password, 10)
                             .then(hash => {
 
                                 userModel.updateOne(encryptedNom, encryptedPrenom, hashEmail, emailMask, hash, role, encryptedEmail, reqParamsId)
                                     .then((response) => {
                                         res.status(200).json({ message: "Utilisateur mis a jour !" });
-                                    });
-                            }); // faire catch
+                                    }).catch(() => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }); });
+                            }).catch(() => res.status(500).json({ error: 'Erreur interne du serveur ' }));
                     } else {
                         return res.status(403).json({ message: "Vous n'êtes pas autorisé a mettre a jour les utilsateurs !" });
                     };
-                }); // faire catch aucun utilsateur ne corespond
-        }); // faire catch
+                }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
 };

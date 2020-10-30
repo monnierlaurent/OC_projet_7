@@ -28,7 +28,7 @@ exports.createPost = (req, res, next) => {
         postModel.save(userIdAuth, postsObject.titre, postsObject.contenu, imageUrl)
             .then(() => {
                 res.status(201).json({ message: 'message enregistré !!!' });
-            }); //faire un catch
+            }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
     } else {
         fs.unlink(`${req.file.filename}`, () => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }) });
     };
@@ -37,12 +37,11 @@ exports.createPost = (req, res, next) => {
 //----recuperer tous post de la BDD----
 exports.displayPost = (req, res, next) => {
     postModel.findAll()
+        .then(response => {
+            console.log(response)
+            res.status(201).json(response);
 
-    .then(response => {
-        console.log(response)
-        res.status(201).json(response);
-
-    }); //faire un catch
+        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
 }; ////fin exports
 
 //----recuperer un post par son ID----
@@ -55,7 +54,7 @@ exports.displayPostId = (req, res, next) => {
 
 
             res.status(201).json(response);
-        }); //faire un catch
+        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
 }; //fin exports
 
 
@@ -77,12 +76,12 @@ exports.deletePostId = (req, res, next) => {
                         postModel.deleteOne(reqParamsId)
                             .then(() => {
                                 res.status(200).json({ message: 'posts bien supprimé !' });
-                            }); //faire un catch
+                            }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                     } else {
                         res.status(403).json({ error: 'suppression impossible ,vous n\'êtes pas sont créateur !' });
                     };
-                }); //faire un catch
-        }); //faire un catch
+                }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
 }; //fin exports
 
 //----modification d'un post par son ID----
@@ -96,6 +95,7 @@ exports.updatePostId = (req, res, next) => {
         .then(response => {
             const userIdRec = response[0].id;
             const roleRec = response[0].role;
+
             postModel.findOne('posts', 'postId', reqParamsId)
                 .then((response) => {
                     if (response[0].userId === userIdRec || roleRec === 1) {
@@ -110,20 +110,20 @@ exports.updatePostId = (req, res, next) => {
                                 postModel.updateOne(postObject.titre, postObject.contenu, postObject.imageUrl, reqParamsId)
                                     .then(() => {
                                         res.status(200).json({ message: 'posts bien mis a jour !' });
-                                    }); //faire un catch
+                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                             });
                         } else {
                             const imageUrl = response[0].imageUrl;
                             postModel.updateOne(postObject.titre, postObject.contenu, imageUrl, reqParamsId)
                                 .then(() => {
                                     res.status(200).json({ message: 'posts bien mis a jour !' });
-                                }); //faire un catch
+                                }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                         };
 
                     } else {
                         res.status(403).json({ error: 'vous ne pouvez pas modifié ce post !' });
                     };
-                }); //faire un catch
+                }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
         });
 }; //fin exports
 
@@ -148,8 +148,8 @@ exports.likePost = (req, res, next) => {
                                 likeModel.likeUpdateOne('posts', 'likes', 'likes+1', 'postId', reqParamsId)
                                     .then(() => {
                                         res.status(201).json({ message: 'like enregistré !' });
-                                    });
-                            });
+                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                            }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
                     } else if (response[0].postLikeValeur === 1) {
                         res.status(201).json({ message: 'Vous avez déja liké !' });
                     } else if (response[0].postLikeValeur === -1) {
@@ -164,8 +164,8 @@ exports.likePost = (req, res, next) => {
                                 likeModel.likeUpdateOne('posts', 'dislikes', 'dislikes+1', 'postId', reqParamsId)
                                     .then(() => {
                                         res.status(201).json({ message: 'Dislike enregistré !' });
-                                    });
-                            });
+                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                            }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
                     } else if (response[0].postLikeValeur === 1) {
                         res.status(201).json({ message: 'Vous avez déja liké !' });
                     } else if (response[0].postLikeValeur === -1) {
@@ -185,8 +185,8 @@ exports.likePost = (req, res, next) => {
                                 likeModel.likeUpdateOne('posts', 'likes', 'likes-1', 'postId', reqParamsId)
                                     .then(() => {
                                         res.status(201).json({ message: 'Like supprimé !' });
-                                    });
-                            });
+                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                            }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                     };
                     if (response[0].postLikeValeur === -1) {
                         likeModel.likeDeleteOne('postLikes', 'postId', reqParamsId, 'userId', reqBody.userId)
@@ -194,12 +194,12 @@ exports.likePost = (req, res, next) => {
                                 likeModel.likeUpdateOne('posts', 'dislikes', 'dislikes-1', 'postId', reqParamsId)
                                     .then(() => {
                                         res.status(201).json({ message: 'Dislike supprimé !' });
-                                    });
-                            });
+                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                            }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                     };
                 };
 
-            }); //faire un catch
+            }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
     } else {
         res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
