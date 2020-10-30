@@ -13,27 +13,16 @@ html {
 
 a {
     text-decoration: none;
-}
-
-.bloc__link--flex {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: flex-end;
-    padding-right: 1.5em;
-}
-
-.bloc__link--padding {
-    font-family: sans-serif;
-    padding: 1em 1em 0 0;
     color: var(--noir);
-    font-size: 1.7em;
 }
 
 
 /*--------header-------*/
 
 .header--bgc--width--flex {
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -50,7 +39,7 @@ a {
 }
 
 .header__nav__a--style {
-    font-size: 1.7em;
+    font-size: 1.1em;
     color: var(--blanc);
     padding-right: 1.5em;
     text-decoration: none;
@@ -64,4 +53,182 @@ a {
 
 .header__nav__a--style:active {
     color: var(--violet);
+}
+
+
+/*--------------connection--------------*/
+
+.bloc__login--h1--style {
+    padding-top: 3em;
+    font-size: 3em;
+    font-family: sans-serif;
+}
+
+.bloc__login--flex {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bloc__login__form--flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bloc__login__form--label--style {
+    font-size: 2em;
+    padding: 0.5em 0 0.5em 0;
+    font-family: sans-serif;
+}
+
+.bloc__login__form--input--style {
+    font-size: 2em;
+    color: var(--noir);
+    border: 2px solid var(--noir);
+    font-family: sans-serif;
+    border-radius: 15px;
+    padding: 0 1em 0 1em;
+    box-shadow: 5px 5px 5px var(--gris1);
+}
+
+.bloc__form--btn {
+    margin: 1em 0 0 0;
+    padding: 0.1em 0.15em 0.2em 0.15em;
+    font-size: 2em;
+    background-color: var(--violet);
+    border: solid 1px var(--noir);
+    color: var(--noir);
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 5px 5px 5px var(--gris1);
+}
+
+.bloc__form--btn:hover {
+    background-color: var(--noir);
+    border: solid 1px var(--violet);
+    color: var(--violet);
+    box-shadow: 5px 5px 5px var(--violet);
+}
+
+
+/*----------------sigunp---------------*/
+
+.bloc__login--h1--style {
+    padding-top: 3em;
+    font-size: 3em;
+    font-family: sans-serif;
+}
+
+.bloc__login--flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bloc__login__form--flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bloc__login__form--label--style {
+    font-size: 2em;
+    padding: 0.5em 0 0.5em 0;
+    font-family: sans-serif;
+}
+
+.bloc__login__form--input--style {
+    font-size: 2em;
+    color: var(--noir);
+    border: 2px solid var(--noir);
+    font-family: sans-serif;
+    border-radius: 15px;
+    padding: 0 1em 0 1em;
+    box-shadow: 5px 5px 5px var(--gris1);
+}
+
+.bloc__form--btn {
+    margin: 1em 0 0 0;
+    padding: 0.1em 0.15em 0.2em 0.15em;
+    font-size: 2em;
+    background-color: var(--violet);
+    border: solid 1px var(--noir);
+    color: var(--noir);
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 5px 5px 5px var(--gris1);
+}
+
+.bloc__form--btn:hover {
+    background-color: var(--noir);
+    border: solid 1px var(--violet);
+    color: var(--violet);
+    box-shadow: 5px 5px 5px var(--violet);
+}
+
+
+/*---------------posts catalogue-----------------*/
+
+.bloc_principal--flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.bloc_section--flex-style {
+    position: fixed;
+    top: 0;
+    z-index: -1;
+    width: 15%;
+    padding: 7em 0 0 2em;
+    /*background-color: var(--vert);*/
+    display: flex;
+    flex-direction: column;
+    font-size: 1.3em;
+}
+
+.bloc_main--flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 8em;
+}
+
+.bloc_article--flex--width {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    border-bottom: solid 1px var(--gris1);
+    padding-bottom: 1em;
+}
+
+.bloc_article_div--flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.bloc_article_div_p--padding {
+    padding: 1em 0.7em 0.5em 0;
+    font-size: 1.2em;
+}
+
+.bloc_heading--style {
+    padding: 0 0 0.2em 0;
+    font-size: 2.5em;
+}
+
+.bloc_article_p2--style {
+    font-size: 1.5em;
+    padding: 0 0 0.5em 0;
+}
+
+.bloc_article_imq--width {
+    width: 100%;
+    height: auto;
+    padding-bottom: 0.5em;
 }
