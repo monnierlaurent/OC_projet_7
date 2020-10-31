@@ -77,7 +77,7 @@
     
     .bloc__login__form--label--style {
         font-size: 2em;
-        padding: 0.5em 0 0.5em 0;
+        padding: 0.2em 0 0.2em 0;
         font-family: sans-serif;
     }
     
@@ -87,12 +87,22 @@
         border: 2px solid var(--noir);
         font-family: sans-serif;
         border-radius: 15px;
+        padding: 0 0.5em 0 0.5em;
+        box-shadow: 5px 5px 5px var(--gris1);
+    }
+    
+    .bloc__login__form--input--style-2 {
+        font-size: 1.5em;
+        color: var(--noir);
+        border: 2px solid var(--noir);
+        font-family: sans-serif;
+        border-radius: 15px;
         padding: 0 1em 0 1em;
         box-shadow: 5px 5px 5px var(--gris1);
     }
     
     .bloc__form--btn {
-        margin: 1em 0 0 0;
+        margin: 0.5em 0 0 0;
         padding: 0.1em 0.15em 0.2em 0.15em;
         font-size: 2em;
         background-color: var(--violet);
@@ -112,7 +122,7 @@
     }
     
     .bloc__form_p--style {
-        padding-top: 1em;
+        padding-top: 0.5em;
         color: red;
     }
     /*----------------inscription---------------*/
@@ -121,14 +131,6 @@
         padding-top: 3em;
         font-size: 3em;
         font-family: sans-serif;
-    }
-    
-    .bloc__login--flex {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
     }
     
     .bloc_form3_login--style {
@@ -142,29 +144,9 @@
     }
     
     .bloc_login_img-style {
-        width: 20%;
+        margin-top: 1em;
+        width: 15%;
         opacity: 0.5;
-    }
-    
-    .bloc__login__form--label--style {
-        font-size: 2em;
-        padding: 0.5em 0 0.5em 0;
-        font-family: sans-serif;
-    }
-    
-    .bloc__login__form--input--style {
-        font-size: 2em;
-        color: var(--noir);
-        border: 2px solid var(--noir);
-        font-family: sans-serif;
-        border-radius: 15px;
-        padding: 0 1em 0 1em;
-        box-shadow: 5px 5px 5px var(--gris1);
-    }
-    
-    .bloc__form_p--style2 {
-        padding-top: 0.5em;
-        color: red;
     }
     /*---------------forum-----------------*/
     
@@ -406,14 +388,4 @@
         font-size: 1.5em;
         padding: 0.3em 0 0.3em 0;
         font-family: sans-serif;
-    }
-    
-    .bloc__login__form--input--style-2 {
-        font-size: 1.5em;
-        color: var(--noir);
-        border: 2px solid var(--noir);
-        font-family: sans-serif;
-        border-radius: 15px;
-        padding: 0 1em 0 1em;
-        box-shadow: 5px 5px 5px var(--gris1);
     }
