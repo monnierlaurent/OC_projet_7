@@ -10,35 +10,41 @@
 </head>
 
 <body>
-    <header id="header" class="header--bgc--width--flex">
+    <header id="header_signup" class="header--bgc--width--flex">
         <h1><img class="bloc--header__seize" src="../frontend/ressources/image/logo_white.png" alt="logo du reseaux social"></h1>
 
-        <nav id="nav" class="header__nav--padding">
-            <a id="inscription" class="header__nav__a--style">inscription</a>
-            <a id="connection" class="header__nav__a--style">connection</a>
+        <nav id="nav_signup" class="header__nav--padding">
+            <a id="inscription" class="header__nav__a--style" href="./signup.html">inscription</a>
+            <a id="connection" class="header__nav__a--style" href="./index.html">connection</a>
         </nav>
     </header>
 
-    <div class="bloc__login--flex">
+    <main id="main_signup" class="bloc__login--flex">
         <h1 class="bloc__login--h1--style">Inscription</h1>
 
         <form class="bloc__login__form--flex">
 
             <label class="bloc__login__form--label--style" for="nom">Nom</label>
             <input class="bloc__login__form--input--style" id="nom" type="text">
+            <p class="bloc__form_p--style2">Message d'erreur dans le champ</p>
 
             <label class="bloc__login__form--label--style" for="prenom">Prenom</label>
             <input class="bloc__login__form--input--style" id="prenom" type="text">
+            <p class="bloc__form_p--style2">Message d'erreur dans le champ</p>
 
             <label class="bloc__login__form--label--style" for="email">Email</label>
             <input class="bloc__login__form--input--style" id="email" type="email">
+            <p class="bloc__form_p--style2">Message d'erreur dans le champ</p>
 
             <label class="bloc__login__form--label--style" for="password">Mot de passe</label>
             <input class="bloc__login__form--input--style" id="password" type="password">
+            <p class="bloc__form_p--style2">Message d'erreur dans le champ</p>
 
-            <button class="bloc__form--btn">inscription</button>
+            <button id="btn_inscrip_signup" class="bloc__form--btn">inscription</button>
+
         </form>
-    </div>
+
+    </main>
 </body>
 
 </html>
