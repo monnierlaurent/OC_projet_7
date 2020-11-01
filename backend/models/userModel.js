@@ -69,7 +69,7 @@ class UserModel {
         const sql = `INSERT INTO users (nom, prenom,  email, emailMask, password, dateInscrip, role, dateModif, emailRec  ) VALUES ('${nom}','${prenom}','${emailH}','${emailM}','${password}',NOW(),${role},NOW(),'${emailR}')`;
         return new Promise((resolve) => {
             db.query(sql, (err, result, fields) => {
-                if (err) throw err;
+
                 resolve(result)
             });
         });

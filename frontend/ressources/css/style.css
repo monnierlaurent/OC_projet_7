@@ -15,6 +15,22 @@
         text-decoration: none;
         color: var(--noir);
     }
+    /*------message erreur-----*/
+    
+    .bloc__form--font--erreur {
+        color: var(--blanc);
+        padding-top: 0.5em;
+    }
+    
+    .bloc__form--font--erreur1 {
+        color: black;
+        padding-top: 0.5em;
+    }
+    
+    .bloc__form--font--erreur2 {
+        color: red;
+        padding-top: 0.5em;
+    }
     /*--------header-------*/
     
     .header--bgc--width--flex {
@@ -82,6 +98,7 @@
     }
     
     .bloc__login__form--input--style {
+        width: 100%;
         font-size: 2em;
         color: var(--noir);
         border: 2px solid var(--noir);
@@ -123,15 +140,8 @@
     
     .bloc__form_p--style {
         padding-top: 0.5em;
-        color: red;
     }
     /*----------------inscription---------------*/
-    
-    .bloc__login--h1--style {
-        padding-top: 3em;
-        font-size: 3em;
-        font-family: sans-serif;
-    }
     
     .bloc_form3_login--style {
         width: 7%;
@@ -149,11 +159,6 @@
         opacity: 0.5;
     }
     /*---------------forum-----------------*/
-    
-    .bloc_principal--flex {
-        display: flex;
-        flex-direction: row;
-    }
     
     .bloc_section--flex-style {
         position: fixed;
@@ -388,4 +393,35 @@
         font-size: 1.5em;
         padding: 0.3em 0 0.3em 0;
         font-family: sans-serif;
+    }
+    /*------------modal----------------*/
+    
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .modal-wrapper {
+        /*border: solid 3px var(--violet2);*/
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2em;
+        background-color: var(--blanc);
+        border: solid 2px var(--noir);
+        border-radius: 10px;
+        font-size: 2em;
+        box-shadow: 5px 5px 5px var(--gris1);
+        font-family: sans-serif;
+        text-align: center;
     }

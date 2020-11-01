@@ -15,62 +15,60 @@
         <h1><img class="bloc--header__seize" src="../frontend/ressources/image/logo_white.png" alt="logo du reseaux social"></h1>
 
         <nav id="nav_forum" class="header__nav--padding">
-            <a id="poster" class="header__nav__a--style">Poster un message</a>
+            <!--   <a id="poster" class="header__nav__a--style">Poster un message</a>
             <a id="retourForum" class="header__nav__a--style" href="./forum.html">Forum</a>
             <a id="compteUser" class="header__nav__a--style" href="./compteUser.html">Mon compte</a>
-            <a id="deconnection" class="header__nav__a--style" href="#">Déonnection</a>
+            <a id="deconnection" class="header__nav__a--style" href="#">Déonnection</a> -->
         </nav>
     </header>
 
 
-    <main id="main_forum" class="bloc_principal--flex">
+    <main id="main_forum" class="bloc_main--flex">
 
-        <div class="bloc_main--flex">
+        <form class="bloc_article--flex--width">
+            <label class="bloc__login__form--label--style-2" for="post_forum">Mon post :</label>
+            <textarea class="bloc__login__form--input--style-2" id="post_forum_text" rows="5"></textarea>
 
-            <form class="bloc_article--flex--width">
-                <label class="bloc__login__form--label--style-2" for="post_forum">Mon post :</label>
-                <textarea class="bloc__login__form--input--style-2" id="post_forum" rows="5" placeholder="mon text..."></textarea>
+            <div class="bloc_bloc__form--btn-flex">
+                <i class="fas fa-images" title="ajouter_un_image"></i>
+                <button id="btn_post_forum" class="bloc__form--btn-post">Poster</button>
+                <button id="btn_annule_forum" class="bloc__form--btn-post">Annuler</button>
+            </div>
+        </form>
 
-                <div class="bloc_bloc__form--btn-flex">
-                    <i class="fas fa-images" title="ajouter_un_image"></i>
-                    <button id="btn_post_forum" class="bloc__form--btn-post">Poster</button>
-                    <button id="btn_annule_forum" class="bloc__form--btn-post">Annuler</button>
-                </div>
-            </form>
-
-            <article class="bloc_article--flex--width ">
-                <a class="bloc_article_a--style " href="./postsDetail.html ">
-                    <div class="bloc_article_div--flex ">
-                        <p class="bloc_article_div_p--padding">nom</p>
-                        <p class="bloc_article_div_p--padding">prenom</p>
-                        <p class="bloc_article_div_p--padding">date</p>
-                    </div>
-
-                    <h2 class="bloc_heading--style ">titre</h2>
-
-                    <p class="bloc_article_p2--style ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, reiciendis voluptate eligendi, eaque nemo possimus suscipit vitae exercitationem, velit minima dignissimos recusandae pariatur aut nam illum ratione facilis veritatis.
-                        Ut?
-                    </p>
-
-                    <img class="bloc_article_img--width " src="./ressources/image/gif-anime_test.gif " alt="gif du post sur groupomania ">
-                </a>
-
+        <article class="bloc_article--flex--width">
+            <a class="bloc_article_a--style " href="./postsDetail.html ">
                 <div class="bloc_article_div--flex ">
-                    <i id="like-forum" class="fas fa-heart bloc_article_div_p--padding "></i>
-                    <p class="bloc_article_div_p--padding ">0</p>
-
-                    <i id="dislike-forum" class="fas fa-heart-broken bloc_article_div_p--padding "></i>
-                    <p class="bloc_article_div_p--padding ">0</p>
-
-                    <p class="bloc_article_div_p--padding "><a class="bloc_article_div_a--hover " href="./postsDetail.html ">Commenter</a></p>
+                    <p class="bloc_article_div_p--padding">nom</p>
+                    <p class="bloc_article_div_p--padding">prenom</p>
+                    <p class="bloc_article_div_p--padding">date</p>
                 </div>
-            </article>
 
-        </div>
+                <h2 class="bloc_heading--style ">titre</h2>
+
+                <p class="bloc_article_p2--style ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, reiciendis voluptate eligendi, eaque nemo possimus suscipit vitae exercitationem, velit minima dignissimos recusandae pariatur aut nam illum ratione facilis veritatis. Ut?
+                </p>
+
+                <img class="bloc_article_img--width " src="./ressources/image/gif-anime_test.gif " alt="gif du post sur groupomania ">
+            </a>
+
+            <div class="bloc_article_div--flex ">
+                <i id="like-forum" class="fas fa-heart bloc_article_div_p--padding "></i>
+                <p class="bloc_article_div_p--padding ">0</p>
+
+                <i id="dislike-forum" class="fas fa-heart-broken bloc_article_div_p--padding "></i>
+                <p class="bloc_article_div_p--padding ">0</p>
+
+                <p class="bloc_article_div_p--padding "><a class="bloc_article_div_a--hover " href="./postsDetail.html ">Commenter</a></p>
+            </div>
+        </article>
+
     </main>
 
 
-
+    <script src="./ressources/js/resquest.js"></script>
+    <script src="./ressources/js/createElements.js"></script>
+    <script src="./ressources/js/forum.js"></script>
 </body>
 
 </html>
