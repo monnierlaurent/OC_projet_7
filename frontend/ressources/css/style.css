@@ -15,6 +15,13 @@
         text-decoration: none;
         color: var(--noir);
     }
+    /*.btn_suppr_style {
+        border: none;
+        background-color: transparent;
+        outline: none;
+        padding: 0;
+     
+    }*/
     /*------message erreur-----*/
     
     .bloc__form--font--erreur {
@@ -186,6 +193,14 @@
         padding-bottom: 1em;
     }
     
+    .bloc_article--flex--width2 {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-bottom: solid 1px var(--gris1);
+        padding: 1em 0 1em 0;
+    }
+    
     .bloc_article_div--flex {
         display: flex;
         flex-direction: row;
@@ -218,6 +233,7 @@
     
     .bloc_article_div_a--hover:hover {
         color: var(--vert);
+        cursor: pointer;
     }
     
     .bloc_article_div_a--hover:active {
