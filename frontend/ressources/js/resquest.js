@@ -1,7 +1,9 @@
 const recupStorageAuth = sessionStorage.getItem('repAuth');
 const recupUserId = JSON.parse(recupStorageAuth);
+
+
 //function methode GET  (recuperation sans token)
-console.log(recupUserId.token);
+//console.log(recupUserId.token);
 async function request(url) {
     let response = await fetch(url);
     let data = await response.json();
@@ -17,7 +19,6 @@ async function requestAuth(url) {
     return data;
 };
 
-
 // function method post (envoie sans token)
 async function send(url, datas) {
     let response = await fetch(url, {
@@ -28,6 +29,7 @@ async function send(url, datas) {
     let data2 = await response.json();
     return data2;
 };
+
 // function method post (envoie avec token)
 async function sendAuth(url, data) {
     let response = await fetch(url, {
