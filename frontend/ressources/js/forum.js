@@ -22,14 +22,14 @@ createforum = () => {
         formPost.appendChild(createElm1('h2', 'Mon post :', 'class', 'bloc__login__form--label--style-2'));
 
         formPost.appendChild(createElm2('label', 'Titre :', 'class', 'bloc__login__form--label--style-2', 'for', 'post_forum_titre'));
-        formPost.appendChild(createInputs('input', 'id', 'post_forum_titre', 'class', 'bloc__login__form--input--style-2', 'name', 'titre'));
+        formPost.appendChild(createInputs('input', '', 'id', 'post_forum_titre', 'class', 'bloc__login__form--input--style-2', 'name', 'titre'));
 
         formPost.appendChild(createElm2('label', 'Message :', 'class', 'bloc__login__form--label--style-2', 'for', 'post_forum'));
-        formPost.appendChild(createInputs('textarea', 'id', 'post_forum_text', 'rows', '5', 'class', 'bloc__login__form--input--style-2', 'name', 'contenu'));
+        formPost.appendChild(createInputs('textarea', '', 'id', 'post_forum_text', 'rows', '5', 'cols', '33', 'class', 'bloc__login__form--input--style-2', 'name', 'contenu'));
 
         const formPost2 = formPost.appendChild(createElm2('form', '', 'class', 'bloc_article--flex--width2'));
         formPost2.appendChild(createElm2('label', 'Ajouter une image :', 'class', 'bloc__login__form--label--style-2', 'for', 'post_img'));
-        formPost2.appendChild(createInputs('input', 'class', '', 'id', 'post_img', 'type', 'file', 'accept', 'image/png, image/jpeg, image/gif', 'name', 'image'));
+        formPost2.appendChild(createInputs('input', '', 'class', '', 'id', 'post_img', 'type', 'file', 'accept', 'image/png, image/jpeg, image/gif', 'name', 'image'));
 
         const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', 'bloc_bloc__form--btn-flex', ));
         newDiv1.appendChild(createElm2('button', 'Poster', 'id', 'btn_post_forum', 'class', 'bloc__form--btn-post'));
@@ -108,6 +108,17 @@ createforum = () => {
             newLien3.appendChild(createElm2('a', 'Modifier', 'class', 'bloc_article_div_a--hover', 'href', './postsDetail.html?id=' + rep.postId));
 
             newDiv3.appendChild(createElm2('p', 'supprimer', 'id', 'btn_suppr_post', 'class', 'bloc_article_div_p--padding bloc_article_div_a--hover')); //+ rep.postId
+
+            const btnUpprPost = document.getElementById('btn_suppr_post');
+            btnUpprPost.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                const urlDeletePost = 'http://localhost:3000/api/post/' + rep.postId;
+                const datas = deleteAuth(urlDeletePost);
+                datas.then(deletePost => {
+                    modals(deletePost.message, 'forum', 'forum.html');
+                });
+            });
         });
         console.log(post);
     });

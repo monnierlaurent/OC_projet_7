@@ -6,10 +6,8 @@ createDetailPost = () => {
 
 
         const newSection = mainPostId.appendChild(createElm1('section', '', 'class', 'bloc_article--flex--width'));
-        //const newLien = newarticle.appendChild(createElm3('a', '', 'id', 'lien_article', 'class', 'bloc_article_a--style', 'href', './postsDetail.html?id=')); //+ rep.postId
 
         const newDiv2 = newSection.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
-
         newDiv2.appendChild(createElm1('p', postUnique.nom, 'class', 'bloc_article_div_p--padding'));
         newDiv2.appendChild(createElm1('p', postUnique.prenom, 'class', 'bloc_article_div_p--padding'));
         newDiv2.appendChild(createElm1('p', postUnique.dateCrea, 'class', 'bloc_article_div_p--padding'));
@@ -25,8 +23,8 @@ createDetailPost = () => {
         newDiv3.appendChild(createElm2('p', postUnique.dislikes, 'id', 'compteur_dislike', 'class', 'bloc_article_div_p--padding'));
 
         const newLien3 = newDiv3.appendChild(createElm2('p', '', 'id', 'btn_modif_post', 'class', 'bloc_article_div_p--padding'));
-        newLien3.appendChild(createElm2('a', 'Modifier', 'class', 'bloc_article_div_a--hover', 'href', './modifPost.html?id=')); //+ rep.postId
-        newDiv3.appendChild(createElm2('p', 'supprimer', 'id', 'btn_suppr_post', 'class', 'bloc_article_div_p--padding bloc_article_div_a--hover')); //+ rep.postId};
+        newLien3.appendChild(createElm2('a', 'Modifier', 'class', 'bloc_article_div_a--hover', 'href', './modifPost.html?id=' + postUnique.postId));
+        newDiv3.appendChild(createElm2('p', 'supprimer', 'id', 'btn_suppr_post', 'class', 'bloc_article_div_p--padding bloc_article_div_a--hover'));
 
         // creation du formulaire pour creer un commentaire
         const newForm = mainPostId.appendChild(createElm1('form', '', 'class', 'bloc_form--style bloc_article--flex--width'));
@@ -52,6 +50,23 @@ createDetailPost = () => {
         newDiv6.appendChild(createElm2('i', '', 'id', 'dislike_com', 'class', 'fas fa-heart-broken bloc_article_div_p--padding-2'));
         newDiv6.appendChild(createElm1('p', '0', 'class', 'bloc_article_div_p--padding-2'));
 
+        const btnAnnul = document.getElementById('btn_annuler_post');
+
+        btnAnnul.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location = './postsDetail.html?id=' + postUnique.postId;
+        });
+
+        const btnUpprPost = document.getElementById('btn_suppr_post');
+        btnUpprPost.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const urlDeletePost = 'http://localhost:3000/api/post/' + postUnique.postId;
+            const datas = deleteAuth(urlDeletePost);
+            datas.then(deletePost => {
+                modals(deletePost.message, 'forum', 'forum.html');
+            });
+        });
     }); //fin de then
 
 

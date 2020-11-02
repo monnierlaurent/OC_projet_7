@@ -219,12 +219,19 @@
     .bloc_article_p2--style {
         font-size: 1.5em;
         padding: 0 0 0.5em 0;
+        word-break: break-all;
     }
     
     .bloc_article_img--width {
         width: 100%;
         height: auto;
         padding-bottom: 0.5em;
+    }
+    
+    .bloc_article_img--width2 {
+        width: 30%;
+        height: auto;
+        padding: 1.5em 0 0 0;
     }
     
     .bloc_article_a--style:hover {

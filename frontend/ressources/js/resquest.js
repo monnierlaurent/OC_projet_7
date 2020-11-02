@@ -35,12 +35,20 @@ async function sendAuth(url, data) {
     let response = await fetch(url, {
         method: 'POST',
         headers: {
-            //'X-requested-With': 'xmlhttprequest',
             'Authorization': 'Bearer' + ' ' + recupUserId.token
         },
         body: data
-
     });
     let data3 = await response.json();
     return data3;
+};
+
+
+async function deleteAuth(url) {
+    let response = await fetch(url, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer' + ' ' + recupUserId.token }
+    });
+    let data = await response.json();
+    return data;
 };
