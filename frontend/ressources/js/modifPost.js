@@ -34,9 +34,6 @@ createFormModif = () => {
         });
 
     });
-
-
-
 }; // fin de createFormModif
 
 

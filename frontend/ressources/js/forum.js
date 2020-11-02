@@ -1,14 +1,28 @@
 //console.log(sessionStorage);
 // liens nav bar
+
+
+const mainIndex = document.getElementById('main_forum');
 createforum = () => {
-    const mainIndex = document.getElementById('main_forum');
 
     createNavBar = () => {
+        const recupStorage = sessionStorage.getItem('repAuth');
+        const recupUserId2 = JSON.parse(recupStorage);
+
         const navBar = document.getElementById('nav_forum');
         navBar.appendChild(createElm3('a', 'Poster un message', 'id', 'poster', 'class', 'header__nav__a--style', 'href', '#'));
         navBar.appendChild(createElm3('a', 'Forum', 'id', 'retourForum', 'class', 'header__nav__a--style', 'href', './forum.html'));
-        navBar.appendChild(createElm3('a', 'Mon compte', 'id', 'compteUser', 'class', 'header__nav__a--style', 'href', './compteUser.html'));
+        navBar.appendChild(createElm3('a', 'Mon compte', 'id', 'compteUser', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId2.userId));
         navBar.appendChild(createElm3('a', 'Déonnection', 'id', 'deconnection', 'class', 'header__nav__a--style', 'href', './index.html'));
+
+        const btnPosteMessage = document.getElementById('poster');
+        btnPosteMessage.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const recupFormCreatePost = document.getElementById('form_post');
+            recupFormCreatePost.removeAttribute('class');
+            recupFormCreatePost.setAttribute('class', 'bloc_article--flex--width');
+        });
     };
 
     createNavBar();
@@ -18,7 +32,7 @@ createforum = () => {
     // creation de l'affichage des messages
 
     createFormPost = () => {
-        const formPost = mainIndex.appendChild(createElm2('form', '', 'id', 'form_post', 'class', 'bloc_article--flex--width'));
+        const formPost = mainIndex.appendChild(createElm2('form', '', 'id', 'form_post', 'class', 'display--none'));
         formPost.appendChild(createElm1('h2', 'Mon post :', 'class', 'bloc__login__form--label--style-2'));
 
         formPost.appendChild(createElm2('label', 'Titre :', 'class', 'bloc__login__form--label--style-2', 'for', 'post_forum_titre'));
@@ -38,10 +52,9 @@ createforum = () => {
         const image = document.getElementById('post_img').files;
         const BtnPost = document.getElementById('btn_post_forum');
 
-        const recupStorageAuth = sessionStorage.getItem('repAuth');
-        const recupUserId = JSON.parse(recupStorageAuth);
-
-        const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId.userId;
+        const recupStorage2 = sessionStorage.getItem('repAuth');
+        const recupUserId3 = JSON.parse(recupStorage2);
+        const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId3.userId;
 
         const datas = requestAuth(urlUserID);
         datas.then(user => {
@@ -76,12 +89,12 @@ createforum = () => {
     };
     createFormPost();
 
-
     // creation des messages 
 
     const urlpostAll = 'http://localhost:3000/api/post';
     const datas = requestAuth(urlpostAll);
     datas.then(post => {
+
         post.forEach(rep => {
 
             const newarticle = mainIndex.appendChild(createElm1('article', '', 'class', 'bloc_article--flex--width'));
