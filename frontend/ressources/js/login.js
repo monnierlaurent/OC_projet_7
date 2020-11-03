@@ -1,29 +1,8 @@
 createLogin = () => {
 
-    // liens nav bar
-    const navBar = document.getElementById('nav_index');
-    navBar.appendChild(createElm3('a', 'Inscription', 'id', 'inscription', 'class', 'header__nav__a--style', 'href', './signup.html'));
-    navBar.appendChild(createElm3('a', 'Connection', 'id', 'connection', 'class', 'header__nav__a--style', 'href', './index.html'));
+    createNavBar();
 
-    //creation de la section main
-    const mainIndex = document.getElementById('mainIndex');
-    mainIndex.appendChild(createElm1('h2', 'Connection', 'class', 'bloc__login--h1--style'));
-
-    // creation du formulaire
-    const newForm = mainIndex.appendChild(createElm1('form', '', 'class', 'bloc__login__form--flex'));
-    newForm.appendChild(createElm2('label', 'Email :', 'class', 'bloc__login__form--label--style', 'for', 'email'));
-    newForm.appendChild(createElm3('input', '', 'id', 'email', 'class', 'bloc__login__form--input--style', 'type', 'text'));
-    newForm.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur1', 'class', 'bloc__form_p--style'));
-
-    newForm.appendChild(createElm2('label', 'Mot de passe :', 'class', 'bloc__login__form--label--style', 'for', 'password'));
-    newForm.appendChild(createElm3('input', '', 'id', 'password', 'class', 'bloc__login__form--input--style', 'type', 'password'));
-    newForm.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur2', 'class', 'bloc__form_p--style'));
-
-    const newBtnConnection = mainIndex.appendChild(createElm2('button', 'connection', 'id', 'btn_connect_index', 'class', 'bloc__form--btn'));
-
-    mainIndex.appendChild(createElm2('p', 'l\'email ou le mot de passe son erroné', 'id', 'erreur3', 'class', 'bloc__form--font--erreur'));
-
-    mainIndex.appendChild(createElm3('img', '', 'class', 'bloc_login_img-style', 'src', './ressources/image/backgroud_index.png', 'alt', 'logo_groupomania'));
+    createFormLogin();
 
     envoiRequest = () => {
 
@@ -76,6 +55,8 @@ createLogin = () => {
 
         valide();
 
+        const newBtnConnection = document.getElementById('btn_connect_index');
+
         newBtnConnection.addEventListener('click', () => {
             if (regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false) {
                 const contact = {
@@ -96,12 +77,12 @@ createLogin = () => {
                         window.location = 'forum.html';
                     };
 
-                }).catch((error => {
+                }).catch((error) => {
 
                     // faire spinner
                     modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
 
-                })); //fin catch
+                }); //fin catch
 
             } else {
                 paragErreur3.setAttribute('class', 'bloc__form--font--erreur2');

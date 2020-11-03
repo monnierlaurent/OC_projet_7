@@ -35,6 +35,7 @@ async function sendAuth(url, data) {
     let response = await fetch(url, {
         method: 'POST',
         headers: {
+
             'Authorization': 'Bearer' + ' ' + recupUserId.token
         },
         body: data
@@ -47,7 +48,10 @@ async function sendAuth(url, data) {
 async function deleteAuth(url) {
     let response = await fetch(url, {
         method: 'DELETE',
-        headers: { 'Authorization': 'Bearer' + ' ' + recupUserId.token }
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + ' ' + recupUserId.token
+        }
     });
     let data = await response.json();
     return data;

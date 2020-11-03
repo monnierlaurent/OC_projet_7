@@ -74,11 +74,16 @@ exports.deletePostId = (req, res, next) => {
 
                         postModel.deleteOne(reqParamsId)
                             .then(() => {
-                                res.status(200).json({ message: 'posts bien supprimé !' });
+                                const filename = response[0].imageUrl.split('/images/')[1];
+                                fs.unlink(`images/${filename}`, () => {
+                                    res.status(200).json({ message: 'posts bien supprimé !' });
+                                });
                             }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+
                     } else {
                         res.status(403).json({ error: 'suppression impossible ,vous n\'êtes pas sont créateur !' });
                     };
+
                 }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
         }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
 }; //fin exports
