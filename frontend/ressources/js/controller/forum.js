@@ -23,7 +23,7 @@ createforum = () => {
 
         createFormPost();
 
-        const image = document.getElementById('post_img').files;
+
         const BtnPost = document.getElementById('btn_post_forum');
 
         const recupStorage2 = sessionStorage.getItem('repAuth');
@@ -34,29 +34,46 @@ createforum = () => {
         datas1.then(user => {
 
             BtnPost.addEventListener('click', (event) => {
-
                 event.preventDefault();
+
+                const image = document.getElementById('post_img').files;
                 const titre = document.getElementById('post_forum_titre');
                 const contenu = document.getElementById('post_forum_text');
                 const auteur = user.nom + ' ' + user.prenom;
 
-                const posts10 = {
-                    titre: titre.value,
-                    auteur: auteur,
-                    contenu: contenu.value,
+                if (image[0]) {
+                    console.log('avec image');
+                    const posts10 = {
+                        titre: titre.value,
+                        auteur: auteur,
+                        contenu: contenu.value,
+                    };
+                    const posts = JSON.stringify(posts10);
+
+                    const data = new FormData();
+                    data.append('image', image[0]);
+                    data.append('posts', posts);
+
+                    console.log(image);
+                    const postObjsect = sendAuthFormdata('http://localhost:3000/api/post/img', data);
+
+                    postObjsect.then(response => {
+                        console.log(response);
+                        window.location = './forum.html';
+                    });
+
+                } else {
+                    const posts = {
+                        titre: titre.value,
+                        auteur: auteur,
+                        contenu: contenu.value,
+                    };
+                    const postObjsect = sendAuthJson('http://localhost:3000/api/post', posts);
+                    postObjsect.then(response => {
+                        console.log(response);
+                        window.location = './forum.html';
+                    });
                 };
-                const posts = JSON.stringify(posts10);
-
-                const data = new FormData();
-                data.append('image', image[0]);
-                data.append('posts', posts);
-
-                console.log(image);
-                const postObjsect = sendAuth('http://localhost:3000/api/post', data);
-
-                postObjsect.then(response => {
-                    console.log(response)
-                });
             });
         }); // fin resquete
 
@@ -65,7 +82,7 @@ createforum = () => {
         const urlpostAll = 'http://localhost:3000/api/post';
         const datas2 = requestAuth(urlpostAll);
         datas2.then(post => {
-            console.log(post)
+
             post.forEach(rep => {
 
                 createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.dateCrea, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes);
@@ -84,6 +101,6 @@ createforum = () => {
             });
 
         });
-    }; // fin de if
+    }; //fin de else
 }; // fin createForum
 createforum();

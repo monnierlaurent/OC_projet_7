@@ -9,7 +9,8 @@ const comCtrl = require('../controllers/com');
 
 
 // routes messages
-router.post('/', auth, multer, postCtrl.createPost);
+router.post('/img', auth, multer, postCtrl.createPostImg);
+router.post('/', auth, postCtrl.createPost);
 
 router.get('/', auth, postCtrl.displayPost);
 router.get('/:id', auth, postCtrl.displayPostId);

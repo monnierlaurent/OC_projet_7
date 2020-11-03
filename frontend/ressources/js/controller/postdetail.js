@@ -5,7 +5,7 @@ createDetailPost = () => {
     console.log(recupUserId3.userId)
 
     if (recupUserId3 === null) {
-        modals('Vous n\avez pas accès a cette ressource !', 'Inscription', './signup.html')
+        modals('Vous n\avez pas accès a cette ressource !', 'Inscription', './signup.html');
     } else {
         createNavrbar(recupUserId3.userId);
 

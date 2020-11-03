@@ -6,15 +6,22 @@ const cryptr = new Cryptr('@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel');
 class PostsModel {
     constructor() {};
 
-    save(userId, titre, contenu, image) {
+    save(userId, titre, contenu) {
+        const sql = `INSERT INTO posts (userid ,titre, contenu, dateCrea, dateModif,imageUrl, likes ,dislikes) VALUES ('${userId}','${titre}', '${contenu}',now(),now(),'',0,0)`;
+        return new Promise((resolve) => {
+            db.query(sql, function(err, result, fields) {
+
+                resolve(result);
+            });
+        });
+    }; //fin de save
+
+
+    saveImg(userId, titre, contenu, image) {
         const sql = `INSERT INTO posts (userid ,titre, contenu, dateCrea, dateModif,imageUrl, likes ,dislikes) VALUES ('${userId}','${titre}', '${contenu}',now(),now(),'${image}',0,0)`;
         return new Promise((resolve) => {
             db.query(sql, function(err, result, fields) {
-                //if (err) throw err;
-
                 resolve(result);
-
-
             });
         });
     }; //fin de save

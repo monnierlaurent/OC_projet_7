@@ -30,7 +30,7 @@ async function send(url, datas) {
 };
 
 // function method POST (envoie avec token) JSON
-async function send(url, datas) {
+async function sendAuthJson(url, datas) {
     let response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -44,7 +44,7 @@ async function send(url, datas) {
 };
 
 // function method POST (envoie avec token) FORMDATA
-async function sendAuth(url, data) {
+async function sendAuthFormdata(url, data) {
     let response = await fetch(url, {
         method: 'POST',
         headers: {

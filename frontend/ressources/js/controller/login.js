@@ -65,6 +65,7 @@ createLogin = () => {
                 };
 
                 const datas = send('http://localhost:3000/api/auth/login', contact);
+                console.log(datas)
                 datas.then(response => {
 
                     if (response.error) {
@@ -77,10 +78,10 @@ createLogin = () => {
                         window.location = 'forum.html';
                     };
 
-                }).catch((error) => {
+                }).catch(() => {
 
                     // faire spinner
-                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                    modals('Désolé !<br>Le serveur ne repond pas ', 'Connection', './index.html');
 
                 }); //fin catch
 

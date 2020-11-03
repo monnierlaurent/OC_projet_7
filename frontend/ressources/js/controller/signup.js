@@ -1,4 +1,5 @@
 createLogin = () => {
+
     createNavbar();
 
     createFormSignup();
@@ -9,7 +10,6 @@ createLogin = () => {
     const paragErreur4 = document.getElementById('erreur4');
     const paragErreur5 = document.getElementById('erreur5');
 
-
     const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20} *$/;
     const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[a-zA-Z1-9.-_]+[.]{1}[a-zA-Z1-9]{2,10}$/;
     const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{4,255}/;
@@ -19,18 +19,17 @@ createLogin = () => {
     const email = document.getElementById('email');
     const password = document.getElementById('password');
 
-
     valide = () => {
         nom.addEventListener('change', (event) => {
             event.preventDefault;
 
             if (nom.value.length === 0) {
                 paragErreur1.setAttribute('class', 'bloc__form--font--erreur1');
-                paragErreur1.innerHTML = '* champ obligatoire 10';
+                paragErreur1.innerHTML = '* champ obligatoire';
 
             } else if (regexNomPrenom.test(nom.value) === true) {
                 paragErreur1.setAttribute('class', 'bloc__form--font--erreur1');
-                paragErreur1.innerHTML = '* champ obligatoire10';
+                paragErreur1.innerHTML = '* champ obligatoire';
 
             } else if (regexNomPrenom.test(nom.value) === false) {
                 paragErreur1.setAttribute('class', 'bloc__form--font--erreur2');

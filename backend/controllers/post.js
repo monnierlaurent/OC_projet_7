@@ -7,8 +7,7 @@ const postModel = new PostModel();
 const likeModel = new LikeModel();
 
 //----enregister un post sur la table POSTS la  BDD----
-exports.createPost = (req, res, next) => {
-
+exports.createPostImg = (req, res, next) => {
     const userIdAuth = sanitize(req.userIdAuth);
     const reqBody = sanitize(req.body);
 
@@ -25,13 +24,27 @@ exports.createPost = (req, res, next) => {
 
         const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
 
-        postModel.save(userIdAuth, postsObject.titre, postsObject.contenu, imageUrl)
+        postModel.saveImg(userIdAuth, postsObject.titre, postsObject.contenu, imageUrl)
             .then(() => {
                 res.status(201).json({ message: 'message enregistré !!!' });
             }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
     } else {
         fs.unlink(`${req.file.filename}`, () => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }) });
     };
+};
+
+exports.createPost = (req, res, next) => {
+    const userIdAuth = sanitize(req.userIdAuth);
+    const reqBody = sanitize(req.body);
+
+    if (reqBody.titre === undefined || reqBody.contenu === undefined) {
+        return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+    };
+
+    postModel.save(userIdAuth, reqBody.titre, reqBody.contenu)
+        .then(() => {
+            res.status(201).json({ message: 'message enregistré !!!' });
+        }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
 };
 
 //----recuperer tous post de la BDD----
