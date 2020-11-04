@@ -15,7 +15,8 @@ router.post('/', auth, postCtrl.createPost);
 router.get('/', auth, postCtrl.displayPost);
 router.get('/:id', auth, postCtrl.displayPostId);
 
-router.put('/:id', auth, multer, postCtrl.updatePostId);
+router.put('/img/:id', auth, multer, postCtrl.updatePostIdImg);
+router.put('/:id', auth, postCtrl.updatePostId);
 
 router.delete('/:id', auth, postCtrl.deletePostId);
 

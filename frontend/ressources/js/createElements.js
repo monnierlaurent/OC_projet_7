@@ -20,6 +20,15 @@ createElm3 = (balise, value, attribut1, attributValue1, attribut2, attributValue
     newElm3.innerHTML = value;
     return newElm3;
 };
+createElm4 = (balise, value, attribut1, attributValue1, attribut2, attributValue2, attribut3, attributValue3, attribut4, attributValue4) => {
+    const newElm4 = document.createElement(balise);
+    newElm4.setAttribute(attribut1, attributValue1);
+    newElm4.setAttribute(attribut2, attributValue2);
+    newElm4.setAttribute(attribut3, attributValue3);
+    newElm4.setAttribute(attribut4, attributValue4);
+    newElm4.innerHTML = value;
+    return newElm4;
+};
 
 createInputs = (balise, value, atb1, atbVal1, atb2, atbVal2, atb3, atbVal3, atb4, atbVal4, atb5, atbVal5) => {
     const newInput = document.createElement(balise);

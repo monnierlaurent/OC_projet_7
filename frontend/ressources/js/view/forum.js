@@ -29,16 +29,19 @@ createFormPost = () => {
 
 createDisplayPostImg = (repPostId, repNom, repPrenom, repDateCrea, repTitre, repContenu, repImageUrl, repLikes, repDislikes) => {
 
+
+
+
     const newarticle = mainIndex.appendChild(createElm1('article', '', 'class', 'bloc_article--flex--width'));
     const newLien = newarticle.appendChild(createElm3('a', '', 'id', 'lien_article', 'class', 'bloc_article_a--style', 'href', './postsDetail.html?id=' + repPostId));
-    const newDiv2 = newLien.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
+    const newDiv2 = newLien.appendChild(createElm2('div', '', 'id', 'div_img_suppr', 'class', 'bloc_article_div--flex'));
     newDiv2.appendChild(createElm1('p', repNom, 'class', 'bloc_article_div_p--padding'));
     newDiv2.appendChild(createElm1('p', repPrenom, 'class', 'bloc_article_div_p--padding'));
     newDiv2.appendChild(createElm1('p', repDateCrea, 'class', 'bloc_article_div_p--padding'));
 
     newLien.appendChild(createElm1('h2', repTitre, 'class', 'bloc_heading--style'));
     newLien.appendChild(createElm1('p', repContenu, 'class', 'bloc_article_p2--style'));
-    newLien.appendChild(createElm3('img', '', 'class', 'bloc_article_img--width', 'src', repImageUrl, 'alt', 'gif du post sur groupomania'));
+    newLien.appendChild(createElm3('img', '', 'id', 'img_post_display', 'class', 'bloc_article_img--width', 'src', repImageUrl));
 
     newDiv3 = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
     newDiv3.appendChild(createElm2('i', '', 'id', 'like-forum', 'class', 'fas fa-heart bloc_article_div_p--padding'));
@@ -50,35 +53,5 @@ createDisplayPostImg = (repPostId, repNom, repPrenom, repDateCrea, repTitre, rep
     newLien2.appendChild(createElm2('a', 'commenter', 'class', 'bloc_article_div_a--hover', 'href', './postsDetail.html?id=' + repPostId));
 
     const newLien3 = newDiv3.appendChild(createElm2('p', '', 'id', 'btn_modif_post', 'class', 'bloc_article_div_p--padding'));
-    newLien3.appendChild(createElm2('a', 'Modifier', 'class', 'bloc_article_div_a--hover', 'href', './modifPost.html?id=' + repPostId));
-
-    newDiv3.appendChild(createElm2('p', 'supprimer', 'id', 'btn_suppr_post', 'class', 'bloc_article_div_p--padding bloc_article_div_a--hover'));
-};
-
-createDisplayPost = (repPostId, repNom, repPrenom, repDateCrea, repTitre, repContenu, repLikes, repDislikes) => {
-
-    const newarticle = mainIndex.appendChild(createElm1('article', '', 'class', 'bloc_article--flex--width'));
-    const newLien = newarticle.appendChild(createElm3('a', '', 'id', 'lien_article', 'class', 'bloc_article_a--style', 'href', './postsDetail.html?id=' + repPostId));
-    const newDiv2 = newLien.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
-    newDiv2.appendChild(createElm1('p', repNom, 'class', 'bloc_article_div_p--padding'));
-    newDiv2.appendChild(createElm1('p', repPrenom, 'class', 'bloc_article_div_p--padding'));
-    newDiv2.appendChild(createElm1('p', repDateCrea, 'class', 'bloc_article_div_p--padding'));
-
-    newLien.appendChild(createElm1('h2', repTitre, 'class', 'bloc_heading--style'));
-    newLien.appendChild(createElm1('p', repContenu, 'class', 'bloc_article_p2--style'));
-    //newLien.appendChild(createElm3('img', '', 'class', 'bloc_article_img--width', 'src', repImageUrl, 'alt', 'gif du post sur groupomania'));
-
-    newDiv3 = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
-    newDiv3.appendChild(createElm2('i', '', 'id', 'like-forum', 'class', 'fas fa-heart bloc_article_div_p--padding'));
-    newDiv3.appendChild(createElm2('p', repLikes, 'id', 'compteur_like', 'class', 'bloc_article_div_p--padding'));
-    newDiv3.appendChild(createElm2('i', '', 'id', 'dislike-forum', 'class', 'fas fa-heart-broken bloc_article_div_p--padding'));
-    newDiv3.appendChild(createElm2('p', repDislikes, 'id', 'compteur_dislike', 'class', 'bloc_article_div_p--padding'));
-
-    const newLien2 = newDiv3.appendChild(createElm2('p', '', 'id', 'btn_com_post', 'class', 'bloc_article_div_p--padding'));
-    newLien2.appendChild(createElm2('a', 'commenter', 'class', 'bloc_article_div_a--hover', 'href', './postsDetail.html?id=' + repPostId));
-
-    const newLien3 = newDiv3.appendChild(createElm2('p', '', 'id', 'btn_modif_post', 'class', 'bloc_article_div_p--padding'));
-    newLien3.appendChild(createElm2('a', 'Modifier', 'class', 'bloc_article_div_a--hover', 'href', './modifPost.html?id=' + repPostId));
-
-    newDiv3.appendChild(createElm2('p', 'supprimer', 'id', 'btn_suppr_post', 'class', 'bloc_article_div_p--padding bloc_article_div_a--hover'));
+    newLien3.appendChild(createElm2('a', 'Modifier', 'class', 'bloc_article_div_a--hover', 'href', './postsDetail.html?id=' + repPostId));
 };

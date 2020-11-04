@@ -66,8 +66,9 @@ createforum = () => {
                     const posts = {
                         titre: titre.value,
                         auteur: auteur,
-                        contenu: contenu.value,
+                        contenu: contenu.value
                     };
+
                     const postObjsect = sendAuthJson('http://localhost:3000/api/post', posts);
                     postObjsect.then(response => {
                         console.log(response);
@@ -86,18 +87,6 @@ createforum = () => {
             post.forEach(rep => {
 
                 createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.dateCrea, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes);
-
-                const btnUpprPost = document.getElementById('btn_suppr_post');
-                btnUpprPost.addEventListener('click', (event) => {
-                    event.preventDefault();
-
-                    const urlDeletePost = 'http://localhost:3000/api/post/' + rep.postId;
-                    const datasuppr = deleteAuth(urlDeletePost);
-                    datasuppr.then(deletePost => {
-                        modals(deletePost.message, 'forum', 'forum.html');
-                    });
-                }); // fin de btnUpprPost
-
             });
 
         });

@@ -6,7 +6,7 @@ const cryptr = new Cryptr('@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel');
 class PostsModel {
     constructor() {};
 
-    save(userId, titre, contenu) {
+    save(userId, titre, contenu, image) {
         const sql = `INSERT INTO posts (userid ,titre, contenu, dateCrea, dateModif,imageUrl, likes ,dislikes) VALUES ('${userId}','${titre}', '${contenu}',now(),now(),'',0,0)`;
         return new Promise((resolve) => {
             db.query(sql, function(err, result, fields) {
@@ -142,7 +142,7 @@ class PostsModel {
 
     updateOne(titre, contenu, image, paramsId) {
         const sql = `UPDATE posts SET titre='${titre}', contenu='${contenu}', dateModif=now(), imageUrl='${image}' WHERE postId='${paramsId}'`;
-
+        console.log(sql);
         return new Promise((resolve) => {
             db.query(sql, (err, result, fields) => {
 

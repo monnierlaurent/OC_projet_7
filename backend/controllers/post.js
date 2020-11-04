@@ -102,7 +102,7 @@ exports.deletePostId = (req, res, next) => {
 }; //fin exports
 
 //----modification d'un post par son ID----
-exports.updatePostId = (req, res, next) => {
+exports.updatePostIdImg = (req, res, next) => {
 
     const reqParamsId = sanitize(req.params.id);
     const userIdAuth = sanitize(req.userIdAuth);
@@ -115,27 +115,57 @@ exports.updatePostId = (req, res, next) => {
 
             postModel.findOne('posts', 'postId', reqParamsId)
                 .then((response) => {
+
                     if (response.userId === userIdRec || roleRec === 1) {
 
-                        const postObject = req.file ? {...JSON.parse(req.body.posts),
-                            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-                        } : {...req.body };
+                        const reqBodyParse = JSON.parse(req.body.posts);
+                        console.log(req.body.posts);
+                        console.log(req.file);
 
-                        if (req.file) {
-                            const filename = response.imageUrl.split("/images")[1];
-                            fs.unlink(`images/${filename}`, () => {
-                                postModel.updateOne(postObject.titre, postObject.contenu, postObject.imageUrl, reqParamsId)
-                                    .then(() => {
-                                        res.status(200).json({ message: 'posts bien mis a jour !' });
-                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
-                            });
-                        } else {
-                            const imageUrl = response[0].imageUrl;
-                            postModel.updateOne(postObject.titre, postObject.contenu, imageUrl, reqParamsId)
-                                .then(() => {
-                                    res.status(200).json({ message: 'posts bien mis a jour !' });
-                                }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
-                        };
+                        const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+
+                        const filename = response[0].imageUrl.split("/images")[1];
+                        console.log(filename);
+
+                        fs.unlink(`images/${filename}`, () => {
+
+                            postModel.updateOne(reqBodyParse.titre, reqBodyParse.contenu, imageUrl, reqParamsId)
+
+                            .then(() => {
+                                res.status(200).json({ message: 'posts bien mis a jour !' });
+                            }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                        });
+                    } else {
+                        res.status(403).json({ error: 'vous ne pouvez pas modifié ce post !' });
+                    };
+                }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+        });
+}; //fin exports
+
+
+exports.updatePostId = (req, res, next) => {
+
+    const reqParamsId = sanitize(req.params.id);
+    const userIdAuth = sanitize(req.userIdAuth);
+    const reqBody = sanitize(req.body);
+
+    postModel.findOne('users', 'id', userIdAuth)
+        .then(response => {
+
+            const userIdRec = response[0].id;
+            const roleRec = response[0].role;
+
+            postModel.findOne('posts', 'postId', reqParamsId)
+                .then((response) => {
+
+                    if (response[0].userId === userIdRec || roleRec === 1) {
+
+                        const imageUrl = response[0].imageUrl;
+
+                        postModel.updateOne(reqBody.titre, reqBody.contenu, imageUrl, reqParamsId)
+                            .then(() => {
+                                res.status(200).json({ message: 'posts bien mis a jour !' });
+                            }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
 
                     } else {
                         res.status(403).json({ error: 'vous ne pouvez pas modifié ce post !' });

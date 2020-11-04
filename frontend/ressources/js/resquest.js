@@ -67,14 +67,30 @@ async function deleteAuth(url) {
     let data = await response.json();
     return data;
 };
-// function method PUT (envoie avec token)
-async function putAuth(url) {
+// function method PUT (envoie avec token) formdata
+
+async function putAuthFormdata(url, data) {
     let response = await fetch(url, {
         method: 'PUT',
         headers: {
             'Authorization': 'Bearer' + ' ' + recupUserId.token
-        }
+        },
+        body: data
     });
-    let data = await response.json();
-    return data;
+    let data3 = await response.json();
+    return data3;
+};
+
+// function method PUT (envoie avec token) json
+async function putAuthJson(url, datas) {
+    let response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + ' ' + recupUserId.token
+        },
+        body: JSON.stringify(datas)
+    });
+    let data2 = await response.json();
+    return data2;
 };
