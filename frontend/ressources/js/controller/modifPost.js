@@ -54,7 +54,12 @@ createFormModif = () => {
                         postObjsect.then(response => {
 
                             window.location = './forum.html';
-                        });
+                        }).catch((error => {
+
+                            // faire spinner
+                            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                        })); //fin catch
 
                     } else {
                         const posts = {
@@ -65,12 +70,27 @@ createFormModif = () => {
                         postObjsect.then(response => {
 
                             window.location = './forum.html';
-                        });
+                        }).catch((error => {
+
+                            // faire spinner
+                            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                        })); //fin catch
                     };
-                });
+                }).catch((error => {
+
+                    // faire spinner
+                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                })); //fin catch
 
             });
-        }); //fin de else
+        }).catch((error => {
+
+            // faire spinner
+            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+        })); //fin catch
     };
 }; // fin de createFormModif
 

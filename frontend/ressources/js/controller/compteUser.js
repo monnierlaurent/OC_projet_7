@@ -36,9 +36,19 @@ createUsersCompte = () => {
                 const supprDatas = deleteAuth(idUser);
                 supprDatas.then(response => {
                     modals(response.error, 'Inscription', 'signup.html');
-                }); //fin de then
+                }).catch((error => {
+
+                    // faire spinner
+                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                })); //fin catch
             });
-        }); //fin de then
+        }).catch((error => {
+
+            // faire spinner
+            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+        })); //fin catch
 
 
         const datas2 = requestAuth(urlUser);
@@ -77,9 +87,19 @@ createUsersCompte = () => {
                 postModifUser.then(response => {
 
                     window.location = './compteUser.html?id=' + userDatas.id;
-                });
+                }).catch((error => {
+
+                    // faire spinner
+                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                })); //fin catch
             });
-        }); //fin de then
+        }).catch((error => {
+
+            // faire spinner
+            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+        })); //fin catch
     };
 }; //fin de createUsersCompte
 

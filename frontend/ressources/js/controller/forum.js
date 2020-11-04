@@ -56,7 +56,12 @@ createforum = () => {
                     postObjsect.then(response => {
 
                         window.location = './forum.html';
-                    });
+                    }).catch((error => {
+
+                        // faire spinner
+                        modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                    })); //fin catch
 
                 } else {
                     const posts = {
@@ -69,10 +74,20 @@ createforum = () => {
                     postObjsect.then(response => {
 
                         window.location = './forum.html';
-                    });
+                    }).catch((error => {
+
+                        // faire spinner
+                        modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                    })); //fin catch
                 };
             });
-        }); // fin resquete
+        }).catch((error => {
+
+            // faire spinner
+            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+        })); //fin catch 
 
         // creation des messages 
 
@@ -101,12 +116,22 @@ createforum = () => {
                     datas2.then((response) => {
 
                         window.location = './forum.html';
-                    });
+                    }).catch((error => {
+
+                        // faire spinner
+                        modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                    })); //fin catch
 
                 });
             });
 
-        });
+        }).catch((error => {
+
+            // faire spinner
+            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+        })); //fin catch
     }; //fin de else
 }; // fin createForum
 createforum();

@@ -30,7 +30,12 @@ createDetailPost = () => {
                 postObjsect.then(response => {
 
                     window.location = './postsDetail.html?id=' + postUnique.postId;
-                });
+                }).catch((error => {
+
+                    // faire spinner
+                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                })); //fin catch
 
             });
 
@@ -47,7 +52,12 @@ createDetailPost = () => {
                 const datas = deleteAuth(urlPost);
                 datas.then(deletePost => {
                     modals(deletePost.message, 'forum', 'forum.html');
-                });
+                }).catch((error => {
+
+                    // faire spinner
+                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                })); //fin catch
             });
 
             const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId3.userId;
@@ -71,7 +81,12 @@ createDetailPost = () => {
                             const data = deleteAuth(urlModifCom);
                             data.then(() => {
                                 window.location = './postsDetail.html?id=' + rep.postId;
-                            });
+                            }).catch((error => {
+
+                                // faire spinner
+                                modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                            })); //fin catch
                         });
 
                         const btnmodif = document.getElementById('btn_com_modif' + rep.comId);
@@ -96,7 +111,12 @@ createDetailPost = () => {
                                 data.then(() => {
 
                                     window.location = 'postsDetail.html?id=' + rep.postId;
-                                }); //fin then data
+                                }).catch((error => {
+
+                                    // faire spinner
+                                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                                })); //fin catch //fin then data
                             }); //fin de listner btn modif
 
                             const btnAnnulCom = document.getElementById('btn_com_suppr');
@@ -106,14 +126,29 @@ createDetailPost = () => {
                             });
                         }); //fin de listner modal
                     });
-                });
-            }); //fin de then user
+                }).catch((error => {
+
+                    // faire spinner
+                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                })); //fin catch
+            }).catch((error => {
+
+                // faire spinner
+                modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+            })); //fin catch //fin de then user
 
 
 
 
 
-        }); //fin de then postUnique
+        }).catch((error => {
+
+            // faire spinner
+            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+        })); //fin catch //fin de then postUnique
 
     };
 
