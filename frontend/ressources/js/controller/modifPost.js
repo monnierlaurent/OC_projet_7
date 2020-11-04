@@ -30,7 +30,6 @@ createFormModif = () => {
                 event.preventDefault();
 
                 const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId5.userId;
-                // console.log(urlUserID)
 
                 const datas1 = requestAuth(urlUserID);
                 datas1.then(user => {
@@ -38,11 +37,8 @@ createFormModif = () => {
                     const image = document.getElementById('post_img').files;
                     const titre = document.getElementById('post_forum_titre');
                     const contenu = document.getElementById('post_forum_text');
-                    //const auteur = user.nom + ' ' + user.prenom;
 
                     if (image[0]) {
-                        //console.log(urlPost);
-
                         const posts10 = {
                             titre: titre.value,
                             contenu: contenu.value,
@@ -54,7 +50,6 @@ createFormModif = () => {
                         data.append('image', image[0]);
                         data.append('posts', posts);
 
-                        //console.log(data);
                         const postObjsect = putAuthFormdata(postUrlImg, data);
 
                         postObjsect.then(response => {
@@ -73,11 +68,7 @@ createFormModif = () => {
                             window.location = './forum.html';
                         });
                     };
-
-
-
                 });
-
 
             });
         }); //fin de else

@@ -17,9 +17,26 @@ createDetailPost = () => {
 
             createFormComs();
 
-            createDisplayComs();
-            const btnAnnul = document.getElementById('btn_annuler_post');
+            const btnPostComs = document.getElementById('btn_envoyer_coms');
+            btnPostComs.addEventListener('click', (event) => {
+                event.preventDefault();
 
+                const contenu = document.getElementById('commentaire');
+
+                const coms = {
+                    comContenu: contenu.value
+                };
+                const urlComs = 'http://localhost:3000/api/post/' + (new URL(window.location.href)).searchParams.get('id') + '/com';
+                console.log(urlComs)
+                const postObjsect = sendAuthJson(urlComs, coms);
+                postObjsect.then(response => {
+                    console.log(response);
+                    window.location = './postsDetail.html?id=' + postUnique.postId;
+                });
+
+            });
+
+            const btnAnnul = document.getElementById('btn_annuler_coms');
             btnAnnul.addEventListener('click', (event) => {
                 event.preventDefault();
                 window.location = './postsDetail.html?id=' + postUnique.postId;
@@ -33,13 +50,29 @@ createDetailPost = () => {
                 datas.then(deletePost => {
                     modals(deletePost.message, 'forum', 'forum.html');
                 });
-
-
-                // envoie des commentaires
-
-
-
             });
+
+            const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId3.userId;
+            const datas1 = requestAuth(urlUserID);
+            datas1.then(user => {
+
+                const urlComAll = 'http://localhost:3000/api/post/' + (new URL(window.location.href)).searchParams.get('id') + '/com';
+                console.log(urlComAll)
+                const datas2 = requestAuth(urlComAll);
+                datas2.then(coms => {
+                    console.log(coms)
+                    coms.forEach(rep => {
+                        createDisplayComs(rep.nom, rep.prenom, rep.comDateCrea, rep.comContenu);
+
+                    });
+
+                });
+            });
+
+
+
+
+
         }); //fin de then
 
     };
