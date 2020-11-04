@@ -2,7 +2,7 @@ createDetailPost = () => {
     const recupStorage = sessionStorage.getItem('repAuth');
     const recupUserId3 = JSON.parse(recupStorage);
 
-    console.log(recupUserId3.userId)
+    //console.log(recupUserId3.userId)
 
     if (recupUserId3 === null) {
         modals('Vous n\avez pas accès a cette ressource !', 'Inscription', './signup.html');
@@ -12,7 +12,7 @@ createDetailPost = () => {
         const urlPost = 'http://localhost:3000/api/post/' + (new URL(window.location.href)).searchParams.get('id');
         const datas = requestAuth(urlPost);
         datas.then(postUnique => {
-
+            //console.log(postUnique.postId);
             displayPostId(postUnique.nom, postUnique.prenom, postUnique.dateCrea, postUnique.titre, postUnique.contenu, postUnique.imageUrl, postUnique.likes, postUnique.dislikes, postUnique.postId);
 
             createFormComs();
@@ -27,7 +27,7 @@ createDetailPost = () => {
                     comContenu: contenu.value
                 };
                 const urlComs = 'http://localhost:3000/api/post/' + (new URL(window.location.href)).searchParams.get('id') + '/com';
-                console.log(urlComs)
+                //console.log(urlComs)
                 const postObjsect = sendAuthJson(urlComs, coms);
                 postObjsect.then(response => {
                     console.log(response);
@@ -54,26 +54,57 @@ createDetailPost = () => {
 
             const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId3.userId;
             const datas1 = requestAuth(urlUserID);
-            datas1.then(user => {
+            datas1.then(() => {
 
                 const urlComAll = 'http://localhost:3000/api/post/' + (new URL(window.location.href)).searchParams.get('id') + '/com';
-                console.log(urlComAll)
+
                 const datas2 = requestAuth(urlComAll);
                 datas2.then(coms => {
-                    console.log(coms)
+
                     coms.forEach(rep => {
-                        createDisplayComs(rep.nom, rep.prenom, rep.comDateCrea, rep.comContenu);
 
+                        createDisplayComs(rep.nom, rep.prenom, rep.comDateCrea, rep.comContenu, rep.postId, rep.comId);
+
+                        const btnmodif = document.getElementById('btn_com_modif' + rep.comId);
+                        btnmodif.addEventListener('click', (event) => {
+                            event.preventDefault();
+
+                            modalComModif('modif coms', rep.comContenu);
+
+                            const btnModifModal = document.getElementById('btnComMOdif');
+                            btnModifModal.addEventListener('click', (event) => {
+                                event.preventDefault();
+
+                                const recupComtenu = document.getElementById('text_coms_modal');
+
+                                const comModif = {
+                                    comContenu: recupComtenu.value
+                                };
+
+                                const urlModifCom = 'http://localhost:3000/api/post/' + rep.postId + '/com/' + rep.comId;
+
+                                const data = putAuthJson(urlModifCom, comModif);
+                                data.then(() => {
+
+                                    window.location = 'postsDetail.html?id=' + rep.postId;
+                                }); //fin then data
+                            }); //fin de listner btn modif
+
+                            const btnAnnulCom = document.getElementById('btn_com_suppr');
+                            btnAnnulCom.addEventListener('click', (event) => {
+                                event.preventDefault();
+                                window.location = './postsDetail.html?id=' + rep.postId;
+                            });
+                        }); //fin de listner modal
                     });
-
                 });
-            });
+            }); //fin de then user
 
 
 
 
 
-        }); //fin de then
+        }); //fin de then postUnique
 
     };
 

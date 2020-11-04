@@ -49,3 +49,14 @@ modals = (value1, value2, lien) => {
     newDivAside.appendChild(createElm1('h2', value1, 'class', 'bloc__aside__heading--padding'));
     newDivAside.appendChild(createElm2('a', value2, 'class', 'bloc__form--btn-2', 'href', lien /*'index.html'*/ ));
 };
+
+modalComModif = (valueTitre, valueTextarea) => {
+
+    const main = document.querySelector('main');
+    const newAside = main.appendChild(createElm2('aside', '', 'id', 'modal1', 'class', 'modal'));
+    const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper'));
+    newDivAside.appendChild(createElm1('h2', valueTitre, 'class', 'bloc__aside__heading--padding'));
+    newDivAside.appendChild(createInputs('textarea', valueTextarea, 'id', 'text_coms_modal', 'class', 'bloc__aside__heading--padding'));
+    newDivAside.appendChild(createElm2('p', 'modifier', 'id', 'btnComMOdif', 'class', 'bloc__form--btn-2'));
+    newDivAside.appendChild(createElm2('a', 'Annuler', 'class', 'bloc__form--btn-2', 'href', '' /*'index.html'*/ ));
+};

@@ -41,20 +41,24 @@ createFormComs = () => {
     newDiv4.appendChild(createElm2('button', 'Annuler', 'id', 'btn_annuler_coms', 'class', 'bloc_form-btn--style2'));
 };
 
-createDisplayComs = (nom, prenom, date, contenu) => {
+createDisplayComs = (nom, prenom, date, contenu, postId, comId) => {
     const mainPostId = document.getElementById('main_post_id');
     const newArticle = mainPostId.appendChild(createElm1('article', '', 'class', 'bloc_article--flex--width-2'));
     const newDiv5 = newArticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
     newDiv5.appendChild(createElm1('h2', nom + ' ' + prenom, 'class', 'bloc_article_div_p--padding-2'));
     newDiv5.appendChild(createElm1('p', date, 'class', 'bloc_article_div_p--padding-2'));
 
-    const newParag = newArticle.appendChild(createElm1('p', contenu, 'class', 'bloc_article_p2--style-2'));
+    newArticle.appendChild(createElm1('p', contenu, 'class', 'bloc_article_p2--style-2'));
 
     const newDiv6 = newArticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
     newDiv6.appendChild(createElm2('i', '', 'id', 'like_com', 'class', 'fas fa-heart bloc_article_div_p--padding-2'));
     newDiv6.appendChild(createElm1('p', '0', 'class', 'bloc_article_div_p--padding-2'));
     newDiv6.appendChild(createElm2('i', '', 'id', 'dislike_com', 'class', 'fas fa-heart-broken bloc_article_div_p--padding-2'));
     newDiv6.appendChild(createElm1('p', '0', 'class', 'bloc_article_div_p--padding-2'));
-    newDiv6.appendChild(createElm1('p', 'Modifier', 'class', 'bloc_article_div_p--padding-2'));
-    newDiv6.appendChild(createElm1('p', 'Supprimer', 'class', 'bloc_article_div_p--padding-2'));
+
+
+    newDiv6.appendChild(createElm3('a', 'Modifier', 'id', 'btn_com_modif' + comId, 'class', 'bloc_article_div_p--padding-2 bloc_article_div_a--hover', 'href', '#?id=' + postId));
+    newDiv6.appendChild(createElm2('a', 'Supprimer', 'id', 'btn_com_suppr', 'class', 'bloc_article_div_p--padding-2 bloc_article_div_a--hover'));
+
+
 };

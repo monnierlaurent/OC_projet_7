@@ -8,7 +8,7 @@ const likeModel = new LikeModel();
 //------logique métier commentaires------
 
 exports.createCom = (req, res, next) => {
-    console.log(req.body)
+
     const reqBody = sanitize(req.body);
     const userIdAuth = sanitize(req.userIdAuth);
     const reqParamsId = sanitize(req.params.id);
