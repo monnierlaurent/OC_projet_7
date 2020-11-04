@@ -65,6 +65,17 @@ createDetailPost = () => {
 
                         createDisplayComs(rep.nom, rep.prenom, rep.comDateCrea, rep.comContenu, rep.postId, rep.comId);
 
+                        const urlModifCom = 'http://localhost:3000/api/post/' + rep.postId + '/com/' + rep.comId;
+
+                        const btnSuppCom = document.getElementById('btn_com_suppr' + rep.comId);
+                        btnSuppCom.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            const data = deleteAuth(urlModifCom);
+                            data.then(() => {
+                                window.location = './postsDetail.html?id=' + rep.postId;
+                            });
+                        });
+
                         const btnmodif = document.getElementById('btn_com_modif' + rep.comId);
                         btnmodif.addEventListener('click', (event) => {
                             event.preventDefault();
@@ -81,7 +92,7 @@ createDetailPost = () => {
                                     comContenu: recupComtenu.value
                                 };
 
-                                const urlModifCom = 'http://localhost:3000/api/post/' + rep.postId + '/com/' + rep.comId;
+
 
                                 const data = putAuthJson(urlModifCom, comModif);
                                 data.then(() => {

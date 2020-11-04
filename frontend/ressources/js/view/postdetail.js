@@ -58,7 +58,7 @@ createDisplayComs = (nom, prenom, date, contenu, postId, comId) => {
 
 
     newDiv6.appendChild(createElm3('a', 'Modifier', 'id', 'btn_com_modif' + comId, 'class', 'bloc_article_div_p--padding-2 bloc_article_div_a--hover', 'href', '#?id=' + postId));
-    newDiv6.appendChild(createElm2('a', 'Supprimer', 'id', 'btn_com_suppr', 'class', 'bloc_article_div_p--padding-2 bloc_article_div_a--hover'));
+    newDiv6.appendChild(createElm2('a', 'Supprimer', 'id', 'btn_com_suppr' + comId, 'class', 'bloc_article_div_p--padding-2 bloc_article_div_a--hover'));
 
 
 };
