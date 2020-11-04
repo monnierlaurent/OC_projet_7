@@ -23,7 +23,6 @@ createforum = () => {
 
         createFormPost();
 
-
         const BtnPost = document.getElementById('btn_post_forum');
 
         const recupStorage2 = sessionStorage.getItem('repAuth');
@@ -86,7 +85,32 @@ createforum = () => {
 
             post.forEach(rep => {
 
+                console.log(rep)
+
+
+
                 createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.dateCrea, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes);
+
+                if (rep.imageUrl) {
+                    console.log('il y a une image');
+                } else {
+                    const imqAltParent = document.getElementById('lien_article' + rep.postId);
+                    const imgBalise = document.getElementById('img_post_display' + rep.postId);
+                    imqAltParent.removeChild(imgBalise);
+                };
+
+                const btnSuppr = document.getElementById('btn_suppr_post' + rep.postId);
+                btnSuppr.addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    const urlpostAll = 'http://localhost:3000/api/post/' + rep.postId;
+                    const datas2 = deleteAuth(urlpostAll);
+                    datas2.then((response) => {
+
+                        window.location = './forum.html';
+                    });
+
+                });
             });
 
         });

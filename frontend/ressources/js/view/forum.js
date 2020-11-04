@@ -29,11 +29,8 @@ createFormPost = () => {
 
 createDisplayPostImg = (repPostId, repNom, repPrenom, repDateCrea, repTitre, repContenu, repImageUrl, repLikes, repDislikes) => {
 
-
-
-
     const newarticle = mainIndex.appendChild(createElm1('article', '', 'class', 'bloc_article--flex--width'));
-    const newLien = newarticle.appendChild(createElm3('a', '', 'id', 'lien_article', 'class', 'bloc_article_a--style', 'href', './postsDetail.html?id=' + repPostId));
+    const newLien = newarticle.appendChild(createElm3('a', '', 'id', 'lien_article' + repPostId, 'class', 'bloc_article_a--style', 'href', './postsDetail.html?id=' + repPostId));
     const newDiv2 = newLien.appendChild(createElm2('div', '', 'id', 'div_img_suppr', 'class', 'bloc_article_div--flex'));
     newDiv2.appendChild(createElm1('p', repNom, 'class', 'bloc_article_div_p--padding'));
     newDiv2.appendChild(createElm1('p', repPrenom, 'class', 'bloc_article_div_p--padding'));
@@ -41,7 +38,7 @@ createDisplayPostImg = (repPostId, repNom, repPrenom, repDateCrea, repTitre, rep
 
     newLien.appendChild(createElm1('h2', repTitre, 'class', 'bloc_heading--style'));
     newLien.appendChild(createElm1('p', repContenu, 'class', 'bloc_article_p2--style'));
-    newLien.appendChild(createElm3('img', '', 'id', 'img_post_display', 'class', 'bloc_article_img--width', 'src', repImageUrl));
+    newLien.appendChild(createElm4('img', '', 'id', 'img_post_display' + repPostId, 'class', 'bloc_article_img--width', 'src', repImageUrl, 'alt', 'image_du_pots_sur_groupomania.fr'));
 
     newDiv3 = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
     newDiv3.appendChild(createElm2('i', '', 'id', 'like-forum', 'class', 'fas fa-heart bloc_article_div_p--padding'));
@@ -54,4 +51,6 @@ createDisplayPostImg = (repPostId, repNom, repPrenom, repDateCrea, repTitre, rep
 
     const newLien3 = newDiv3.appendChild(createElm2('p', '', 'id', 'btn_modif_post', 'class', 'bloc_article_div_p--padding'));
     newLien3.appendChild(createElm2('a', 'Modifier', 'class', 'bloc_article_div_a--hover', 'href', './postsDetail.html?id=' + repPostId));
+
+    newDiv3.appendChild(createElm2('p', 'Supprimer', 'id', 'btn_suppr_post' + repPostId, 'class', 'bloc_article_div_p--padding bloc_article_div_a--hover'));
 };
