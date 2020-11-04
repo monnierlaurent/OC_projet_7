@@ -102,7 +102,7 @@ createLogin = () => {
             const datas = send('http://localhost:3000/api/auth/signup', contact);
 
             datas.then(response => {
-                console.log(response)
+
                 if (response.error) {
                     paragErreur5.setAttribute('class', 'bloc__form--font--erreur2');
                 } else {

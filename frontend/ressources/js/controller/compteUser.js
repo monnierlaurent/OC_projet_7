@@ -75,7 +75,7 @@ createUsersCompte = () => {
                 const postModifUser = putAuthJson('http://localhost:3000/api/auth/' + userDatas.id, contact);
 
                 postModifUser.then(response => {
-                    console.log(response);
+
                     window.location = './compteUser.html?id=' + userDatas.id;
                 });
             });

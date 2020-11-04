@@ -6,11 +6,12 @@ const multer = require('../middleware/multer-config');
 const postCtrl = require('../controllers/post');
 const comCtrl = require('../controllers/com');
 
-
+const validationPost = require('../middleware/datasValidationPost');
+const validationCom = require('../middleware/datasValidationCom');
 
 // routes messages
-router.post('/img', auth, multer, postCtrl.createPostImg);
-router.post('/', auth, postCtrl.createPost);
+router.post('/img', auth, multer, validationPost, postCtrl.createPostImg);
+router.post('/', auth, validationPost, postCtrl.createPost);
 
 router.get('/', auth, postCtrl.displayPost);
 router.get('/:id', auth, postCtrl.displayPostId);
@@ -24,7 +25,7 @@ router.delete('/:id', auth, postCtrl.deletePostId);
 router.post('/:id/like', auth, postCtrl.likePost);
 
 // routes commentaires
-router.post('/:id/com', auth, comCtrl.createCom);
+router.post('/:id/com', auth, validationCom, comCtrl.createCom);
 
 router.get('/:id/com', auth, comCtrl.displayCom);
 router.get('/:id/com/:comId', auth, comCtrl.displayComId);

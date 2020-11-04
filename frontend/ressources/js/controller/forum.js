@@ -1,7 +1,5 @@
 const mainIndex = document.getElementById('main_forum');
 
-//console.log(sessionStorage);
-
 createforum = () => {
 
     const recupStorage = sessionStorage.getItem('repAuth');
@@ -41,7 +39,7 @@ createforum = () => {
                 const auteur = user.nom + ' ' + user.prenom;
 
                 if (image[0]) {
-                    console.log('avec image');
+
                     const posts10 = {
                         titre: titre.value,
                         auteur: auteur,
@@ -53,11 +51,10 @@ createforum = () => {
                     data.append('image', image[0]);
                     data.append('posts', posts);
 
-                    console.log(image);
                     const postObjsect = sendAuthFormdata('http://localhost:3000/api/post/img', data);
 
                     postObjsect.then(response => {
-                        console.log(response);
+
                         window.location = './forum.html';
                     });
 
@@ -70,7 +67,7 @@ createforum = () => {
 
                     const postObjsect = sendAuthJson('http://localhost:3000/api/post', posts);
                     postObjsect.then(response => {
-                        console.log(response);
+
                         window.location = './forum.html';
                     });
                 };
@@ -84,10 +81,6 @@ createforum = () => {
         datas2.then(post => {
 
             post.forEach(rep => {
-
-                console.log(rep)
-
-
 
                 createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.dateCrea, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes);
 

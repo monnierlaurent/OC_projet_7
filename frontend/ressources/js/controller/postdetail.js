@@ -2,8 +2,6 @@ createDetailPost = () => {
     const recupStorage = sessionStorage.getItem('repAuth');
     const recupUserId3 = JSON.parse(recupStorage);
 
-    //console.log(recupUserId3.userId)
-
     if (recupUserId3 === null) {
         modals('Vous n\avez pas accès a cette ressource !', 'Inscription', './signup.html');
     } else {
@@ -12,7 +10,7 @@ createDetailPost = () => {
         const urlPost = 'http://localhost:3000/api/post/' + (new URL(window.location.href)).searchParams.get('id');
         const datas = requestAuth(urlPost);
         datas.then(postUnique => {
-            //console.log(postUnique.postId);
+
             displayPostId(postUnique.nom, postUnique.prenom, postUnique.dateCrea, postUnique.titre, postUnique.contenu, postUnique.imageUrl, postUnique.likes, postUnique.dislikes, postUnique.postId);
 
             createFormComs();
@@ -27,10 +25,10 @@ createDetailPost = () => {
                     comContenu: contenu.value
                 };
                 const urlComs = 'http://localhost:3000/api/post/' + (new URL(window.location.href)).searchParams.get('id') + '/com';
-                //console.log(urlComs)
+
                 const postObjsect = sendAuthJson(urlComs, coms);
                 postObjsect.then(response => {
-                    console.log(response);
+
                     window.location = './postsDetail.html?id=' + postUnique.postId;
                 });
 

@@ -11,7 +11,6 @@ createFormModif = () => {
         const urlPost = 'http://localhost:3000/api/post/' + (new URL(window.location.href)).searchParams.get('id');
         const postUrlImg = 'http://localhost:3000/api/post/img/' + (new URL(window.location.href)).searchParams.get('id');
 
-        console.log(postUrlImg);
         const datas = requestAuth(urlPost);
         datas.then(modifPost => {
 
@@ -53,7 +52,7 @@ createFormModif = () => {
                         const postObjsect = putAuthFormdata(postUrlImg, data);
 
                         postObjsect.then(response => {
-                            console.log(response);
+
                             window.location = './forum.html';
                         });
 
@@ -64,7 +63,7 @@ createFormModif = () => {
                         };
                         const postObjsect = putAuthJson(urlPost, posts);
                         postObjsect.then(response => {
-                            console.log(response);
+
                             window.location = './forum.html';
                         });
                     };

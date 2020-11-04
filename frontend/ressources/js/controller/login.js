@@ -65,7 +65,7 @@ createLogin = () => {
                 };
 
                 const datas = send('http://localhost:3000/api/auth/login', contact);
-                console.log(datas)
+
                 datas.then(response => {
 
                     if (response.error) {
