@@ -1,6 +1,4 @@
 const urlUser = 'http://localhost:3000/api/auth/' + (new URL(window.location.href)).searchParams.get('id');
-console.log(urlUser)
-
 
 const recupStorage = sessionStorage.getItem('repAuth');
 const recupUserId4 = JSON.parse(recupStorage);
@@ -57,6 +55,29 @@ createUsersCompte = () => {
             btnAnnulModif.addEventListener('click', (event) => {
                 event.preventDefault();
                 window.location = './compteUser.html?id=' + userDatas.id;
+            });
+
+            const btnModifUers = document.getElementById('btn_modif_profil_user2');
+            btnModifUers.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                const recupNom = document.getElementById('nom');
+                const recupPrenom = document.getElementById('prenom');
+                const recupEmail = document.getElementById('email');
+                const recupPassword = document.getElementById('password');
+
+                const contact = {
+                    nom: recupNom.value,
+                    prenom: recupPrenom.value,
+                    email: recupEmail.value,
+                    password: recupPassword.value
+                };
+                const postModifUser = putAuthJson('http://localhost:3000/api/auth/' + userDatas.id, contact);
+
+                postModifUser.then(response => {
+                    console.log(response);
+                    window.location = './compteUser.html?id=' + userDatas.id;
+                });
             });
         }); //fin de then
     };

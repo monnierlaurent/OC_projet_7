@@ -78,8 +78,7 @@ class UserModel {
     deleteOne(id) {
         const sql = `DELETE FROM users WHERE id='${id}'`;
         return new Promise((resolve) => {
-            db.query(sql, (err, result, fields) => {
-                if (err) throw err;
+            db.query(sql, (err, result, fields) => {;
                 resolve(result)
             });
         });
@@ -87,10 +86,9 @@ class UserModel {
 
     updateOne(nom, prenom, emailH, emailM, password, role, emailR, paramsId) {
         const sql = `UPDATE users SET nom='${nom}', prenom='${prenom}' ,emailMask='${emailH}', email='${emailM}',password='${password}', role=${role}, dateModif=now(), emailRec='${emailR}' WHERE id='${paramsId}'`;
-
         return new Promise((resolve) => {
             db.query(sql, (err, result, fields) => {
-                if (err) throw err;
+
                 resolve(result)
             });
         });

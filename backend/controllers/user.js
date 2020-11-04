@@ -178,18 +178,19 @@ exports.updateUser = (req, res, next) => {
     userModel.findOne('id', userIdAuth)
         .then((response) => {
 
-            const role = response[0].role; // role du recuperateur
-            const userIdRec = response[0].id; //  id du recuperateur 
+
+            const role = response.role; // role du recuperateur
+            const userIdRec = response.id; //  id du recuperateur
 
             userModel.findOne('id', reqParamsId)
                 .then((response) => {
 
-                    if (userIdRec === response[0].id || role === 1) {
+                    if (userIdRec === response.id || role === 1) {
 
                         const hashEmail = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel')
                             .update(reqBody.email)
                             .digest('hex');
-
+                        console.log(hashEmail)
                         const encryptedEmail = cryptr.encrypt(reqBody.email); //const decryptedEmail = cryptr.decrypt(encryptedEmail);
                         const encryptedNom = cryptr.encrypt(reqBody.nom); //const decryptedNom = cryptr.decrypt(encryptedNom);
                         const encryptedPrenom = cryptr.encrypt(reqBody.prenom); //const decryptedPrenom = cryptr.decrypt(encryptedPrenom);
@@ -202,7 +203,7 @@ exports.updateUser = (req, res, next) => {
                         bcrypt.hash(reqBody.password, 10)
                             .then(hash => {
 
-                                userModel.updateOne(encryptedNom, encryptedPrenom, hashEmail, emailMask, hash, role, encryptedEmail, reqParamsId)
+                                userModel.updateOne(encryptedNom, encryptedPrenom, hashEmail, emailMask, hash, response.role, encryptedEmail, reqParamsId)
                                     .then((response) => {
                                         res.status(200).json({ message: "Utilisateur mis a jour !" });
                                     }).catch(() => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }); });

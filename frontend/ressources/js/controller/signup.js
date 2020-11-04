@@ -99,10 +99,10 @@ createLogin = () => {
                 role: 2
             };
 
-            const datas = send('http://localhost:3000/api/auth/login', contact);
+            const datas = send('http://localhost:3000/api/auth/signup', contact);
 
             datas.then(response => {
-
+                console.log(response)
                 if (response.error) {
                     paragErreur5.setAttribute('class', 'bloc__form--font--erreur2');
                 } else {
@@ -110,7 +110,7 @@ createLogin = () => {
                     const auth = JSON.stringify(response);
                     sessionStorage.setItem('repAuth', auth);
 
-                    window.location = 'forum.html';
+                    window.location = './index.html';
                 };
 
             }).catch((error => {
