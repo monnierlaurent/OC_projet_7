@@ -263,15 +263,3 @@ exports.likeDisplayTable = (req, res, next) => {
 
         }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
 }; ////fin exports
-
-exports.dislikeDisplayTable = (req, res, next) => {
-    const reqParamsId = sanitize(req.params.id);
-    const userIdAuth = sanitize(req.userIdAuth);
-
-    postModel.findOne('postLikes', 'postId', reqParamsId)
-        .then(response => {
-
-            res.status(201).json(response);
-
-        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
-}; ////fin exports

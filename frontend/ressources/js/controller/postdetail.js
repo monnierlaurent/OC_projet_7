@@ -190,8 +190,19 @@ createDetailPost = () => {
 
                         createDisplayComs(rep.nom, rep.prenom, rep.comDateCrea, rep.comContenu, rep.postId, rep.comId);
 
-                        const urlModifCom = 'http://localhost:3000/api/post/' + rep.postId + '/com/' + rep.comId;
+                        // gestion des likes des commentaires
+                        const btnLikesCom = document.getElementById('like_com' + rep.comId);
+                        const btnDislikesCom = document.getElementById('dislike_com' + rep.comId);
+                        //likes
+                        btnLikesCom.addEventListener('click', () => {
+                            console.log('j\'aime');
+                        });
+                        //dislikes
+                        btnDislikesCom.addEventListener('click', () => {
+                            console.log('j\'aime pas');
+                        });
 
+                        const urlModifCom = 'http://localhost:3000/api/post/' + rep.postId + '/com/' + rep.comId;
                         const btnSuppCom = document.getElementById('btn_com_suppr' + rep.comId);
                         btnSuppCom.addEventListener('click', (event) => {
 

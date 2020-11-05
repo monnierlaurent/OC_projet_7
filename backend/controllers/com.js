@@ -181,3 +181,15 @@ exports.likeCom = (req, res, next) => {
         res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 }; //fin likeSauce
+
+exports.likeDisplayTableComs = (req, res, next) => {
+    const reqParamsId = sanitize(req.params.id);
+    const userIdAuth = sanitize(req.userIdAuth);
+
+    postModel.findOne('comLikes', 'comId', reqParamsId)
+        .then(response => {
+
+            res.status(201).json(response);
+
+        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+}; ////fin exports

@@ -52,9 +52,9 @@ createDisplayComs = (nom, prenom, date, contenu, postId, comId) => {
     newArticle.appendChild(createElm1('p', contenu, 'class', 'bloc_article_p2--style-2'));
 
     const newDiv6 = newArticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
-    newDiv6.appendChild(createElm2('i', '', 'id', 'like_com', 'class', 'fas fa-heart bloc_article_div_p--padding-2'));
+    newDiv6.appendChild(createElm2('i', '', 'id', 'like_com' + comId, 'class', 'fas fa-heart bloc_article_div_p--padding-2'));
     newDiv6.appendChild(createElm1('p', '0', 'class', 'bloc_article_div_p--padding-2'));
-    newDiv6.appendChild(createElm2('i', '', 'id', 'dislike_com', 'class', 'fas fa-heart-broken bloc_article_div_p--padding-2'));
+    newDiv6.appendChild(createElm2('i', '', 'id', 'dislike_com' + comId, 'class', 'fas fa-heart-broken bloc_article_div_p--padding-2'));
     newDiv6.appendChild(createElm1('p', '0', 'class', 'bloc_article_div_p--padding-2'));
 
 
