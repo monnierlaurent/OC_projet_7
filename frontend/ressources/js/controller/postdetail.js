@@ -13,6 +13,100 @@ createDetailPost = () => {
 
             displayPostId(postUnique.nom, postUnique.prenom, postUnique.dateCrea, postUnique.titre, postUnique.contenu, postUnique.imageUrl, postUnique.likes, postUnique.dislikes, postUnique.postId);
 
+            // gestion des likes
+            const btnLike = document.getElementById('like-forum' + postUnique.postId);
+            const btnDislike = document.getElementById('dislike-forum' + postUnique.postId);
+            //gestion du j'aime
+            btnLike.addEventListener('click', () => {
+                console.log('clik j\'aime');
+
+                likeFunction = () => {
+                    const likeData = requestAuth('http://localhost:3000/api/post/' + postUnique.postId + '/like');
+                    likeData.then(response => {
+                        if (response.length === 0) {
+
+                            const like = {
+                                userId: recupUserId3.userId,
+                                like: 1
+                            };
+                            const likeSend1 = sendAuthJson('http://localhost:3000/api/post/' + postUnique.postId + '/like', like);
+                            likeSend1.then(response => {
+
+                                window.location.reload();
+                            });
+                        }; //fin de if
+
+                        if (response) {
+
+                            response.forEach(likeRep => {
+
+                                if (likeRep.userId === recupUserId3.userId, likeRep.postLikeValeur === 1) {
+
+                                    const like = {
+                                        userId: recupUserId3.userId,
+                                        like: 2
+                                    };
+                                    const likeSend2 = sendAuthJson('http://localhost:3000/api/post/' + postUnique.postId + '/like', like);
+                                    console.log(likeSend2);
+
+                                    likeSend2.then(response => {
+                                        console.log(response);
+                                        window.location.reload();
+                                    }); //fin de then
+                                }; // fin de if
+                            }); // fin de boucle
+                        }; // fin de else
+                    }); //tin de then
+
+                }; //fin likeFunction
+                likeFunction();
+            });
+
+            //gestion du j'aime pas
+            btnDislike.addEventListener('click', () => {
+                console.log('clik j\'aime pas');
+
+                dislikeFunction = () => {
+                    const likeData = requestAuth('http://localhost:3000/api/post/' + postUnique.postId + '/like');
+                    likeData.then(response => {
+                        if (response.length === 0) {
+
+                            const like = {
+                                userId: recupUserId3.userId,
+                                like: -1
+                            };
+                            const likeSend1 = sendAuthJson('http://localhost:3000/api/post/' + postUnique.postId + '/like', like);
+                            likeSend1.then(response => {
+                                window.location.reload();
+                            }); // fin de then
+                        }; //fin de if
+                        if (response) {
+
+                            response.forEach(likeRep => {
+
+                                if (likeRep.userId === recupUserId3.userId, likeRep.postLikeValeur === -1) {
+
+                                    const like = {
+                                        userId: recupUserId3.userId,
+                                        like: 2
+                                    };
+                                    const likeSend2 = sendAuthJson('http://localhost:3000/api/post/' + postUnique.postId + '/like', like);
+                                    console.log(likeSend2);
+
+                                    likeSend2.then(response => {
+                                        console.log(response);
+                                        window.location.reload();
+                                    }); //fin de then
+                                }; // fin de if
+                            }); // fin de boucle
+                        }; // fin de else
+                    }); //fin de then
+
+                }; //fin dislikeFunction
+                dislikeFunction();
+            });
+
+
             createFormComs();
 
             const erreurCom = document.getElementById('erreur_coms');

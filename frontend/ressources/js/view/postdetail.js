@@ -20,10 +20,10 @@ displayPostId = (nom, prenom, dateCrea, titre, contenu, imageUrl, likes, dislike
     newSection.appendChild(createElm3('img', '', 'class', 'bloc_article_img--width', 'src', imageUrl, 'alt', 'gif du post sur groupomania'));
 
     const newDiv3 = newSection.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
-    newDiv3.appendChild(createElm2('i', '', 'id', 'like-forum', 'class', 'fas fa-heart bloc_article_div_p--padding'));
+    newDiv3.appendChild(createElm2('i', '', 'id', 'like-forum' + postId, 'class', 'fas fa-heart bloc_article_div_p--padding'));
     newDiv3.appendChild(createElm2('p', likes, 'id', 'compteur_like', 'class', 'bloc_article_div_p--padding'));
-    newDiv3.appendChild(createElm2('i', '', 'id', 'dislike-forum', 'class', 'fas fa-heart-broken bloc_article_div_p--padding'));
-    newDiv3.appendChild(createElm2('p', dislikes, 'id', 'compteur_dislike', 'class', 'bloc_article_div_p--padding'));
+    newDiv3.appendChild(createElm2('i', '', 'id', 'dislike-forum' + postId, 'class', 'fas fa-heart-broken bloc_article_div_p--padding'));
+    newDiv3.appendChild(createElm2('p', dislikes, 'id', 'compteur_dislike' + postId, 'class', 'bloc_article_div_p--padding'));
 
     const newLien3 = newDiv3.appendChild(createElm2('p', '', 'id', 'btn_modif_post', 'class', 'bloc_article_div_p--padding'));
     newLien3.appendChild(createElm2('a', 'Modifier', 'class', 'bloc_article_div_a--hover', 'href', './modifPost.html?id=' + postId));

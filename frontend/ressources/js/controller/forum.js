@@ -142,7 +142,6 @@ createforum = () => {
                     // creation de l'affichage des posts
                     createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.dateCrea, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes);
 
-
                     // suppression de la balise img si il n'y a pas d'image
                     if (rep.imageUrl) {
                         console.log('il y a une image');
