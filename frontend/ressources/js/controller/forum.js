@@ -133,6 +133,10 @@ createforum = () => {
 
         // creation des messages 
 
+
+
+
+
         const urlpostAll = 'http://localhost:3000/api/post';
         const datas2 = requestAuth(urlpostAll);
         datas2.then(post => {
@@ -140,7 +144,47 @@ createforum = () => {
                 post.forEach(rep => {
 
                     // creation de l'affichage des posts
-                    createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.dateCrea, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes);
+                    createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.dateCrea, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes, );
+
+                    // affichage des commentaires
+
+
+
+                    const urlComAll = 'http://localhost:3000/api/post/' + rep.postId + '/com';
+                    const datas2 = requestAuth(urlComAll);
+                    datas2.then(coms => {
+
+                        coms.forEach(rep => {
+
+                            console.log(coms.length)
+                            createDisplayComs(rep.nom, rep.prenom, rep.comDateCrea, rep.comContenu, rep.postId, rep.comId);
+
+                            const btnDysplayComs = document.getElementById('display_coms_forum' + rep.postId);
+                            const btnHideComs = document.getElementById('display_none_forum' + rep.postId);
+
+
+                            const articleComsDisplay = document.getElementById('coms_display_none' + rep.comId);
+                            const articleHideDisplay = document.getElementById('display_none_forum' + rep.postId);
+
+                            btnDysplayComs.addEventListener('click', (event) => {
+                                articleComsDisplay.removeAttribute('class');
+                                articleComsDisplay.setAttribute('class', 'bloc_article--flex--width-2');
+
+                                articleHideDisplay.removeAttribute('class');
+                                articleHideDisplay.setAttribute('class', 'bloc_article_div--flex4 bloc_article_div_a--hover');
+                            }); // fin de click
+                            btnHideComs.addEventListener('click', (event) => {
+                                articleComsDisplay.removeAttribute('class');
+                                articleComsDisplay.setAttribute('class', 'display--none');
+
+                                articleHideDisplay.removeAttribute('class');
+                                articleHideDisplay.setAttribute('class', 'display--none');
+                            });
+
+                            // console.log(rep.postId)
+                        });
+                    }); //fin de then
+
 
                     // suppression de la balise img si il n'y a pas d'image
                     if (rep.imageUrl) {
