@@ -56,7 +56,8 @@ modalComModif = (valueTitre, valueTextarea) => {
     const newAside = main.appendChild(createElm2('aside', '', 'id', 'modal1', 'class', 'modal'));
     const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper'));
     newDivAside.appendChild(createElm1('h2', valueTitre, 'class', 'bloc__aside__heading--padding'));
-    newDivAside.appendChild(createInputs('textarea', valueTextarea, 'id', 'text_coms_modal', 'class', 'bloc__aside__heading--padding'));
+    newDivAside.appendChild(createInputs('textarea', valueTextarea, 'id', 'text_coms_modal', 'class', 'bloc__aside__heading--padding bloc_form-input--style'));
+    newDivAside.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_modif_coms', 'class', 'bloc__form--font--erreur'));
     newDivAside.appendChild(createElm2('p', 'modifier', 'id', 'btnComMOdif', 'class', 'bloc__form--btn-2'));
-    newDivAside.appendChild(createElm2('a', 'Annuler', 'class', 'bloc__form--btn-2', 'href', '' /*'index.html'*/ ));
+    newDivAside.appendChild(createElm2('a', 'Annuler', 'id', 'btn_com_suppr', 'class', 'bloc__form--btn-2', 'href', '' /*'index.html'*/ ));
 };

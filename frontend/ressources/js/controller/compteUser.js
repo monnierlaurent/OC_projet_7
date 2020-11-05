@@ -50,11 +50,73 @@ createUsersCompte = () => {
 
         })); //fin catch
 
-
         const datas2 = requestAuth(urlUser);
         datas2.then(userDatas => {
 
             createFormModifUser(userDatas.nom, userDatas.prenom, userDatas.emailRec);
+
+            const recupNom = document.getElementById('nom');
+            const recupPrenom = document.getElementById('prenom');
+            const recupEmail = document.getElementById('email');
+            const recupPassword = document.getElementById('password');
+
+            const erreur1 = document.getElementById('erreur1');
+            const erreur2 = document.getElementById('erreur2');
+            const erreur3 = document.getElementById('erreur3');
+            const erreur4 = document.getElementById('erreur4');
+
+
+            const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20} *$/;
+            const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[a-zA-Z1-9.-_]+[.]{1}[a-zA-Z1-9]{2,10}$/;
+            const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{4,255}/;
+
+            valideModifUser = () => {
+                recupNom.addEventListener('change', (event) => {
+                    event.preventDefault;
+
+                    if (recupNom.value.length === 0) {
+                        erreur1.setAttribute('class', 'bloc__form--font--erreur');
+                    } else if (regexNomPrenom.test(recupNom.value) === true) {
+                        erreur1.setAttribute('class', 'bloc__form--font--erreur');
+                    } else if (regexNomPrenom.test(recupNom.value) === false) {
+                        erreur1.setAttribute('class', 'bloc__form--font--erreur2');
+                    };
+                });
+            };
+            recupPrenom.addEventListener('change', (event) => {
+                event.preventDefault;
+
+                if (recupPrenom.value.length === 0) {
+                    erreur2.setAttribute('class', 'bloc__form--font--erreur');
+                } else if (regexNomPrenom.test(recupPrenom.value) === true) {
+                    erreur2.setAttribute('class', 'bloc__form--font--erreur');
+                } else if (regexNomPrenom.test(recupPrenom.value) === false) {
+                    erreur2.setAttribute('class', 'bloc__form--font--erreur2');
+                };
+            });
+            recupEmail.addEventListener('change', (event) => {
+                event.preventDefault;
+
+                if (recupEmail.value.length === 0) {
+                    erreur3.setAttribute('class', 'bloc__form--font--erreur');
+                } else if (regexEmail.test(recupEmail.value) === true) {
+                    erreur3.setAttribute('class', 'bloc__form--font--erreur');
+                } else if (regexEmail.test(recupEmail.value) === false) {
+                    erreur3.setAttribute('class', 'bloc__form--font--erreur2');
+                };
+            });
+            recupPassword.addEventListener('change', (event) => {
+                event.preventDefault;
+
+                if (recupPassword.value.length === 0) {
+                    erreur4.setAttribute('class', 'bloc__form--font--erreur');
+                } else if (regexPassword.test(recupPassword.value) === true) {
+                    erreur4.setAttribute('class', 'bloc__form--font--erreur');
+                } else if (regexPassword.test(recupPassword.value) === false) {
+                    erreur4.setAttribute('class', 'bloc__form--font--erreur2');
+                };
+            });
+            valideModifUser();
 
             const btnModifValide = document.getElementById('btn_modif_profil_user2');
             btnModifValide.addEventListener('click', (event) => {
@@ -67,14 +129,15 @@ createUsersCompte = () => {
                 window.location = './compteUser.html?id=' + userDatas.id;
             });
 
+
+
+
+
+
+
             const btnModifUers = document.getElementById('btn_modif_profil_user2');
             btnModifUers.addEventListener('click', (event) => {
                 event.preventDefault();
-
-                const recupNom = document.getElementById('nom');
-                const recupPrenom = document.getElementById('prenom');
-                const recupEmail = document.getElementById('email');
-                const recupPassword = document.getElementById('password');
 
                 const contact = {
                     nom: recupNom.value,

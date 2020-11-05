@@ -25,6 +25,41 @@ createFormModif = () => {
                 window.location = './postsDetail.html?id=' + modifPost.postId;
             });
 
+            const image = document.getElementById('post_img').files;
+            const titre = document.getElementById('post_forum_titre');
+            const contenu = document.getElementById('post_forum_text');
+
+            const regexDatas = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+            const erreurModifPost = document.getElementById('erreur_modif_posts');
+
+            valideModifPost = () => {
+                titre.addEventListener('change', (event) => {
+                    event.preventDefault;
+
+                    if (titre.value.length === 0) {
+                        erreurModifPost.setAttribute('class', 'bloc__form--font--erreur');
+                    } else if (regexDatas.test(titre.value) === true) {
+                        erreurModifPost.setAttribute('class', 'bloc__form--font--erreur');
+                    } else if (regexDatas.test(titre.value) === false) {
+                        erreurModifPost.setAttribute('class', 'bloc__form--font--erreur2');
+                    };
+                });
+                contenu.addEventListener('change', (event) => {
+                    event.preventDefault;
+
+                    if (contenu.value.length === 0) {
+                        erreurModifPost.setAttribute('class', 'bloc__form--font--erreur');
+                    } else if (regexDatas.test(contenu.value) === true) {
+                        erreurModifPost.setAttribute('class', 'bloc__form--font--erreur');
+                    } else if (regexDatas.test(contenu.value) === false) {
+                        erreurModifPost.setAttribute('class', 'bloc__form--font--erreur2');
+                    };
+                });
+            }; // fin de valideModifPost
+
+            valideModifPost();
+
+
             btnEnvoi.addEventListener('click', (event) => {
                 event.preventDefault();
 
@@ -33,9 +68,7 @@ createFormModif = () => {
                 const datas1 = requestAuth(urlUserID);
                 datas1.then(user => {
 
-                    const image = document.getElementById('post_img').files;
-                    const titre = document.getElementById('post_forum_titre');
-                    const contenu = document.getElementById('post_forum_text');
+
 
                     if (image[0]) {
                         const posts10 = {

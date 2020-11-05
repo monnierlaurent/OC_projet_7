@@ -30,13 +30,55 @@ createforum = () => {
         const datas1 = requestAuth(urlUserID);
         datas1.then(user => {
 
+            const erreurPost = document.getElementById('erreur_posts');
+
+            const image = document.getElementById('post_img').files;
+            const titre = document.getElementById('post_forum_titre');
+            const contenu = document.getElementById('post_forum_text');
+            const auteur = user.nom + ' ' + user.prenom;
+
+            const regexDatas = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+
+            valide = () => {
+                titre.addEventListener('change', (event) => {
+                    event.preventDefault;
+
+                    if (titre.value.length === 0) {
+                        erreurPost.setAttribute('class', 'bloc__form--font--erreur');
+                        erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+                        console.log('ok1 blanc');
+                    } else if (regexDatas.test(titre.value) === true) {
+                        erreurPost.setAttribute('class', 'bloc__form--font--erreur');
+                        erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+                        console.log('ok2');
+                    } else if (regexDatas.test(titre.value) === false) {
+                        erreurPost.setAttribute('class', 'bloc__form--font--erreur2');
+                        erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+                        console.log('pas ok');
+                    };
+                });
+                contenu.addEventListener('change', (event) => {
+                    event.preventDefault;
+
+                    if (contenu.value.length === 0) {
+                        erreurPost.setAttribute('class', 'bloc__form--font--erreur');
+                        erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+
+                    } else if (regexDatas.test(contenu.value) === true) {
+                        erreurPost.setAttribute('class', 'bloc__form--font--erreur');
+                        erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+
+                    } else if (regexDatas.test(contenu.value) === false) {
+                        erreurPost.setAttribute('class', 'bloc__form--font--erreur2');
+                        erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+                    };
+                });
+            }; //fin de valide
+
+            valide();
+
             BtnPost.addEventListener('click', (event) => {
                 event.preventDefault();
-
-                const image = document.getElementById('post_img').files;
-                const titre = document.getElementById('post_forum_titre');
-                const contenu = document.getElementById('post_forum_text');
-                const auteur = user.nom + ' ' + user.prenom;
 
                 if (image[0]) {
 
@@ -59,7 +101,7 @@ createforum = () => {
                     }).catch((error => {
 
                         // faire spinner
-                        modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                        modals('Désolé !<br>Le serveur ne repond pas ', 'Connection', './index.html');
 
                     })); //fin catch
 
@@ -102,6 +144,7 @@ createforum = () => {
                 if (rep.imageUrl) {
                     console.log('il y a une image');
                 } else {
+
                     const imqAltParent = document.getElementById('lien_article' + rep.postId);
                     const imgBalise = document.getElementById('img_post_display' + rep.postId);
                     imqAltParent.removeChild(imgBalise);
@@ -117,20 +160,15 @@ createforum = () => {
 
                         window.location = './forum.html';
                     }).catch((error => {
-
-                        // faire spinner
                         modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-
                     })); //fin catch
-
                 });
             });
-
         }).catch((error => {
 
             // faire spinner
-            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-
+            //modals('Désolé !<br>Le serveur ne repond pas10', 'Connection', './index.html');
+            console.log(error = 'le forum et vide');
         })); //fin catch
     }; //fin de else
 }; // fin createForum

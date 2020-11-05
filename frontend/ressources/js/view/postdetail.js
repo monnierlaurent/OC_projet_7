@@ -35,6 +35,7 @@ createFormComs = () => {
     const newForm = mainPostId.appendChild(createElm1('form', '', 'class', 'bloc_form--style bloc_article--flex--width'));
     newForm.appendChild(createElm2('label', 'Commenter :', 'class', 'bloc_form_label--style', 'for', 'commentaire'));
     newForm.appendChild(createElm3('textarea', '', 'id', 'commentaire', 'class', 'bloc_form-input--style', 'row', '2'));
+    newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_coms', 'class', 'bloc__form--font--erreur'));
 
     const newDiv4 = newForm.appendChild(createElm1('div', '', 'class', 'bloc_form_btn--flex'));
     newDiv4.appendChild(createElm2('button', 'Poster', 'id', 'btn_envoyer_coms', 'class', 'bloc_form-btn--style2'));

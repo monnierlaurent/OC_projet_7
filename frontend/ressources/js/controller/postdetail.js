@@ -15,6 +15,31 @@ createDetailPost = () => {
 
             createFormComs();
 
+            const erreurCom = document.getElementById('erreur_coms');
+            const recupComtenu = document.getElementById('commentaire');
+            const regexDatas = /^[a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20} *$/;
+
+            valide = () => {
+                recupComtenu.addEventListener('change', (event) => {
+                    event.preventDefault;
+
+                    if (recupComtenu.value.length === 0) {
+                        erreurCom.setAttribute('class', 'bloc__form--font--erreur');
+                        erreurCom.innerHTML = 'le champs n\'est pas rempli correctement !';
+
+                    } else if (regexDatas.test(recupComtenu.value) === true) {
+                        erreurCom.setAttribute('class', 'bloc__form--font--erreur');
+                        erreurCom.innerHTML = 'le champs n\'est pas rempli correctement !';
+
+                    } else if (regexDatas.test(recupComtenu.value) === false) {
+                        erreurCom.setAttribute('class', 'bloc__form--font--erreur2');
+                        erreurCom.innerHTML = 'le champs n\'est pas rempli correctement !';
+                    };
+                });
+            };
+            valide();
+
+
             const btnPostComs = document.getElementById('btn_envoyer_coms');
             btnPostComs.addEventListener('click', (event) => {
                 event.preventDefault();
@@ -32,18 +57,16 @@ createDetailPost = () => {
                     window.location = './postsDetail.html?id=' + postUnique.postId;
                 }).catch((error => {
 
-                    // faire spinner
                     modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
 
                 })); //fin catch
-
-            });
+            }); // fin click
 
             const btnAnnul = document.getElementById('btn_annuler_coms');
             btnAnnul.addEventListener('click', (event) => {
                 event.preventDefault();
                 window.location = './postsDetail.html?id=' + postUnique.postId;
-            });
+            }); // fin click
 
             const btnUpprPost = document.getElementById('btn_suppr_post');
             btnUpprPost.addEventListener('click', (event) => {
@@ -58,7 +81,7 @@ createDetailPost = () => {
                     modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
 
                 })); //fin catch
-            });
+            }); // fin click
 
             const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId3.userId;
             const datas1 = requestAuth(urlUserID);
@@ -77,17 +100,17 @@ createDetailPost = () => {
 
                         const btnSuppCom = document.getElementById('btn_com_suppr' + rep.comId);
                         btnSuppCom.addEventListener('click', (event) => {
+
                             event.preventDefault();
+
                             const data = deleteAuth(urlModifCom);
+
                             data.then(() => {
                                 window.location = './postsDetail.html?id=' + rep.postId;
                             }).catch((error => {
-
-                                // faire spinner
                                 modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-
                             })); //fin catch
-                        });
+                        }); // fin click
 
                         const btnmodif = document.getElementById('btn_com_modif' + rep.comId);
                         btnmodif.addEventListener('click', (event) => {
@@ -95,27 +118,47 @@ createDetailPost = () => {
 
                             modalComModif('modif coms', rep.comContenu);
 
+                            const regexDatas = /^[a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20} *$/;
+
+                            const recupComtenu2 = document.getElementById('text_coms_modal');
+                            const erreurComModif = document.getElementById('erreur_modif_coms');
+
+                            valideComModif = () => {
+                                recupComtenu2.addEventListener('change', (event) => {
+                                    event.preventDefault;
+
+                                    if (recupComtenu2.value.length === 0) {
+                                        erreurComModif.setAttribute('class', 'bloc__form--font--erreur');
+                                        erreurComModif.innerHTML = 'le champs n\'est pas rempli correctement !';
+
+                                    } else if (regexDatas.test(recupComtenu2.value) === true) {
+                                        erreurComModif.setAttribute('class', 'bloc__form--font--erreur');
+                                        erreurComModif.innerHTML = 'le champs n\'est pas rempli correctement !';
+
+                                    } else if (regexDatas.test(recupComtenu2.value) === false) {
+                                        erreurComModif.setAttribute('class', 'bloc__form--font--erreur2');
+                                        erreurComModif.innerHTML = 'le champs n\'est pas rempli correctement !';
+                                    };
+                                });
+
+                            }; //fin de valideComModif
+
+                            valideComModif();
+
                             const btnModifModal = document.getElementById('btnComMOdif');
                             btnModifModal.addEventListener('click', (event) => {
                                 event.preventDefault();
 
-                                const recupComtenu = document.getElementById('text_coms_modal');
-
                                 const comModif = {
-                                    comContenu: recupComtenu.value
+                                    comContenu: recupComtenu2.value
                                 };
-
-
 
                                 const data = putAuthJson(urlModifCom, comModif);
                                 data.then(() => {
 
                                     window.location = 'postsDetail.html?id=' + rep.postId;
                                 }).catch((error => {
-
-                                    // faire spinner
                                     modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-
                                 })); //fin catch //fin then data
                             }); //fin de listner btn modif
 
@@ -124,34 +167,18 @@ createDetailPost = () => {
                                 event.preventDefault();
                                 window.location = './postsDetail.html?id=' + rep.postId;
                             });
-                        }); //fin de listner modal
+                        }); //fin click
                     });
                 }).catch((error => {
-
-                    // faire spinner
                     modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-
                 })); //fin catch
             }).catch((error => {
-
-                // faire spinner
                 modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-
             })); //fin catch //fin de then user
-
-
-
-
-
         }).catch((error => {
-
-            // faire spinner
             modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-
         })); //fin catch //fin de then postUnique
-
     };
-
 }; // fin createDetailPost
 
 createDetailPost();

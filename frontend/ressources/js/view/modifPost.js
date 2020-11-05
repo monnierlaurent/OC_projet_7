@@ -17,6 +17,7 @@ createFormModifPost = (titre, contenu, imageUrl) => {
 
     formPost.appendChild(createElm2('label', 'Message :', 'class', 'bloc__login__form--label--style-2', 'for', 'post_forum_text'));
     formPost.appendChild(createInputs('textarea', contenu, 'id', 'post_forum_text', 'rows', '10', 'class', 'bloc__login__form--input--style-2', 'name', 'contenu'));
+    formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_modif_posts', 'class', 'bloc__form--font--erreur'));
 
     formPost.appendChild(createElm2('img', '', 'class', 'bloc_article_img--width2', 'src', imageUrl, 'alt', 'affichage de l\'anciene image'));
 
