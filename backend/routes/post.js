@@ -22,6 +22,8 @@ router.put('/:id', auth, postCtrl.updatePostId);
 router.delete('/:id', auth, postCtrl.deletePostId);
 
 //likes
+router.get('/:id/like', auth, postCtrl.likeDisplayTable);
+router.get('/:id/like', auth, postCtrl.dislikeDisplayTable);
 router.post('/:id/like', auth, postCtrl.likePost);
 
 // routes commentaires

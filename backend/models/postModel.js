@@ -194,4 +194,5 @@ class PostsModel {
     }; //fin de updateOne
 };
 
+
 module.exports = PostsModel;

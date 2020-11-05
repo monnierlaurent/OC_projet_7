@@ -4,7 +4,7 @@ createforum = () => {
 
     const recupStorage = sessionStorage.getItem('repAuth');
     const recupUserId2 = JSON.parse(recupStorage);
-
+    //console.log(recupUserId2.userId)
     if (recupUserId2 === null) {
         modals('Vous n\avez pas accès a cette ressource !', 'Inscription', './signup.html');
     } else {
@@ -137,39 +137,134 @@ createforum = () => {
         const datas2 = requestAuth(urlpostAll);
         datas2.then(post => {
 
-            post.forEach(rep => {
+                post.forEach(rep => {
 
-                createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.dateCrea, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes);
+                    // creation de l'affichage des posts
+                    createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.dateCrea, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes);
 
-                if (rep.imageUrl) {
-                    console.log('il y a une image');
-                } else {
 
-                    const imqAltParent = document.getElementById('lien_article' + rep.postId);
-                    const imgBalise = document.getElementById('img_post_display' + rep.postId);
-                    imqAltParent.removeChild(imgBalise);
-                };
+                    // suppression de la balise img si il n'y a pas d'image
+                    if (rep.imageUrl) {
+                        console.log('il y a une image');
+                    } else {
 
-                const btnSuppr = document.getElementById('btn_suppr_post' + rep.postId);
-                btnSuppr.addEventListener('click', (event) => {
-                    event.preventDefault();
+                        const imqAltParent = document.getElementById('lien_article' + rep.postId);
+                        const imgBalise = document.getElementById('img_post_display' + rep.postId);
+                        imqAltParent.removeChild(imgBalise);
+                    };
 
-                    const urlpostAll = 'http://localhost:3000/api/post/' + rep.postId;
-                    const datas2 = deleteAuth(urlpostAll);
-                    datas2.then((response) => {
+                    //gestion des likes
+                    const btnLike = document.getElementById('like-forum' + rep.postId);
+                    const btnDislike = document.getElementById('dislike-forum' + rep.postId);
+                    //gestion du j'aime
+                    btnLike.addEventListener('click', () => {
+                        console.log('clik j\'aime');
 
-                        window.location = './forum.html';
-                    }).catch((error => {
-                        modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-                    })); //fin catch
+                        likeFunction = () => {
+                            const likeData = requestAuth('http://localhost:3000/api/post/' + rep.postId + '/like');
+                            likeData.then(response => {
+                                if (response.length === 0) {
+
+                                    const like = {
+                                        userId: recupUserId2.userId,
+                                        like: 1
+                                    };
+                                    const likeSend1 = sendAuthJson('http://localhost:3000/api/post/' + rep.postId + '/like', like);
+                                    likeSend1.then(response => {
+
+                                        window.location.reload();
+                                    });
+                                }; //fin de if
+
+                                if (response) {
+
+                                    response.forEach(likeRep => {
+
+                                        if (likeRep.userId === recupUserId2.userId, likeRep.postLikeValeur === 1) {
+
+                                            const like = {
+                                                userId: recupUserId2.userId,
+                                                like: 2
+                                            };
+                                            const likeSend2 = sendAuthJson('http://localhost:3000/api/post/' + rep.postId + '/like', like);
+                                            console.log(likeSend2);
+
+                                            likeSend2.then(response => {
+                                                console.log(response);
+                                                window.location.reload();
+                                            }); //fin de then
+                                        }; // fin de if
+                                    }); // fin de boucle
+                                }; // fin de else
+                            }); //tin de then
+
+                        }; //fin likeFunction
+                        likeFunction();
+                    });
+
+                    //gestion du j'aime pas
+                    btnDislike.addEventListener('click', () => {
+                        console.log('clik j\'aime pas');
+
+                        dislikeFunction = () => {
+                            const likeData = requestAuth('http://localhost:3000/api/post/' + rep.postId + '/like');
+                            likeData.then(response => {
+                                if (response.length === 0) {
+
+                                    const like = {
+                                        userId: recupUserId2.userId,
+                                        like: -1
+                                    };
+                                    const likeSend1 = sendAuthJson('http://localhost:3000/api/post/' + rep.postId + '/like', like);
+                                    likeSend1.then(response => {
+                                        window.location.reload();
+                                    }); // fin de then
+                                }; //fin de if
+                                if (response) {
+
+                                    response.forEach(likeRep => {
+
+                                        if (likeRep.userId === recupUserId2.userId, likeRep.postLikeValeur === -1) {
+
+                                            const like = {
+                                                userId: recupUserId2.userId,
+                                                like: 2
+                                            };
+                                            const likeSend2 = sendAuthJson('http://localhost:3000/api/post/' + rep.postId + '/like', like);
+                                            console.log(likeSend2);
+
+                                            likeSend2.then(response => {
+                                                console.log(response);
+                                                window.location.reload();
+                                            }); //fin de then
+                                        }; // fin de if
+                                    }); // fin de boucle
+                                }; // fin de else
+                            }); //fin de then
+
+                        }; //fin dislikeFunction
+                        dislikeFunction();
+                    });
+
+                    // suppression d'un posts
+                    const btnSuppr = document.getElementById('btn_suppr_post' + rep.postId);
+                    btnSuppr.addEventListener('click', (event) => {
+                        event.preventDefault();
+
+                        const urlpostAll = 'http://localhost:3000/api/post/' + rep.postId;
+                        const datas2 = deleteAuth(urlpostAll);
+                        datas2.then((response) => {
+
+                            window.location = './forum.html';
+                        }).catch((error => {
+                            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                        })); //fin catch
+                    });
                 });
-            });
-        }).catch((error => {
-
-            // faire spinner
-            //modals('Désolé !<br>Le serveur ne repond pas10', 'Connection', './index.html');
-            console.log(error = 'le forum et vide');
-        })); //fin catch
+            })
+            .catch((error => {
+                console.log(error = 'le forum et vide');
+            })); //fin catch
     }; //fin de else
 }; // fin createForum
 createforum();
