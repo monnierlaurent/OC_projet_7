@@ -26,8 +26,12 @@ createFormSignup = () => {
     newForm.appendChild(createElm3('input', '', 'id', 'password', 'class', 'bloc__login__form--input--style', 'type', 'password'));
     newForm.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur4', 'class', 'bloc__form_p--style'));
 
-    const newBtnConnection = mainIndex.appendChild(createElm2('button', 'Inscription', 'id', 'btn_inscrip_signup', 'class', 'bloc__form--btn'));
+    newForm.appendChild(createElm2('label', 'Comfirmation du mot de passe :', 'class', 'bloc__login__form--label--style', 'for', 'comfirmPassword'));
+    newForm.appendChild(createElm3('input', '', 'id', 'comfirmPassword', 'class', 'bloc__login__form--input--style', 'type', 'password'));
+    newForm.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur5', 'class', 'bloc__form_p--style'));
 
-    mainIndex.appendChild(createElm2('p', 'les informations sont érronées !', 'id', 'erreur5', 'class', 'bloc__form--font--erreur'));
+    newBtnConnection = mainIndex.appendChild(createElm2('button', 'Inscription', 'id', 'btn_inscrip_signup', 'class', 'bloc__form--btn'));
+
+    mainIndex.appendChild(createElm2('p', 'les informations sont érronées !', 'id', 'erreur6', 'class', 'bloc__form--font--erreur'));
 
 };

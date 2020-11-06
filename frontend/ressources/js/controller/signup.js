@@ -9,6 +9,7 @@ createLogin = () => {
     const paragErreur3 = document.getElementById('erreur3');
     const paragErreur4 = document.getElementById('erreur4');
     const paragErreur5 = document.getElementById('erreur5');
+    const paragErreur6 = document.getElementById('erreur6');
 
     const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20} *$/;
     const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[a-zA-Z1-9.-_]+[.]{1}[a-zA-Z1-9]{2,10}$/;
@@ -18,6 +19,7 @@ createLogin = () => {
     const prenom = document.getElementById('prenom');
     const email = document.getElementById('email');
     const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('comfirmPassword');
 
     valide = () => {
         nom.addEventListener('change', (event) => {
@@ -33,7 +35,7 @@ createLogin = () => {
 
             } else if (regexNomPrenom.test(nom.value) === false) {
                 paragErreur1.setAttribute('class', 'bloc__form--font--erreur2');
-                paragErreur1.innerHTML = 'Format du NOM  conforme !!!';
+                paragErreur1.innerHTML = 'le champs n\'est pas rempli correctement !';
             };
         });
         prenom.addEventListener('change', (event) => {
@@ -49,7 +51,7 @@ createLogin = () => {
 
             } else if (regexNomPrenom.test(prenom.value) === false) {
                 paragErreur2.setAttribute('class', 'bloc__form--font--erreur2');
-                paragErreur2.innerHTML = 'Format de l\'email est non  conforme !!!';
+                paragErreur2.innerHTML = 'le champs n\'est pas rempli correctement !';
             };
         });
 
@@ -66,7 +68,7 @@ createLogin = () => {
 
             } else if (regexEmail.test(email.value) === false) {
                 paragErreur3.setAttribute('class', 'bloc__form--font--erreur2');
-                paragErreur3.innerHTML = 'Format de l\'email est non  conforme !!!';
+                paragErreur3.innerHTML = 'le champs n\'est pas rempli correctement !';
             };
         });
 
@@ -82,7 +84,21 @@ createLogin = () => {
 
             } else if (regexPassword.test(password.value) === false) {
                 paragErreur4.setAttribute('class', 'bloc__form--font--erreur2');
-                paragErreur4.innerHTML = 'Format de l\'email est non  conforme !!!';
+                paragErreur4.innerHTML = 'le champs n\'est pas rempli correctement !';
+            };
+        });
+
+        confirmPassword.addEventListener('change', (event) => {
+            event.preventDefault;
+            if (confirmPassword.value.length === 0) {
+                paragErreur5.setAttribute('class', 'bloc__form--font--erreur1');
+                paragErreur5.innerHTML = '* champ obligatoire';
+            } else if (password.value === confirmPassword) {
+                paragErreur5.setAttribute('class', 'bloc__form--font--erreur1');
+                paragErreur5.innerHTML = '* champ obligatoire';
+            } else if (password.value !== confirmPassword) {
+                paragErreur5.setAttribute('class', 'bloc__form--font--erreur2');
+                paragErreur5.innerHTML = 'Attention les mots de passe de ne sont pas identique !';
             };
         });
     }; // fin valide
@@ -121,7 +137,7 @@ createLogin = () => {
             })); //fin catch
 
         } else {
-            paragErreur5.setAttribute('class', 'bloc__form--font--erreur2');
+            paragErreur6.setAttribute('class', 'bloc__form--font--erreur2');
         };
     });
 
