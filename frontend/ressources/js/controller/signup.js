@@ -4,11 +4,6 @@ createLogin = () => {
 
     createFormSignup();
 
-    const paragErreur1 = document.getElementById('erreur1');
-    const paragErreur2 = document.getElementById('erreur2');
-    const paragErreur3 = document.getElementById('erreur3');
-    const paragErreur4 = document.getElementById('erreur4');
-    const paragErreur5 = document.getElementById('erreur5');
     const paragErreur6 = document.getElementById('erreur6');
 
     const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20} *$/;
@@ -21,92 +16,11 @@ createLogin = () => {
     const password = document.getElementById('password');
     const confirmPassword = document.getElementById('comfirmPassword');
 
-    valide = () => {
-        nom.addEventListener('change', (event) => {
-            event.preventDefault;
-
-            if (nom.value.length === 0) {
-                paragErreur1.setAttribute('class', 'bloc__form--font--erreur1');
-                paragErreur1.innerHTML = '* champ obligatoire';
-
-            } else if (regexNomPrenom.test(nom.value) === true) {
-                paragErreur1.setAttribute('class', 'bloc__form--font--erreur1');
-                paragErreur1.innerHTML = '* champ obligatoire';
-
-            } else if (regexNomPrenom.test(nom.value) === false) {
-                paragErreur1.setAttribute('class', 'bloc__form--font--erreur2');
-                paragErreur1.innerHTML = 'le champs n\'est pas rempli correctement !';
-            };
-        });
-        prenom.addEventListener('change', (event) => {
-            event.preventDefault;
-
-            if (prenom.value.length === 0) {
-                paragErreur2.setAttribute('class', 'bloc__form--font--erreur1');
-                paragErreur2.innerHTML = '* champ obligatoire';
-
-            } else if (regexNomPrenom.test(prenom.value) === true) {
-                paragErreur2.setAttribute('class', 'bloc__form--font--erreur1');
-                paragErreur2.innerHTML = '* champ obligatoire';
-
-            } else if (regexNomPrenom.test(prenom.value) === false) {
-                paragErreur2.setAttribute('class', 'bloc__form--font--erreur2');
-                paragErreur2.innerHTML = 'le champs n\'est pas rempli correctement !';
-            };
-        });
-
-        email.addEventListener('change', (event) => {
-            event.preventDefault;
-
-            if (email.value.length === 0) {
-                paragErreur3.setAttribute('class', 'bloc__form--font--erreur1');
-                paragErreur3.innerHTML = '* champ obligatoire';
-
-            } else if (regexEmail.test(email.value) === true) {
-                paragErreur3.setAttribute('class', 'bloc__form--font--erreur1');
-                paragErreur3.innerHTML = '* champ obligatoire';
-
-            } else if (regexEmail.test(email.value) === false) {
-                paragErreur3.setAttribute('class', 'bloc__form--font--erreur2');
-                paragErreur3.innerHTML = 'le champs n\'est pas rempli correctement !';
-            };
-        });
-
-        password.addEventListener('change', (event) => {
-            event.preventDefault;
-            if (password.value.length === 0) {
-                paragErreur4.setAttribute('class', 'bloc__form--font--erreur1');
-                paragErreur4.innerHTML = '* champ obligatoire';
-
-            } else if (regexPassword.test(password.value) === true) {
-                paragErreur4.setAttribute('class', 'bloc__form--font--erreur1');
-                paragErreur4.innerHTML = '* champ obligatoire';
-
-            } else if (regexPassword.test(password.value) === false) {
-                paragErreur4.setAttribute('class', 'bloc__form--font--erreur2');
-                paragErreur4.innerHTML = 'le champs n\'est pas rempli correctement !';
-            };
-        });
-
-        confirmPassword.addEventListener('change', (event) => {
-            event.preventDefault;
-            if (confirmPassword.value.length === 0) {
-                paragErreur5.setAttribute('class', 'bloc__form--font--erreur1');
-                paragErreur5.innerHTML = '* champ obligatoire';
-            } else if (password.value === confirmPassword) {
-                paragErreur5.setAttribute('class', 'bloc__form--font--erreur1');
-                paragErreur5.innerHTML = '* champ obligatoire';
-            } else if (password.value !== confirmPassword) {
-                paragErreur5.setAttribute('class', 'bloc__form--font--erreur2');
-                paragErreur5.innerHTML = 'Attention les mots de passe de ne sont pas identique !';
-            };
-        });
-    }; // fin valide
-    valide();
+    valideSignup(nom, prenom, email, password, confirmPassword, regexNomPrenom, regexEmail, regexPassword);
 
     const btnConnection = document.getElementById('btn_inscrip_signup');
     btnConnection.addEventListener('click', () => {
-        if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false) {
+        if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false, confirmPassword.value === password.value) {
             const contact = {
                 nom: nom.value,
                 prenom: prenom.value,
@@ -115,12 +29,13 @@ createLogin = () => {
                 role: 2
             };
 
-            const datas = send('http://localhost:3000/api/auth/signup', contact);
+            const datas6 = send('http://localhost:3000/api/auth/signup', contact);
 
-            datas.then(response => {
+            datas6.then(response => {
 
                 if (response.error) {
-                    paragErreur5.setAttribute('class', 'bloc__form--font--erreur2');
+
+                    paragErreur6.setAttribute('class', 'bloc__form--font--erreur2');
                 } else {
 
                     const auth = JSON.stringify(response);
@@ -131,7 +46,6 @@ createLogin = () => {
 
             }).catch((error => {
 
-                // faire spinner
                 modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
 
             })); //fin catch

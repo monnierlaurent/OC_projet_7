@@ -8,7 +8,7 @@ createNavBar = (recupUserId, nom, prenom) => {
 
 
 createDisplayPostImg = (repPostId, repNom, repPrenom, repDateCrea, repTitre, repContenu, repImageUrl, repLikes, repDislikes, nbComs) => {
-
+    const mainIndex = document.getElementById('main_forum');
     const newarticle = mainIndex.appendChild(createElm2('article', '', 'id', 'lien_article' + repPostId, 'class', 'bloc_article--flex--width'));
     const newDiv2 = newarticle.appendChild(createElm2('div', '', 'id', 'div_img_suppr', 'class', 'bloc_article_div--flex'));
     newDiv2.appendChild(createElm1('p', repNom, 'class', 'bloc_article_div_p--padding'));
@@ -59,7 +59,7 @@ createDisplayComs = (nom, prenom, date, contenu, postId, comId) => {
     newDiv6.appendChild(createElm1('p', '0', 'class', 'bloc_article_div_p--padding-2'));
 
 
-    newDiv6.appendChild(createElm3('a', 'Modifier', 'id', 'btn_com_modif' + comId, 'class', 'bloc_article_div_p--padding-2 bloc_article_div_a--hover', 'href', '#?id=' + postId));
+    newDiv6.appendChild(createElm3('a', 'Modifier', 'id', 'btn_com_modif1' + comId, 'class', 'bloc_article_div_p--padding-2 bloc_article_div_a--hover', 'href', '#?id=' + postId));
     newDiv6.appendChild(createElm2('a', 'Supprimer', 'id', 'btn_com_suppr' + comId, 'class', 'bloc_article_div_p--padding-2 bloc_article_div_a--hover'));
 };
 
@@ -103,6 +103,7 @@ modaleCreateModifPost = (titre, contenu, imageUrl) => {
     formPost.appendChild(createInputs('textarea', contenu, 'id', 'post_forum_text', 'rows', '10', 'class', 'bloc__login__form--input--style-2', 'name', 'contenu'));
     formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_modif_posts', 'class', 'bloc__form--font--erreur'));
 
+
     formPost.appendChild(createElm2('img', '', 'class', 'bloc_article_img--width2', 'src', imageUrl, 'alt', 'affichage de l\'anciene image'));
 
     const formPost2 = formPost.appendChild(createElm2('form', '', 'class', 'bloc_article--flex--width2'));
@@ -123,22 +124,32 @@ createComsForm = () => {
     const newForm = newDivAside.appendChild(createElm1('form', '', 'class', 'bloc_form--style bloc_article--flex--width'));
     newForm.appendChild(createElm2('label', 'Commenter :', 'class', 'bloc_form_label--style', 'for', 'commentaire'));
     newForm.appendChild(createElm3('textarea', '', 'id', 'commentaire', 'class', 'bloc_form-input--style', 'row', '2'));
-    newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_coms', 'class', 'bloc__form--font--erreur'));
+    newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_coms_1', 'class', 'bloc__form--font--erreur'));
 
     const newDiv4 = newForm.appendChild(createElm1('div', '', 'class', 'bloc_form_btn--flex'));
     newDiv4.appendChild(createElm2('button', 'Poster', 'id', 'btn_envoyer_coms', 'class', 'bloc_form-btn--style2'));
     newDiv4.appendChild(createElm2('button', 'Annuler', 'id', 'btn_annuler_coms', 'class', 'bloc_form-btn--style2'));
+
+    newDivAside.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur1', 'class', 'bloc__form--font--erreur'));
 };
 
 
-modalComModif = (valueTitre, valueTextarea, comId) => {
 
+
+
+modifComsForm = (valueTextarea) => {
     const main = document.querySelector('main');
     const newAside = main.appendChild(createElm2('aside', '', 'id', 'modal1', 'class', 'modal'));
     const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper'));
-    newDivAside.appendChild(createElm1('h2', valueTitre, 'class', ''));
-    newDivAside.appendChild(createInputs('textarea', valueTextarea, 'id', 'text_coms_modal', 'class', 'bloc__aside__heading--padding bloc_form-input--style'));
-    newDivAside.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_modif_coms', 'class', 'bloc__form--font--erreur'));
-    newDivAside.appendChild(createElm2('p', 'modifier', 'id', 'btnComModif', 'class', 'bloc__form--btn-2'));
-    newDivAside.appendChild(createElm2('p', 'Annuler', 'id', 'btn_com_annul', 'class', 'bloc__form--btn-2'));
+
+    const newForm = newDivAside.appendChild(createElm1('form', '', 'class', 'bloc_form--style bloc_article--flex--width'));
+    newForm.appendChild(createElm2('label', 'Modifier le commentaire :', 'class', 'bloc_form_label--style', 'for', 'commentaire'));
+    newForm.appendChild(createElm3('textarea', valueTextarea, 'id', 'commentaireModifCom', 'class', 'bloc_form-input--style', 'row', '2'));
+    newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur2', 'class', 'bloc__form--font--erreur'));
+
+    const newDiv4 = newForm.appendChild(createElm1('div', '', 'class', 'bloc_form_btn--flex'));
+    newDiv4.appendChild(createElm2('button', 'Modifier', 'id', 'btnComModif', 'class', 'bloc_form-btn--style2'));
+    newDiv4.appendChild(createElm2('button', 'Annuler', 'id', 'btnAnnulerComs', 'class', 'bloc_form-btn--style2'));
+
+    newDivAside.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur4', 'class', 'bloc__form--font--erreur'));
 };

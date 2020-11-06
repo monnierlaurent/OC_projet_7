@@ -1,7 +1,4 @@
-const mainIndex = document.getElementById('main_forum');
-
 createforum = () => {
-
     const recupStorage = sessionStorage.getItem('repAuth');
     const recupUserId2 = JSON.parse(recupStorage);
 
@@ -11,7 +8,6 @@ createforum = () => {
         modals('Vous n\avez pas accès a cette ressource !', 'Inscription', './signup.html');
     } else {
 
-
         const datas = requestAuth(urlUserID);
         datas.then(user => {
             createNavBar(recupUserId2.userId, user.nom, user.prenom);
@@ -20,6 +16,7 @@ createforum = () => {
             const btnPosteMessage = document.getElementById('poster');
             btnPosteMessage.addEventListener('click', (event) => {
                 event.preventDefault();
+
                 modaleCreatePost();
 
                 const BtnPost = document.getElementById('btn_post_forum');
@@ -32,85 +29,52 @@ createforum = () => {
                     const image = document.getElementById('post_img').files;
                     const titre = document.getElementById('post_forum_titre');
                     const contenu = document.getElementById('post_forum_text');
-                    const auteur = user.nom + ' ' + user.prenom;
 
                     const regexDatas = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
 
-                    valide = () => {
-                        titre.addEventListener('change', (event) => {
-                            event.preventDefault;
+                    validPosts(titre, contenu, regexDatas, 'erreur_posts');
 
-                            if (titre.value.length === 0) {
-                                erreurPost.setAttribute('class', 'bloc__form--font--erreur');
-                                erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
-                                console.log('ok1 blanc');
-                            } else if (regexDatas.test(titre.value) === true) {
-                                erreurPost.setAttribute('class', 'bloc__form--font--erreur');
-                                erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
-                                console.log('ok2');
-                            } else if (regexDatas.test(titre.value) === false) {
-                                erreurPost.setAttribute('class', 'bloc__form--font--erreur2');
-                                erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
-                                console.log('pas ok');
-                            };
-                        });
-                        contenu.addEventListener('change', (event) => {
-                            event.preventDefault;
-
-                            if (contenu.value.length === 0) {
-                                erreurPost.setAttribute('class', 'bloc__form--font--erreur');
-                                erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
-
-                            } else if (regexDatas.test(contenu.value) === true) {
-                                erreurPost.setAttribute('class', 'bloc__form--font--erreur');
-                                erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
-
-                            } else if (regexDatas.test(contenu.value) === false) {
-                                erreurPost.setAttribute('class', 'bloc__form--font--erreur2');
-                                erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
-                            };
-                        });
-                    }; //fin de valide
-
-                    valide();
 
                     BtnPost.addEventListener('click', (event) => {
                         event.preventDefault();
+                        if (regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) !== false) {
+                            if (image[0]) {
 
-                        if (image[0]) {
+                                const posts10 = {
+                                    titre: titre.value,
+                                    contenu: contenu.value,
+                                };
 
-                            const posts10 = {
-                                titre: titre.value,
-                                auteur: auteur,
-                                contenu: contenu.value,
+                                const posts = JSON.stringify(posts10);
+
+                                const data = new FormData();
+                                data.append('image', image[0]);
+                                data.append('posts', posts);
+
+                                const postObjsect = sendAuthFormdata('http://localhost:3000/api/post/img', data);
+
+                                postObjsect.then(response => {
+
+                                    window.location = './forum.html';
+                                }).catch((error => {
+                                    modals('Désolé !<br>Le serveur ne repond pas ', 'Connection', './index.html');
+                                })); //fin catch
+                            } else {
+                                const posts = {
+                                    titre: titre.value,
+                                    contenu: contenu.value
+                                };
+
+                                const postObjsect = sendAuthJson('http://localhost:3000/api/post', posts);
+                                postObjsect.then(response => {
+                                    window.location = './forum.html';
+                                }).catch((error => {
+                                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                })); //fin catch
                             };
-                            const posts = JSON.stringify(posts10);
-
-                            const data = new FormData();
-                            data.append('image', image[0]);
-                            data.append('posts', posts);
-
-                            const postObjsect = sendAuthFormdata('http://localhost:3000/api/post/img', data);
-
-                            postObjsect.then(response => {
-
-                                window.location = './forum.html';
-                            }).catch((error => {
-                                modals('Désolé !<br>Le serveur ne repond pas ', 'Connection', './index.html');
-                            })); //fin catch
                         } else {
-                            const posts = {
-                                titre: titre.value,
-                                auteur: auteur,
-                                contenu: contenu.value
-                            };
-
-                            const postObjsect = sendAuthJson('http://localhost:3000/api/post', posts);
-                            postObjsect.then(response => {
-                                window.location = './forum.html';
-                            }).catch((error => {
-                                modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-                            })); //fin catch
+                            erreurPost.setAttribute('class', 'bloc__form--font--erreur2');
+                            erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
                         };
                     });
                 }).catch((error => {
@@ -143,50 +107,58 @@ createforum = () => {
                             } else {
                                 paragDisplayNbComs.innerHTML = compteurCom + ' commentaire';
                             }
-                            //creation de l'affichage des commenataires
-                            const urlComAll = 'http://localhost:3000/api/post/' + rep.postId + '/com';
-                            const datas4 = requestAuth(urlComAll);
-                            datas4.then(coms => {
 
-                                coms.forEach(rep => {
+                            coms.forEach(rep => {
 
-                                    //console.log(coms.length)
-                                    createDisplayComs(rep.nom, rep.prenom, rep.comDateCrea, rep.comContenu, rep.postId, rep.comId);
+                                //console.log(coms.length)
+                                createDisplayComs(rep.nom, rep.prenom, rep.comDateCrea, rep.comContenu, rep.postId, rep.comId);
 
-                                    const btnDysplayComs = document.getElementById('display_coms_forum' + rep.postId);
-                                    const btnHideComs = document.getElementById('display_none_forum' + rep.postId);
+                                const btnDysplayComs = document.getElementById('display_coms_forum' + rep.postId);
+                                const btnHideComs = document.getElementById('display_none_forum' + rep.postId);
 
-                                    const articleComsDisplay = document.getElementById('coms_display_none' + rep.comId);
-                                    const articleHideDisplay = document.getElementById('display_none_forum' + rep.postId);
+                                const articleComsDisplay = document.getElementById('coms_display_none' + rep.comId);
+                                const articleHideDisplay = document.getElementById('display_none_forum' + rep.postId);
 
-                                    btnDysplayComs.addEventListener('click', (event) => {
-                                        articleComsDisplay.removeAttribute('class');
-                                        articleComsDisplay.setAttribute('class', 'bloc_article--flex--width-2');
+                                btnDysplayComs.addEventListener('click', (event) => {
+                                    articleComsDisplay.removeAttribute('class');
+                                    articleComsDisplay.setAttribute('class', 'bloc_article--flex--width-2');
 
-                                        articleHideDisplay.removeAttribute('class');
-                                        articleHideDisplay.setAttribute('class', 'bloc_article_div--flex4 bloc_article_div_a--hover');
-                                    }); // fin de click
-                                    btnHideComs.addEventListener('click', (event) => {
+                                    articleHideDisplay.removeAttribute('class');
+                                    articleHideDisplay.setAttribute('class', 'bloc_article_div--flex4 bloc_article_div_a--hover');
+                                }); // fin de click
+                                btnHideComs.addEventListener('click', (event) => {
 
-                                        articleComsDisplay.removeAttribute('class');
-                                        articleComsDisplay.setAttribute('class', 'display--none');
+                                    articleComsDisplay.removeAttribute('class');
+                                    articleComsDisplay.setAttribute('class', 'display--none');
 
-                                        articleHideDisplay.removeAttribute('class');
-                                        articleHideDisplay.setAttribute('class', 'display--none');
-                                    }); // fin de click
+                                    articleHideDisplay.removeAttribute('class');
+                                    articleHideDisplay.setAttribute('class', 'display--none');
+                                }); // fin de click
 
-                                    const btnModifCom = document.getElementById('btn_com_modif' + rep.comId);
-                                    btnModifCom.addEventListener('click', () => {
+                                const btnModifCom = document.getElementById('btn_com_modif1' + rep.comId);
+                                btnModifCom.addEventListener('click', () => {
 
-                                        modalComModif('modif coms', rep.comContenu);
+                                    //modalComModif('Modifier mon commentaire', rep.comContenu);
+                                    modifComsForm(rep.comContenu);
 
-                                        const btnEnvoiCom = document.getElementById('btnComModif');
-                                        btnEnvoiCom.addEventListener('click', (event) => {
-                                            event.preventDefault();
-                                            const recupComtenu2 = document.getElementById('text_coms_modal');
+                                    const recupComtenu2 = document.getElementById('commentaireModifCom');
+                                    const regexDatas = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+
+
+                                    const btnEnvoiCom = document.getElementById('btnComModif');
+                                    const erreur4 = document.getElementById('erreur4');
+
+                                    validComsModif(recupComtenu2, regexDatas);
+
+                                    btnEnvoiCom.addEventListener('click', (event) => {
+                                        event.preventDefault();
+
+                                        if (regexDatas.test(recupComtenu2.value) !== false) {
+
                                             const comModif = {
                                                 comContenu: recupComtenu2.value
                                             };
+
                                             const urlModifCom = 'http://localhost:3000/api/post/' + rep.postId + '/com/' + rep.comId;
                                             const data = putAuthJson(urlModifCom, comModif);
                                             data.then(() => {
@@ -195,31 +167,35 @@ createforum = () => {
                                             }).catch((error => {
                                                 modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
                                             })); //fin catch //fin then data
-                                        });
-
-                                        const btnAnnulEnvoiCom = document.getElementById('btn_com_annul');
-                                        btnAnnulEnvoiCom.addEventListener('click', (event) => {
-                                            event.preventDefault();
-                                            window.location = './forum.html';
-                                        });
-                                    }); // fin de modif coms
-
-                                    const btnSupprCom = document.getElementById('btn_com_suppr' + rep.comId);
-                                    btnSupprCom.addEventListener('click', (event) => {
-
-                                        const urlModifCom = 'http://localhost:3000/api/post/' + rep.postId + '/com/' + rep.comId;
-                                        event.preventDefault();
-
-                                        const data = deleteAuth(urlModifCom);
-
-                                        data.then(() => {
-                                            window.location = './forum.html';
-                                        }).catch((error => {
-                                            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-                                        })); //fin catch
+                                        } else {
+                                            erreur4.setAttribute('class', 'bloc__form--font--erreur2');
+                                            erreur4.innerHTML = 'le champs n\'est pas rempli correctement !';
+                                        };
                                     });
-                                }); //fin de boucle
-                            }); //fin de then
+
+                                    const btnAnnulEnvoiCom = document.getElementById('btnAnnulerComs');
+                                    btnAnnulEnvoiCom.addEventListener('click', (event) => {
+                                        event.preventDefault();
+                                        window.location = './forum.html';
+                                    });
+                                }); // fin de modif coms
+
+                                const btnSupprCom = document.getElementById('btn_com_suppr' + rep.comId);
+                                btnSupprCom.addEventListener('click', (event) => {
+
+                                    const urlModifCom = 'http://localhost:3000/api/post/' + rep.postId + '/com/' + rep.comId;
+                                    event.preventDefault();
+
+                                    const data = deleteAuth(urlModifCom);
+
+                                    data.then(() => {
+                                        window.location = './forum.html';
+                                    }).catch((error => {
+                                        modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                    })); //fin catch
+                                });
+                            }); //fin de boucle
+
 
 
 
@@ -250,85 +226,117 @@ createforum = () => {
                                 const titre = document.getElementById('post_forum_titre');
                                 const contenu = document.getElementById('post_forum_text');
 
+                                const regexDatas = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+                                validPosts(titre, contenu, regexDatas, 'erreur_modif_posts');
+
                                 btnEnvoi.addEventListener('click', (event) => {
                                     event.preventDefault();
 
-                                    const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId2.userId;
+                                    if (regexDatas.test(titre) !== false && regexDatas.test(contenu) !== false) {
+                                        const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId2.userId;
 
-                                    const datas1 = requestAuth(urlUserID);
-                                    datas1.then(user => {
+                                        const datas1 = requestAuth(urlUserID);
+                                        datas1.then(user => {
 
-                                        if (image[0]) {
-                                            const posts10 = {
-                                                titre: titre.value,
-                                                contenu: contenu.value,
+                                            if (image[0]) {
+                                                const posts10 = {
+                                                    titre: titre.value,
+                                                    contenu: contenu.value,
+                                                };
+
+                                                const posts = JSON.stringify(posts10);
+
+                                                const data = new FormData();
+                                                data.append('image', image[0]);
+                                                data.append('posts', posts);
+
+                                                const postUrlImg = 'http://localhost:3000/api/post/img/' + rep.postId;
+                                                const postObjsect = putAuthFormdata(postUrlImg, data);
+
+                                                postObjsect.then(response => {
+
+                                                    window.location = './forum.html';
+                                                }).catch((error => {
+
+                                                    // faire spinner
+                                                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+
+                                                })); //fin catch
+
+                                            } else {
+                                                const posts = {
+                                                    titre: titre.value,
+                                                    contenu: contenu.value
+                                                };
+
+                                                console.log(posts)
+                                                const urlPost = 'http://localhost:3000/api/post/' + rep.postId;
+                                                const postObjsect = putAuthJson(urlPost, posts);
+                                                postObjsect.then(response => {
+
+                                                    window.location = './forum.html';
+                                                }).catch((error => {
+                                                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                                })); //fin catch
                                             };
-
-                                            const posts = JSON.stringify(posts10);
-
-                                            const data = new FormData();
-                                            data.append('image', image[0]);
-                                            data.append('posts', posts);
-
-                                            const postUrlImg = 'http://localhost:3000/api/post/img/' + rep.postId;
-                                            const postObjsect = putAuthFormdata(postUrlImg, data);
-
-                                            postObjsect.then(response => {
-
-                                                window.location = './forum.html';
-                                            }).catch((error => {
-
-                                                // faire spinner
-                                                modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-
-                                            })); //fin catch
-
-                                        } else {
-                                            const posts = {
-                                                titre: titre.value,
-                                                contenu: contenu.value
-                                            };
-
-                                            console.log(posts)
-                                            const urlPost = 'http://localhost:3000/api/post/' + rep.postId;
-                                            const postObjsect = putAuthJson(urlPost, posts);
-                                            postObjsect.then(response => {
-
-                                                window.location = './forum.html';
-                                            }).catch((error => {
-                                                modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-                                            })); //fin catch
-                                        };
-                                    }).catch((error => {
-                                        //modals('Désolé !<br>Le serveur ne repond pas10', 'Connection', './index.html');
-                                    })); //fin catch
+                                        }).catch((error => {
+                                            //modals('Désolé !<br>Le serveur ne repond pas10', 'Connection', './index.html');
+                                        })); //fin catch
+                                    } else {
+                                        const erreurPost = document.getElementById('erreur_modif_posts');
+                                        erreurPost.setAttribute('class', 'bloc__form--font--erreur2');
+                                        erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+                                    };
                                 });
                             });
 
+
+
+
+
+
+
                             const btnComment = document.getElementById('btn_commenter_post' + rep.postId);
                             btnComment.addEventListener('click', () => {
+
                                 createComsForm();
 
+                                const contenu = document.getElementById('commentaire');
+
+                                const regexDatas1 = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+                                const erreurs = document.getElementById('erreur1');
+
+
+                                validComs(contenu, regexDatas1, 'erreurComs1');
+
                                 const btnPostComs = document.getElementById('btn_envoyer_coms');
+
                                 btnPostComs.addEventListener('click', (event) => {
                                     event.preventDefault();
 
-                                    const contenu = document.getElementById('commentaire');
+                                    if (regexDatas1.test(contenu.value) === true) {
 
-                                    const coms = {
-                                        comContenu: contenu.value
+                                        const coms = {
+                                            comContenu: contenu.value
+                                        };
+
+                                        const urlComs = 'http://localhost:3000/api/post/' + rep.postId + '/com';
+
+                                        const postObjsect = sendAuthJson(urlComs, coms);
+                                        postObjsect.then(response => {
+
+                                            window.location = './forum.html';
+                                        }).catch((error => {
+                                            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                        })); //fin catch
+                                    } else {
+
+                                        erreurs.setAttribute('class', 'bloc__form--font--erreur2');
+                                        erreurs.innerHTML = 'le champs n\'est pas rempli correctement !';
                                     };
-                                    const urlComs = 'http://localhost:3000/api/post/' + rep.postId + '/com';
-
-                                    const postObjsect = sendAuthJson(urlComs, coms);
-                                    postObjsect.then(response => {
-
-                                        window.location = './forum.html';
-                                    }).catch((error => {
-                                        modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-                                    })); //fin catch
                                 }); // fin click
                             });
+
                             // suppression d'un posts
                             const btnSuppr = document.getElementById('btn_suppr_post' + rep.postId);
                             btnSuppr.addEventListener('click', (event) => {
