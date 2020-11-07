@@ -24,7 +24,7 @@ createFormSignup = () => {
 
     newForm.appendChild(createElm2('label', 'Mot de passe :', 'class', 'bloc__login__form--label--style', 'for', 'password'));
     newForm.appendChild(createElm3('input', '', 'id', 'password', 'class', 'bloc__login__form--input--style', 'type', 'password'));
-    newForm.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur4', 'class', 'bloc__form_p--style'));
+    newForm.appendChild(createElm2('p', '* champ obligatoire exemple : @Modepasse', 'id', 'erreur4', 'class', 'bloc__form_p--style'));
 
     newForm.appendChild(createElm2('label', 'Comfirmation du mot de passe :', 'class', 'bloc__login__form--label--style', 'for', 'comfirmPassword'));
     newForm.appendChild(createElm3('input', '', 'id', 'comfirmPassword', 'class', 'bloc__login__form--input--style', 'type', 'password'));

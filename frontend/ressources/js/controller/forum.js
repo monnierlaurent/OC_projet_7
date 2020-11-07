@@ -1,6 +1,12 @@
 createforum = () => {
+    //console.log(sessionStorage);
+
     const recupStorage = sessionStorage.getItem('repAuth');
     const recupUserId2 = JSON.parse(recupStorage);
+
+    if (!recupUserId2) {
+        window.location = './index.html';
+    };
 
     const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId2.userId;
     //console.log(recupUserId2.userId)
@@ -11,6 +17,15 @@ createforum = () => {
         const datas = requestAuth(urlUserID);
         datas.then(user => {
             createNavBar(recupUserId2.userId, user.nom, user.prenom);
+
+            const btnDeconection = document.getElementById('deconnection');
+            btnDeconection.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                sessionStorage.clear();
+
+                window.location = './index.html';
+            });
 
             const btnPosteMessage = document.getElementById('poster');
             btnPosteMessage.addEventListener('click', (event) => {

@@ -1,9 +1,9 @@
 createNavBar = (recupUserId, nom, prenom) => {
     const navBar = document.getElementById('nav_forum');
     navBar.appendChild(createElm2('a', nom + ' ' + prenom + ' est connecté', 'id', '', 'class', 'header__nav__a--style'));
-    navBar.appendChild(createElm2('a', 'Poster un message', 'id', 'poster', 'class', 'header__nav__a--style', 'href', '#'));
+    navBar.appendChild(createElm2('a', 'Poster un message', 'id', 'poster', 'class', 'header__nav__a--style'));
     navBar.appendChild(createElm3('a', 'Mon compte', 'id', 'compteUser', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId));
-    navBar.appendChild(createElm3('a', 'Déonnection', 'id', 'deconnection', 'class', 'header__nav__a--style', 'href', './index.html'));
+    navBar.appendChild(createElm2('a', 'Déonnection', 'id', 'deconnection', 'class', 'header__nav__a--style'));
 };
 
 

@@ -61,11 +61,11 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
         event.preventDefault();
         if (password.value.length === 0) {
             paragErreur4.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur4.innerHTML = '* champ obligatoire';
+            paragErreur4.innerHTML = '* champ obligatoire exemple : @Modepasse';
 
         } else if (Rpassword.test(password.value) === true) {
             paragErreur4.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur4.innerHTML = '* champ obligatoire';
+            paragErreur4.innerHTML = '* champ obligatoire exemple : @Modepasse';
 
         } else if (Rpassword.test(password.value) === false) {
             paragErreur4.setAttribute('class', 'bloc__form--font--erreur2');
@@ -73,17 +73,18 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
         };
     });
 
+
     confirmPassword.addEventListener('change', (event) => {
         event.preventDefault();
         if (confirmPassword.value.length === 0) {
             paragErreur5.setAttribute('class', 'bloc__form--font--erreur1');
             paragErreur5.innerHTML = '* champ obligatoire';
 
-        } else if (password.value === confirmPassword) {
+        } else if (password.value === confirmPassword.value) {
             paragErreur5.setAttribute('class', 'bloc__form--font--erreur1');
             paragErreur5.innerHTML = '* champ obligatoire';
 
-        } else if (password.value !== confirmPassword) {
+        } else if (password.value !== confirmPassword.value) {
             paragErreur5.setAttribute('class', 'bloc__form--font--erreur2');
             paragErreur5.innerHTML = 'Attention les mots de passe de ne sont pas identique !';
         };
