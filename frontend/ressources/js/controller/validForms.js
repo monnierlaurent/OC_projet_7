@@ -215,3 +215,58 @@ validComsModif = (contenu, Rdatas) => {
         };
     });
 };
+
+valideModifUser = (recupNom, recupPrenom, recupEmail, recupPassword, Rnom, Remail, Rpassword) => {
+
+    const erreur1 = document.getElementById('erreur1');
+    const erreur2 = document.getElementById('erreur2');
+    const erreur3 = document.getElementById('erreur3');
+    const erreur4 = document.getElementById('erreur4');
+
+    recupNom.addEventListener('change', (event) => {
+        event.preventDefault();
+
+        if (recupNom.value.length === 0) {
+            erreur1.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (Rnom.test(recupNom.value) === true) {
+            erreur1.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (Rnom.test(recupNom.value) === false) {
+            erreur1.setAttribute('class', 'bloc__form--font--erreur2');
+        };
+    });
+
+    recupPrenom.addEventListener('change', (event) => {
+        event.preventDefault();
+
+        if (recupPrenom.value.length === 0) {
+            erreur2.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (Rnom.test(recupPrenom.value) === true) {
+            erreur2.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (Rnom.test(recupPrenom.value) === false) {
+            erreur2.setAttribute('class', 'bloc__form--font--erreur2');
+        };
+    });
+    recupEmail.addEventListener('change', (event) => {
+        event.preventDefault();
+
+        if (recupEmail.value.length === 0) {
+            erreur3.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (Remail.test(recupEmail.value) === true) {
+            erreur3.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (Remail.test(recupEmail.value) === false) {
+            erreur3.setAttribute('class', 'bloc__form--font--erreur2');
+        };
+    });
+    recupPassword.addEventListener('change', (event) => {
+        event.preventDefault();
+
+        if (recupPassword.value.length === 0) {
+            erreur4.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (Rpassword.test(recupPassword.value) === true) {
+            erreur4.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (Rpassword.test(recupPassword.value) === false) {
+            erreur4.setAttribute('class', 'bloc__form--font--erreur2');
+        };
+    });
+
+};

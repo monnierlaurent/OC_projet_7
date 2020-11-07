@@ -19,7 +19,7 @@ createDisplayUers = (nom, prenom, dateInscrip, emailRec) => {
 };
 
 createFormModifUser = (nom, prenom, emailRec) => {
-    const newForm = mainUsers.appendChild(createElm2('form', '', 'id', 'form_modif_user', 'class', 'display--none ')); // bloc_section_form--flex
+    const newForm = mainUsers.appendChild(createElm2('form', '', 'id', 'form_modif_user', 'class', 'display--none '));
 
     newForm.appendChild(createElm2('label', 'Nom', 'class', 'bloc__login__form--label--style-2', 'for', 'nom'));
     newForm.appendChild(createInputs('input', '', 'id', 'nom', 'class', 'bloc__login__form--input--style-2', 'type', 'text', 'value', nom));
@@ -40,4 +40,5 @@ createFormModifUser = (nom, prenom, emailRec) => {
     const newDiv2 = newForm.appendChild(createElm1('div', '', 'class', 'bloc_section_form_btn--flex'));
     newDiv2.appendChild(createElm2('button', 'Modifer mon profil', 'id', 'btn_modif_profil_user2', 'class', 'bloc__form--btn-2'));
     newDiv2.appendChild(createElm2('button', 'Annuler', 'id', 'btn_annule_modif_user', 'class', 'bloc__form--btn-2'));
+    newForm.appendChild(createElm2('p', '1 des champs n\'est pas rempli correctement !', 'id', 'erreur5', 'class', 'bloc__form--font--erreur'));
 };

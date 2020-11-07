@@ -399,7 +399,7 @@
     /*---------------------compte utilisateur-----------------*/
     
     .bloc_section_form--flex {
-        width: 55%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;

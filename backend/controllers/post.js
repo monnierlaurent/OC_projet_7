@@ -119,13 +119,10 @@ exports.updatePostIdImg = (req, res, next) => {
                     if (response.userId === userIdRec || roleRec === 1) {
 
                         const reqBodyParse = JSON.parse(req.body.posts);
-                        console.log(req.body.posts);
-                        console.log(req.file);
 
                         const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
 
                         const filename = response[0].imageUrl.split("/images")[1];
-                        console.log(filename);
 
                         fs.unlink(`images/${filename}`, () => {
 
