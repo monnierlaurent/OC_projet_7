@@ -102,7 +102,7 @@ createforum = () => {
             datas2.then(post => {
 
                     post.forEach(rep => {
-                        console.log(rep.likes)
+
                         const urlComAll2 = 'http://localhost:3000/api/post/' + rep.postId + '/com';
                         const datas3 = requestAuth(urlComAll2);
                         datas3.then(coms => {
@@ -168,11 +168,38 @@ createforum = () => {
 
                             coms.forEach(rep => {
                                 console.log(rep)
-                                createDisplayComs(rep.nom, rep.prenom, rep.comContenu, rep.postId, rep.comId);
+                                createDisplayComs(rep.nom, rep.prenom, rep.comContenu, rep.postId, rep.comId, rep.comLikes, rep.comDislikes);
 
                                 compterHours('date_crea_coms', rep.comId, rep.comDateCrea);
 
+                                //gestion des comLikes 
+                                const btnComLikes = document.getElementById('like_com' + rep.comId);
+                                btnComLikes.addEventListener('click', (event) => {
+                                    event.preventDefault();
+                                    const like = {
+                                        userId: recupUserId2.userId,
+                                        like: 1
+                                    };
+                                    const comLikeSend = sendAuthJson('http://localhost:3000/api/post/' + rep.postId + '/com/' + rep.comId + '/like', like);
+                                    comLikeSend.then(response => {
 
+                                        window.location.reload();
+                                    });
+                                });
+
+                                const btnComDislike = document.getElementById('dislike_com' + rep.comId);
+                                btnComDislike.addEventListener('click', (event) => {
+                                    event.preventDefault();
+                                    const like = {
+                                        userId: recupUserId2.userId,
+                                        like: -1
+                                    };
+                                    const comDisikeSend = sendAuthJson('http://localhost:3000/api/post/' + rep.postId + '/com/' + rep.comId + '/like', like);
+                                    comDisikeSend.then(response => {
+
+                                        window.location.reload();
+                                    });
+                                });
 
                                 if (recupUserId2.userId === rep.userId) {
                                     const btnModifierCom = document.getElementById('btn_com_modif1' + rep.comId);

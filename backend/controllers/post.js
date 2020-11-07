@@ -273,7 +273,7 @@ exports.likePost = (req, res, next) => {
     };
 }; //fin likeSauce
 // recup de la table postLikes
-exports.likeDisplayTable = (req, res, next) => {
+/*exports.likeDisplayTable = (req, res, next) => {
     const reqParamsId = sanitize(req.params.id);
     const userIdAuth = sanitize(req.userIdAuth);
 
@@ -283,4 +283,4 @@ exports.likeDisplayTable = (req, res, next) => {
             res.status(201).json(response);
 
         }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
-}; ////fin exports
+}; ////fin exports*/

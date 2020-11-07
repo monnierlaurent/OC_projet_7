@@ -22,7 +22,7 @@ router.put('/:id', auth, postCtrl.updatePostId);
 router.delete('/:id', auth, postCtrl.deletePostId);
 
 //likes
-router.get('/:id/like', auth, postCtrl.likeDisplayTable);
+//router.get('/:id/like', auth, postCtrl.likeDisplayTable);
 router.post('/:id/like', auth, postCtrl.likePost);
 
 // routes commentaires
@@ -36,7 +36,7 @@ router.put('/:postId/com/:comId', auth, comCtrl.updateComId);
 router.delete('/:postId/com/:comId', auth, comCtrl.deleteComId);
 
 //likes
-router.get('/:id/com/:comId/like', auth, comCtrl.likeDisplayTableComs);
+//router.get('/:id/com/:comId/like', auth, comCtrl.likeDisplayTableComs);
 router.post('/:id/com/:comId/like', auth, comCtrl.likeCom);
 
 module.exports = router;

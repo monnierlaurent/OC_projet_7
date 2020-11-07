@@ -34,16 +34,12 @@ createDisplayPostImg = (repPostId, repNom, repPrenom, repTitre, repContenu, repI
     newLien3.appendChild(createElm2('p', 'Modifier', 'id', 'btn_modif_post' + repPostId, 'class', 'display--none')); //bloc_article_div_a--hover bloc_article_p--padding
     newLien3.appendChild(createElm2('p', 'Supprimer', 'id', 'btn_suppr_post' + repPostId, 'class', 'display--none')); // bloc_article_div_a--hover bloc_article_p--padding
 
-
-
-
-
     newDiv6 = newarticle.appendChild(createElm2('div', '', 'id', 'display_forum' + repPostId, 'class', 'bloc_article_div--flex3'));
 
     newDiv7 = newarticle.appendChild(createElm2('p', 'masquer', 'id', 'display_none_forum' + repPostId, 'class', 'display--none')); //bloc_article_div--flex4 bloc_article_div_a--hover
 };
 
-createDisplayComs = (nom, prenom, contenu, postId, comId) => {
+createDisplayComs = (nom, prenom, contenu, postId, comId, comLikes, comDislikes) => {
     const mainPostId = document.getElementById('display_forum' + postId);
 
     const newArticle = mainPostId.appendChild(createElm2('article', '', 'id', 'coms_display_none' + comId, 'class', 'display--none')); // bloc_article--flex--width-2
@@ -55,9 +51,9 @@ createDisplayComs = (nom, prenom, contenu, postId, comId) => {
 
     const newDiv6 = newArticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
     newDiv6.appendChild(createElm2('i', '', 'id', 'like_com' + comId, 'class', 'fas fa-heart bloc_article_div_p--padding-2'));
-    newDiv6.appendChild(createElm1('p', '0', 'class', 'bloc_article_div_p--padding-2'));
+    newDiv6.appendChild(createElm1('p', comLikes, 'class', 'bloc_article_div_p--padding-2'));
     newDiv6.appendChild(createElm2('i', '', 'id', 'dislike_com' + comId, 'class', 'fas fa-heart-broken bloc_article_div_p--padding-2'));
-    newDiv6.appendChild(createElm1('p', '0', 'class', 'bloc_article_div_p--padding-2'));
+    newDiv6.appendChild(createElm1('p', comDislikes, 'class', 'bloc_article_div_p--padding-2'));
 
 
     newDiv6.appendChild(createElm2('a', 'Modifier', 'id', 'btn_com_modif1' + comId, 'class', 'display--none')); //bloc_article_div_p--padding-2 bloc_article_div_a--hover
