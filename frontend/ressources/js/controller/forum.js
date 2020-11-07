@@ -102,7 +102,7 @@ createforum = () => {
             datas2.then(post => {
 
                     post.forEach(rep => {
-
+                        console.log(rep.likes)
                         const urlComAll2 = 'http://localhost:3000/api/post/' + rep.postId + '/com';
                         const datas3 = requestAuth(urlComAll2);
                         datas3.then(coms => {
@@ -129,7 +129,6 @@ createforum = () => {
                                 console.log('ok userid');
                             };
 
-
                             // ajout du s sur commentaires si supprieur a 1
                             const paragDisplayNbComs = document.getElementById('display_coms_forum' + rep.postId);
                             if (compteurCom > 1) {
@@ -137,7 +136,35 @@ createforum = () => {
                                 paragDisplayNbComs.innerHTML = compteurCom + ' commentaires';
                             } else {
                                 paragDisplayNbComs.innerHTML = compteurCom + ' commentaire';
-                            }
+                            };
+
+                            // gestion des likes 
+                            const btnLike = document.getElementById('like-forum' + rep.postId);
+                            btnLike.addEventListener('click', (event) => {
+                                const like = {
+                                    userId: recupUserId2.userId,
+                                    like: 1
+                                };
+                                const likeSend1 = sendAuthJson('http://localhost:3000/api/post/' + rep.postId + '/like', like);
+                                likeSend1.then(response => {
+                                    window.location.reload();
+                                });
+                            });
+
+                            const btnDislike = document.getElementById('dislike-forum' + rep.postId);
+                            btnDislike.addEventListener('click', (event) => {
+                                const like = {
+                                    userId: recupUserId2.userId,
+                                    like: -1
+                                };
+                                const likeSend2 = sendAuthJson('http://localhost:3000/api/post/' + rep.postId + '/like', like);
+                                likeSend2.then(response => {
+
+                                    window.location.reload();
+                                });
+                                console.log(like);
+                            });
+
 
                             coms.forEach(rep => {
                                 console.log(rep)

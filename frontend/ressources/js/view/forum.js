@@ -7,7 +7,7 @@ createNavBar = (recupUserId, nom, prenom) => {
 };
 
 
-createDisplayPostImg = (repPostId, repNom, repPrenom, repDateCrea, repTitre, repContenu, repImageUrl, repLikes, repDislikes, nbComs) => {
+createDisplayPostImg = (repPostId, repNom, repPrenom, repTitre, repContenu, repImageUrl, repLikes, repDislikes, nbComs) => {
     const mainIndex = document.getElementById('main_forum');
     const newarticle = mainIndex.appendChild(createElm2('article', '', 'id', 'lien_article' + repPostId, 'class', 'bloc_article--flex--width'));
     const newDiv2 = newarticle.appendChild(createElm2('div', '', 'id', 'div_img_suppr', 'class', 'bloc_article_div--flex'));
