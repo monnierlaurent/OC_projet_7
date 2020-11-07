@@ -42,7 +42,7 @@ createDisplayPostImg = (repPostId, repNom, repPrenom, repTitre, repContenu, repI
 createDisplayComs = (nom, prenom, contenu, postId, comId, comLikes, comDislikes) => {
     const mainPostId = document.getElementById('display_forum' + postId);
 
-    const newArticle = mainPostId.appendChild(createElm2('article', '', 'id', 'coms_display_none' + comId, 'class', 'display--none')); // bloc_article--flex--width-2
+    const newArticle = mainPostId.appendChild(createElm2('article', '', 'id', 'coms_display_none' + comId, 'class', 'display--none')); // bloc_article--flex--width3
     const newDiv5 = newArticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
     newDiv5.appendChild(createElm1('h2', nom + ' ' + prenom, 'class', 'bloc_article_div_p--padding-2'));
     newDiv5.appendChild(createElm2('p', '0', 'id', 'date_crea_coms' + comId, 'class', 'bloc_article_div_p--padding-2'));
@@ -66,16 +66,16 @@ modaleCreatePost = () => {
     const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper'));
 
     const formPost = newDivAside.appendChild(createElm2('form', '', 'id', 'form_post', 'class', ''));
-    formPost.appendChild(createElm1('h2', 'Mon post :', 'class', 'bloc__login__form--label--style-2'));
+    formPost.appendChild(createElm1('h2', 'Mon post :', 'class', 'bloc__login__form--label--style'));
 
-    formPost.appendChild(createElm2('label', 'Titre :', 'class', 'bloc__login__form--label--style-2', 'for', 'post_forum_titre'));
+    formPost.appendChild(createElm2('label', 'Titre :', 'class', 'bloc__login__form--label--style', 'for', 'post_forum_titre'));
     formPost.appendChild(createInputs('input', '', 'id', 'post_forum_titre', 'class', 'bloc__login__form--input--style-2', 'name', 'titre'));
 
-    formPost.appendChild(createElm2('label', 'Message :', 'class', 'bloc__login__form--label--style-2', 'for', 'post_forum'));
+    formPost.appendChild(createElm2('label', 'Message :', 'class', 'bloc__login__form--label--style', 'for', 'post_forum'));
     formPost.appendChild(createInputs('textarea', '', 'id', 'post_forum_text', 'rows', '5', 'cols', '33', 'class', 'bloc__login__form--input--style-2', 'name', 'contenu'));
 
     const formPost2 = formPost.appendChild(createElm2('form', '', 'class', 'bloc_article--flex--width2'));
-    formPost2.appendChild(createElm2('label', 'Ajouter une image :', 'class', 'bloc__login__form--label--style-2', 'for', 'post_img'));
+    formPost2.appendChild(createElm2('label', 'Ajouter une image :', 'class', 'bloc__login__form--label--style', 'for', 'post_img'));
     formPost2.appendChild(createInputs('input', '', 'class', '', 'id', 'post_img', 'type', 'file', 'accept', 'image/png, image/jpeg, image/gif', 'name', 'image'));
 
     const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', 'bloc_bloc__form--btn-flex', ));
@@ -91,12 +91,12 @@ modaleCreateModifPost = (titre, contenu, imageUrl) => {
     const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper'));
 
     const formPost = newDivAside.appendChild(createElm2('form', '', 'id', 'form_post', 'class', 'bloc_article--flex--width'));
-    formPost.appendChild(createElm1('h2', 'Modifier mon post :', 'class', 'bloc__login__form--label--style-2'));
+    formPost.appendChild(createElm1('h2', 'Modifier mon post :', 'class', 'bloc__login__form--label--style'));
 
-    formPost.appendChild(createElm2('label', 'Titre :', 'class', 'bloc__login__form--label--style-2', 'for', 'post_forum_titre'));
+    formPost.appendChild(createElm2('label', 'Titre :', 'class', 'bloc__login__form--label--style', 'for', 'post_forum_titre'));
     formPost.appendChild(createInputs('input', '', 'id', 'post_forum_titre', 'class', 'bloc__login__form--input--style-2', 'name', 'titre', 'value', titre));
 
-    formPost.appendChild(createElm2('label', 'Message :', 'class', 'bloc__login__form--label--style-2', 'for', 'post_forum_text'));
+    formPost.appendChild(createElm2('label', 'Message :', 'class', 'bloc__login__form--label--style', 'for', 'post_forum_text'));
     formPost.appendChild(createInputs('textarea', contenu, 'id', 'post_forum_text', 'rows', '10', 'class', 'bloc__login__form--input--style-2', 'name', 'contenu'));
     formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_modif_posts', 'class', 'bloc__form--font--erreur'));
 
@@ -104,7 +104,7 @@ modaleCreateModifPost = (titre, contenu, imageUrl) => {
     formPost.appendChild(createElm2('img', '', 'class', 'bloc_article_img--width2', 'src', imageUrl, 'alt', 'affichage de l\'anciene image'));
 
     const formPost2 = formPost.appendChild(createElm2('form', '', 'class', 'bloc_article--flex--width2'));
-    formPost2.appendChild(createElm2('label', 'Ajouter une image :', 'class', 'bloc__login__form--label--style-2', 'for', 'post_img'));
+    formPost2.appendChild(createElm2('label', 'Ajouter une image :', 'class', 'bloc__login__form--label--style', 'for', 'post_img'));
     formPost2.appendChild(createInputs('input', '', 'class', '', 'id', 'post_img', 'type', 'file', 'accept', 'image/png, image/jpeg, image/gif', 'name', 'image'));
 
     const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', 'bloc_bloc__form--btn-flex', ));

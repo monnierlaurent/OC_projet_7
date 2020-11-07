@@ -8,10 +8,10 @@ createDisplayUers = (nom, prenom, dateInscrip, emailRec) => {
     const newSection = mainUsers.appendChild(createElm1('section', '', 'class', 'bloc_section_form--flex'));
     newSection.appendChild(createElm1('h2', 'Compte utilisateur', 'class', 'bloc_section_form_heading--style'));
 
-    newSection.appendChild(createElm1('p', 'Nom :' + ' ' + nom, 'class', 'bloc__login__form--label--style-2'));
-    newSection.appendChild(createElm1('p', 'Prenom :' + ' ' + prenom, 'class', 'bloc__login__form--label--style-2'));
-    newSection.appendChild(createElm1('p', 'date d\'incription :' + ' ' + dateInscrip, 'class', 'bloc__login__form--label--style-2'));
-    newSection.appendChild(createElm1('p', 'Email :' + ' ' + emailRec, 'class', 'bloc__login__form--label--style-2'));
+    newSection.appendChild(createElm1('p', 'Nom :' + ' ' + nom, 'class', 'bloc__login__form--label--style'));
+    newSection.appendChild(createElm1('p', 'Prenom :' + ' ' + prenom, 'class', 'bloc__login__form--label--style'));
+    newSection.appendChild(createElm1('p', 'date d\'incription :' + ' ' + dateInscrip, 'class', 'bloc__login__form--label--style'));
+    newSection.appendChild(createElm1('p', 'Email :' + ' ' + emailRec, 'class', 'bloc__login__form--label--style'));
 
     const newDiv = newSection.appendChild(createElm1('div', '', 'class', 'bloc_section_form_btn--flex'));
     newDiv.appendChild(createElm2('button', 'Modifier mon profil', 'id', 'btn_modif_profil_user', 'class', 'bloc__form--btn-2'));
@@ -21,19 +21,19 @@ createDisplayUers = (nom, prenom, dateInscrip, emailRec) => {
 createFormModifUser = (nom, prenom, emailRec) => {
     const newForm = mainUsers.appendChild(createElm2('form', '', 'id', 'form_modif_user', 'class', 'display--none '));
 
-    newForm.appendChild(createElm2('label', 'Nom', 'class', 'bloc__login__form--label--style-2', 'for', 'nom'));
+    newForm.appendChild(createElm2('label', 'Nom :', 'class', 'bloc__login__form--label--style', 'for', 'nom'));
     newForm.appendChild(createInputs('input', '', 'id', 'nom', 'class', 'bloc__login__form--input--style-2', 'type', 'text', 'value', nom));
     newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur1', 'class', 'bloc__form--font--erreur'));
 
-    newForm.appendChild(createElm2('label', 'Prenom', 'class', 'bloc__login__form--label--style-2', 'for', 'prenom'));
+    newForm.appendChild(createElm2('label', 'Prenom :', 'class', 'bloc__login__form--label--style', 'for', 'prenom'));
     newForm.appendChild(createInputs('input', '', 'id', 'prenom', 'class', 'bloc__login__form--input--style-2', 'type', 'text', 'value', prenom));
     newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur2', 'class', 'bloc__form--font--erreur'));
 
-    newForm.appendChild(createElm2('label', 'email', 'class', 'bloc__login__form--label--style-2', 'for', 'email'));
+    newForm.appendChild(createElm2('label', 'email :', 'class', 'bloc__login__form--label--style', 'for', 'email'));
     newForm.appendChild(createInputs('input', '', 'id', 'email', 'class', 'bloc__login__form--input--style-2', 'type', 'email', 'value', emailRec));
     newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur3', 'class', 'bloc__form--font--erreur'));
 
-    newForm.appendChild(createElm2('label', 'Password', 'class', 'bloc__login__form--label--style-2', 'for', 'password'));
+    newForm.appendChild(createElm2('label', 'Password :', 'class', 'bloc__login__form--label--style', 'for', 'password'));
     newForm.appendChild(createInputs('input', '', 'id', 'password', 'class', 'bloc__login__form--input--style-2', 'type', '', 'value', ''));
     newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur4', 'class', 'bloc__form--font--erreur'));
 
