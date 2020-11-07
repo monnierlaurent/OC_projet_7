@@ -28,13 +28,15 @@ createDisplayPostImg = (repPostId, repNom, repPrenom, repDateCrea, repTitre, rep
     newDiv3.appendChild(createElm2('p', nbComs + ' commentaire', 'id', 'display_coms_forum' + repPostId, 'class', 'bloc_article_div_p--padding bloc_article_div_a--hover'));
 
     const newDiv5 = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex '));
+
     const newLien3 = newDiv5.appendChild(createElm2('p', '', 'id', 'btn_modif_post', 'class', 'bloc_article_div_p--padding'));
-    newLien3.appendChild(createElm2('p', 'Modifier', 'class', 'bloc_article_div_a--hover', 'id', 'btn_modif_post' + repPostId));
+    newLien3.appendChild(createElm2('p', 'commenter', 'id', 'btn_commenter_post' + repPostId, 'class', 'bloc_article_div_a--hover bloc_article_p--padding'));
+    newLien3.appendChild(createElm2('p', 'Modifier', 'id', 'btn_modif_post' + repPostId, 'class', 'display--none')); //bloc_article_div_a--hover bloc_article_p--padding
+    newLien3.appendChild(createElm2('p', 'Supprimer', 'id', 'btn_suppr_post' + repPostId, 'class', 'display--none')); // bloc_article_div_a--hover bloc_article_p--padding
 
-    const newLien2 = newDiv5.appendChild(createElm2('p', '', 'id', 'btn_com_post', 'class', 'bloc_article_div_p--padding'));
-    newLien2.appendChild(createElm2('p', 'commenter', 'class', 'bloc_article_div_a--hover', 'id', 'btn_commenter_post' + repPostId));
 
-    newDiv5.appendChild(createElm2('p', 'Supprimer', 'id', 'btn_suppr_post' + repPostId, 'class', 'bloc_article_div_p--padding bloc_article_div_a--hover'));
+
+
 
     newDiv6 = newarticle.appendChild(createElm2('div', '', 'id', 'display_forum' + repPostId, 'class', 'bloc_article_div--flex3'));
 
@@ -58,8 +60,8 @@ createDisplayComs = (nom, prenom, contenu, postId, comId) => {
     newDiv6.appendChild(createElm1('p', '0', 'class', 'bloc_article_div_p--padding-2'));
 
 
-    newDiv6.appendChild(createElm3('a', 'Modifier', 'id', 'btn_com_modif1' + comId, 'class', 'bloc_article_div_p--padding-2 bloc_article_div_a--hover', 'href', '#?id=' + postId));
-    newDiv6.appendChild(createElm2('a', 'Supprimer', 'id', 'btn_com_suppr' + comId, 'class', 'bloc_article_div_p--padding-2 bloc_article_div_a--hover'));
+    newDiv6.appendChild(createElm2('a', 'Modifier', 'id', 'btn_com_modif1' + comId, 'class', 'display--none')); //bloc_article_div_p--padding-2 bloc_article_div_a--hover
+    newDiv6.appendChild(createElm2('a', 'Supprimer', 'id', 'btn_com_suppr' + comId, 'class', 'display--none')); //bloc_article_div_p--padding-2 bloc_article_div_a--hover
 };
 
 modaleCreatePost = () => {

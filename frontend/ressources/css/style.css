@@ -235,8 +235,14 @@
     }
     
     .bloc_article_div_p--padding {
-        padding: 1em 0.7em 0.5em 0;
+        display: flex;
+        flex-direction: row;
+        padding: 1em 0.5em 0 0;
         font-size: 1.2em;
+    }
+    
+    .bloc_article_p--padding {
+        padding-right: 0.8em;
     }
     
     .bloc_heading--style {

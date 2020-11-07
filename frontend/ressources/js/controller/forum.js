@@ -12,7 +12,6 @@ createforum = () => {
         datas.then(user => {
             createNavBar(recupUserId2.userId, user.nom, user.prenom);
 
-
             const btnPosteMessage = document.getElementById('poster');
             btnPosteMessage.addEventListener('click', (event) => {
                 event.preventDefault();
@@ -89,7 +88,6 @@ createforum = () => {
 
                     post.forEach(rep => {
 
-                        // let compteurCom;
                         const urlComAll2 = 'http://localhost:3000/api/post/' + rep.postId + '/com';
                         const datas3 = requestAuth(urlComAll2);
                         datas3.then(coms => {
@@ -102,6 +100,21 @@ createforum = () => {
 
                             compterHours('date_crea_post', rep.postId, rep.dateCrea);
 
+                            // gestion de la vue des btn suppr et modif si on est pas l'utilisateur createur
+                            if (recupUserId2.userId === rep.userId) {
+                                const btnModifier = document.getElementById('btn_modif_post' + rep.postId, );
+                                btnModifier.removeAttribute('class');
+                                btnModifier.setAttribute('class', 'bloc_article_div_a--hover bloc_article_p--padding');
+
+                                const btnSupprimer = document.getElementById('btn_suppr_post' + rep.postId);
+                                btnSupprimer.removeAttribute('class');
+                                btnSupprimer.setAttribute('class', 'bloc_article_div_a--hover bloc_article_p--padding');
+                                //bloc_article_div_a--hover bloc_article_p--padding
+
+                                console.log('ok userid');
+                            };
+
+
                             // ajout du s sur commentaires si supprieur a 1
                             const paragDisplayNbComs = document.getElementById('display_coms_forum' + rep.postId);
                             if (compteurCom > 1) {
@@ -112,11 +125,23 @@ createforum = () => {
                             }
 
                             coms.forEach(rep => {
-
-
+                                console.log(rep)
                                 createDisplayComs(rep.nom, rep.prenom, rep.comContenu, rep.postId, rep.comId);
 
                                 compterHours('date_crea_coms', rep.comId, rep.comDateCrea);
+
+
+
+                                if (recupUserId2.userId === rep.userId) {
+                                    const btnModifierCom = document.getElementById('btn_com_modif1' + rep.comId);
+                                    btnModifierCom.removeAttribute('class');
+                                    btnModifierCom.setAttribute('class', 'bloc_article_div_a--hover bloc_article_p--padding');
+
+                                    const btnSupprimerCom = document.getElementById('btn_com_suppr' + rep.comId);
+                                    btnSupprimerCom.removeAttribute('class');
+                                    btnSupprimerCom.setAttribute('class', 'bloc_article_div_a--hover bloc_article_p--padding');
+
+                                };
 
                                 const btnDysplayComs = document.getElementById('display_coms_forum' + rep.postId);
                                 const btnHideComs = document.getElementById('display_none_forum' + rep.postId);
@@ -148,7 +173,6 @@ createforum = () => {
 
                                     const recupComtenu2 = document.getElementById('commentaireModifCom');
                                     const regexDatas = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
-
 
                                     const btnEnvoiCom = document.getElementById('btnComModif');
                                     const erreur4 = document.getElementById('erreur4');
@@ -184,6 +208,8 @@ createforum = () => {
                                         window.location = './forum.html';
                                     });
                                 }); // fin de modif coms
+
+
 
                                 const btnSupprCom = document.getElementById('btn_com_suppr' + rep.comId);
                                 btnSupprCom.addEventListener('click', (event) => {
