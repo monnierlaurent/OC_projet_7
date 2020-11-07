@@ -212,19 +212,16 @@ exports.likePost = (req, res, next) => {
                                 //suppresion du dislike + mise a jout du compteur
                                 likeModel.likeUpdateOne('posts', 'dislikes', 'dislikes-1', 'postId', reqParamsId)
                                     .then(() => {
-                                        res.status(201).json({ message: 'dislike supprimé ! like enregisté !' });
+                                        likeModel.likeSave('postLikes', 'postId', 'userId', 'postLikeValeur', reqParamsId, reqBody.userId, reqBody.like)
+                                            .then(() => {
+                                                likeModel.likeUpdateOne('posts', 'likes', 'likes+1', 'postId', reqParamsId)
+                                                    .then(() => {
+                                                        res.status(201).json({ message: 'dislike supprimé ! like enregisté !' });
+                                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                                            }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
+
                                     }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                             }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
-
-                        //ajout du like + mise a jout du compteur
-                        likeModel.likeSave('postLikes', 'postId', 'userId', 'postLikeValeur', reqParamsId, reqBody.userId, reqBody.like)
-                            .then(() => {
-                                likeModel.likeUpdateOne('posts', 'likes', 'likes+1', 'postId', reqParamsId)
-                                    .then(() => {
-                                        res.status(201).json({ message: 'dislike supprimé ! like enregisté !' });
-                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
-                            }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
-
                     };
                 }; //fin de if valeur 1
 
@@ -237,23 +234,25 @@ exports.likePost = (req, res, next) => {
                                         res.status(201).json({ message: 'Dislike enregistré !' });
                                     }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                             }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
+
                     } else if (response[0].postLikeValeur === 1) {
                         //suppression du like + mise a jout du compteur
                         likeModel.likeDeleteOne('postLikes', 'postId', reqParamsId, 'userId', reqBody.userId)
                             .then(() => {
                                 likeModel.likeUpdateOne('posts', 'likes', 'likes-1', 'postId', reqParamsId)
                                     .then(() => {
-                                        res.status(201).json({ message: 'Like supprimé ! dislike enregisté !' });
+                                        likeModel.likeSave('postLikes', 'postId', 'userId', 'postLikeValeur', reqParamsId, reqBody.userId, reqBody.like)
+                                            .then(() => {
+                                                likeModel.likeUpdateOne('posts', 'dislikes', 'dislikes+1', 'postId', reqParamsId)
+                                                    .then(() => {
+                                                        res.status(201).json({ message: 'disike supprimé ! like enregisté !' });
+                                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                                            }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
+
                                     }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                             }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                         //ajout du dislike + mise a jout du compteur
-                        likeModel.likeSave('postLikes', 'postId', 'userId', 'postLikeValeur', reqParamsId, reqBody.userId, reqBody.like)
-                            .then(() => {
-                                likeModel.likeUpdateOne('posts', 'dislikes', 'dislikes+1', 'postId', reqParamsId)
-                                    .then(() => {
-                                        res.status(201).json({ message: 'disike supprimé ! like enregisté !' });
-                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
-                            }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
+
 
                     } else if (response[0].postLikeValeur === -1) {
                         likeModel.likeDeleteOne('postLikes', 'postId', reqParamsId, 'userId', reqBody.userId)
@@ -267,32 +266,6 @@ exports.likePost = (req, res, next) => {
 
                     };
                 }; //fin de if valeur 1
-
-                /* if (reqBody.like === 2) {
-
-                     if (response[0] === undefined) {
-                         return res.status(400).json({ error: 'Vous n\'avez aucuns likes ou dislikes a supprimer !!' });
-                     };
-                     if (response[0].postLikeValeur === 1) {
-
-                         likeModel.likeDeleteOne('postLikes', 'postId', reqParamsId, 'userId', reqBody.userId)
-                             .then(() => {
-                                 likeModel.likeUpdateOne('posts', 'likes', 'likes-1', 'postId', reqParamsId)
-                                     .then(() => {
-                                         res.status(201).json({ message: 'Like supprimé !' });
-                                     }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
-                             }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
-                     };
-                     if (response[0].postLikeValeur === -1) {
-                         likeModel.likeDeleteOne('postLikes', 'postId', reqParamsId, 'userId', reqBody.userId)
-                             .then(() => {
-                                 likeModel.likeUpdateOne('posts', 'dislikes', 'dislikes-1', 'postId', reqParamsId)
-                                     .then(() => {
-                                         res.status(201).json({ message: 'Dislike supprimé !' });
-                                     }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
-                             }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
-                     };
-                 };*/
 
             }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
     } else {

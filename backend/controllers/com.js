@@ -127,10 +127,32 @@ exports.likeCom = (req, res, next) => {
                                         res.status(201).json({ message: 'like enregistré !' });
                                     }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                             }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
+
                     } else if (response[0].comLikeValeur === 1) {
-                        res.status(201).json({ message: 'Vous avez déja liké !' });
+                        likeModel.likeDeleteOne('comLikes', 'comId', reqParamsComId, 'userId', reqBody.userId)
+                            .then(() => {
+                                likeModel.likeUpdateOne('coms', 'comLikes', 'comLikes-1', 'comId', reqParamsComId)
+                                    .then(() => {
+                                        res.status(201).json({ message: 'Like supprimé !' });
+                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                            }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+
                     } else if (response[0].comLikeValeur === -1) {
-                        res.status(201).json({ message: 'Vous avez déja disliké !' });
+
+                        likeModel.likeDeleteOne('comLikes', 'comId', reqParamsComId, 'userId', reqBody.userId)
+                            .then(() => {
+                                likeModel.likeUpdateOne('coms', 'comDislikes', 'comDislikes-1', 'comId', reqParamsComId)
+                                    .then(() => {
+                                        likeModel.likeSave('comLikes', 'comId', 'userId', 'comLikeValeur', reqParamsComId, reqBody.userId, reqBody.like)
+                                            .then(() => {
+                                                likeModel.likeUpdateOne('coms', 'comLikes', 'comLikes+1', 'comId', reqParamsComId)
+                                                    .then(() => {
+                                                        res.status(201).json({ message: 'like enregistré !' });
+                                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                                            }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
+
+                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                            }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                     };
                 };
 
@@ -143,14 +165,35 @@ exports.likeCom = (req, res, next) => {
                                         res.status(201).json({ message: 'Dislike enregistré !' });
                                     }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                             }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
+
                     } else if (response[0].comLikeValeur === 1) {
-                        res.status(201).json({ message: 'Vous avez déja liké !' });
+                        likeModel.likeDeleteOne('comLikes', 'comId', reqParamsComId, 'userId', reqBody.userId)
+                            .then(() => {
+                                likeModel.likeUpdateOne('coms', 'comDislikes', 'comDislikes-1', 'comId', reqParamsComId)
+                                    .then(() => {
+                                        ikeModel.likeSave('comLikes', 'comId', 'userId', 'comLikeValeur', reqParamsComId, reqBody.userId, reqBody.like)
+                                            .then(() => {
+                                                likeModel.likeUpdateOne('coms', 'comLikes', 'comLikes+1', 'comId', reqParamsComId)
+                                                    .then(() => {
+                                                        res.status(201).json({ message: 'like enregistré !' });
+                                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                                            }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
+
+                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                            }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+
                     } else if (response[0].comLikeValeur === -1) {
-                        res.status(201).json({ message: 'Vous avez déja disliké !' });
+                        likeModel.likeDeleteOne('comLikes', 'comId', reqParamsComId, 'userId', reqBody.userId)
+                            .then(() => {
+                                likeModel.likeUpdateOne('coms', 'comDislikes', 'comDislikes-1', 'comId', reqParamsComId)
+                                    .then(() => {
+                                        res.status(201).json({ message: 'Dislike supprimé !' });
+                                    }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                            }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                     };
                 };
 
-                if (reqBody.like === 2) {
+                /*if (reqBody.like === 2) {
 
                     if (response[0] === undefined) {
                         return res.status(400).json({ error: 'Vous n\'avez aucuns likes ou dislikes a supprimer !!' });
@@ -174,7 +217,7 @@ exports.likeCom = (req, res, next) => {
                                     }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                             }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
                     };
-                };
+                };*/
 
             }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
     } else {
