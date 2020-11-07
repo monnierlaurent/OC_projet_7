@@ -11,9 +11,8 @@ createDisplayPostImg = (repPostId, repNom, repPrenom, repDateCrea, repTitre, rep
     const mainIndex = document.getElementById('main_forum');
     const newarticle = mainIndex.appendChild(createElm2('article', '', 'id', 'lien_article' + repPostId, 'class', 'bloc_article--flex--width'));
     const newDiv2 = newarticle.appendChild(createElm2('div', '', 'id', 'div_img_suppr', 'class', 'bloc_article_div--flex'));
-    newDiv2.appendChild(createElm1('p', repNom, 'class', 'bloc_article_div_p--padding'));
-    newDiv2.appendChild(createElm1('p', repPrenom, 'class', 'bloc_article_div_p--padding'));
-    newDiv2.appendChild(createElm1('p', repDateCrea, 'class', 'bloc_article_div_p--padding'));
+    newDiv2.appendChild(createElm1('h2', repNom + ' ' + repPrenom, 'class', 'bloc_article_div_p--padding'));
+    newDiv2.appendChild(createElm2('p', '0', 'id', 'date_crea_post' + repPostId, 'class', 'bloc_article_div_p--padding'));
 
     newarticle.appendChild(createElm1('h2', repTitre, 'class', 'bloc_heading--style'));
     newarticle.appendChild(createElm1('p', repContenu, 'class', 'bloc_article_p2--style'));
@@ -37,18 +36,18 @@ createDisplayPostImg = (repPostId, repNom, repPrenom, repDateCrea, repTitre, rep
 
     newDiv5.appendChild(createElm2('p', 'Supprimer', 'id', 'btn_suppr_post' + repPostId, 'class', 'bloc_article_div_p--padding bloc_article_div_a--hover'));
 
-    const newDiv6 = newarticle.appendChild(createElm2('div', '', 'id', 'display_forum' + repPostId, 'class', 'bloc_article_div--flex3'));
+    newDiv6 = newarticle.appendChild(createElm2('div', '', 'id', 'display_forum' + repPostId, 'class', 'bloc_article_div--flex3'));
 
-    const newDiv7 = newarticle.appendChild(createElm2('p', 'masquer', 'id', 'display_none_forum' + repPostId, 'class', 'display--none')); //bloc_article_div--flex4 bloc_article_div_a--hover
+    newDiv7 = newarticle.appendChild(createElm2('p', 'masquer', 'id', 'display_none_forum' + repPostId, 'class', 'display--none')); //bloc_article_div--flex4 bloc_article_div_a--hover
 };
 
-createDisplayComs = (nom, prenom, date, contenu, postId, comId) => {
+createDisplayComs = (nom, prenom, contenu, postId, comId) => {
     const mainPostId = document.getElementById('display_forum' + postId);
 
     const newArticle = mainPostId.appendChild(createElm2('article', '', 'id', 'coms_display_none' + comId, 'class', 'display--none')); // bloc_article--flex--width-2
     const newDiv5 = newArticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
     newDiv5.appendChild(createElm1('h2', nom + ' ' + prenom, 'class', 'bloc_article_div_p--padding-2'));
-    newDiv5.appendChild(createElm1('p', date, 'class', 'bloc_article_div_p--padding-2'));
+    newDiv5.appendChild(createElm2('p', '0', 'id', 'date_crea_coms' + comId, 'class', 'bloc_article_div_p--padding-2'));
 
     newArticle.appendChild(createElm1('p', contenu, 'class', 'bloc_article_p2--style-2'));
 
@@ -132,9 +131,6 @@ createComsForm = () => {
 
     newDivAside.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur1', 'class', 'bloc__form--font--erreur'));
 };
-
-
-
 
 
 modifComsForm = (valueTextarea) => {

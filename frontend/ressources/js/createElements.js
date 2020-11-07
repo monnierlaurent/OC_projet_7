@@ -49,3 +49,27 @@ modals = (value1, value2, lien) => {
     newDivAside.appendChild(createElm1('h2', value1, 'class', 'bloc__aside__heading--padding'));
     newDivAside.appendChild(createElm2('a', value2, 'class', 'bloc__form--btn-2', 'href', lien /*'index.html'*/ ));
 };
+
+compterHours = (id, repPostId, repdateCrea) => {
+
+    const dateDisplay = document.getElementById(id + repPostId);
+    const dateCrea = Date.parse(repdateCrea);
+    const dateCrea2 = Date.now();
+    const calcul = dateCrea2 - dateCrea;
+
+    const date = new Date(calcul);
+    const jour = date.getDay() - 4;
+    const heure = date.getHours() - 1;
+    const minute = date.getMinutes();
+
+    if (jour > 0) {
+        dateDisplay.innerHTML = jour + ' Jours ' + heure + ' Heures ';
+        //console.log(console.log(jour + ' J ' + heure + ' H '));
+    } else if (heure > 0) {
+        dateDisplay.innerHTML = heure + ' Heures ';
+        //console.log(heure + ' H ')
+    } else if (minute > 0) {
+        dateDisplay.innerHTML = minute + ' Minutes';
+        //console.log(minute + ' M')
+    };
+};

@@ -96,8 +96,11 @@ createforum = () => {
 
                             const compteurCom = coms.length;
 
+
                             // creation de l'affichage des posts
-                            createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.dateCrea, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes, compteurCom);
+                            createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes, compteurCom);
+
+                            compterHours('date_crea_post', rep.postId, rep.dateCrea);
 
                             // ajout du s sur commentaires si supprieur a 1
                             const paragDisplayNbComs = document.getElementById('display_coms_forum' + rep.postId);
@@ -110,8 +113,10 @@ createforum = () => {
 
                             coms.forEach(rep => {
 
-                                //console.log(coms.length)
-                                createDisplayComs(rep.nom, rep.prenom, rep.comDateCrea, rep.comContenu, rep.postId, rep.comId);
+
+                                createDisplayComs(rep.nom, rep.prenom, rep.comContenu, rep.postId, rep.comId);
+
+                                compterHours('date_crea_coms', rep.comId, rep.comDateCrea);
 
                                 const btnDysplayComs = document.getElementById('display_coms_forum' + rep.postId);
                                 const btnHideComs = document.getElementById('display_none_forum' + rep.postId);
@@ -195,8 +200,6 @@ createforum = () => {
                                     })); //fin catch
                                 });
                             }); //fin de boucle
-
-
 
 
                             // suppression de la balise img si il n'y a pas d'image
@@ -290,11 +293,7 @@ createforum = () => {
                                 });
                             });
 
-
-
-
-
-
+                            // gestion des commentaires
 
                             const btnComment = document.getElementById('btn_commenter_post' + rep.postId);
                             btnComment.addEventListener('click', () => {
