@@ -1,5 +1,5 @@
 createforum = () => {
-    //console.log(sessionStorage);
+
 
     const recupStorage = sessionStorage.getItem('repAuth');
     const recupUserId2 = JSON.parse(recupStorage);
@@ -9,14 +9,14 @@ createforum = () => {
     };
 
     const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId2.userId;
-    //console.log(recupUserId2.userId)
+
     if (recupUserId2 === null) {
         modals('Vous n\avez pas accès a cette ressource !', 'Inscription', './signup.html');
     } else {
 
         const datas = requestAuth(urlUserID);
         datas.then(user => {
-            createNavBar(recupUserId2.userId, user.nom, user.prenom);
+            createNavBarForum(recupUserId2.userId, user.nom, user.prenom);
 
             const btnDeconection = document.getElementById('deconnection');
             btnDeconection.addEventListener('click', (event) => {
@@ -31,9 +31,10 @@ createforum = () => {
             btnPosteMessage.addEventListener('click', (event) => {
                 event.preventDefault();
 
-                modaleCreatePost();
+                modaleCreatePost(user.nom, user.prenom);
+                exitModal('btn_annule_create_post'); //modal create post
 
-                const BtnPost = document.getElementById('btn_post_forum');
+                const BtnPost = document.getElementById('btn_post_forum_1');
 
                 const datas1 = requestAuth(urlUserID);
                 datas1.then(user => {
@@ -109,7 +110,6 @@ createforum = () => {
 
                             const compteurCom = coms.length;
 
-
                             // creation de l'affichage des posts
                             createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes, compteurCom);
 
@@ -119,17 +119,14 @@ createforum = () => {
                             if (recupUserId2.userId === rep.userId) {
                                 const btnModifier = document.getElementById('btn_modif_post' + rep.postId, );
                                 btnModifier.removeAttribute('class');
-                                btnModifier.setAttribute('class', 'bloc_article_div_a--hover bloc_article_p--padding');
+                                btnModifier.setAttribute('class', 'fas fa-pen bloc_article_div_a--hover bloc_article_p--padding');
 
                                 const btnSupprimer = document.getElementById('btn_suppr_post' + rep.postId);
                                 btnSupprimer.removeAttribute('class');
-                                btnSupprimer.setAttribute('class', 'bloc_article_div_a--hover bloc_article_p--padding');
-                                //bloc_article_div_a--hover bloc_article_p--padding
-
-                                console.log('ok userid');
+                                btnSupprimer.setAttribute('class', 'far fa-trash-alt bloc_article_div_a--hover bloc_article_p--padding');
                             };
 
-                            // ajout du s sur commentaires si supprieur a 1
+                            // ajout du 's' sur commentaires si supprieur a 1
                             const paragDisplayNbComs = document.getElementById('display_coms_forum' + rep.postId);
                             if (compteurCom > 1) {
 
@@ -162,12 +159,10 @@ createforum = () => {
 
                                     window.location.reload();
                                 });
-                                console.log(like);
                             });
 
-
                             coms.forEach(rep => {
-                                console.log(rep)
+
                                 createDisplayComs(rep.nom, rep.prenom, rep.comContenu, rep.postId, rep.comId, rep.comLikes, rep.comDislikes);
 
                                 compterHours('date_crea_coms', rep.comId, rep.comDateCrea);
@@ -204,11 +199,11 @@ createforum = () => {
                                 if (recupUserId2.userId === rep.userId) {
                                     const btnModifierCom = document.getElementById('btn_com_modif1' + rep.comId);
                                     btnModifierCom.removeAttribute('class');
-                                    btnModifierCom.setAttribute('class', 'bloc_article_div_a--hover bloc_article_p--padding');
+                                    btnModifierCom.setAttribute('class', 'fas fa-pen bloc_article_div_a--hover bloc_article_p--padding');
 
                                     const btnSupprimerCom = document.getElementById('btn_com_suppr' + rep.comId);
                                     btnSupprimerCom.removeAttribute('class');
-                                    btnSupprimerCom.setAttribute('class', 'bloc_article_div_a--hover bloc_article_p--padding');
+                                    btnSupprimerCom.setAttribute('class', 'far fa-trash-alt bloc_article_div_a--hover bloc_article_p--padding');
 
                                 };
 
@@ -220,7 +215,7 @@ createforum = () => {
 
                                 btnDysplayComs.addEventListener('click', (event) => {
                                     articleComsDisplay.removeAttribute('class');
-                                    articleComsDisplay.setAttribute('class', 'bloc_article--flex--width-2');
+                                    articleComsDisplay.setAttribute('class', '');
 
                                     articleHideDisplay.removeAttribute('class');
                                     articleHideDisplay.setAttribute('class', 'bloc_article_div--flex4 bloc_article_div_a--hover');
@@ -237,8 +232,9 @@ createforum = () => {
                                 const btnModifCom = document.getElementById('btn_com_modif1' + rep.comId);
                                 btnModifCom.addEventListener('click', () => {
 
-                                    //modalComModif('Modifier mon commentaire', rep.comContenu);
-                                    modifComsForm(rep.comContenu);
+                                    modifComsForm(rep.nom, rep.prenom, rep.comContenu);
+
+                                    exitModal('btnAnnulerComs'); //modal de modification des commentaires
 
                                     const recupComtenu2 = document.getElementById('commentaireModifCom');
                                     const regexDatas = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
@@ -270,15 +266,7 @@ createforum = () => {
                                             erreur4.innerHTML = 'le champs n\'est pas rempli correctement !';
                                         };
                                     });
-
-                                    const btnAnnulEnvoiCom = document.getElementById('btnAnnulerComs');
-                                    btnAnnulEnvoiCom.addEventListener('click', (event) => {
-                                        event.preventDefault();
-                                        window.location = './forum.html';
-                                    });
                                 }); // fin de modif coms
-
-
 
                                 const btnSupprCom = document.getElementById('btn_com_suppr' + rep.comId);
                                 btnSupprCom.addEventListener('click', (event) => {
@@ -310,27 +298,24 @@ createforum = () => {
                             const btnModif = document.getElementById('btn_modif_post' + rep.postId);
                             btnModif.addEventListener('click', (event) => {
                                 event.preventDefault();
-                                modaleCreateModifPost(rep.titre, rep.contenu, rep.imageUrl);
 
-                                const btnAnnul = document.getElementById('btn_annule_forum');
-                                const btnEnvoi = document.getElementById('btn_post_forum');
+                                modaleCreateModifPost(rep.titre, rep.contenu, rep.imageUrl, rep.nom, rep.prenom);
 
-                                btnAnnul.addEventListener('click', (event) => {
-                                    event.preventDefault();
-                                    window.location = './forum.html';
-                                });
+                                exitModal('btn_annule_forum'); //modal modif post
 
                                 const image = document.getElementById('post_img').files;
                                 const titre = document.getElementById('post_forum_titre');
                                 const contenu = document.getElementById('post_forum_text');
 
-                                const regexDatas = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+                                const regexDatas = /^[a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+
                                 validPosts(titre, contenu, regexDatas, 'erreur_modif_posts');
 
+                                const btnEnvoi = document.getElementById('btn_post_forum');
                                 btnEnvoi.addEventListener('click', (event) => {
                                     event.preventDefault();
 
-                                    if (regexDatas.test(titre) !== false && regexDatas.test(contenu) !== false) {
+                                    if (regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) !== false) {
                                         const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId2.userId;
 
                                         const datas1 = requestAuth(urlUserID);
@@ -367,7 +352,6 @@ createforum = () => {
                                                     contenu: contenu.value
                                                 };
 
-                                                console.log(posts)
                                                 const urlPost = 'http://localhost:3000/api/post/' + rep.postId;
                                                 const postObjsect = putAuthJson(urlPost, posts);
                                                 postObjsect.then(response => {
@@ -393,7 +377,9 @@ createforum = () => {
                             const btnComment = document.getElementById('btn_commenter_post' + rep.postId);
                             btnComment.addEventListener('click', () => {
 
-                                createComsForm();
+                                createComsForm(rep.nom, rep.prenom);
+
+                                exitModal('btn_annuler_modif_coms'); //modal modif commentaires
 
                                 const contenu = document.getElementById('commentaire');
 

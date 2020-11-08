@@ -64,12 +64,23 @@ compterHours = (id, repPostId, repdateCrea) => {
 
     if (jour > 0) {
         dateDisplay.innerHTML = jour + ' Jours ' + heure + ' Heures ';
-        //console.log(console.log(jour + ' J ' + heure + ' H '));
+
     } else if (heure > 0) {
         dateDisplay.innerHTML = heure + ' Heures ';
-        //console.log(heure + ' H ')
+
     } else if (minute > 0) {
-        dateDisplay.innerHTML = minute + ' Minutes';
-        //console.log(minute + ' M')
+        dateDisplay.innerHTML = 'Il y a ' + minute + ' Minutes';
+
+    } else if (minute <= 0) {
+        dateDisplay.innerHTML = 'A l\'instant';
+
     };
+};
+exitModal = (id) => {
+    const btnExitModal = document.getElementById(id);
+
+    btnExitModal.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.location = './forum.html';
+    });
 };
