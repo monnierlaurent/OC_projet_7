@@ -52,18 +52,6 @@ modals = (nom, prenom) => {
 
 };
 
-
-
-
-/*modals = () => {
-
-    const main = document.querySelector('main');
-    const newAside = main.appendChild(createElm2('aside', '', 'id', 'modal1', 'class', 'modal'));
-    const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper'));
-    newDivAside.appendChild(createElm1('h2', 'value1', 'class', 'bloc__aside__heading--padding'));
-    newDivAside.appendChild(createElm2('a', 'Connection', 'class', 'bloc__form--btn-2', 'href', 'index.html'));
-};*/
-
 compterHours = (id, repPostId, repdateCrea) => {
 
     const dateDisplay = document.getElementById(id + repPostId);

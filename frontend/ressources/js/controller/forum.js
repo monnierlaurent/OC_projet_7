@@ -130,7 +130,7 @@ createforum = () => {
                             likeSend1.then(response => {
                                 window.location.reload();
                             }).catch((error => {
-                                modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                modals();
                             })); //fin catch
                         });
 
@@ -145,7 +145,7 @@ createforum = () => {
 
                                 window.location.reload();
                             }).catch((error => {
-                                modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                modals();
                             })); //fin catch
                         });
 
@@ -195,7 +195,7 @@ createforum = () => {
 
                                                 window.location = './forum.html';
                                             }).catch((error => {
-                                                modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                                modals();
                                             })); //fin catch
                                         } else {
                                             const posts = {
@@ -209,7 +209,7 @@ createforum = () => {
 
                                                 window.location = './forum.html';
                                             }).catch((error => {
-                                                modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                                modals();
                                             })); //fin catch
                                         };
                                     }).catch((error => {
@@ -253,7 +253,7 @@ createforum = () => {
 
                                         window.location = './forum.html';
                                     }).catch((error => {
-                                        modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                        modals();
                                     })); //fin catch
                                 } else {
                                     const erreurs = document.getElementById('erreur_posts');
@@ -363,7 +363,7 @@ createforum = () => {
 
                                     window.location.reload();
                                 }).catch((error => {
-                                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                    modals();
                                 })); //fin catch
                             });
 
@@ -379,19 +379,19 @@ createforum = () => {
 
                                     window.location.reload();
                                 }).catch((error => {
-                                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                    modals();
                                 })); //fin catch 
                             });
                         }); //fin de boucle coms
                     }).catch((error => {
-                        modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                        modals();
                     })); //fin catch coms
                 }); // fin de boucle de posts
             }).catch((error => {
-                modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                //modals();
             })); //fin catch post
         }).catch((error => {
-            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+            modals();
         })); //fin catch user
     }; // fin de else de verification de recupUserId
 

@@ -1,11 +1,13 @@
     html {
         --noir: #212121;
+        --noir_alpha: rgba(0, 0, 0, 0.8);
         --blanc: #FAFAFA;
         --violet: #9C27B0;
         --vert: #76FF03;
         --gris1: #616161;
         --gris2: #EFEBE9;
         --gris3: #E0E0E0;
+        --gris4: #9E9E9E;
         --rouge: #f44336;
         --bleu: #2196F3;
     }
@@ -37,7 +39,7 @@
     }
     
     .bloc__form--font--erreur1 {
-        color: black;
+        color: var(--noir);
         padding-top: 0.5em;
     }
     
@@ -94,8 +96,22 @@
     .header__nav__a--style:active {
         color: var(--violet);
     }
+    
+    .bloc_login_img-style {
+        margin-top: 1em;
+        width: 25%;
+        opacity: 0.5;
+    }
     /*---------------forum-----------------*/
     /*---createDisplayPostImg---*/
+    
+    .bloc_main--flex {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 8em;
+    }
     
     .bloc_article--flex--width {
         width: 100%;
@@ -105,8 +121,8 @@
         border-radius: 0.5em;
         padding: 1em;
         margin-bottom: 1em;
-        box-shadow: #686868 5px 5px 5px;
-        background-color: white;
+        box-shadow: var(--gris1) 5px 5px 5px;
+        background-color: var(--blanc);
     }
     
     .bloc_article_div--flex {
@@ -114,7 +130,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        color: #9E9E9E;
+        color: var(--gris4);
         font-family: sans-serif;
         border-bottom: solid 1px var(--gris1);
         padding-top: 0.2em;
@@ -155,15 +171,6 @@
         align-self: end;
         font-family: sans-serif;
     }
-    
-    .bloc_article_div_a--hover:hover {
-        color: var(--vert);
-        cursor: pointer;
-    }
-    
-    .bloc_article_div_a--hover:active {
-        color: var(--noir);
-    }
     /*----createDisplayComs-----*/
     
     .bloc_article_div_p--padding--coms {
@@ -185,7 +192,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        color: #9E9E9E;
+        color: var(--gris4);
         font-family: sans-serif;
         border-bottom: solid 1px var(--gris1);
         padding-top: 0.2em;
@@ -197,7 +204,7 @@
         justify-content: space-between;
         align-items: center;
         font-family: sans-serif;
-        color: #9E9E9E;
+        color: var(--gris4);
         border-bottom: solid 1px var(--gris1);
     }
     
@@ -224,7 +231,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: var(--noir_alpha);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -276,16 +283,11 @@
     }
     
     .bloc__form--create--post--btn-annul--style {
-        background-color: white;
+        background-color: var(--blanc);
         border: none;
         color: var(--violet);
         display: flex;
         align-self: flex-end;
-    }
-    
-    .bloc__form--create--post--btn-annul--style:hover {
-        color: var(--vert);
-        cursor: pointer;
     }
     
     .bloc__form--input--create--post--style-2 {
@@ -342,7 +344,7 @@
         font-family: sans-serif;
         border-bottom: solid 1px var(--gris1);
         padding: 0.3em 0 0.3em 0;
-        color: #9E9E9E;
+        color: var(--gris4);
     }
     
     .bloc_article_p2--style-2 {
@@ -353,10 +355,6 @@
         width: 30%;
         height: auto;
         padding: 1.5em 0 0 0;
-    }
-    
-    .bloc_article_a--style:hover {
-        opacity: 0.2;
     }
     
     .bloc__form--btn-post {
@@ -375,7 +373,7 @@
     /*icons*/
     
     .fa-images {
-        color: royalblue;
+        color: var(--bleu);
         font-size: 3em;
         margin: 0.5em 0 0 0;
     }
@@ -388,139 +386,29 @@
     }
     
     .fa-heart {
-        color: royalblue;
+        color: var(--bleu);
     }
     
     .fa-heart-broken {
         color: var(--rouge);
     }
     
+    .fa-pen:hover,
+    .fa-trash-alt:hover,
     .fa-comment-alt:hover,
     .fa-heart:hover,
     .fa-heart-broken:hover,
     .fa-images:hover {
         cursor: pointer;
-        opacity: 0.4;
+        color: var(--violet);
     }
     
+    .fa-pen:active,
+    .fa-trash-alt:active,
     .fa-heart:active,
     .fa-heart-broken:active,
     .fa-images:active {
-        color: #212121;
-    }
-    /*------------------page detail post------------------*/
-    
-    .bloc_form--style {
-        padding: 0.4em 0 1em 0;
-    }
-    
-    .bloc_form_label--style {
-        font-size: 1.5em;
-        padding: 0 0 0.5em 0;
-    }
-    
-    .bloc_form-input--style {
-        font-size: 1.5em;
         color: var(--noir);
-        border: 2px solid var(--noir);
-        font-family: sans-serif;
-        border-radius: 15px;
-        padding: 0 1em 0 1em;
-        box-shadow: 5px 5px 5px var(--gris1);
-    }
-    
-    .bloc_form-btn--style2 {
-        width: 20%;
-        font-size: 1.5em;
-        color: var(--noir);
-        border: 2px solid var(--noir);
-        font-family: sans-serif;
-        border-radius: 15px;
-        margin: 1em 0.5em 0 0;
-        box-shadow: 5px 5px 5px var(--gris1);
-        background-color: var(--violet);
-    }
-    
-    .bloc_form-btn--style2:hover {
-        background-color: var(--noir);
-        border: solid 1px var(--violet);
-        color: var(--vert);
-        box-shadow: 5px 5px 5px var(--violet);
-        cursor: pointer;
-    }
-    
-    .bloc_form_btn--flex {
-        display: flex;
-        flex-direction: row;
-    }
-    /*--------------commentaire-------------*/
-    /*---------------------compte utilisateur-----------------*/
-    
-    .bloc_section_form--flex {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        border-bottom: solid 1px var(--gris1);
-        padding: 1em 0 1em 0;
-    }
-    
-    .bloc_section_form_heading--style {
-        font-size: 2em;
-        font-family: sans-serif;
-    }
-    
-    .bloc_section_form_btn--flex {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    /*--------------connection--------------*/
-    
-    .bloc__login--h1--style {
-        padding-top: 3em;
-        font-size: 3em;
-        font-family: sans-serif;
-    }
-    
-    .bloc__login--flex {
-        width: 55%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .bloc_main--flex {
-        width: 25%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 8em;
-    }
-    
-    .bloc__login__form--flex {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .bloc__login__form--label--style {
-        font-size: 1.5em;
-        padding: 0.3em 0 0.3em 0;
-        font-family: sans-serif;
-    }
-    
-    .bloc__login__form--input--style {
-        width: 100%;
-        font-size: 1.5em;
-        color: var(--noir);
-        border: 2px solid var(--noir);
-        font-family: sans-serif;
-        border-radius: 15px;
-        padding: 0 1em 0 1em;
-        box-shadow: 5px 5px 5px var(--gris1);
     }
     
     .bloc__login__form--input--style-2 {
@@ -532,29 +420,7 @@
         padding: 0 1em 0 1em;
         box-shadow: 5px 5px 5px var(--gris1);
     }
-    
-    .bloc_bloc__form--btn-flex {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .bloc__form_p--style {
-        padding-top: 0.5em;
-    }
-    
-    .bloc__form--btn {
-        margin: 0.5em 0 0 0;
-        padding: 0.1em 0.15em 0.2em 0.15em;
-        font-size: 2em;
-        background-color: var(--violet);
-        border: solid 1px var(--noir);
-        color: var(--noir);
-        border-radius: 20px;
-        text-align: center;
-        box-shadow: 5px 5px 5px var(--gris1);
-    }
+    /*------------------------------------*/
     
     .bloc__form--btn-2 {
         margin: 1em 0 0 0;
@@ -568,15 +434,43 @@
         box-shadow: 5px 5px 5px var(--gris1);
         width: 45%;
     }
-    /*----------------inscription---------------*/
     
-    .bloc_form_login_input--flex {
+    .bloc__form_p--style {
+        padding-top: 0.5em;
+    }
+    
+    .bloc__login--flex {
+        width: 55%;
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     
-    .bloc_login_img-style {
-        margin-top: 1em;
-        width: 25%;
-        opacity: 0.5;
+    .bloc_section_form_btn--flex--1 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
+    
+    .bloc_section_form_btn--flex--2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .bloc_section_form_heading--style {
+        font-size: 2em;
+        font-family: sans-serif;
+    }
+    
+    .bloc_section_form--flex {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-bottom: solid 1px var(--gris1);
+        padding: 1em 0 1em 0;
+    }
+    /*------------------------------------*/
