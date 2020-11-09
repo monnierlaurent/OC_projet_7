@@ -138,11 +138,11 @@ validPosts = (titre, contenu, Rdatas, idErreur) => {
         event.preventDefault;
 
         if (titre.value.length === 0) {
-            erreurPost.setAttribute('class', 'bloc__form--font--erreur');
+            erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
             erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
             console.log('ok1 blanc');
         } else if (Rdatas.test(titre.value) === true) {
-            erreurPost.setAttribute('class', 'bloc__form--font--erreur');
+            erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
             erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
             console.log('ok2');
         } else if (Rdatas.test(titre.value) === false) {
@@ -155,11 +155,11 @@ validPosts = (titre, contenu, Rdatas, idErreur) => {
         event.preventDefault;
 
         if (contenu.value.length === 0) {
-            erreurPost.setAttribute('class', 'bloc__form--font--erreur');
+            erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
             erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
 
         } else if (Rdatas.test(contenu.value) === true) {
-            erreurPost.setAttribute('class', 'bloc__form--font--erreur');
+            erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
             erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
 
         } else if (Rdatas.test(contenu.value) === false) {
@@ -178,11 +178,11 @@ validComs = (id, contenu, Rdatas) => {
         event.preventDefault();
 
         if (contenu.value.length === 0) {
-            erreurComs1.setAttribute('class', 'bloc__form--font--erreur');
+            erreurComs1.setAttribute('class', 'bloc__form--font--erreur3');
             erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
             console.log('ok1 blanc');
         } else if (Rdatas.test(contenu.value) === true) {
-            erreurComs1.setAttribute('class', 'bloc__form--font--erreur');
+            erreurComs1.setAttribute('class', 'bloc__form--font--erreur3');
             erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
             console.log('ok2');
         } else if (Rdatas.test(contenu.value) === false) {
@@ -201,11 +201,11 @@ validComsModif = (contenu, Rdatas, idErreur) => {
         event.preventDefault();
 
         if (contenu.value.length === 0) {
-            erreurComs1.setAttribute('class', 'bloc__form--font--erreur');
+            erreurComs1.setAttribute('class', 'bloc__form--font--erreur3');
             erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
             console.log('ok1 blanc');
         } else if (Rdatas.test(contenu.value) === true) {
-            erreurComs1.setAttribute('class', 'bloc__form--font--erreur');
+            erreurComs1.setAttribute('class', 'bloc__form--font--erreur3');
             erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
             console.log('ok2');
         } else if (Rdatas.test(contenu.value) === false) {

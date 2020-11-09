@@ -5,7 +5,7 @@ createNavBarForum = (recupUserId, nom, prenom) => {
     createNavBar.appendChild(createElm3('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId));
     createNavBar.appendChild(createElm2('a', 'Créer une publication', 'id', 'publier', 'class', 'header__nav__a--style'));
     createNavBar.appendChild(createElm3('a', 'Mon compte', 'id', 'compteUser', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId));
-    createNavBar.appendChild(createElm2('a', 'Déonnection', 'id', 'deconnection', 'class', 'header__nav__a--style'));
+    createNavBar.appendChild(createElm2('a', 'Déconnection', 'id', 'deconnection', 'class', 'header__nav__a--style'));
 };
 
 createDisplayPostImg = (repPostId, repNom, repPrenom, repTitre, repContenu, repImageUrl, repLikes, repDislikes, nbComs, recupUserId) => {
@@ -88,7 +88,7 @@ modaleCreatePost = (nom, prenom) => {
     const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv1.appendChild(createElm2('button', 'Publier', 'id', 'btn_publier_forum', 'class', 'bloc__form--create--post--btn--post')); //
 
-    formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_posts', 'class', 'bloc__form--font--erreur'));
+    formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_posts', 'class', 'bloc__form--font--erreur3'));
 };
 modaleCreateModifPost = (titre, contenu, imageUrl, nom, prenom) => {
     const main = document.querySelector('main');
@@ -133,7 +133,7 @@ createComsForm = (nom, prenom) => {
     const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv1.appendChild(createElm2('button', 'Publier', 'id', 'btn_envoyer_coms', 'class', 'bloc__form--create--post--btn--post')); //
 
-    formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_posts', 'class', 'bloc__form--font--erreur'));
+    formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_posts', 'class', 'bloc__form--font--erreur3'));
 };
 
 modifComsForm = (nom, prenom, valueTextarea) => {
@@ -152,5 +152,5 @@ modifComsForm = (nom, prenom, valueTextarea) => {
     const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv1.appendChild(createElm2('button', 'Publier', 'id', 'btnComModif', 'class', 'bloc__form--create--post--btn--post')); //
 
-    formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_posts', 'class', 'bloc__form--font--erreur'));
+    formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_posts', 'class', 'bloc__form--font--erreur3'));
 };

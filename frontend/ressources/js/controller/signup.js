@@ -45,13 +45,9 @@ createLogin = () => {
 
                     window.location = './index.html';
                 };
-
             }).catch((error => {
-
-                modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-
+                modals();
             })); //fin catch
-
         } else {
             paragErreur6.setAttribute('class', 'bloc__form--font--erreur2');
         };

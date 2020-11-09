@@ -45,6 +45,11 @@
         color: var(--rouge);
         padding-top: 0.5em;
     }
+    
+    .bloc__form--font--erreur3 {
+        color: var(--blanc);
+        padding-top: 0.5em;
+    }
     /*--------header-------*/
     
     .header--bgc--width--flex {
@@ -267,6 +272,7 @@
         border-radius: 10px;
         box-shadow: 5px 5px 5px var(--gris1);
         width: 100%;
+        text-align: center;
     }
     
     .bloc__form--create--post--btn-annul--style {

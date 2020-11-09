@@ -16,7 +16,6 @@ createLogin = () => {
         valideLogin(email, password, regexEmail, regexPassword);
 
         const newBtnConnection = document.getElementById('btn_connect_index');
-        console.log(newBtnConnection)
 
         newBtnConnection.addEventListener('click', (event) => {
             event.preventDefault();
@@ -27,23 +26,22 @@ createLogin = () => {
                     email: email.value,
                     password: password.value
                 };
-                console.log(contact)
+
                 const datas = send('http://localhost:3000/api/auth/login', contact);
 
                 datas.then(response => {
-                    console.log(response)
+
                     if (response.error) {
                         paragErreur3.setAttribute('class', 'bloc__form--font--erreur2');
                     } else {
 
                         const auth = JSON.stringify(response);
                         sessionStorage.setItem('repAuth', auth);
-
                         window.location = 'forum.html';
                     };
 
                 }).catch(() => {
-                    modals('Désolé !<br>Le serveur ne repond pas10 ', 'Connection', './index.html');
+                    modals();
                 }); //fin catch
 
             } else {
