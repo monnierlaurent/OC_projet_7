@@ -84,3 +84,21 @@ exitModal = (id) => {
         window.location = './forum.html';
     });
 };
+
+deconnection = (id) => {
+    const bTnDeconnection = document.getElementById(id);
+    bTnDeconnection.addEventListener('click', (event) => {
+        event.preventDefault();
+        sessionStorage.clear();
+        window.location = './index.html';
+    });
+};
+
+deleteImg = (repimageUrl, reppostId) => {
+    if (!repimageUrl) {
+        const imqAltParent = document.getElementById('lien_article' + reppostId);
+        const imgBalise = document.getElementById('img_post_display' + reppostId);
+        imqAltParent.removeChild(imgBalise);
+        //console.log('il y a une image');
+    };
+};

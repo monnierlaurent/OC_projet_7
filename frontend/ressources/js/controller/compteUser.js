@@ -1,11 +1,8 @@
-const urlUser = 'http://localhost:3000/api/auth/' + (new URL(window.location.href)).searchParams.get('id');
-
-const recupStorage = sessionStorage.getItem('repAuth');
-const recupUserId4 = JSON.parse(recupStorage);
-
-const mainUsers = document.getElementById('main_compe_user');
-
 createUsersCompte = () => {
+    const urlUser = 'http://localhost:3000/api/auth/' + (new URL(window.location.href)).searchParams.get('id');
+
+    const recupStorage = sessionStorage.getItem('repAuth');
+    const recupUserId4 = JSON.parse(recupStorage);
 
     if (recupUserId4 === null) {
         modals('Vous n\avez pas accès a cette ressource !', 'Inscription', './signup.html')
@@ -20,6 +17,7 @@ createUsersCompte = () => {
 
             const btnModif = document.getElementById('btn_modif_profil_user');
             const idUser = 'http://localhost:3000/api/auth/' + userUnique.id;
+            console.log(idUser)
 
             btnModif.addEventListener('click', (event) => {
                 event.preventDefault();
@@ -35,19 +33,13 @@ createUsersCompte = () => {
 
                 const supprDatas = deleteAuth(idUser);
                 supprDatas.then(response => {
-                    modals(response.error, 'Inscription', 'signup.html');
+                    modals('Profil supprimé !', 'Inscription', 'signup.html');
                 }).catch((error => {
-
-                    // faire spinner
                     modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-
                 })); //fin catch
             });
         }).catch((error => {
-
-            // faire spinner
             modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-
         })); //fin catch
         //valideModifUser();
         const datas2 = requestAuth(urlUser);

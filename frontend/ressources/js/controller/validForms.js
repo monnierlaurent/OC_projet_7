@@ -6,8 +6,6 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
     const paragErreur4 = document.getElementById('erreur4');
     const paragErreur5 = document.getElementById('erreur5');
 
-
-
     nom.addEventListener('change', (event) => {
         event.preventDefault();
 
@@ -74,7 +72,6 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
             paragErreur4.innerHTML = 'le champs n\'est pas rempli correctement !';
         };
     });
-
 
     confirmPassword.addEventListener('change', (event) => {
         event.preventDefault();
@@ -173,9 +170,9 @@ validPosts = (titre, contenu, Rdatas, idErreur) => {
 };
 
 
-validComs = (contenu, Rdatas) => {
+validComs = (id, contenu, Rdatas) => {
 
-    const erreurComs1 = document.getElementById('erreur_coms_1'); //'erreur_coms1'
+    const erreurComs1 = document.getElementById(id); //'erreur_coms1'
 
     contenu.addEventListener('change', (event) => {
         event.preventDefault();
@@ -196,9 +193,9 @@ validComs = (contenu, Rdatas) => {
     });
 };
 
-validComsModif = (contenu, Rdatas) => {
+validComsModif = (contenu, Rdatas, idErreur) => {
 
-    const erreurComs1 = document.getElementById('erreur4'); //'erreur_coms1'
+    const erreurComs1 = document.getElementById(idErreur); //'erreur_coms1'
 
     contenu.addEventListener('change', (event) => {
         event.preventDefault();
@@ -271,5 +268,27 @@ valideModifUser = (recupNom, recupPrenom, recupEmail, recupPassword, Rnom, Remai
             erreur4.setAttribute('class', 'bloc__form--font--erreur2');
         };
     });
+};
 
+valideUserCreateur = (recupUserId, repuserId, reppostId) => {
+    if (recupUserId === repuserId) {
+        const btnModifier = document.getElementById('btn_modif_publication' + reppostId, );
+        btnModifier.removeAttribute('class');
+        btnModifier.setAttribute('class', 'fas fa-pen bloc_article_div_a--hover bloc_article_p--padding');
+
+        const btnSupprimer = document.getElementById('btn_suppr_publication' + reppostId);
+        btnSupprimer.removeAttribute('class');
+        btnSupprimer.setAttribute('class', 'far fa-trash-alt bloc_article_div_a--hover bloc_article_p--padding');
+    };
+};
+valideUserCreateurCom = (recupUserId, repsuserId, repscomId) => {
+    if (recupUserId.userId === repsuserId) {
+        const btnModifierCom = document.getElementById('btn_com_modif1' + repscomId);
+        btnModifierCom.removeAttribute('class');
+        btnModifierCom.setAttribute('class', 'fas fa-pen bloc_article_div_a--hover bloc_article_p--padding');
+
+        const btnSupprimerCom = document.getElementById('btn_com_suppr' + repscomId);
+        btnSupprimerCom.removeAttribute('class');
+        btnSupprimerCom.setAttribute('class', 'far fa-trash-alt bloc_article_div_a--hover bloc_article_p--padding');
+    };
 };

@@ -151,14 +151,16 @@ exports.displayIdUser = (req, res, next) => {
 exports.deleteUser = (req, res, next) => {
     const reqParamsId = sanitize(req.params.id);
     const userIdAuth = sanitize(req.userIdAuth);
-
+    console.log(req.body)
     userModel.findOne('id', userIdAuth)
         .then((response) => {
-            const role = response[0].role; // role du recuperateur
-            const userIdRec = response[0].id; //  id du recuperateur  
+
+            const role = response.role; // role du recuperateur
+            console.log(role)
+            const userIdRec = response.id; //  id du recuperateur  
             userModel.findOne('id', reqParamsId)
                 .then((response) => {
-                    if (userIdRec === response[0].id || role === 1) {
+                    if (userIdRec === response.id || role === 1) {
                         userModel.deleteOne(reqParamsId)
                             .then(() => {
                                 res.status(200).json({ message: "Utilisateur supprimé !" });

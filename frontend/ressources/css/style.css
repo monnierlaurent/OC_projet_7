@@ -144,13 +144,20 @@
         flex-direction: row;
     }
     
-    .bloc_article_div_a--hover:active {
-        color: var(--noir);
+    .bloc__modal__create--commentaire--flex {
+        display: flex;
+        flex-direction: row;
+        align-self: end;
+        font-family: sans-serif;
     }
     
     .bloc_article_div_a--hover:hover {
         color: var(--vert);
         cursor: pointer;
+    }
+    
+    .bloc_article_div_a--hover:active {
+        color: var(--noir);
     }
     /*----createDisplayComs-----*/
     

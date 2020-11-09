@@ -5,6 +5,7 @@ createNavbar = () => {
 };
 
 createDisplayUers = (nom, prenom, dateInscrip, emailRec) => {
+    const mainUsers = document.getElementById('main_compe_user');
     const newSection = mainUsers.appendChild(createElm1('section', '', 'class', 'bloc_section_form--flex'));
     newSection.appendChild(createElm1('h2', 'Compte utilisateur', 'class', 'bloc_section_form_heading--style'));
 
@@ -19,6 +20,7 @@ createDisplayUers = (nom, prenom, dateInscrip, emailRec) => {
 };
 
 createFormModifUser = (nom, prenom, emailRec) => {
+    const mainUsers = document.getElementById('main_compe_user');
     const newForm = mainUsers.appendChild(createElm2('form', '', 'id', 'form_modif_user', 'class', 'display--none '));
 
     newForm.appendChild(createElm2('label', 'Nom :', 'class', 'bloc__login__form--label--style', 'for', 'nom'));
