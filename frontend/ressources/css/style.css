@@ -32,7 +32,7 @@
     /*------message erreur-----*/
     
     .bloc__form--font--erreur {
-        color: var(--blanc);
+        color: var(--gris3);
         padding-top: 0.5em;
     }
     
@@ -235,6 +235,13 @@
     .bloc__form--create--post--flex {
         display: flex;
         flex-direction: column;
+    }
+    
+    .bloc__form--login--flex {
+        display: flex;
+        flex-direction: column;
+        padding-top: 12em;
+        width: 50%;
     }
     
     .bloc__login__form--label--style--create--post {

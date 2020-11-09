@@ -20,7 +20,8 @@ createLogin = () => {
     valideSignup(nom, prenom, email, password, confirmPassword, regexNomPrenom, regexEmail, regexPassword);
 
     const btnConnection = document.getElementById('btn_inscrip_signup');
-    btnConnection.addEventListener('click', () => {
+    btnConnection.addEventListener('click', (event) => {
+        event.preventDefault();
         if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false, confirmPassword.value === password.value) {
             const contact = {
                 nom: nom.value,

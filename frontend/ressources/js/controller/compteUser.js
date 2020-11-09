@@ -60,19 +60,15 @@ createUsersCompte = () => {
             const recupEmail = document.getElementById('email');
             const recupPassword = document.getElementById('password');
 
-
-
             const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20} *$/;
             const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania.fr]+[.]{1}[a-zA-Z1-9]{2,10}$/;
             const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{4,255}/;
+
             valideModifUser = () => {
                 const erreur1 = document.getElementById('erreur1');
                 const erreur2 = document.getElementById('erreur2');
                 const erreur3 = document.getElementById('erreur3');
                 const erreur4 = document.getElementById('erreur4');
-
-
-
 
                 recupNom.addEventListener('change', (event) => {
                     event.preventDefault();

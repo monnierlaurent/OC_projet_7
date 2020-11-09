@@ -2,7 +2,7 @@ createNavBarForum = (recupUserId, nom, prenom) => {
     const header = document.getElementById('header_forum');
     const createNavBar = header.appendChild(createElm1('nav', '', 'class', 'header__nav--padding')); //display--none 
     createNavBar.appendChild(createElm2('i', '', 'id', '', 'class', 'far fa-user-circle header__nav__avatar--style'));
-    createNavBar.appendChild(createElm2('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style'));
+    createNavBar.appendChild(createElm3('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId));
     createNavBar.appendChild(createElm2('a', 'Créer une publication', 'id', 'poster', 'class', 'header__nav__a--style'));
     createNavBar.appendChild(createElm3('a', 'Mon compte', 'id', 'compteUser', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId));
     createNavBar.appendChild(createElm2('a', 'Déonnection', 'id', 'deconnection', 'class', 'header__nav__a--style'));

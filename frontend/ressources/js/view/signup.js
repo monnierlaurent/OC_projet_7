@@ -3,35 +3,38 @@ createNavbar = () => {
     navBar.appendChild(createElm3('a', 'Inscription', 'id', 'inscription', 'class', 'header__nav__a--style', 'href', './signup.html'));
     navBar.appendChild(createElm3('a', 'Connection', 'id', 'connection', 'class', 'header__nav__a--style', 'href', './index.html'));
 };
+
+
 createFormSignup = () => {
 
     const mainIndex = document.getElementById('main_signup');
-    mainIndex.appendChild(createElm1('h2', 'Inscription', 'class', 'bloc__login--h1--style'));
 
-    const newForm = mainIndex.appendChild(createElm1('form', '', 'class', 'bloc__login__form--flex'));
+    const formPost = mainIndex.appendChild(createElm2('form', '', 'id', '', 'class', 'bloc__form--login--flex')); //
+    formPost.appendChild(createElm1('h2', 'Connection', 'class', 'bloc__login__form--label--style--create--post')); //
 
-    newForm.appendChild(createElm2('label', 'Nom :', 'class', 'bloc__login__form--label--style', 'for', 'nom'));
-    newForm.appendChild(createElm3('input', '', 'id', 'nom', 'class', 'bloc__login__form--input--style', 'type', 'text'));
-    newForm.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur1', 'class', 'bloc__form_p--style'));
+    formPost.appendChild(createElm2('label', 'Nom :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'nom')); //
+    formPost.appendChild(createElm3('input', '', 'id', 'nom', 'class', 'bloc__form--input--create--post--style-2', 'type', 'text')); //
+    formPost.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur1', 'class', 'bloc__form_p--style'));
 
-    newForm.appendChild(createElm2('label', 'Prenom :', 'class', 'bloc__login__form--label--style', 'for', 'prenom'));
-    newForm.appendChild(createElm3('input', '', 'id', 'prenom', 'class', 'bloc__login__form--input--style', 'type', 'text'));
-    newForm.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur2', 'class', 'bloc__form_p--style'));
+    formPost.appendChild(createElm2('label', 'Prenom :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'prenom')); //
+    formPost.appendChild(createElm3('input', '', 'id', 'prenom', 'class', 'bloc__form--input--create--post--style-2', 'type', 'text')); //
+    formPost.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur2', 'class', 'bloc__form_p--style'));
 
-    newForm.appendChild(createElm2('label', 'Email :', 'class', 'bloc__login__form--label--style', 'for', 'email'));
-    newForm.appendChild(createElm3('input', '', 'id', 'email', 'class', 'bloc__login__form--input--style', 'type', 'email'));
-    newForm.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur3', 'class', 'bloc__form_p--style'));
+    formPost.appendChild(createElm2('label', 'Adresse email :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'email')); //
+    formPost.appendChild(createElm3('input', '', 'id', 'email', 'class', 'bloc__form--input--create--post--style-2', 'type', 'email')); //
+    formPost.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur3', 'class', 'bloc__form_p--style'));
 
-    newForm.appendChild(createElm2('label', 'Mot de passe :', 'class', 'bloc__login__form--label--style', 'for', 'password'));
-    newForm.appendChild(createElm3('input', '', 'id', 'password', 'class', 'bloc__login__form--input--style', 'type', 'password'));
-    newForm.appendChild(createElm2('p', '* champ obligatoire exemple : @Modepasse', 'id', 'erreur4', 'class', 'bloc__form_p--style'));
+    formPost.appendChild(createElm2('label', 'Mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'password')); //
+    formPost.appendChild(createElm3('input', '', 'id', 'password', 'class', 'bloc__form--input--create--post--style-2', 'type', 'password')); //
+    formPost.appendChild(createElm2('p', '* champ obligatoire exemple : @Modepasse', 'id', 'erreur4', 'class', 'bloc__form_p--style'));
 
-    newForm.appendChild(createElm2('label', 'Comfirmation du mot de passe :', 'class', 'bloc__login__form--label--style', 'for', 'comfirmPassword'));
-    newForm.appendChild(createElm3('input', '', 'id', 'comfirmPassword', 'class', 'bloc__login__form--input--style', 'type', 'password'));
-    newForm.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur5', 'class', 'bloc__form_p--style'));
+    formPost.appendChild(createElm2('label', 'Comfirmation du mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'comfirmPassword')); //
+    formPost.appendChild(createElm3('input', '', 'id', 'comfirmPassword', 'class', 'bloc__form--input--create--post--style-2', 'type', 'password')); //
+    formPost.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur5', 'class', 'bloc__form_p--style'));
 
-    newBtnConnection = mainIndex.appendChild(createElm2('button', 'Inscription', 'id', 'btn_inscrip_signup', 'class', 'bloc__form--btn'));
+    const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
+    newDiv1.appendChild(createElm2('button', 'Inscription', 'id', 'btn_inscrip_signup', 'class', 'bloc__form--create--post--btn--post')); //
 
-    mainIndex.appendChild(createElm2('p', 'les informations sont érronées !', 'id', 'erreur6', 'class', 'bloc__form--font--erreur'));
+    newDiv1.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur6', 'class', 'bloc__form--font--erreur'));
 
 };

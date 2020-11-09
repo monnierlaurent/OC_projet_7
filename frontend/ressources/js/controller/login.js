@@ -10,24 +10,29 @@ createLogin = () => {
 
         const paragErreur3 = document.getElementById('erreur3');
 
-        const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania.fr]+[.]{1}[a-zA-Z1-9]{2,10}$/;
+        //const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania.fr]+[.]{1}[a-zA-Z1-9]{2,10}$/;
+        const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[a-zA-Z1-9.-_]+[.]{1}[a-zA-Z1-9]{2,10}$/;
+        //const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{4,255}/;
         const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{4,255}/;
-
-        valideLogin(email, password, regexEmail, regexPassword);
+        //valideLogin(email, password, regexEmail, regexPassword);
 
         const newBtnConnection = document.getElementById('btn_connect_index');
+        console.log(newBtnConnection)
 
-        newBtnConnection.addEventListener('click', () => {
+        newBtnConnection.addEventListener('click', (event) => {
+            event.preventDefault();
+
             if (regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false) {
+
                 const contact = {
                     email: email.value,
                     password: password.value
                 };
-
+                console.log(contact)
                 const datas = send('http://localhost:3000/api/auth/login', contact);
 
                 datas.then(response => {
-
+                    console.log(response)
                     if (response.error) {
                         paragErreur3.setAttribute('class', 'bloc__form--font--erreur2');
                     } else {
@@ -39,10 +44,7 @@ createLogin = () => {
                     };
 
                 }).catch(() => {
-
-                    // faire spinner
-                    modals('Désolé !<br>Le serveur ne repond pas ', 'Connection', './index.html');
-
+                    modals('Désolé !<br>Le serveur ne repond pas10 ', 'Connection', './index.html');
                 }); //fin catch
 
             } else {
