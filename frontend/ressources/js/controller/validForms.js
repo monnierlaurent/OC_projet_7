@@ -6,6 +6,8 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
     const paragErreur4 = document.getElementById('erreur4');
     const paragErreur5 = document.getElementById('erreur5');
 
+
+
     nom.addEventListener('change', (event) => {
         event.preventDefault();
 

@@ -1,5 +1,3 @@
-//----------------------------parties forum ------------------------------------------------------
-
 createNavBarForum = (recupUserId, nom, prenom) => {
     const header = document.getElementById('header_forum');
     const createNavBar = header.appendChild(createElm1('nav', '', 'class', 'header__nav--padding')); //display--none 
