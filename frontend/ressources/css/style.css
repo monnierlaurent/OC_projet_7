@@ -176,7 +176,7 @@
     .article__avatar--style {
         width: 11%;
         height: auto;
-        padding-right: 0.3em;
+        padding-right: 0.em;
     }
     
     .article__avatar--flex {
@@ -190,6 +190,13 @@
         flex-direction: row;
         justify-content: space-around;
         padding-top: 1.5em;
+    }
+    
+    .bloc_profil_users--flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
     
     .signup--avatar--style {

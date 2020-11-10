@@ -13,7 +13,7 @@ createUsersCompte = () => {
         const datas1 = requestAuth(urlUser);
         datas1.then(userUnique => {
             console.log(userUnique)
-            createDisplayUers(userUnique.nom, userUnique.prenom, userUnique.emailRec);
+            createDisplayUers(userUnique.nom, userUnique.prenom, userUnique.emailRec, userUnique.avatar);
 
             displayDateInscrip('user_date', userUnique.dateInscrip);
 
