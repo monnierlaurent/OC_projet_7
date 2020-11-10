@@ -205,7 +205,7 @@ exports.updateUser = (req, res, next) => {
 
                         const hash = response.password;
 
-                        userModel.updateOne(encryptedNom, encryptedPrenom, emailMask, hashEmail, hash, response.role, encryptedEmail, reqParamsId)
+                        userModel.updateOne(encryptedNom, encryptedPrenom, emailMask, hashEmail, hash, response.role, encryptedEmail, reqBody.avatar, reqParamsId)
 
                         .then((response) => {
                             res.status(200).json({ message: "Utilisateur mis a jour !" });

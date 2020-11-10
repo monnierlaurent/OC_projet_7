@@ -110,16 +110,40 @@ createUsersCompte = () => {
                 window.location = './compteUser.html?id=' + userDatas.id;
             });
 
+
+            const avatar1 = document.getElementById('avatars_1');
+            const avatar2 = document.getElementById('avatars_2');
+            const avatar3 = document.getElementById('avatars_3');
+            const avatar4 = document.getElementById('avatars_4');
+
+            let avatarChoix;
+
+            avatar1.addEventListener('click', (event) => {
+                event.preventDefault();
+                return avatarChoix = avatar1.src;
+            });
+            avatar2.addEventListener('click', (event) => {
+                return avatarChoix = avatar2.src;
+            });
+            avatar3.addEventListener('click', (event) => {
+                return avatarChoix = avatar3.src;
+            });
+            avatar4.addEventListener('click', (event) => {
+                return avatarChoix = avatar4.src;
+            });
+
+
             const btnModifUers = document.getElementById('btn_modif_profil_user2');
             btnModifUers.addEventListener('click', (event) => {
                 event.preventDefault();
-                if (regexNomPrenom.test(recupNom.value) !== false && regexNomPrenom.test(recupPrenom.value) !== false && regexEmail.test(recupEmail.value) !== false /*&& regexPassword.test(recupPassword.value) !== false*/ ) {
+                if (regexNomPrenom.test(recupNom.value) !== false && regexNomPrenom.test(recupPrenom.value) !== false && regexEmail.test(recupEmail.value) !== false && avatarChoix !== undefined) {
                     const contact = {
                         nom: recupNom.value,
                         prenom: recupPrenom.value,
                         email: recupEmail.value,
+                        avatar: avatarChoix
                     };
-
+                    console.log(contact)
                     const postModifUser = putAuthJson('http://localhost:3000/api/auth/' + userDatas.id, contact);
 
                     postModifUser.then(response => {

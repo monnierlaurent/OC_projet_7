@@ -100,9 +100,9 @@ class UserModel {
 
     }; //fin de delete
 
-    updateOne(nom, prenom, emailH, emailM, password, role, emailR, paramsId) {
+    updateOne(nom, prenom, emailH, emailM, password, role, emailR, avatar, paramsId) {
         try {
-            const sql = `UPDATE users SET nom='${nom}', prenom='${prenom}' ,emailMask='${emailH}', email='${emailM}',password='${password}', role=${role}, dateModif=now(), emailRec='${emailR}' WHERE id='${paramsId}'`;
+            const sql = `UPDATE users SET nom='${nom}', prenom='${prenom}' ,emailMask='${emailH}', email='${emailM}',password='${password}', role=${role}, dateModif=now(), emailRec='${emailR}', avatar='${avatar}' WHERE id='${paramsId}'`;
             return new Promise((resolve) => {
                 db.query(sql, (err, result, fields) => {
 

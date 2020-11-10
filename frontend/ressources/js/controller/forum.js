@@ -16,7 +16,7 @@ createforum = () => {
         const dataUser = requestAuth(urlUserID); //appel user
         dataUser.then(user => {
 
-            createNavBarForum(recupUserId.avatar, recupUserId.userId, user.nom, user.prenom);
+            createNavBarForum(user.avatar, recupUserId.userId, user.nom, user.prenom);
 
             //gestion du button de déconnectionde la nav bar
 

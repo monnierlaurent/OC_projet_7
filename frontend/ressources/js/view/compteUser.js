@@ -46,6 +46,12 @@ createFormModifUser = (nom, prenom, emailRec) => {
     newForm.appendChild(createInputs('input', '', 'id', 'email', 'class', 'bloc__login__form--input--style-2', 'type', 'email', 'value', emailRec));
     newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur3', 'class', 'bloc__form--font--erreur'));
 
+    const newDiv1 = newForm.appendChild(createElm1('div', '', 'class', 'signup--avatar--flex', ));
+    newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_1', 'src', 'http://localhost:3000/images/avatar/avatar_01.png', 'class', 'signup--avatar--style'));
+    newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_2', 'src', 'http://localhost:3000/images/avatar/avatar_02.png', 'class', 'signup--avatar--style'));
+    newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_3', 'src', 'http://localhost:3000/images/avatar/avatar_03.png', 'class', 'signup--avatar--style'));
+    newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_4', 'src', 'http://localhost:3000/images/avatar/avatar_04.png', 'class', 'signup--avatar--style'));
+
     const newDiv2 = newForm.appendChild(createElm1('div', '', 'class', 'bloc_section_form_btn--flex--1'));
     newDiv2.appendChild(createElm2('button', 'Modifer mon profil', 'id', 'btn_modif_profil_user2', 'class', 'bloc__form--btn-2'));
     newDiv2.appendChild(createElm2('button', 'Annuler', 'id', 'btn_annule_modif_user', 'class', 'bloc__form--btn-2'));
