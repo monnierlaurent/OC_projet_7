@@ -140,15 +140,15 @@ validPosts = (titre, contenu, Rdatas, idErreur) => {
         if (titre.value.length === 0) {
             erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
             erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
-            console.log('ok1 blanc');
+
         } else if (Rdatas.test(titre.value) === true) {
             erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
             erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
-            console.log('ok2');
+
         } else if (Rdatas.test(titre.value) === false) {
             erreurPost.setAttribute('class', 'bloc__form--font--erreur2');
             erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
-            console.log('pas ok');
+
         };
     });
     contenu.addEventListener('change', (event) => {
@@ -180,15 +180,15 @@ validComs = (id, contenu, Rdatas) => {
         if (contenu.value.length === 0) {
             erreurComs1.setAttribute('class', 'bloc__form--font--erreur3');
             erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
-            console.log('ok1 blanc');
+
         } else if (Rdatas.test(contenu.value) === true) {
             erreurComs1.setAttribute('class', 'bloc__form--font--erreur3');
             erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
-            console.log('ok2');
+
         } else if (Rdatas.test(contenu.value) === false) {
             erreurComs1.setAttribute('class', 'bloc__form--font--erreur2');
             erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
-            console.log('pas ok');
+
         };
     });
 };
@@ -203,15 +203,15 @@ validComsModif = (contenu, Rdatas, idErreur) => {
         if (contenu.value.length === 0) {
             erreurComs1.setAttribute('class', 'bloc__form--font--erreur3');
             erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
-            console.log('ok1 blanc');
+
         } else if (Rdatas.test(contenu.value) === true) {
             erreurComs1.setAttribute('class', 'bloc__form--font--erreur3');
             erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
-            console.log('ok2');
+
         } else if (Rdatas.test(contenu.value) === false) {
             erreurComs1.setAttribute('class', 'bloc__form--font--erreur2');
             erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
-            console.log('pas ok');
+
         };
     });
 };
@@ -270,8 +270,8 @@ valideModifUser = (recupNom, recupPrenom, recupEmail, recupPassword, Rnom, Remai
     });
 };
 
-valideUserCreateur = (recupUserId, repuserId, reppostId) => {
-    if (recupUserId === repuserId) {
+valideUserCreateur = (recupUserId, repuserId, reppostId, role) => {
+    if (recupUserId === repuserId || role === 1) {
         const btnModifier = document.getElementById('btn_modif_publication' + reppostId, );
         btnModifier.removeAttribute('class');
         btnModifier.setAttribute('class', 'fas fa-pen bloc_article_div_a--hover bloc_article_p--padding');
@@ -281,8 +281,8 @@ valideUserCreateur = (recupUserId, repuserId, reppostId) => {
         btnSupprimer.setAttribute('class', 'far fa-trash-alt bloc_article_div_a--hover bloc_article_p--padding');
     };
 };
-valideUserCreateurCom = (recupUserId, repsuserId, repscomId) => {
-    if (recupUserId.userId === repsuserId) {
+valideUserCreateurCom = (recupUserId, repsuserId, repscomId, role) => {
+    if (recupUserId.userId === repsuserId || role === 1) {
         const btnModifierCom = document.getElementById('btn_com_modif1' + repscomId);
         btnModifierCom.removeAttribute('class');
         btnModifierCom.setAttribute('class', 'fas fa-pen bloc_article_div_a--hover bloc_article_p--padding');

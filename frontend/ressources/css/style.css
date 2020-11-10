@@ -179,6 +179,7 @@
         padding-right: 0.em;
     }
     
+    .bloc_modal_create_post_avatar_flex,
     .article__avatar--flex {
         display: flex;
         flex-direction: row;

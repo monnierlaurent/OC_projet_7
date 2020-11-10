@@ -11,7 +11,6 @@ createforum = () => {
     } else {
         const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId.userId; //recup user
         const urlpostAll = 'http://localhost:3000/api/post'; //recup post
-        //const urlComAll = 'http://localhost:3000/api/post/' + rep.postId + '/com'; //recup com
 
         const dataUser = requestAuth(urlUserID); //appel user
         dataUser.then(user => {
@@ -27,7 +26,7 @@ createforum = () => {
             btnPublier.addEventListener('click', (event) => {
                 event.preventDefault();
 
-                modaleCreatePost(user.nom, user.prenom);
+                modaleCreatePost(user.avatar, user.nom, user.prenom);
                 exitModal('btn_annule_create_post'); //modal create post
 
                 const image = document.getElementById('post_img').files;
@@ -100,7 +99,7 @@ createforum = () => {
 
                         compterHours('date_crea_post', rep.postId, rep.dateCrea); //affichage du temps de publication
 
-                        valideUserCreateur(recupUserId.userId, rep.userId, rep.postId); // gestion de la vue des btn suppr et modif si on est pas l'utilisateur createur
+                        valideUserCreateur(recupUserId.userId, rep.userId, rep.postId, recupUserId.role); // gestion de la vue des btn suppr et modif si on est pas l'utilisateur createur
 
                         deleteImg(rep.imageUrl, rep.postId);
 
@@ -158,7 +157,7 @@ createforum = () => {
                         btnModif.addEventListener('click', (event) => {
                             event.preventDefault();
 
-                            modaleCreateModifPost(rep.titre, rep.contenu, rep.imageUrl, rep.nom, rep.prenom);
+                            modaleCreateModifPost(rep.avatar, rep.titre, rep.contenu, rep.imageUrl, rep.nom, rep.prenom);
 
                             exitModal('btn_annule_forum'); //modal modif post
 
@@ -233,7 +232,7 @@ createforum = () => {
                         const btnCommenter = document.getElementById('btn_commenter_publication' + rep.postId);
 
                         btnCommenter.addEventListener('click', (event) => {
-                            createComsForm(rep.nom, rep.prenom);
+                            createComsForm(user.avatar, user.nom, user.prenom);
                             exitModal('btnAnnulerComs_1'); //fermeture de la modal de modification des commentaires
 
                             const contenu = document.getElementById('commentaire');
@@ -273,7 +272,7 @@ createforum = () => {
 
                             compterHours('date_crea_coms', reps.comId, reps.comDateCrea); //compteur de temps de publication
 
-                            valideUserCreateurCom(recupUserId, rep.userId, reps.comId); //affichages des buttons modifier et supprimer si on est le createur du commentaire
+                            valideUserCreateurCom(recupUserId, rep.userId, reps.comId, recupUserId.role); //affichages des buttons modifier et supprimer si on est le createur du commentaire
 
                             const paragDisplayNbComs = document.getElementById('display_coms_forum' + rep.postId);
                             if (compteurCom > 1) {
@@ -320,7 +319,7 @@ createforum = () => {
                             btnModifCommentaire.addEventListener('click', (event) => {
                                 event.preventDefault();
 
-                                modifComsForm(reps.nom, reps.prenom, reps.comContenu);
+                                modifComsForm(reps.avatar, reps.nom, reps.prenom, reps.comContenu);
 
                                 exitModal('btn_annuler_modif_coms'); //gestion du button de fermeture de la modal modif commentaire
 

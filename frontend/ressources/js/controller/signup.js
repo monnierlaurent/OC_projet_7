@@ -53,7 +53,6 @@ createLogin = () => {
                 avatar: avatarChoix
             };
 
-            console.log(contact);
             const datas6 = send('http://localhost:3000/api/auth/signup', contact);
 
             datas6.then(response => {

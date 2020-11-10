@@ -8,18 +8,20 @@ createUsersCompte = () => {
         modals('Vous n\avez pas accès a cette ressource !', 'Inscription', './signup.html')
     } else {
 
-        createNavbar();
+
 
         const datas1 = requestAuth(urlUser);
         datas1.then(userUnique => {
-            console.log(userUnique)
+
+            createNavbar(userUnique.avatar, userUnique.nom, userUnique.prenom);
+
             createDisplayUers(userUnique.nom, userUnique.prenom, userUnique.emailRec, userUnique.avatar);
 
             displayDateInscrip('user_date', userUnique.dateInscrip);
 
             const btnModif = document.getElementById('btn_modif_profil_user');
             const idUser = 'http://localhost:3000/api/auth/' + userUnique.id;
-            console.log(idUser)
+
 
             btnModif.addEventListener('click', (event) => {
                 event.preventDefault();
@@ -143,7 +145,7 @@ createUsersCompte = () => {
                         email: recupEmail.value,
                         avatar: avatarChoix
                     };
-                    console.log(contact)
+
                     const postModifUser = putAuthJson('http://localhost:3000/api/auth/' + userDatas.id, contact);
 
                     postModifUser.then(response => {
@@ -236,7 +238,7 @@ createUsersCompte = () => {
                     };
 
                     const postModifUser = putAuthJson('http://localhost:3000/api/auth/password/' + userDatas.id, passwordNew);
-                    console.log(postModifUser)
+
                     postModifUser.then(response => {
 
                         window.location = './compteUser.html?id=' + userDatas.id;
