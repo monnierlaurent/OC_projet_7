@@ -1,7 +1,7 @@
 createNavBar = () => {
     const navBar = document.getElementById('nav_index');
-    navBar.appendChild(createElm3('a', 'Connection', 'id', 'connection', 'class', 'header__nav__a--style', 'href', './index.html'));
-    navBar.appendChild(createElm3('a', 'Inscription', 'id', 'inscription', 'class', 'header__nav__a--style', 'href', './signup.html'));
+    navBar.appendChild(createElm4('a', 'Connection', 'id', 'connection', 'class', 'header__nav__a--style', 'href', './index.html', 'title', 'lien pour se connecter'));
+    navBar.appendChild(createElm4('a', 'Inscription', 'id', 'inscription', 'class', 'header__nav__a--style', 'href', './signup.html', 'title', 'lien pour s\'incrire'));
 };
 
 createFormLogin = () => {
@@ -20,7 +20,7 @@ createFormLogin = () => {
     formPost.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur2', 'class', 'bloc__form_p--style'));
 
     const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
-    newDiv1.appendChild(createElm2('button', 'Connection', 'id', 'btn_connect_index', 'class', 'bloc__form--create--post--btn--post')); //
+    newDiv1.appendChild(createElm3('button', 'Connection', 'id', 'btn_connect_index', 'class', 'bloc__form--create--post--btn--post', 'title', 'Boutton de connection')); //
 
     newDiv1.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur3', 'class', 'bloc__form--font--erreur'));
 

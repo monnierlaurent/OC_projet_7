@@ -245,6 +245,9 @@ createUsersCompte = () => {
                     }).catch((error => {
                         modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
                     })); //fin catch
+                } else {
+                    const erreur5 = document.getElementById('erreur_4');
+                    erreur5.setAttribute('class', 'bloc__form--font--erreur2');
                 };
             });
         }).catch((error => {

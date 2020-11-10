@@ -1,9 +1,9 @@
 createNavbar = (avatar, nom, prenom, recupUserId) => {
     const navBar = document.getElementById('nav_users');
     navBar.appendChild(createElm3('img', '', 'src', avatar, 'class', 'header__nav__avatar--style', 'alt', 'avatar de l\'utilisateur connecté'));
-    navBar.appendChild(createElm3('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId));
-    navBar.appendChild(createElm3('a', 'Forum', 'id', 'retourForum', 'class', 'header__nav__a--style', 'href', './forum.html'));
-    navBar.appendChild(createElm3('a', 'Déonnection', 'id', 'deconnection', 'class', 'header__nav__a--style', 'href', './index.html'));
+    navBar.appendChild(createElm4('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId, 'title', 'lien pour accéder au compte utilisateur'));
+    navBar.appendChild(createElm4('a', 'Forum', 'id', 'retourForum', 'class', 'header__nav__a--style', 'href', './forum.html', 'title', 'lien pour accéder a la page principal'));
+    navBar.appendChild(createElm4('a', 'Déonnection', 'id', 'deconnection', 'class', 'header__nav__a--style', 'href', './index.html', 'title', 'boutton pour  se déconnecter'));
 };
 
 createDisplayUers = (nom, prenom, emailRec, avatar) => {
@@ -12,7 +12,7 @@ createDisplayUers = (nom, prenom, emailRec, avatar) => {
 
     const newdiv = newSection.appendChild(createElm1('div', '', 'class', 'bloc_section_form_btn--flex--1'));
     newdiv.appendChild(createElm1('h2', 'Compte utilisateur', 'class', 'bloc_section_form_heading--style'));
-    newdiv.appendChild(createElm2('i', '', 'id', 'btn_suppr_profil_user', 'class', 'far fa-trash-alt')); //bloc__form--btn-2
+    newdiv.appendChild(createElm3('i', '', 'id', 'btn_suppr_profil_user', 'class', 'far fa-trash-alt', 'title', 'boutton pour supprimer le compte utilisateur')); //bloc__form--btn-2
 
     const newDiv1 = newSection.appendChild(createElm1('div', '', 'class', 'bloc_profil_users--flex'));
 
@@ -26,8 +26,8 @@ createDisplayUers = (nom, prenom, emailRec, avatar) => {
     newDiv3.appendChild(createElm3('img', '', 'src', avatar, 'class', '', 'alt', 'avatar de l\'utilisateur qui a publier le message'));
 
     const newDiv4 = newSection.appendChild(createElm1('div', '', 'class', 'bloc_section_form_btn--flex--2'));
-    newDiv4.appendChild(createElm2('button', 'Modifier mon profil', 'id', 'btn_modif_profil_user', 'class', 'bloc__form--btn-2'));
-    newDiv4.appendChild(createElm2('button', 'Modifier le mot de passe', 'id', 'btn_modif_password_1', 'class', 'bloc__form--btn-2'));
+    newDiv4.appendChild(createElm3('button', 'Modifier mon profil', 'id', 'btn_modif_profil_user', 'class', 'bloc__form--btn-2', 'title', 'boutton pour modifer le compte utilisateur'));
+    newDiv4.appendChild(createElm3('button', 'Modifier le mot de passe', 'id', 'btn_modif_password_1', 'class', 'bloc__form--btn-2', 'title', 'boutton pour modifier le mot de passe'));
 
 };
 1
@@ -49,14 +49,14 @@ createFormModifUser = (nom, prenom, emailRec) => {
     newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur3', 'class', 'bloc__form--font--erreur'));
 
     const newDiv1 = newForm.appendChild(createElm1('div', '', 'class', 'signup--avatar--flex', ));
-    newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_1', 'src', 'http://localhost:3000/images/avatar/avatar_01.png', 'class', 'signup--avatar--style'));
-    newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_2', 'src', 'http://localhost:3000/images/avatar/avatar_02.png', 'class', 'signup--avatar--style'));
-    newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_3', 'src', 'http://localhost:3000/images/avatar/avatar_03.png', 'class', 'signup--avatar--style'));
-    newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_4', 'src', 'http://localhost:3000/images/avatar/avatar_04.png', 'class', 'signup--avatar--style'));
+    newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_1', 'src', 'http://localhost:3000/images/avatar/avatar_01.png', 'class', 'signup--avatar--style', 'alt', 'Choix de l\'avatar 1'));
+    newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_2', 'src', 'http://localhost:3000/images/avatar/avatar_02.png', 'class', 'signup--avatar--style', 'alt', 'Choix de l\'avatar 2'));
+    newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_3', 'src', 'http://localhost:3000/images/avatar/avatar_03.png', 'class', 'signup--avatar--style', 'alt', 'Choix de l\'avatar 3'));
+    newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_4', 'src', 'http://localhost:3000/images/avatar/avatar_04.png', 'class', 'signup--avatar--style', 'alt', 'Choix de l\'avatar 4'));
 
     const newDiv2 = newForm.appendChild(createElm1('div', '', 'class', 'bloc_section_form_btn--flex--1'));
-    newDiv2.appendChild(createElm2('button', 'Modifer mon profil', 'id', 'btn_modif_profil_user2', 'class', 'bloc__form--btn-2'));
-    newDiv2.appendChild(createElm2('button', 'Annuler', 'id', 'btn_annule_modif_user', 'class', 'bloc__form--btn-2'));
+    newDiv2.appendChild(createElm3('button', 'Modifer mon profil', 'id', 'btn_modif_profil_user2', 'class', 'bloc__form--btn-2', 'title', 'boutton pour modifer le compte utilisateur'));
+    newDiv2.appendChild(createElm3('button', 'Annuler', 'id', 'btn_annule_modif_user', 'class', 'bloc__form--btn-2', 'title', 'boutton pour annuler la modificationdu compte utilisateur'));
     newForm.appendChild(createElm2('p', '1 des champs n\'est pas rempli correctement !', 'id', 'erreur5', 'class', 'bloc__form--font--erreur'));
 };
 
@@ -78,8 +78,8 @@ createFormModifPassword = () => {
     newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_3', 'class', 'bloc__form--font--erreur'));
 
     const newDiv2 = newForm.appendChild(createElm1('div', '', 'class', 'bloc_section_form_btn--flex--1'));
-    newDiv2.appendChild(createElm2('button', 'Modifer', 'id', 'btn_modif_password', 'class', 'bloc__form--btn-2'));
-    newDiv2.appendChild(createElm2('button', 'Annuler', 'id', 'btn_annule_modif_password', 'class', 'bloc__form--btn-2'));
+    newDiv2.appendChild(createElm3('button', 'Modifer', 'id', 'btn_modif_password', 'class', 'bloc__form--btn-2', 'title', 'boutton pour modifer le mot de passe'));
+    newDiv2.appendChild(createElm3('button', 'Annuler', 'id', 'btn_annule_modif_password', 'class', 'bloc__form--btn-2', 'title', 'boutton pour annuler la modification du mot de passe'));
     newForm.appendChild(createElm2('p', '1 des champs n\'est pas rempli correctement !', 'id', 'erreur_4', 'class', 'bloc__form--font--erreur'));
 
 };

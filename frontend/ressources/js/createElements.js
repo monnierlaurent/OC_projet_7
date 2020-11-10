@@ -47,7 +47,7 @@ modals = (nom, prenom) => {
     const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper')); //
     newDivAside.appendChild(createElm1('h2', 'Veuillez nous excuser', 'class', 'bloc__login__form--label--style--create--post')); //
     newDivAside.appendChild(createElm1('p', 'notre serveur rencontre des problemes inattendu', 'class', 'bloc__login__form--label--style--create--post')); //
-    newDivAside.appendChild(createElm3('a', 'Connection', 'id', 'btn_envoyer_coms', 'class', 'bloc__form--create--post--btn--post', 'href', 'index.html')); //
+    newDivAside.appendChild(createElm4('a', 'Connection', 'id', 'btn_envoyer_coms', 'class', 'bloc__form--create--post--btn--post', 'href', 'index.html', 'title', 'doutton de retour a la page de connection')); //
 
 
 };

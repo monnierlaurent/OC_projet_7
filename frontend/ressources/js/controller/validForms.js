@@ -282,7 +282,7 @@ valideUserCreateur = (recupUserId, repuserId, reppostId, role) => {
     };
 };
 valideUserCreateurCom = (recupUserId, repsuserId, repscomId, role) => {
-    if (recupUserId.userId === repsuserId || role === 1) {
+    if (recupUserId === repsuserId || role === 1) {
         const btnModifierCom = document.getElementById('btn_com_modif1' + repscomId);
         btnModifierCom.removeAttribute('class');
         btnModifierCom.setAttribute('class', 'fas fa-pen bloc_article_div_a--hover bloc_article_p--padding');

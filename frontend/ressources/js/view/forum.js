@@ -1,11 +1,11 @@
 createNavBarForum = (avatar, recupUserId, nom, prenom) => {
     const header = document.getElementById('header_forum');
     const createNavBar = header.appendChild(createElm1('nav', '', 'class', 'header__nav--padding')); //display--none 
-    createNavBar.appendChild(createElm3('img', '', 'src', avatar, 'class', 'header__nav__avatar--style', 'alt', 'avatar de l\'utilisateur connecté'));
-    createNavBar.appendChild(createElm3('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId));
-    createNavBar.appendChild(createElm2('a', 'Créer une publication', 'id', 'publier', 'class', 'header__nav__a--style'));
-    createNavBar.appendChild(createElm3('a', 'Mon compte', 'id', 'compteUser', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId));
-    createNavBar.appendChild(createElm2('a', 'Déconnection', 'id', 'deconnection', 'class', 'header__nav__a--style'));
+    createNavBar.appendChild(createElm4('img', '', 'src', avatar, 'class', 'header__nav__avatar--style', 'alt', 'avatar de l\'utilisateur connecté', 'alt', 'avatar de l\'utilisateur'));
+    createNavBar.appendChild(createElm4('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId, 'title', 'lien pour accéder au compte utilisateur'));
+    createNavBar.appendChild(createElm3('a', 'Créer une publication', 'id', 'publier', 'class', 'header__nav__a--style', 'title', 'lien pour créer une publication'));
+    createNavBar.appendChild(createElm4('a', 'Mon compte', 'id', 'compteUser', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId, 'title', 'lien pour accéder au compte utilisateur'));
+    createNavBar.appendChild(createElm3('a', 'Déconnection', 'id', 'deconnection', 'class', 'header__nav__a--style', 'title', 'lien pour se déconnecter'));
 };
 
 createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repContenu, repImageUrl, repLikes, repDislikes, nbComs, recupUserId) => {
@@ -15,7 +15,7 @@ createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repConte
     const newDiv = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
 
     const newDiv1 = newDiv.appendChild(createElm1('div', '', 'class', 'article__avatar--flex'));
-    newDiv1.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'avatar de l\'utilisateur qui a publier le message'));
+    newDiv1.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'Avatar de l\'utilisateur qui a publier le message'));
     newDiv1.appendChild(createElm1('h2', repNom + ' ' + repPrenom, 'class', 'bloc_article_div_p--padding--coms'));
 
     newDiv.appendChild(createElm2('p', '0', 'id', 'date_crea_post' + repPostId, 'class', ''));
@@ -23,7 +23,7 @@ createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repConte
     const newDiv2 = newarticle.appendChild(createElm2('div', '', 'id', 'lien_article' + repPostId, 'class', 'bloc_article_div--flex3'));
     newDiv2.appendChild(createElm1('h2', repTitre, 'class', 'bloc_heading--style'));
     newDiv2.appendChild(createElm1('p', repContenu, 'class', 'bloc_article_p2--style'));
-    newDiv2.appendChild(createElm4('img', '', 'id', 'img_post_display' + repPostId, 'class', 'bloc_article_img--width', 'src', repImageUrl, 'alt', 'image_du_pots_sur_groupomania.fr'));
+    newDiv2.appendChild(createElm4('img', '', 'id', 'img_post_display' + repPostId, 'class', 'bloc_article_img--width', 'src', repImageUrl, 'alt', 'Image de la publication sur groupomania.fr'));
 
     const newDiv3 = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
     const newDiv5 = newDiv3.appendChild(createElm1('div', '', 'class', 'div--commentaire'));
@@ -36,9 +36,9 @@ createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repConte
     newDiv4.appendChild(createElm2('p', nbComs + ' commentaire', 'id', 'display_coms_forum' + repPostId, 'class', 'div--commentaire bloc_article_div_p--padding--coms  bloc_article--icons--flex'));
 
     const newDiv6 = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex2 '));
-    newDiv6.appendChild(createElm2('i', '', 'id', 'btn_commenter_publication' + repPostId, 'class', 'far fa-comment-alt bloc_article--icons--flex bloc_article_p--padding'));
-    newDiv6.appendChild(createElm2('i', '', 'id', 'btn_modif_publication' + repPostId, 'class', 'display--none')); //bloc_article--icons--flex bloc_article_p--padding
-    newDiv6.appendChild(createElm2('i', '', 'id', 'btn_suppr_publication' + repPostId, 'class', 'display--none')); // bloc_article--icons--flex bloc_article_p--padding
+    newDiv6.appendChild(createElm3('i', '', 'id', 'btn_commenter_publication' + repPostId, 'class', 'far fa-comment-alt bloc_article--icons--flex bloc_article_p--padding', 'title', 'lien pour commenter une publication'));
+    newDiv6.appendChild(createElm3('i', '', 'id', 'btn_modif_publication' + repPostId, 'class', 'display--none', 'title', 'lien pour modifier une publication')); //bloc_article--icons--flex bloc_article_p--padding
+    newDiv6.appendChild(createElm3('i', '', 'id', 'btn_suppr_publication' + repPostId, 'class', 'display--none', 'title', 'lien pour supprimer une publication')); // bloc_article--icons--flex bloc_article_p--padding
 
     newDiv7 = newarticle.appendChild(createElm2('div', '', 'id', 'display_forum' + repPostId, 'class', 'bloc_article_div--flex3'));
     newDiv8 = newarticle.appendChild(createElm2('p', 'masquer', 'id', 'display_none_forum' + repPostId, 'class', 'display--none')); //bloc_article--icons--flex
@@ -69,21 +69,21 @@ createDisplayComs = (avatar, nom, prenom, contenu, postId, comId, comLikes, comD
     newDiv4.appendChild(createElm1('p', comDislikes, 'class', 'bloc_article_div_p--padding--coms'));
 
     const newDiv5 = newDiv3.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex--coms--3'));
-    newDiv5.appendChild(createElm2('i', '', 'id', 'btn_com_modif1' + comId, 'class', 'display--none')); ////bloc_article_div_p--padding-2 bloc_article--icons--flex
-    newDiv5.appendChild(createElm2('i', '', 'id', 'btn_com_suppr' + comId, 'class', 'display--none')); ////bloc_article_div_p--padding-2 bloc_article--icons--flex
+    newDiv5.appendChild(createElm3('i', '', 'id', 'btn_com_modif1' + comId, 'class', 'display--none', 'title', 'boutton pour modifier un commentaire')); ////bloc_article_div_p--padding-2 bloc_article--icons--flex
+    newDiv5.appendChild(createElm3('i', '', 'id', 'btn_com_suppr' + comId, 'class', 'display--none', 'title', 'boutton pour supprimer')); ////bloc_article_div_p--padding-2 bloc_article--icons--flex
 };
 
 modaleCreatePost = (avatar, nom, prenom) => {
     const main = document.querySelector('main');
     const newAside = main.appendChild(createElm2('aside', '', 'id', 'modal1', 'class', 'modal')); //
     const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper')); //
-    newDivAside.appendChild(createElm2('button', '', 'id', 'btn_annule_create_post', 'class', 'far fa-times-circle fa-2x bloc__form--create--post--btn-annul--style')); //
+    newDivAside.appendChild(createElm3('button', '', 'id', 'btn_annule_create_post', 'class', 'far fa-times-circle fa-2x bloc__form--create--post--btn-annul--style', 'title', 'lien pour annuler créationde  la publication')); //
 
     const formPost = newDivAside.appendChild(createElm2('form', '', 'id', 'form_post', 'class', 'bloc__form--create--post--flex')); //
     formPost.appendChild(createElm1('h2', 'Créer une publication', 'class', 'bloc__login__form--label--style--create--post')); //
 
     const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', 'bloc_modal_create_post_avatar_flex'));
-    newDiv1.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'avatar de l\'utilisateur qui a publier le message'));
+    newDiv1.appendChild(createElm4('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'avatar de l\'utilisateur qui a publier le message', 'title', 'avatar de l\'utilisateur'));
     newDiv1.appendChild(createElm1('p', ' ' + nom + ' ' + prenom, 'class', 'bloc__login__form--label--style--create--post')); //
 
     formPost.appendChild(createElm2('label', 'Titre :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'post_forum_titre')); //
@@ -97,7 +97,7 @@ modaleCreatePost = (avatar, nom, prenom) => {
     formPost2.appendChild(createInputs('input', '', 'class', '', 'id', 'post_img', 'type', 'file', 'accept', 'image/png, image/jpeg, image/gif', 'name', 'image'));
 
     const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
-    newDiv2.appendChild(createElm2('button', 'Publier', 'id', 'btn_publier_forum', 'class', 'bloc__form--create--post--btn--post')); //
+    newDiv2.appendChild(createElm3('button', 'Publier', 'id', 'btn_publier_forum', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour publier le message')); //
 
     formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_posts', 'class', 'bloc__form--font--erreur3'));
 };
@@ -105,7 +105,7 @@ modaleCreateModifPost = (avatar, titre, contenu, imageUrl, nom, prenom) => {
     const main = document.querySelector('main');
     const newAside = main.appendChild(createElm2('aside', '', 'id', 'modal1', 'class', 'modal')); //
     const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper')); //
-    newDivAside.appendChild(createElm2('button', '', 'id', 'btn_annule_forum', 'class', 'far fa-times-circle fa-2x bloc__form--create--post--btn-annul--style')); //
+    newDivAside.appendChild(createElm3('button', '', 'id', 'btn_annule_forum', 'class', 'far fa-times-circle fa-2x bloc__form--create--post--btn-annul--style', 'title', 'boutton pour annuler la publication d\'un commentaire')); //
 
     const formPost = newDivAside.appendChild(createElm2('form', '', 'id', 'form_post', 'class', 'bloc__form--create--post--flex')); //
     formPost.appendChild(createElm1('h2', 'Modifier la publication', 'class', 'bloc__login__form--label--style--create--post')); //
@@ -127,7 +127,7 @@ modaleCreateModifPost = (avatar, titre, contenu, imageUrl, nom, prenom) => {
     formPost2.appendChild(createInputs('input', '', 'class', '', 'id', 'post_img', 'type', 'file', 'accept', 'image/png, image/jpeg, image/gif', 'name', 'image'));
 
     const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
-    newDiv2.appendChild(createElm2('button', 'Publier', 'id', 'btn_post_forum', 'class', 'bloc__form--create--post--btn--post')); //
+    newDiv2.appendChild(createElm3('button', 'Publier', 'id', 'btn_post_forum', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour publier un commentaire')); //
 
     formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_posts', 'class', 'bloc__form--font--erreur'));
 };
@@ -135,7 +135,7 @@ createComsForm = (avatar, nom, prenom) => {
     const main = document.querySelector('main');
     const newAside = main.appendChild(createElm2('aside', '', 'id', 'modal1', 'class', 'modal')); //
     const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper')); //
-    newDivAside.appendChild(createElm2('button', '', 'id', 'btnAnnulerComs_1', 'class', 'far fa-times-circle fa-2x bloc__form--create--post--btn-annul--style')); //
+    newDivAside.appendChild(createElm3('button', '', 'id', 'btnAnnulerComs_1', 'class', 'far fa-times-circle fa-2x bloc__form--create--post--btn-annul--style', 'title', 'boutton pour annuler la creation d\'un commentaire')); //
 
     const formPost = newDivAside.appendChild(createElm2('form', '', 'id', 'form_post', 'class', 'bloc__form--create--post--flex')); //
     formPost.appendChild(createElm1('h2', 'Céer un commentaire', 'class', 'bloc__login__form--label--style--create--post')); //
@@ -148,7 +148,7 @@ createComsForm = (avatar, nom, prenom) => {
     formPost.appendChild(createInputs('textarea', '', 'id', 'commentaire', 'rows', '5', 'cols', '33', 'class', 'bloc__form--input--create--post--style-2', 'name', 'contenu')); //
 
     const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
-    newDiv2.appendChild(createElm2('button', 'Publier', 'id', 'btn_envoyer_coms', 'class', 'bloc__form--create--post--btn--post')); //
+    newDiv2.appendChild(createElm3('button', 'Publier', 'id', 'btn_envoyer_coms', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour  publier d\'un commentaire')); //
 
     formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_posts', 'class', 'bloc__form--font--erreur3'));
 };
@@ -157,7 +157,7 @@ modifComsForm = (avatar, nom, prenom, valueTextarea) => {
     const main = document.querySelector('main');
     const newAside = main.appendChild(createElm2('aside', '', 'id', 'modal1', 'class', 'modal')); //
     const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper')); //
-    newDivAside.appendChild(createElm2('button', '', 'id', 'btn_annuler_modif_coms', 'class', 'far fa-times-circle fa-2x bloc__form--create--post--btn-annul--style')); //
+    newDivAside.appendChild(createElm3('button', '', 'id', 'btn_annuler_modif_coms', 'class', 'far fa-times-circle fa-2x bloc__form--create--post--btn-annul--style', 'title', 'boutton pour annuler la creation d\'un commentaire')); //
 
     const formPost = newDivAside.appendChild(createElm2('form', '', 'id', 'form_post', 'class', 'bloc__form--create--post--flex')); //
     formPost.appendChild(createElm1('h2', 'Céer un commentaire', 'class', 'bloc__login__form--label--style--create--post')); //
@@ -170,7 +170,7 @@ modifComsForm = (avatar, nom, prenom, valueTextarea) => {
     formPost.appendChild(createInputs('textarea', valueTextarea, 'id', 'commentaireModifCom', 'rows', '5', 'cols', '33', 'class', 'bloc__form--input--create--post--style-2', 'name', 'contenu')); //
 
     const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
-    newDiv2.appendChild(createElm2('button', 'Publier', 'id', 'btnComModif', 'class', 'bloc__form--create--post--btn--post')); //
+    newDiv2.appendChild(createElm3('button', 'Publier', 'id', 'btnComModif', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour  publier un commentaire')); //
 
     formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_posts', 'class', 'bloc__form--font--erreur3'));
 };

@@ -272,7 +272,7 @@ createforum = () => {
 
                             compterHours('date_crea_coms', reps.comId, reps.comDateCrea); //compteur de temps de publication
 
-                            valideUserCreateurCom(recupUserId, rep.userId, reps.comId, recupUserId.role); //affichages des buttons modifier et supprimer si on est le createur du commentaire
+                            valideUserCreateurCom(recupUserId.userId, reps.userId, reps.comId, recupUserId.role); //affichages des buttons modifier et supprimer si on est le createur du commentaire
 
                             const paragDisplayNbComs = document.getElementById('display_coms_forum' + rep.postId);
                             if (compteurCom > 1) {
