@@ -74,6 +74,12 @@
         height: auto;
     }
     
+    .header__nav--padding {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    
     .header__nav__a--style {
         font-size: 1.1em;
         color: var(--blanc);
@@ -83,10 +89,9 @@
     }
     
     .header__nav__avatar--style {
-        font-size: 1.1em;
-        color: var(--vert);
+        width: 6%;
+        height: auto;
         padding-right: 0.2em;
-        font-size: 1.7em;
     }
     
     .header__nav__a--style:hover {
@@ -135,11 +140,13 @@
         font-family: sans-serif;
         border-bottom: solid 1px var(--gris1);
         padding-top: 0.2em;
+        padding-bottom: 0.2em;
     }
     
-    .bloc_article_div_p--padding {
-        padding: 0 0.5em 0 0;
-        font-size: 1.2em;
+    .bloc_article_div_p--flex {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
     }
     
     .bloc_article_div--flex3 {
@@ -159,6 +166,42 @@
         width: 100%;
         height: auto;
         padding-bottom: 0.5em;
+    }
+    
+    .bloc_article--avatar--style {
+        width: 11%;
+        height: auto;
+    }
+    
+    .article__avatar--style {
+        width: 11%;
+        height: auto;
+        padding-right: 0.3em;
+    }
+    
+    .article__avatar--flex {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .signup--avatar--flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding-top: 1.5em;
+    }
+    
+    .signup--avatar--style {
+        width: 20%;
+    }
+    
+    .signup--avatar--style:hover {
+        opacity: 0.6;
+    }
+    
+    .signup--avatar--style:active {
+        opacity: 0.1;
     }
     
     .div--commentaire {
@@ -394,6 +437,7 @@
         color: var(--rouge);
     }
     
+    .bloc_article--icons--flex:hover,
     .fa-pen:hover,
     .fa-trash-alt:hover,
     .fa-comment-alt:hover,
@@ -404,6 +448,7 @@
         color: var(--violet);
     }
     
+    .bloc_article--icons--flex:active,
     .fa-pen:active,
     .fa-trash-alt:active,
     .fa-heart:active,

@@ -1,20 +1,24 @@
-createNavBarForum = (recupUserId, nom, prenom) => {
+createNavBarForum = (avatar, recupUserId, nom, prenom) => {
     const header = document.getElementById('header_forum');
     const createNavBar = header.appendChild(createElm1('nav', '', 'class', 'header__nav--padding')); //display--none 
-    createNavBar.appendChild(createElm2('i', '', 'id', '', 'class', 'far fa-user-circle header__nav__avatar--style'));
+    createNavBar.appendChild(createElm3('img', '', 'src', avatar, 'class', 'header__nav__avatar--style', 'alt', 'avatar de l\'utilisateur connecté'));
     createNavBar.appendChild(createElm3('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId));
     createNavBar.appendChild(createElm2('a', 'Créer une publication', 'id', 'publier', 'class', 'header__nav__a--style'));
     createNavBar.appendChild(createElm3('a', 'Mon compte', 'id', 'compteUser', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId));
     createNavBar.appendChild(createElm2('a', 'Déconnection', 'id', 'deconnection', 'class', 'header__nav__a--style'));
 };
 
-createDisplayPostImg = (repPostId, repNom, repPrenom, repTitre, repContenu, repImageUrl, repLikes, repDislikes, nbComs, recupUserId) => {
+createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repContenu, repImageUrl, repLikes, repDislikes, nbComs, recupUserId) => {
 
     const mainIndex = document.getElementById('main_forum');
     const newarticle = mainIndex.appendChild(createElm1('article', '', 'class', 'bloc_article--flex--width')); //display--none 
-    const newDiv1 = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
-    newDiv1.appendChild(createElm1('h2', repNom + ' ' + repPrenom, 'class', 'bloc_article_div_p--padding'));
-    newDiv1.appendChild(createElm2('p', '0', 'id', 'date_crea_post' + repPostId, 'class', ''));
+    const newDiv = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
+
+    const newDiv1 = newDiv.appendChild(createElm1('div', '', 'class', 'article__avatar--flex'));
+    newDiv1.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'avatar de l\'utilisateur connecté'));
+    newDiv1.appendChild(createElm1('h2', repNom + ' ' + repPrenom, 'class', 'bloc_article_div_p--padding--coms'));
+
+    newDiv.appendChild(createElm2('p', '0', 'id', 'date_crea_post' + repPostId, 'class', ''));
 
     const newDiv2 = newarticle.appendChild(createElm2('div', '', 'id', 'lien_article' + repPostId, 'class', 'bloc_article_div--flex3'));
     newDiv2.appendChild(createElm1('h2', repTitre, 'class', 'bloc_heading--style'));
@@ -23,21 +27,21 @@ createDisplayPostImg = (repPostId, repNom, repPrenom, repTitre, repContenu, repI
 
     const newDiv3 = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
     const newDiv5 = newDiv3.appendChild(createElm1('div', '', 'class', 'div--commentaire'));
-    newDiv5.appendChild(createElm2('i', '', 'id', 'like-forum' + repPostId, 'class', 'fas fa-heart bloc_article_div_p--padding'));
-    newDiv5.appendChild(createElm2('p', repLikes, 'id', 'compteur_like', 'class', 'bloc_article_div_p--padding'));
-    newDiv5.appendChild(createElm2('i', '', 'id', 'dislike-forum' + repPostId, 'class', 'fas fa-heart-broken bloc_article_div_p--padding'));
-    newDiv5.appendChild(createElm2('p', repDislikes, 'id', 'compteur_dislike', 'class', 'bloc_article_div_p--padding'));
+    newDiv5.appendChild(createElm2('i', '', 'id', 'like-forum' + repPostId, 'class', 'fas fa-heart bloc_article_div_p--padding--coms'));
+    newDiv5.appendChild(createElm2('p', repLikes, 'id', 'compteur_like', 'class', 'bloc_article_div_p--padding--coms'));
+    newDiv5.appendChild(createElm2('i', '', 'id', 'dislike-forum' + repPostId, 'class', 'fas fa-heart-broken bloc_article_div_p--padding--coms'));
+    newDiv5.appendChild(createElm2('p', repDislikes, 'id', 'compteur_dislike', 'class', 'bloc_article_div_p--padding--coms'));
 
     const newDiv4 = newDiv3.appendChild(createElm1('div', '', 'class', ''));
-    newDiv4.appendChild(createElm2('p', nbComs + ' commentaire', 'id', 'display_coms_forum' + repPostId, 'class', 'div--commentaire bloc_article_div_p--padding  bloc_article_div_a--hover'));
+    newDiv4.appendChild(createElm2('p', nbComs + ' commentaire', 'id', 'display_coms_forum' + repPostId, 'class', 'div--commentaire bloc_article_div_p--padding--coms  bloc_article--icons--flex'));
 
     const newDiv6 = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex2 '));
-    newDiv6.appendChild(createElm2('i', '', 'id', 'btn_commenter_publication' + repPostId, 'class', 'far fa-comment-alt bloc_article_div_a--hover bloc_article_p--padding'));
-    newDiv6.appendChild(createElm2('i', '', 'id', 'btn_modif_publication' + repPostId, 'class', 'display--none')); //bloc_article_div_a--hover bloc_article_p--padding
-    newDiv6.appendChild(createElm2('i', '', 'id', 'btn_suppr_publication' + repPostId, 'class', 'display--none')); // bloc_article_div_a--hover bloc_article_p--padding
+    newDiv6.appendChild(createElm2('i', '', 'id', 'btn_commenter_publication' + repPostId, 'class', 'far fa-comment-alt bloc_article--icons--flex bloc_article_p--padding'));
+    newDiv6.appendChild(createElm2('i', '', 'id', 'btn_modif_publication' + repPostId, 'class', 'display--none')); //bloc_article--icons--flex bloc_article_p--padding
+    newDiv6.appendChild(createElm2('i', '', 'id', 'btn_suppr_publication' + repPostId, 'class', 'display--none')); // bloc_article--icons--flex bloc_article_p--padding
 
     newDiv7 = newarticle.appendChild(createElm2('div', '', 'id', 'display_forum' + repPostId, 'class', 'bloc_article_div--flex3'));
-    newDiv8 = newarticle.appendChild(createElm2('p', 'masquer', 'id', 'display_none_forum' + repPostId, 'class', 'display--none')); //bloc_article_div_a--hover
+    newDiv8 = newarticle.appendChild(createElm2('p', 'masquer', 'id', 'display_none_forum' + repPostId, 'class', 'display--none')); //bloc_article--icons--flex
 };
 
 createDisplayComs = (nom, prenom, contenu, postId, comId, comLikes, comDislikes) => {
@@ -61,8 +65,8 @@ createDisplayComs = (nom, prenom, contenu, postId, comId, comLikes, comDislikes)
     newDiv7.appendChild(createElm1('p', comDislikes, 'class', 'bloc_article_div_p--padding--coms'));
 
     const newDiv8 = newDiv6.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex--coms--3'));
-    newDiv8.appendChild(createElm2('i', '', 'id', 'btn_com_modif1' + comId, 'class', 'display--none')); ////bloc_article_div_p--padding-2 bloc_article_div_a--hover
-    newDiv8.appendChild(createElm2('i', '', 'id', 'btn_com_suppr' + comId, 'class', 'display--none')); ////bloc_article_div_p--padding-2 bloc_article_div_a--hover
+    newDiv8.appendChild(createElm2('i', '', 'id', 'btn_com_modif1' + comId, 'class', 'display--none')); ////bloc_article_div_p--padding-2 bloc_article--icons--flex
+    newDiv8.appendChild(createElm2('i', '', 'id', 'btn_com_suppr' + comId, 'class', 'display--none')); ////bloc_article_div_p--padding-2 bloc_article--icons--flex
 };
 
 modaleCreatePost = (nom, prenom) => {

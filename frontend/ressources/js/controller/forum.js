@@ -15,8 +15,8 @@ createforum = () => {
 
         const dataUser = requestAuth(urlUserID); //appel user
         dataUser.then(user => {
-
-            createNavBarForum(recupUserId.userId, user.nom, user.prenom);
+            console.log(user)
+            createNavBarForum(recupUserId.avatar, recupUserId.userId, user.nom, user.prenom);
 
             //gestion du button de déconnectionde la nav bar
 
@@ -88,7 +88,7 @@ createforum = () => {
 
             const dataPost = requestAuth(urlpostAll); //appel post
             dataPost.then(posts => {
-
+                console.log(posts)
                 posts.forEach(rep => {
                     const urlComAll = 'http://localhost:3000/api/post/' + rep.postId + '/com'; //recup com
                     const dataCom = requestAuth(urlComAll); //appel com
@@ -96,7 +96,7 @@ createforum = () => {
 
                         const compteurCom = coms.length;
                         // creation de l'affichage des posts
-                        createDisplayPostImg(rep.postId, rep.nom, rep.prenom, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes, compteurCom);
+                        createDisplayPostImg(rep.postId, rep.avatar, rep.nom, rep.prenom, rep.titre, rep.contenu, rep.imageUrl, rep.likes, rep.dislikes, compteurCom);
 
                         compterHours('date_crea_post', rep.postId, rep.dateCrea); //affichage du temps de publication
 
@@ -292,7 +292,7 @@ createforum = () => {
 
                             btnDysplayComs.addEventListener('click', (event) => {
                                 articleComsDisplay.setAttribute('class', '');
-                                articleHideDisplay.setAttribute('class', 'bloc__modal__create--commentaire--flex bloc_article_div_a--hover');
+                                articleHideDisplay.setAttribute('class', 'bloc__modal__create--commentaire--flex bloc_article--icons--flex');
                             }); // fin de click
                             btnHideComs.addEventListener('click', (event) => {
                                 articleComsDisplay.setAttribute('class', 'display--none');
@@ -388,13 +388,15 @@ createforum = () => {
                             });
                         }); //fin de boucle coms
                     }).catch((error => {
-                        modals();
+                        //modals();
                     })); //fin catch coms
                 }); // fin de boucle de posts
             }).catch((error => {
-                //modals();
+
+                modals();
             })); //fin catch post
         }).catch((error => {
+
             modals();
         })); //fin catch user
     }; // fin de else de verification de recupUserId

@@ -12,7 +12,7 @@ createUsersCompte = () => {
 
         const datas1 = requestAuth(urlUser);
         datas1.then(userUnique => {
-
+            console.log(userUnique)
             createDisplayUers(userUnique.nom, userUnique.prenom, userUnique.emailRec);
 
             displayDateInscrip('user_date', userUnique.dateInscrip);
@@ -100,17 +100,6 @@ createUsersCompte = () => {
                         erreur3.setAttribute('class', 'bloc__form--font--erreur2');
                     };
                 });
-                /*recupPassword.addEventListener('change', (event) => {
-                    event.preventDefault();
-
-                    if (recupPassword.value.length === 0) {
-                        erreur4.setAttribute('class', 'bloc__form--font--erreur');
-                    } else if (regexPassword.test(recupPassword.value) === true) {
-                        erreur4.setAttribute('class', 'bloc__form--font--erreur');
-                    } else if (regexPassword.test(recupPassword.value) === false) {
-                        erreur4.setAttribute('class', 'bloc__form--font--erreur2');
-                    };
-                });*/
 
             }; // fin de valide
             valideModifUser();
@@ -131,7 +120,6 @@ createUsersCompte = () => {
                         email: recupEmail.value,
                     };
 
-                    console.log(contact)
                     const postModifUser = putAuthJson('http://localhost:3000/api/auth/' + userDatas.id, contact);
 
                     postModifUser.then(response => {
@@ -164,7 +152,6 @@ createUsersCompte = () => {
             const newPassword = document.getElementById('newPassword');
 
             const confirmNewPassword = document.getElementById('confirmPassword');
-            console.log(newPassword)
 
             const paragErreur1 = document.getElementById('erreur_1');
             const paragErreur2 = document.getElementById('erreur_2');

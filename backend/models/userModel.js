@@ -64,7 +64,8 @@ class UserModel {
                             role: result[0].role,
                             id: result[0].id,
                             dateModif: result[0].dateModif,
-                            emailRec: decryptEmail
+                            emailRec: decryptEmail,
+                            avatar: result[0].avatar
                         };
                         resolve(usersId)
                     };
@@ -74,9 +75,9 @@ class UserModel {
 
     }; //fin de findOne
 
-    save(nom, prenom, emailH, emailM, password, role, emailR) {
+    save(nom, prenom, emailH, emailM, password, role, emailR, avatar) {
         try {
-            const sql = `INSERT INTO users (nom, prenom,  email, emailMask, password, dateInscrip, role, dateModif, emailRec  ) VALUES ('${nom}','${prenom}','${emailH}','${emailM}','${password}',NOW(),${role},NOW(),'${emailR}')`;
+            const sql = `INSERT INTO users (nom, prenom,  email, emailMask, password, dateInscrip, role, dateModif, emailRec,avatar ) VALUES ('${nom}','${prenom}','${emailH}','${emailM}','${password}',NOW(),${role},NOW(),'${emailR}','${avatar}')`;
             return new Promise((resolve) => {
                 db.query(sql, (err, result, fields) => {
 

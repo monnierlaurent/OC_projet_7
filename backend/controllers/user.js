@@ -17,11 +17,13 @@ exports.createUser = (req, res, next) => {
     const reqBody = sanitize(req.body);
     delete req.body._id;
 
+    console.log(reqBody);
+
     const email = reqBody.email;
     const emailVerif = email.indexOf('@groupomania.fr');
 
 
-    if (reqBody.nom === undefined, reqBody.prenom === undefined, reqBody.email === undefined, reqBody.password === undefined, reqBody.role === undefined) {
+    if (reqBody.nom === undefined, reqBody.prenom === undefined, reqBody.email === undefined, reqBody.password === undefined, reqBody.role === undefined, reqBody.avatar === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
     };
 
@@ -57,7 +59,7 @@ exports.createUser = (req, res, next) => {
 
                     bcrypt.hash(reqBody.password, 10)
                         .then(hash => {
-                            userModel.save(encryptedNom, encryptedPrenom, hashEmail, emailMask, hash, reqBody.role, encryptedEmail)
+                            userModel.save(encryptedNom, encryptedPrenom, hashEmail, emailMask, hash, reqBody.role, encryptedEmail, reqBody.avatar)
                                 .then((response) => {
                                     res.status(200).json({ message: 'Utilisateur enregistré !' });
                                 }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
@@ -101,6 +103,7 @@ exports.loginUser = (req, res, next) => {
                                     return res.status(401).json({ error: 'L\'email ou le mot de passe est invalide !' });
                                 };
                                 res.status(200).json({
+                                    avatar: response[0].avatar,
                                     role: response[0].role,
                                     userId: response[0].id,
                                     token: jwt.sign({ userId: response[0].id },

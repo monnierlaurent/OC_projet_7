@@ -18,10 +18,7 @@ class PostsModel {
         } catch (error) {
             console.error(error);
         };
-
-
     }; //fin de save
-
 
     saveImg(userId, titre, contenu, image) {
 
@@ -72,13 +69,14 @@ class PostsModel {
                                 postId: rep.postId,
                                 nom: decryptNom,
                                 prenom: decryptPrenom,
-                                //email: rep.email,
-                                //emailMask: rep.emailMask,
-                                //password: rep.password,
-                                //dateInscrip: rep.dateInscrip,
-                                //role: rep.role,
-                                //id: rep.id,
-                                //emailRec: decryptEmail
+                                avatar: rep.avatar
+                                    //email: rep.email,
+                                    //emailMask: rep.emailMask,
+                                    //password: rep.password,
+                                    //dateInscrip: rep.dateInscrip,
+                                    //role: rep.role,
+                                    //id: rep.id,
+                                    //emailRec: decryptEmail
                             };
 
                             tablePost.push(allPosts);
@@ -115,7 +113,7 @@ class PostsModel {
             let sql = `SELECT * FROM ${table} INNER JOIN users ON userId = id WHERE ${idType}=${paramsId}`;
             return new Promise((resolve) => {
                 db.query(sql, (err, result, fields) => {
-
+                    console.log(result)
                     if (result === undefined) {
                         resolve(err = 'La syntaxe de la requête est erronée');
                     } else if (result[0] === undefined) {
@@ -141,6 +139,7 @@ class PostsModel {
                             postId: result[0].postId,
                             nom: decryptNom,
                             prenom: decryptPrenom,
+                            avatar: result[0].avatar,
                             //email: result[0].email,
                             //emailMask: result[0].emailMask,
                             //password: result[0].password,

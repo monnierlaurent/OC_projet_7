@@ -32,6 +32,12 @@ createFormSignup = () => {
     formPost.appendChild(createElm3('input', '', 'id', 'comfirmPassword', 'class', 'bloc__form--input--create--post--style-2', 'type', 'password')); //
     formPost.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur5', 'class', 'bloc__form_p--style'));
 
+    const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', 'signup--avatar--flex', ));
+    newDiv2.appendChild(createElm4('img', '', 'id', 'avatar_1', 'src', 'http://localhost:3000/images/avatar/avatar_01.png', 'class', 'signup--avatar--style'));
+    newDiv2.appendChild(createElm4('img', '', 'id', 'avatar_2', 'src', 'http://localhost:3000/images/avatar/avatar_02.png', 'class', 'signup--avatar--style'));
+    newDiv2.appendChild(createElm4('img', '', 'id', 'avatar_3', 'src', 'http://localhost:3000/images/avatar/avatar_03.png', 'class', 'signup--avatar--style'));
+    newDiv2.appendChild(createElm4('img', '', 'id', 'avatar_4', 'src', 'http://localhost:3000/images/avatar/avatar_04.png', 'class', 'signup--avatar--style'));
+
     const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv1.appendChild(createElm2('button', 'Inscription', 'id', 'btn_inscrip_signup', 'class', 'bloc__form--create--post--btn--post')); //
 
