@@ -40,7 +40,10 @@ createLogin = () => {
                         window.location = 'forum.html';
                     };
 
-                }).catch(() => {
+                }).catch((error) => {
+
+
+
                     modals();
                 }); //fin catch
 

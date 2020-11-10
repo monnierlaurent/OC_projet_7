@@ -3,6 +3,7 @@
         --noir_alpha: rgba(0, 0, 0, 0.8);
         --blanc: #FAFAFA;
         --violet: #9C27B0;
+        --violet_alph: rgba(156, 39, 176, 0.06);
         --vert: #76FF03;
         --gris1: #616161;
         --gris2: #EFEBE9;
@@ -221,7 +222,7 @@
     }
     
     span:nth-child(odd) {
-        background-color: var(--gris2);
+        background-color: var(--violet_alph);
     }
     /*---------modaleCreatePost + modaleCreateModifPost + createComsForm----------*/
     

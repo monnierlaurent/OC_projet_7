@@ -14,6 +14,7 @@ async function requestAuth(url) {
         method: 'GET',
         headers: { 'Authorization': 'Bearer' + ' ' + recupUserId.token }
     });
+
     let data = await response.json();
     return data;
 };
@@ -55,6 +56,7 @@ async function sendAuthFormdata(url, data) {
     let data3 = await response.json();
     return data3;
 };
+
 
 // function method DELETE (envoie avec token)
 async function deleteAuth(url) {

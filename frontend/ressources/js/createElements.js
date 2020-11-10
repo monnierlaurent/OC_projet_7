@@ -78,6 +78,20 @@ compterHours = (id, repPostId, repdateCrea) => {
 
     };
 };
+
+displayDateInscrip = (id, repdateCrea) => {
+
+    const dateDisplay = document.getElementById(id);
+    const dateCrea = Date.parse(repdateCrea);
+
+    const date = new Date(dateCrea);
+    const jour = date.getDay() + 8;
+    const mois = date.getMonth() + 1;
+    const année = date.getFullYear();
+
+    dateDisplay.innerHTML = 'date d\'incription : ' + jour + '/' + mois + '/' + année;
+};
+
 exitModal = (id) => {
     const btnExitModal = document.getElementById(id);
 

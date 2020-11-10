@@ -96,7 +96,7 @@ valideLogin = (email, password, Remail, Rpassword) => {
     const paragErreur2 = document.getElementById('erreur2');
 
     email.addEventListener('change', (event) => {
-        event.preventDefault;
+        event.preventDefault();
 
         if (email.value.length === 0) {
             paragErreur1.setAttribute('class', 'bloc__form--font--erreur1');
@@ -113,7 +113,7 @@ valideLogin = (email, password, Remail, Rpassword) => {
     });
 
     password.addEventListener('change', (event) => {
-        event.preventDefault;
+        event.preventDefault();
 
         if (password.value.length === 0) {
             paragErreur2.setAttribute('class', 'bloc__form--font--erreur1');
@@ -135,7 +135,7 @@ validPosts = (titre, contenu, Rdatas, idErreur) => {
     const erreurPost = document.getElementById(idErreur); // 'erreur_posts'
 
     titre.addEventListener('change', (event) => {
-        event.preventDefault;
+        event.preventDefault();
 
         if (titre.value.length === 0) {
             erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
@@ -152,7 +152,7 @@ validPosts = (titre, contenu, Rdatas, idErreur) => {
         };
     });
     contenu.addEventListener('change', (event) => {
-        event.preventDefault;
+        event.preventDefault();
 
         if (contenu.value.length === 0) {
             erreurPost.setAttribute('class', 'bloc__form--font--erreur3');

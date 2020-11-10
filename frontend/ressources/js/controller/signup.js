@@ -35,6 +35,8 @@ createLogin = () => {
 
             datas6.then(response => {
 
+
+
                 if (response.error) {
 
                     paragErreur6.setAttribute('class', 'bloc__form--font--erreur2');
@@ -46,6 +48,8 @@ createLogin = () => {
                     window.location = './index.html';
                 };
             }).catch((error => {
+
+
                 modals();
             })); //fin catch
         } else {
