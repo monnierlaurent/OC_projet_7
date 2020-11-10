@@ -417,7 +417,7 @@
         color: var(--noir);
         border: 2px solid var(--noir);
         font-family: sans-serif;
-        border-radius: 15px;
+        border-radius: 10px;
         padding: 0 1em 0 1em;
         box-shadow: 5px 5px 5px var(--gris1);
     }
@@ -430,7 +430,7 @@
         background-color: var(--violet);
         border: solid 1px var(--noir);
         color: var(--noir);
-        border-radius: 20px;
+        border-radius: 10px;
         text-align: center;
         box-shadow: 5px 5px 5px var(--gris1);
         width: 45%;
