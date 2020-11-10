@@ -3,9 +3,9 @@ createNavBarForum = (avatar, recupUserId, nom, prenom) => {
     const createNavBar = header.appendChild(createElm1('nav', '', 'class', 'header__nav--padding')); //display--none 
     createNavBar.appendChild(createElm4('img', '', 'src', avatar, 'class', 'header__nav__avatar--style', 'alt', 'avatar de l\'utilisateur connecté', 'alt', 'avatar de l\'utilisateur'));
     createNavBar.appendChild(createElm4('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId, 'title', 'lien pour accéder au compte utilisateur'));
-    createNavBar.appendChild(createElm3('a', 'Créer une publication', 'id', 'publier', 'class', 'header__nav__a--style', 'title', 'lien pour créer une publication'));
-    createNavBar.appendChild(createElm4('a', 'Mon compte', 'id', 'compteUser', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId, 'title', 'lien pour accéder au compte utilisateur'));
-    createNavBar.appendChild(createElm3('a', 'Déconnection', 'id', 'deconnection', 'class', 'header__nav__a--style', 'title', 'lien pour se déconnecter'));
+    createNavBar.appendChild(createElm3('i', '', 'id', 'publier', 'class', 'far fa-envelope header__nav__a--style--2', 'title', 'lien pour créer une publication'));
+    createNavBar.appendChild(createElm4('a', '', 'id', 'compteUser', 'class', 'far fa-user header__nav__a--style--2', 'title', 'lien pour accéder au compte utilisateur', 'href', './compteUser.html?id=' + recupUserId));
+    createNavBar.appendChild(createElm3('i', '', 'id', 'deconnection', 'class', 'fas fa-power-off class header__nav__a--style--2', 'title', 'lien pour se déconnecter'));
 };
 
 createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repContenu, repImageUrl, repLikes, repDislikes, nbComs, recupUserId) => {

@@ -77,6 +77,7 @@
     .header__nav--padding {
         display: flex;
         flex-direction: row;
+        justify-content: flex-end;
         align-items: center;
     }
     
@@ -88,17 +89,27 @@
         font-family: sans-serif;
     }
     
+    .header__nav__a--style--2 {
+        font-size: 2em;
+        color: var(--blanc);
+        padding-right: 1.2em;
+        text-decoration: none;
+        font-family: sans-serif;
+    }
+    
     .header__nav__avatar--style {
         width: 6%;
         height: auto;
         padding-right: 0.2em;
     }
     
+    .header__nav__a--style--2:hover,
     .header__nav__a--style:hover {
         color: var(--vert);
         cursor: pointer;
     }
     
+    .header__nav__a--style--2:active,
     .header__nav__a--style:active {
         color: var(--violet);
     }

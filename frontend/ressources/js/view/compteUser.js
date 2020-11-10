@@ -2,8 +2,10 @@ createNavbar = (avatar, nom, prenom, recupUserId) => {
     const navBar = document.getElementById('nav_users');
     navBar.appendChild(createElm3('img', '', 'src', avatar, 'class', 'header__nav__avatar--style', 'alt', 'avatar de l\'utilisateur connecté'));
     navBar.appendChild(createElm4('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId, 'title', 'lien pour accéder au compte utilisateur'));
-    navBar.appendChild(createElm4('a', 'Forum', 'id', 'retourForum', 'class', 'header__nav__a--style', 'href', './forum.html', 'title', 'lien pour accéder a la page principal'));
-    navBar.appendChild(createElm4('a', 'Déonnection', 'id', 'deconnection', 'class', 'header__nav__a--style', 'href', './index.html', 'title', 'boutton pour  se déconnecter'));
+
+    navBar.appendChild(createElm4('a', '', 'id', 'retourForum', 'class', 'far fa-comments class header__nav__a--style--2', 'href', './forum.html', 'title', 'lien pour accéder a la page principal'));
+
+    navBar.appendChild(createElm4('a', '', 'id', 'deconnection', 'class', 'fas fa-power-off class header__nav__a--style--2', 'href', './index.html', 'title', 'boutton pour  se déconnecter'));
 };
 
 createDisplayUers = (nom, prenom, emailRec, avatar) => {
