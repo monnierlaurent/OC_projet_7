@@ -151,12 +151,12 @@ exports.displayIdUser = (req, res, next) => {
 exports.deleteUser = (req, res, next) => {
     const reqParamsId = sanitize(req.params.id);
     const userIdAuth = sanitize(req.userIdAuth);
-    console.log(req.body)
+
     userModel.findOne('id', userIdAuth)
         .then((response) => {
 
             const role = response.role; // role du recuperateur
-            console.log(role)
+
             const userIdRec = response.id; //  id du recuperateur  
             userModel.findOne('id', reqParamsId)
                 .then((response) => {
@@ -177,9 +177,9 @@ exports.updateUser = (req, res, next) => {
     const reqBody = sanitize(req.body);
     const userIdAuth = sanitize(req.userIdAuth);
 
+
     userModel.findOne('id', userIdAuth)
         .then((response) => {
-
 
             const role = response.role; // role du recuperateur
             const userIdRec = response.id; //  id du recuperateur
@@ -200,15 +200,53 @@ exports.updateUser = (req, res, next) => {
                         const email = reqBody.email;
                         const emailMask = mask(email);
 
-                        const role = reqBody.role;
+                        const hash = response.password;
 
-                        bcrypt.hash(reqBody.password, 10)
-                            .then(hash => {
+                        userModel.updateOne(encryptedNom, encryptedPrenom, emailMask, hashEmail, hash, response.role, encryptedEmail, reqParamsId)
 
-                                userModel.updateOne(encryptedNom, encryptedPrenom, hashEmail, emailMask, hash, response.role, encryptedEmail, reqParamsId)
-                                    .then((response) => {
-                                        res.status(200).json({ message: "Utilisateur mis a jour !" });
-                                    }).catch(() => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }); });
+                        .then((response) => {
+                            res.status(200).json({ message: "Utilisateur mis a jour !" });
+
+                        }).catch(() => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }); });
+
+                    } else {
+                        return res.status(403).json({ message: "Vous n'êtes pas autorisé a mettre a jour les utilsateurs !" });
+                    };
+                }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+};
+
+
+exports.updatePassword = (req, res, next) => {
+    const reqParamsId = sanitize(req.params.id);
+    const reqBody = sanitize(req.body);
+    const userIdAuth = sanitize(req.userIdAuth);
+
+    userModel.findOne('id', userIdAuth)
+        .then((response) => {
+
+            const encryptedNom = cryptr.encrypt(response.nom); //const decryptedNom = cryptr.decrypt(encryptedNom);
+            const encryptedPrenom = cryptr.encrypt(response.prenom); //const decryptedPrenom = cryptr.decrypt(encryptedPrenom);
+            const emailMask = response.emailMask;
+            const hashEmail = response.email
+            const role = response.role; // role du recuperateur
+            const encryptedEmail = cryptr.encrypt(response.emailRec); //const decryptedEmail = cryptr.decrypt(encryptedEmail);
+            const userIdRec = response.id; //  id du recuperateur
+
+            userModel.findOne('id', reqParamsId)
+                .then((response) => {
+                    if (userIdRec === response.id || role === 1) {
+                        bcrypt.compare(reqBody.holdPassword, response.password)
+                            .then(valid => {
+                                bcrypt.hash(reqBody.newPassword, 10)
+                                    .then(hash => {
+                                        userModel.updateOne(encryptedNom, encryptedPrenom, emailMask, hashEmail, hash, response.role, encryptedEmail, reqParamsId)
+                                            .then((response) => {
+                                                res.status(200).json({ message: "Utilisateur mis a jour !" });
+
+                                            }).catch(() => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }); });
+
+                                    }).catch(() => res.status(500).json({ error: 'Erreur interne du serveur ' }));
                             }).catch(() => res.status(500).json({ error: 'Erreur interne du serveur ' }));
                     } else {
                         return res.status(403).json({ message: "Vous n'êtes pas autorisé a mettre a jour les utilsateurs !" });

@@ -104,6 +104,11 @@ createforum = () => {
 
                         deleteImg(rep.imageUrl, rep.postId);
 
+                        effaceMessage = () => {
+                            const suppreMessage = document.getElementById('message_confirm');
+                            suppreMessage.setAttribute('display--none');
+                        };
+
                         // gestion de la suppression de publication
                         const btnSupprPublication = document.getElementById('btn_suppr_publication' + rep.postId);
                         btnSupprPublication.addEventListener('click', (event) => {
@@ -112,7 +117,6 @@ createforum = () => {
                             const urlpostAll = 'http://localhost:3000/api/post/' + rep.postId;
                             const datas2 = deleteAuth(urlpostAll);
                             datas2.then((response) => {
-
                                 window.location = './forum.html';
                             }).catch((error => {
                                 modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');

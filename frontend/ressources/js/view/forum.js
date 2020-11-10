@@ -154,3 +154,9 @@ modifComsForm = (nom, prenom, valueTextarea) => {
 
     formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur_posts', 'class', 'bloc__form--font--erreur3'));
 };
+
+
+messageConfirm = (message) => {
+    const main = document.getElementById('main_forum');
+    main.appendChild(createElm2('p', message, 'id', 'message_confirm', 'class', 'bloc_main_message--style--position')); //'Message bien supprimé'
+};

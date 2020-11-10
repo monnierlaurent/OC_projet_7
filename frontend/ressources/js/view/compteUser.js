@@ -38,9 +38,9 @@ createFormModifUser = (nom, prenom, emailRec) => {
     newForm.appendChild(createInputs('input', '', 'id', 'email', 'class', 'bloc__login__form--input--style-2', 'type', 'email', 'value', emailRec));
     newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur3', 'class', 'bloc__form--font--erreur'));
 
-    newForm.appendChild(createElm2('label', 'Confirmer avec votre mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'password'));
+    /*newForm.appendChild(createElm2('label', 'Confirmer avec votre mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'password'));
     newForm.appendChild(createInputs('input', '', 'id', 'password', 'class', 'bloc__login__form--input--style-2', 'type', '', 'value', ''));
-    newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur4', 'class', 'bloc__form--font--erreur'));
+    newForm.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'erreur4', 'class', 'bloc__form--font--erreur'));*/
 
     const newDiv2 = newForm.appendChild(createElm1('div', '', 'class', 'bloc_section_form_btn--flex--1'));
     newDiv2.appendChild(createElm2('button', 'Modifer mon profil', 'id', 'btn_modif_profil_user2', 'class', 'bloc__form--btn-2'));

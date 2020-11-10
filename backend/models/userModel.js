@@ -112,5 +112,6 @@ class UserModel {
 
     }; //fin de update
 
+
 };
 module.exports = UserModel;

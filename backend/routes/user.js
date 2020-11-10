@@ -12,6 +12,7 @@ router.get('/', auth, userCtrl.displayUsers);
 router.get('/:id', auth, userCtrl.displayIdUser);
 
 router.put('/:id', auth, userCtrl.updateUser);
+router.put('/password/:id', auth, userCtrl.updatePassword);
 router.delete('/:id', auth, userCtrl.deleteUser);
 
 

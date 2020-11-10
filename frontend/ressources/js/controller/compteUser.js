@@ -54,7 +54,7 @@ createUsersCompte = () => {
             const recupNom = document.getElementById('nom');
             const recupPrenom = document.getElementById('prenom');
             const recupEmail = document.getElementById('email');
-            const recupPassword = document.getElementById('password');
+            //const recupPassword = document.getElementById('password');
 
             const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20} *$/;
             const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania.fr]+[.]{1}[a-zA-Z1-9]{2,10}$/;
@@ -64,7 +64,7 @@ createUsersCompte = () => {
                 const erreur1 = document.getElementById('erreur1');
                 const erreur2 = document.getElementById('erreur2');
                 const erreur3 = document.getElementById('erreur3');
-                const erreur4 = document.getElementById('erreur4');
+                // const erreur4 = document.getElementById('erreur4');
 
                 recupNom.addEventListener('change', (event) => {
                     event.preventDefault();
@@ -100,7 +100,7 @@ createUsersCompte = () => {
                         erreur3.setAttribute('class', 'bloc__form--font--erreur2');
                     };
                 });
-                recupPassword.addEventListener('change', (event) => {
+                /*recupPassword.addEventListener('change', (event) => {
                     event.preventDefault();
 
                     if (recupPassword.value.length === 0) {
@@ -110,7 +110,7 @@ createUsersCompte = () => {
                     } else if (regexPassword.test(recupPassword.value) === false) {
                         erreur4.setAttribute('class', 'bloc__form--font--erreur2');
                     };
-                });
+                });*/
 
             }; // fin de valide
             valideModifUser();
@@ -124,13 +124,14 @@ createUsersCompte = () => {
             const btnModifUers = document.getElementById('btn_modif_profil_user2');
             btnModifUers.addEventListener('click', (event) => {
                 event.preventDefault();
-                if (regexNomPrenom.test(recupNom.value) !== false && regexNomPrenom.test(recupPrenom.value) !== false && regexEmail.test(recupEmail.value) !== false && regexPassword.test(recupPassword.value) !== false) {
+                if (regexNomPrenom.test(recupNom.value) !== false && regexNomPrenom.test(recupPrenom.value) !== false && regexEmail.test(recupEmail.value) !== false /*&& regexPassword.test(recupPassword.value) !== false*/ ) {
                     const contact = {
                         nom: recupNom.value,
                         prenom: recupPrenom.value,
                         email: recupEmail.value,
-                        password: recupPassword.value
                     };
+
+                    console.log(contact)
                     const postModifUser = putAuthJson('http://localhost:3000/api/auth/' + userDatas.id, contact);
 
                     postModifUser.then(response => {
@@ -160,7 +161,6 @@ createUsersCompte = () => {
             });
 
             const holdPassword = document.getElementById('holdPassword');
-
             const newPassword = document.getElementById('newPassword');
 
             const confirmNewPassword = document.getElementById('confirmPassword');
@@ -214,9 +214,26 @@ createUsersCompte = () => {
                     paragErreur3.innerHTML = 'Format de l\'email est non  conforme !!!';
                 };
             });
+            const btnModifPassword = document.getElementById('btn_modif_password');
+            btnModifPassword.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (regexPassword.test(holdPassword.value) !== false && regexPassword.test(newPassword.value) !== false && newPassword.value === confirmNewPassword.value) {
 
+                    const passwordNew = {
+                        holdPassword: holdPassword.value,
+                        newPassword: newPassword.value
+                    };
 
+                    const postModifUser = putAuthJson('http://localhost:3000/api/auth/password/' + userDatas.id, passwordNew);
+                    console.log(postModifUser)
+                    postModifUser.then(response => {
 
+                        window.location = './compteUser.html?id=' + userDatas.id;
+                    }).catch((error => {
+                        modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                    })); //fin catch
+                };
+            });
         }).catch((error => {
             modals('Désolé !<br>Le serveur ne repond pas10', 'Connection', './index.html');
         })); //fin catch

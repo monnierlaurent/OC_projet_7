@@ -475,3 +475,17 @@
         padding: 1em 0 1em 0;
     }
     /*------------------------------------*/
+    /*message de suppression*/
+    
+    .bloc_main_message--style--position {
+        position: fixed;
+        bottom: 0;
+        margin-bottom: 1.5em;
+        padding: 0.3em 4em 0.3em 4em;
+        color: var(--violet);
+        font-size: 2em;
+        font-family: sans-serif;
+        border: 1px solid var(--gris2);
+        border-radius: 10px;
+        background-color: var(--blanc);
+    }
