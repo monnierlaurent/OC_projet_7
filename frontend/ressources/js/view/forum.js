@@ -15,7 +15,7 @@ createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repConte
     const newDiv = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
 
     const newDiv1 = newDiv.appendChild(createElm1('div', '', 'class', 'article__avatar--flex'));
-    newDiv1.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'avatar de l\'utilisateur connecté'));
+    newDiv1.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'avatar de l\'utilisateur qui a publier le message'));
     newDiv1.appendChild(createElm1('h2', repNom + ' ' + repPrenom, 'class', 'bloc_article_div_p--padding--coms'));
 
     newDiv.appendChild(createElm2('p', '0', 'id', 'date_crea_post' + repPostId, 'class', ''));
@@ -44,29 +44,33 @@ createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repConte
     newDiv8 = newarticle.appendChild(createElm2('p', 'masquer', 'id', 'display_none_forum' + repPostId, 'class', 'display--none')); //bloc_article--icons--flex
 };
 
-createDisplayComs = (nom, prenom, contenu, postId, comId, comLikes, comDislikes) => {
+createDisplayComs = (avatar, nom, prenom, contenu, postId, comId, comLikes, comDislikes) => {
     const mainPostId = document.getElementById('display_forum' + postId);
 
     const newArticle = mainPostId.appendChild(createElm2('span', '', 'id', 'coms_display_none' + comId, 'class', 'display--none'));
 
-    const newDiv1 = newArticle.appendChild(createElm2('div', '', 'id', 'divArticleCom' + comId, 'class', 'bloc_article_div--flex--coms--0'));
+    const newDiv = newArticle.appendChild(createElm2('div', '', 'id', 'divArticleCom' + comId, 'class', 'bloc_article_div--flex--coms--0'));
 
-    const newDiv5 = newDiv1.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex--coms--1'));
-    newDiv5.appendChild(createElm1('h2', nom + ' ' + prenom, 'class', 'bloc_article_div_p--padding--coms'));
-    newDiv5.appendChild(createElm2('p', '0', 'id', 'date_crea_coms' + comId, 'class', 'bloc_article_div_p--padding--coms'));
+    const newDiv1 = newDiv.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex--coms--1'));
 
-    newDiv1.appendChild(createElm1('p', contenu, 'class', 'bloc_article_div_p--padding--coms'));
+    const newDiv2 = newDiv1.appendChild(createElm1('div', '', 'class', 'article__avatar--flex'));
+    newDiv2.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'avatar de l\'utilisateur qui a publier le message'));
+    newDiv2.appendChild(createElm1('h2', nom + ' ' + prenom, 'class', 'bloc_article_div_p--padding--coms'));
 
-    const newDiv6 = newDiv1.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex--coms--2'));
-    const newDiv7 = newDiv6.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex--coms--3'));
-    newDiv7.appendChild(createElm2('i', '', 'id', 'like_com' + comId, 'class', 'fas fa-heart bloc_article_div_p--padding--coms'));
-    newDiv7.appendChild(createElm1('p', comLikes, 'class', 'bloc_article_div_p--padding--coms'));
-    newDiv7.appendChild(createElm2('i', '', 'id', 'dislike_com' + comId, 'class', 'fas fa-heart-broken bloc_article_div_p--padding--coms'));
-    newDiv7.appendChild(createElm1('p', comDislikes, 'class', 'bloc_article_div_p--padding--coms'));
+    newDiv1.appendChild(createElm2('p', '0', 'id', 'date_crea_coms' + comId, 'class', 'bloc_article_div_p--padding--coms'));
 
-    const newDiv8 = newDiv6.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex--coms--3'));
-    newDiv8.appendChild(createElm2('i', '', 'id', 'btn_com_modif1' + comId, 'class', 'display--none')); ////bloc_article_div_p--padding-2 bloc_article--icons--flex
-    newDiv8.appendChild(createElm2('i', '', 'id', 'btn_com_suppr' + comId, 'class', 'display--none')); ////bloc_article_div_p--padding-2 bloc_article--icons--flex
+    newDiv.appendChild(createElm1('p', contenu, 'class', 'bloc_article_div_p--padding--coms'));
+
+    const newDiv3 = newDiv.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex--coms--2'));
+    const newDiv4 = newDiv3.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex--coms--3'));
+    newDiv4.appendChild(createElm2('i', '', 'id', 'like_com' + comId, 'class', 'fas fa-heart bloc_article_div_p--padding--coms'));
+    newDiv4.appendChild(createElm1('p', comLikes, 'class', 'bloc_article_div_p--padding--coms'));
+    newDiv4.appendChild(createElm2('i', '', 'id', 'dislike_com' + comId, 'class', 'fas fa-heart-broken bloc_article_div_p--padding--coms'));
+    newDiv4.appendChild(createElm1('p', comDislikes, 'class', 'bloc_article_div_p--padding--coms'));
+
+    const newDiv5 = newDiv3.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex--coms--3'));
+    newDiv5.appendChild(createElm2('i', '', 'id', 'btn_com_modif1' + comId, 'class', 'display--none')); ////bloc_article_div_p--padding-2 bloc_article--icons--flex
+    newDiv5.appendChild(createElm2('i', '', 'id', 'btn_com_suppr' + comId, 'class', 'display--none')); ////bloc_article_div_p--padding-2 bloc_article--icons--flex
 };
 
 modaleCreatePost = (nom, prenom) => {

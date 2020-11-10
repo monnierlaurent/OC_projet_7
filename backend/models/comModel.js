@@ -50,14 +50,15 @@ class ComsModel {
                             comDislikes: rep.comDislikes,
                             nom: decryptNom,
                             prenom: decryptPrenom,
-                            //email: rep.email,
-                            //emailMask: rep.emailMask,
-                            //password: rep.password,
-                            //dateInscrip: rep.dateInscrip,
-                            //role: rep.role,
-                            //id: rep.id,
-                            //dateModif: rep.dateModif,
-                            //emailRec: decryptEmail
+                            avatar: rep.avatar
+                                //email: rep.email,
+                                //emailMask: rep.emailMask,
+                                //password: rep.password,
+                                //dateInscrip: rep.dateInscrip,
+                                //role: rep.role,
+                                //id: rep.id,
+                                //dateModif: rep.dateModif,
+                                //emailRec: decryptEmail
                         };
 
                         tablePost.push(allComs);
@@ -106,14 +107,15 @@ class ComsModel {
                         comDislikes: result[0].comDislikes,
                         nom: decryptNom,
                         prenom: decryptPrenom,
-                        //email: result[0].email,
-                        //emailMask: result[0].emailMask,
-                        //password: result[0].password,
-                        //dateInscrip: result[0].dateInscrip,
-                        //role: result[0].role,
-                        //id: result[0].id,
-                        //dateModif: result[0].dateModif,
-                        //emailRec: decryptEmail
+                        avatar: result[0].avatar
+                            //email: result[0].email,
+                            //emailMask: result[0].emailMask,
+                            //password: result[0].password,
+                            //dateInscrip: result[0].dateInscrip,
+                            //role: result[0].role,
+                            //id: result[0].id,
+                            //dateModif: result[0].dateModif,
+                            //emailRec: decryptEmail
                     };
 
                     resolve(allComs);

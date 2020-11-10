@@ -15,7 +15,7 @@ createforum = () => {
 
         const dataUser = requestAuth(urlUserID); //appel user
         dataUser.then(user => {
-            console.log(user)
+
             createNavBarForum(recupUserId.avatar, recupUserId.userId, user.nom, user.prenom);
 
             //gestion du button de déconnectionde la nav bar
@@ -88,7 +88,7 @@ createforum = () => {
 
             const dataPost = requestAuth(urlpostAll); //appel post
             dataPost.then(posts => {
-                console.log(posts)
+
                 posts.forEach(rep => {
                     const urlComAll = 'http://localhost:3000/api/post/' + rep.postId + '/com'; //recup com
                     const dataCom = requestAuth(urlComAll); //appel com
@@ -269,7 +269,7 @@ createforum = () => {
 
                         coms.forEach(reps => {
 
-                            createDisplayComs(reps.nom, reps.prenom, reps.comContenu, reps.postId, reps.comId, reps.comLikes, reps.comDislikes); // affichage des commentaire
+                            createDisplayComs(reps.avatar, reps.nom, reps.prenom, reps.comContenu, reps.postId, reps.comId, reps.comLikes, reps.comDislikes); // affichage des commentaire
 
                             compterHours('date_crea_coms', reps.comId, reps.comDateCrea); //compteur de temps de publication
 
