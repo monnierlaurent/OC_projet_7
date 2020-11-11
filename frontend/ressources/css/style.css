@@ -335,6 +335,27 @@ span:nth-child(odd) {
     padding: 1.5em;
 }
 
+.modal-confirm-style {
+    font-size: 1.5em;
+    color: var(--violet);
+}
+
+.bloc_main_message--style--position {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 1.5em;
+    padding: 0.3em 4em 0.3em 4em;
+    color: var(--violet);
+    font-size: 2em;
+    font-family: sans-serif;
+    border: 1px solid var(--gris2);
+    border-radius: 10px;
+    background-color: var(--noir_alpha);
+}
+
 .bloc__form--create--post--flex {
     display: flex;
     flex-direction: column;
@@ -575,19 +596,6 @@ span:nth-child(odd) {
 
 
 /*message de suppression*/
-
-.bloc_main_message--style--position {
-    position: fixed;
-    bottom: 0;
-    margin-bottom: 1.5em;
-    padding: 0.3em 4em 0.3em 4em;
-    color: var(--violet);
-    font-size: 2em;
-    font-family: sans-serif;
-    border: 1px solid var(--gris2);
-    border-radius: 10px;
-    background-color: var(--blanc);
-}
 
 @media screen and (max-width: 1562px) {
     .bloc_main--flex {

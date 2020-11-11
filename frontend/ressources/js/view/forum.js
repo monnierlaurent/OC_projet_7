@@ -178,5 +178,6 @@ modifComsForm = (avatar, nom, prenom, valueTextarea) => {
 
 messageConfirm = (message) => {
     const main = document.getElementById('main_forum');
-    main.appendChild(createElm2('p', message, 'id', 'message_confirm', 'class', 'bloc_main_message--style--position')); //'Message bien supprimé'
+    const newDiv = main.appendChild(createElm1('div', '', 'class', 'modal'));
+    newDiv.appendChild(createElm2('p', message, 'id', 'message_confirm', 'class', 'modal-wrapper modal-confirm-style')); //'Message bien supprimé'
 };

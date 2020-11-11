@@ -58,8 +58,10 @@ createforum = () => {
                             const postObjsect = sendAuthFormdata('http://localhost:3000/api/post/img', data);
 
                             postObjsect.then(response => {
-
-                                window.location = './forum.html';
+                                messageConfirm('Message publié');
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 900);
                             }).catch((error => {
                                 modals('Désolé !<br>Le serveur ne repond pas ', 'Connection', './index.html');
                             })); //fin catch
@@ -71,7 +73,10 @@ createforum = () => {
 
                             const postObjsect = sendAuthJson('http://localhost:3000/api/post', posts);
                             postObjsect.then(response => {
-                                window.location = './forum.html';
+                                messageConfirm('Message publié');
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 900);
                             }).catch((error => {
                                 modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
                             })); //fin catch
@@ -116,7 +121,12 @@ createforum = () => {
                             const urlpostAll = 'http://localhost:3000/api/post/' + rep.postId;
                             const datas2 = deleteAuth(urlpostAll);
                             datas2.then((response) => {
-                                window.location = './forum.html';
+
+                                messageConfirm('Message supprimé');
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 900);
+
                             }).catch((error => {
                                 modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
                             })); //fin catch
@@ -195,8 +205,11 @@ createforum = () => {
                                             const postObjsect = putAuthFormdata(postUrlImg, data);
 
                                             postObjsect.then(response => {
-
-                                                window.location = './forum.html';
+                                                messageConfirm('Message modifié');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 900);
+                                                //window.location = './forum.html';
                                             }).catch((error => {
                                                 modals();
                                             })); //fin catch
@@ -209,8 +222,11 @@ createforum = () => {
                                             const urlPost = 'http://localhost:3000/api/post/' + rep.postId;
                                             const postObjsect = putAuthJson(urlPost, posts);
                                             postObjsect.then(response => {
-
-                                                window.location = './forum.html';
+                                                messageConfirm('Message modifié');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 900);
+                                                //window.location = './forum.html';
                                             }).catch((error => {
                                                 modals();
                                             })); //fin catch
@@ -253,8 +269,11 @@ createforum = () => {
                                     const urlComs = 'http://localhost:3000/api/post/' + rep.postId + '/com';
                                     const postObjsect = sendAuthJson(urlComs, coms);
                                     postObjsect.then(response => {
-
-                                        window.location = './forum.html';
+                                        messageConfirm('Commentaire publié');
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 900);
+                                        //window.location = './forum.html';
                                     }).catch((error => {
                                         modals();
                                     })); //fin catch
@@ -307,7 +326,10 @@ createforum = () => {
                                 const data = deleteAuth(urlModifCom);
 
                                 data.then(() => {
-                                    window.location = './forum.html';
+                                    messageConfirm('Commentaire supprimé');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 900);
                                 }).catch((error => {
                                     modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
                                 })); //fin catch
@@ -340,8 +362,10 @@ createforum = () => {
                                         const urlModifCom = 'http://localhost:3000/api/post/' + rep.postId + '/com/' + reps.comId;
                                         const data = putAuthJson(urlModifCom, comModif);
                                         data.then(() => {
-
-                                            window.location = 'forum.html';
+                                            messageConfirm('Commentaire modifié');
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 900);
                                         }).catch((error => {
                                             modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
                                         })); //fin catch //fin then data
