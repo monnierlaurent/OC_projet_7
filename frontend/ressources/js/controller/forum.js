@@ -1,4 +1,5 @@
 createforum = () => {
+
     const recupStorage = sessionStorage.getItem('repAuth');
     const recupUserId = JSON.parse(recupStorage);
 
@@ -107,11 +108,6 @@ createforum = () => {
                         valideUserCreateur(recupUserId.userId, rep.userId, rep.postId, recupUserId.role); // gestion de la vue des btn suppr et modif si on est pas l'utilisateur createur
 
                         deleteImg(rep.imageUrl, rep.postId);
-
-                        effaceMessage = () => {
-                            const suppreMessage = document.getElementById('message_confirm');
-                            suppreMessage.setAttribute('display--none');
-                        };
 
                         // gestion de la suppression de publication
                         const btnSupprPublication = document.getElementById('btn_suppr_publication' + rep.postId);
@@ -232,7 +228,7 @@ createforum = () => {
                                             })); //fin catch
                                         };
                                     }).catch((error => {
-                                        //modals('Désolé !<br>Le serveur ne repond pas10', 'Connection', './index.html');
+                                        //modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
                                     })); //fin catch
                                 } else {
                                     const erreurPost = document.getElementById('erreur_posts');
@@ -416,7 +412,7 @@ createforum = () => {
                 }); // fin de boucle de posts
             }).catch((error => {
                 console.log('le forum et vide');
-                //modals();
+
             })); //fin catch post
         }).catch((error => {
 
