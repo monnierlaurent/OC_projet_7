@@ -5,7 +5,7 @@ createNavBarForum = (avatar, recupUserId, nom, prenom) => {
     createNavBar.appendChild(createElm4('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId, 'title', 'lien pour accéder au compte utilisateur'));
     createNavBar.appendChild(createElm3('i', '', 'id', 'publier', 'class', 'far fa-envelope header__nav__a--style--2', 'title', 'lien pour créer une publication'));
     createNavBar.appendChild(createElm4('a', '', 'id', 'compteUser', 'class', 'far fa-user header__nav__a--style--2', 'title', 'lien pour accéder au compte utilisateur', 'href', './compteUser.html?id=' + recupUserId));
-    createNavBar.appendChild(createElm3('i', '', 'id', 'deconnection', 'class', 'fas fa-power-off class header__nav__a--style--2', 'title', 'lien pour se déconnecter'));
+    createNavBar.appendChild(createElm3('i', '', 'id', 'deconnection', 'class', 'fas fa-power-off class header__nav__a--style--3', 'title', 'lien pour se déconnecter'));
 };
 
 createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repContenu, repImageUrl, repLikes, repDislikes, nbComs, recupUserId) => {
@@ -18,7 +18,7 @@ createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repConte
     newDiv1.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'Avatar de l\'utilisateur qui a publier le message'));
     newDiv1.appendChild(createElm1('h2', repNom + ' ' + repPrenom, 'class', 'bloc_article_div_p--padding--coms'));
 
-    newDiv.appendChild(createElm2('p', '0', 'id', 'date_crea_post' + repPostId, 'class', ''));
+    newDiv.appendChild(createElm2('p', '0', 'id', 'date_crea_post' + repPostId, 'class', 'bloc'));
 
     const newDiv2 = newarticle.appendChild(createElm2('div', '', 'id', 'lien_article' + repPostId, 'class', 'bloc_article_div--flex3'));
     newDiv2.appendChild(createElm1('h2', repTitre, 'class', 'bloc_heading--style'));

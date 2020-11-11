@@ -391,8 +391,8 @@ createforum = () => {
                     })); //fin catch coms
                 }); // fin de boucle de posts
             }).catch((error => {
-
-                modals();
+                console.log('le forum et vide');
+                //modals();
             })); //fin catch post
         }).catch((error => {
 

@@ -3,7 +3,7 @@ createNavbar = (avatar, nom, prenom, recupUserId) => {
     navBar.appendChild(createElm3('img', '', 'src', avatar, 'class', 'header__nav__avatar--style', 'alt', 'avatar de l\'utilisateur connecté'));
     navBar.appendChild(createElm4('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId, 'title', 'lien pour accéder au compte utilisateur'));
 
-    navBar.appendChild(createElm4('a', '', 'id', 'retourForum', 'class', 'far fa-comments class header__nav__a--style--2', 'href', './forum.html', 'title', 'lien pour accéder a la page principal'));
+    navBar.appendChild(createElm4('a', '', 'id', 'retourForum', 'class', 'fas fa-home class header__nav__a--style--2', 'href', './forum.html', 'title', 'lien pour accéder a la page principal'));
 
     navBar.appendChild(createElm4('a', '', 'id', 'deconnection', 'class', 'fas fa-power-off class header__nav__a--style--2', 'href', './index.html', 'title', 'boutton pour  se déconnecter'));
 };
@@ -25,7 +25,7 @@ createDisplayUers = (nom, prenom, emailRec, avatar) => {
     newDiv2.appendChild(createElm1('p', 'Email :' + ' ' + emailRec, 'class', 'bloc__login__form--label--style--create--post'));
 
     const newDiv3 = newDiv1.appendChild(createElm1('div', '', 'class', ''));
-    newDiv3.appendChild(createElm3('img', '', 'src', avatar, 'class', '', 'alt', 'avatar de l\'utilisateur qui a publier le message'));
+    newDiv3.appendChild(createElm3('img', '', 'src', avatar, 'class', 'bloc_dic_user_img--width', 'alt', 'avatar de l\'utilisateur qui a publier le message'));
 
     const newDiv4 = newSection.appendChild(createElm1('div', '', 'class', 'bloc_section_form_btn--flex--2'));
     newDiv4.appendChild(createElm3('button', 'Modifier mon profil', 'id', 'btn_modif_profil_user', 'class', 'bloc__form--btn-2', 'title', 'boutton pour modifer le compte utilisateur'));

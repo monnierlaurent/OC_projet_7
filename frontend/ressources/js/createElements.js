@@ -65,17 +65,24 @@ compterHours = (id, repPostId, repdateCrea) => {
     const minute = date.getMinutes();
 
     if (jour > 0) {
-        dateDisplay.innerHTML = jour + ' Jours ' + heure + ' Heures ';
+
+        dateDisplay.innerHTML = jour + ' Jour ';
+        if (jour > 1) {
+            dateDisplay.innerHTML = jour + ' Jours ';
+        };
 
     } else if (heure > 0) {
-        dateDisplay.innerHTML = heure + ' Heures ';
-
+        dateDisplay.innerHTML = heure + ' Heure ';
+        if (heure > 1) {
+            dateDisplay.innerHTML = heure + ' Heures ';
+        };
     } else if (minute > 0) {
-        dateDisplay.innerHTML = 'Il y a ' + minute + ' Minutes';
-
+        dateDisplay.innerHTML = 'Il y a ' + minute + ' Minute';
+        if (minute > 1) {
+            dateDisplay.innerHTML = 'Il y a ' + minute + ' Minutes';
+        };
     } else if (minute <= 0) {
         dateDisplay.innerHTML = 'A l\'instant';
-
     };
 };
 
