@@ -137,7 +137,20 @@ createforum = () => {
                             };
                             const likeSend1 = sendAuthJson('http://localhost:3000/api/post/' + rep.postId + '/like', like);
                             likeSend1.then(response => {
-                                window.location.reload();
+
+                                const url = 'http://localhost:3000/api/post/' + rep.postId;
+                                console.log(url)
+                                const likeSend1 = requestAuth('http://localhost:3000/api/post/' + rep.postId);
+                                likeSend1.then(response => {
+
+                                    const compteur_like = document.getElementById('compteur_like' + rep.postId);
+                                    compteur_like.innerHTML = response.likes;
+
+                                    const compteur_dislike = document.getElementById('compteur_dislike' + rep.postId);
+                                    compteur_dislike.innerHTML = response.dislikes;
+                                });
+
+                                //window.location.reload();
                             }).catch((error => {
                                 modals();
                             })); //fin catch
@@ -152,7 +165,15 @@ createforum = () => {
                             const likeSend2 = sendAuthJson('http://localhost:3000/api/post/' + rep.postId + '/like', like);
                             likeSend2.then(response => {
 
-                                window.location.reload();
+                                const likeSend1 = requestAuth('http://localhost:3000/api/post/' + rep.postId);
+                                likeSend1.then(response => {
+                                    const compteur_like = document.getElementById('compteur_like' + rep.postId);
+                                    compteur_like.innerHTML = response.likes;
+                                    const compteur_dislike = document.getElementById('compteur_dislike' + rep.postId);
+                                    compteur_dislike.innerHTML = response.dislikes;
+                                });
+
+                                //window.location.reload();
                             }).catch((error => {
                                 modals();
                             })); //fin catch
@@ -203,7 +224,11 @@ createforum = () => {
                                             postObjsect.then(response => {
                                                 messageConfirm('Message modifié');
                                                 setTimeout(() => {
-                                                    window.location.reload();
+
+
+
+
+                                                    //window.location.reload();
                                                 }, 900);
                                                 //window.location = './forum.html';
                                             }).catch((error => {
@@ -384,7 +409,14 @@ createforum = () => {
                                 const comLikeSend = sendAuthJson('http://localhost:3000/api/post/' + rep.postId + '/com/' + reps.comId + '/like', like);
                                 comLikeSend.then(response => {
 
-                                    window.location.reload();
+                                    const comLikeSend = requestAuth('http://localhost:3000/api/post/' + rep.postId + '/com/' + reps.comId);
+                                    comLikeSend.then(response => {
+
+                                        const comLikes = document.getElementById('comLikes_1' + reps.comId)
+                                        comLikes.innerHTML = response.comLikes;
+                                        const comDislikes = document.getElementById('comDislikes_1' + reps.comId)
+                                        comDislikes.innerHTML = response.comDislikes;
+                                    });
                                 }).catch((error => {
                                     modals();
                                 })); //fin catch
@@ -400,7 +432,14 @@ createforum = () => {
                                 const comDisikeSend = sendAuthJson('http://localhost:3000/api/post/' + rep.postId + '/com/' + reps.comId + '/like', like);
                                 comDisikeSend.then(response => {
 
-                                    window.location.reload();
+                                    const comLikeSend = requestAuth('http://localhost:3000/api/post/' + rep.postId + '/com/' + reps.comId);
+                                    comLikeSend.then(response => {
+
+                                        const comLikes = document.getElementById('comLikes_1' + reps.comId)
+                                        comLikes.innerHTML = response.comLikes;
+                                        const comDislikes = document.getElementById('comDislikes_1' + reps.comId)
+                                        comDislikes.innerHTML = response.comDislikes;
+                                    });
                                 }).catch((error => {
                                     modals();
                                 })); //fin catch 
