@@ -108,7 +108,7 @@ valideLogin = (email, password, Remail, Rpassword) => {
 
         } else if (Remail.test(email.value) === false) {
             paragErreur1.setAttribute('class', 'bloc__form--font--erreur2');
-            paragErreur1.innerHTML = 'Format de l\'email est non  conforme !!!';
+            paragErreur1.innerHTML = 'le champs n\'est pas rempli correctement !';
         };
     });
 
@@ -119,13 +119,13 @@ valideLogin = (email, password, Remail, Rpassword) => {
             paragErreur2.setAttribute('class', 'bloc__form--font--erreur1');
             paragErreur2.innerHTML = '* champ obligatoire';
 
-        } else if (Rpassword.test(email.value) === true) {
+        } else if (Rpassword.test(password.value) === true) {
             paragErreur2.setAttribute('class', 'bloc__form--font--erreur1');
             paragErreur2.innerHTML = '* champ obligatoire';
 
-        } else if (Rpassword.test(email.value) === false) {
+        } else if (Rpassword.test(password.value) === false) {
             paragErreur2.setAttribute('class', 'bloc__form--font--erreur2');
-            paragErreur2.innerHTML = 'Format de l\'email est non  conforme !!!';
+            paragErreur2.innerHTML = 'le champs n\'est pas rempli correctement !';
         };
     });
 };
@@ -139,11 +139,11 @@ validPosts = (titre, contenu, Rdatas, idErreur) => {
 
         if (titre.value.length === 0) {
             erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
-            erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+            erreurPost.innerHTML = '* champ obligatoire';
 
         } else if (Rdatas.test(titre.value) === true) {
             erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
-            erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+            erreurPost.innerHTML = '* champ obligatoire';
 
         } else if (Rdatas.test(titre.value) === false) {
             erreurPost.setAttribute('class', 'bloc__form--font--erreur2');
@@ -156,11 +156,11 @@ validPosts = (titre, contenu, Rdatas, idErreur) => {
 
         if (contenu.value.length === 0) {
             erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
-            erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+            erreurPost.innerHTML = '* champ obligatoire';
 
         } else if (Rdatas.test(contenu.value) === true) {
             erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
-            erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+            erreurPost.innerHTML = '* champ obligatoire';
 
         } else if (Rdatas.test(contenu.value) === false) {
             erreurPost.setAttribute('class', 'bloc__form--font--erreur2');

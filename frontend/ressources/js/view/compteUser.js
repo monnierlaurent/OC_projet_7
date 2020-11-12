@@ -5,7 +5,7 @@ createNavbar = (avatar, nom, prenom, recupUserId) => {
 
     navBar.appendChild(createElm4('a', '', 'id', 'retourForum', 'class', 'fas fa-home class header__nav__a--style--2', 'href', './forum.html', 'title', 'lien pour accéder a la page principal'));
 
-    navBar.appendChild(createElm4('a', '', 'id', 'deconnection', 'class', 'fas fa-power-off class header__nav__a--style--2', 'href', './index.html', 'title', 'boutton pour  se déconnecter'));
+    navBar.appendChild(createElm3('i', '', 'id', 'deconnection', 'class', 'fas fa-power-off class header__nav__a--style--2', 'title', 'boutton pour  se déconnecter'));
 };
 
 createDisplayUers = (nom, prenom, emailRec, avatar) => {

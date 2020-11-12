@@ -33,7 +33,7 @@ createFormSignup = () => {
     formPost.appendChild(createElm2('p', '* champ obligatoire', 'id', 'erreur5', 'class', 'bloc__form_p--style'));
 
     const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', 'signup--avatar--flex', ));
-    newDiv2.appendChild(createElm4('img', '', 'id', 'avatar_1', 'src', 'http://localhost:3000/images/avatar/avatar_01.png', 'class', 'signup--avatar--style', 'alt', 'Choix de l\'avatar 1'));
+    newDiv2.appendChild(createElm4('img', '', 'id', 'avatar_1', 'src', 'http://localhost:3000/images/avatar/avatar_01.png', 'class', 'signup--avatar--style', 'alt', 'Choix de l\'avatar 1')); //signup--avatar--border
     newDiv2.appendChild(createElm4('img', '', 'id', 'avatar_2', 'src', 'http://localhost:3000/images/avatar/avatar_02.png', 'class', 'signup--avatar--style', 'alt', 'Choix de l\'avatar 2'));
     newDiv2.appendChild(createElm4('img', '', 'id', 'avatar_3', 'src', 'http://localhost:3000/images/avatar/avatar_03.png', 'class', 'signup--avatar--style', 'alt', 'Choix de l\'avatar 3'));
     newDiv2.appendChild(createElm4('img', '', 'id', 'avatar_4', 'src', 'http://localhost:3000/images/avatar/avatar_04.png', 'class', 'signup--avatar--style', 'alt', 'Choix de l\'avatar 4'));

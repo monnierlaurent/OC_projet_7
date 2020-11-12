@@ -24,15 +24,35 @@ createLogin = () => {
     let avatarChoix;
 
     avatar1.addEventListener('click', (event) => {
+        event.preventDefault();
+        avatar1.setAttribute('class', 'signup--avatar--border');
+        avatar2.setAttribute('class', 'signup--avatar--style');
+        avatar3.setAttribute('class', 'signup--avatar--style');
+        avatar4.setAttribute('class', 'signup--avatar--style');
         return avatarChoix = avatar1.src;
     });
     avatar2.addEventListener('click', (event) => {
+        event.preventDefault();
+        avatar1.setAttribute('class', 'signup--avatar--style');
+        avatar2.setAttribute('class', 'signup--avatar--border');
+        avatar3.setAttribute('class', 'signup--avatar--style');
+        avatar4.setAttribute('class', 'signup--avatar--style');
         return avatarChoix = avatar2.src;
     });
     avatar3.addEventListener('click', (event) => {
+        event.preventDefault();
+        avatar1.setAttribute('class', 'signup--avatar--style');
+        avatar2.setAttribute('class', 'signup--avatar--style');
+        avatar3.setAttribute('class', 'signup--avatar--border');
+        avatar4.setAttribute('class', 'signup--avatar--style');
         return avatarChoix = avatar3.src;
     });
     avatar4.addEventListener('click', (event) => {
+        event.preventDefault();
+        avatar1.setAttribute('class', 'signup--avatar--style');
+        avatar2.setAttribute('class', 'signup--avatar--style');
+        avatar3.setAttribute('class', 'signup--avatar--style');
+        avatar4.setAttribute('class', 'signup--avatar--border');
         return avatarChoix = avatar4.src;
     });
 

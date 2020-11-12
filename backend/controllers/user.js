@@ -17,11 +17,8 @@ exports.createUser = (req, res, next) => {
     const reqBody = sanitize(req.body);
     delete req.body._id;
 
-    console.log(reqBody);
-
     const email = reqBody.email;
     const emailVerif = email.indexOf('@groupomania.fr');
-
 
     if (reqBody.nom === undefined, reqBody.prenom === undefined, reqBody.email === undefined, reqBody.password === undefined, reqBody.role === undefined, reqBody.avatar === undefined) {
         return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });

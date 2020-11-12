@@ -113,7 +113,7 @@ class PostsModel {
             let sql = `SELECT * FROM ${table} INNER JOIN users ON userId = id WHERE ${idType}=${paramsId}`;
             return new Promise((resolve) => {
                 db.query(sql, (err, result, fields) => {
-                    console.log(result)
+
                     if (result === undefined) {
                         resolve(err = 'La syntaxe de la requête est erronée');
                     } else if (result[0] === undefined) {
@@ -179,7 +179,7 @@ class PostsModel {
 
         try {
             const sql = `UPDATE posts SET titre='${titre}', contenu='${contenu}', dateModif=now(), imageUrl='${image}' WHERE postId='${paramsId}'`;
-            console.log(sql);
+
             return new Promise((resolve) => {
                 db.query(sql, (err, result, fields) => {
 
@@ -189,7 +189,6 @@ class PostsModel {
         } catch (error) {
             console.error(error);
         };
-
     }; //fin de updateOne
 };
 

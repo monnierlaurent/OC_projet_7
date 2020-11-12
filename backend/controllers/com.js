@@ -157,7 +157,7 @@ exports.likeCom = (req, res, next) => {
                 };
 
                 if (reqBody.like === -1) {
-                    console.log(reqParamsComId)
+
                     if (response[0] === undefined) {
 
                         likeModel.likeSave('comlikes', 'comId', 'userId', 'comLikeValeur', reqParamsComId, reqBody.userId, reqBody.like)

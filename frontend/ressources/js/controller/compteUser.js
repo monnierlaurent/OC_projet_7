@@ -2,13 +2,11 @@ createUsersCompte = () => {
     const urlUser = 'http://localhost:3000/api/auth/' + (new URL(window.location.href)).searchParams.get('id');
 
     const recupStorage = sessionStorage.getItem('repAuth');
-    const recupUserId4 = JSON.parse(recupStorage);
+    const recupUserId = JSON.parse(recupStorage);
 
-    if (recupUserId4 === null) {
-        modals('Vous n\avez pas accès a cette ressource !', 'Inscription', './signup.html')
+    if (!recupUserId) {
+        window.location = './index.html';
     } else {
-
-
 
         const datas1 = requestAuth(urlUser);
         datas1.then(userUnique => {
@@ -19,10 +17,11 @@ createUsersCompte = () => {
 
             displayDateInscrip('user_date', userUnique.dateInscrip);
 
+            deconnection('deconnection');
+
             const btnModif = document.getElementById('btn_modif_profil_user');
+
             const idUser = 'http://localhost:3000/api/auth/' + userUnique.id;
-
-
             btnModif.addEventListener('click', (event) => {
                 event.preventDefault();
 
@@ -122,18 +121,33 @@ createUsersCompte = () => {
 
             avatar1.addEventListener('click', (event) => {
                 event.preventDefault();
+                avatar1.setAttribute('class', 'signup--avatar--border');
+                avatar2.setAttribute('class', 'signup--avatar--style');
+                avatar3.setAttribute('class', 'signup--avatar--style');
+                avatar4.setAttribute('class', 'signup--avatar--style');
                 return avatarChoix = avatar1.src;
             });
             avatar2.addEventListener('click', (event) => {
+                avatar1.setAttribute('class', 'signup--avatar--style');
+                avatar2.setAttribute('class', 'signup--avatar--border');
+                avatar3.setAttribute('class', 'signup--avatar--style');
+                avatar4.setAttribute('class', 'signup--avatar--style');
                 return avatarChoix = avatar2.src;
             });
             avatar3.addEventListener('click', (event) => {
+                avatar1.setAttribute('class', 'signup--avatar--style');
+                avatar2.setAttribute('class', 'signup--avatar--style');
+                avatar3.setAttribute('class', 'signup--avatar--border');
+                avatar4.setAttribute('class', 'signup--avatar--style');
                 return avatarChoix = avatar3.src;
             });
             avatar4.addEventListener('click', (event) => {
+                avatar1.setAttribute('class', 'signup--avatar--style');
+                avatar2.setAttribute('class', 'signup--avatar--style');
+                avatar3.setAttribute('class', 'signup--avatar--style');
+                avatar4.setAttribute('class', 'signup--avatar--border');
                 return avatarChoix = avatar4.src;
             });
-
 
             const btnModifUers = document.getElementById('btn_modif_profil_user2');
             btnModifUers.addEventListener('click', (event) => {
@@ -251,7 +265,7 @@ createUsersCompte = () => {
                 };
             });
         }).catch((error => {
-            modals('Désolé !<br>Le serveur ne repond pas10', 'Connection', './index.html');
+            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
         })); //fin catch
     };
 }; //fin de createUsersCompte
