@@ -61,49 +61,7 @@ createUsersCompte = () => {
             const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania.fr]+[.]{1}[a-zA-Z1-9]{2,10}$/;
             const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{4,255}/;
 
-            valideModifUser = () => {
-                const erreur1 = document.getElementById('erreur1');
-                const erreur2 = document.getElementById('erreur2');
-                const erreur3 = document.getElementById('erreur3');
-                // const erreur4 = document.getElementById('erreur4');
 
-                recupNom.addEventListener('change', (event) => {
-                    event.preventDefault();
-
-                    if (recupNom.value.length === 0) {
-                        erreur1.setAttribute('class', 'bloc__form--font--erreur');
-                    } else if (regexNomPrenom.test(recupNom.value) === true) {
-                        erreur1.setAttribute('class', 'bloc__form--font--erreur');
-                    } else if (regexNomPrenom.test(recupNom.value) === false) {
-                        erreur1.setAttribute('class', 'bloc__form--font--erreur2');
-                    };
-                });
-
-                recupPrenom.addEventListener('change', (event) => {
-                    event.preventDefault();
-
-                    if (recupPrenom.value.length === 0) {
-                        erreur2.setAttribute('class', 'bloc__form--font--erreur');
-                    } else if (regexNomPrenom.test(recupPrenom.value) === true) {
-                        erreur2.setAttribute('class', 'bloc__form--font--erreur');
-                    } else if (regexNomPrenom.test(recupPrenom.value) === false) {
-                        erreur2.setAttribute('class', 'bloc__form--font--erreur2');
-                    };
-                });
-                recupEmail.addEventListener('change', (event) => {
-                    event.preventDefault();
-
-                    if (recupEmail.value.length === 0) {
-                        erreur3.setAttribute('class', 'bloc__form--font--erreur');
-                    } else if (regexEmail.test(recupEmail.value) === true) {
-                        erreur3.setAttribute('class', 'bloc__form--font--erreur');
-                    } else if (regexEmail.test(recupEmail.value) === false) {
-                        erreur3.setAttribute('class', 'bloc__form--font--erreur2');
-                    };
-                });
-
-            }; // fin de valide
-            valideModifUser();
 
             const btnAnnulModif = document.getElementById('btn_annule_modif_user');
             btnAnnulModif.addEventListener('click', (event) => {
@@ -111,6 +69,8 @@ createUsersCompte = () => {
                 window.location = './compteUser.html?id=' + userDatas.id;
             });
 
+            // valide user
+            valideModifUser(recupNom, recupPrenom, recupEmail, regexNomPrenom, regexEmail)
 
             const avatar1 = document.getElementById('avatars_1');
             const avatar2 = document.getElementById('avatars_2');
@@ -190,57 +150,10 @@ createUsersCompte = () => {
 
             const holdPassword = document.getElementById('holdPassword');
             const newPassword = document.getElementById('newPassword');
-
             const confirmNewPassword = document.getElementById('confirmPassword');
 
-            const paragErreur1 = document.getElementById('erreur_1');
-            const paragErreur2 = document.getElementById('erreur_2');
-            const paragErreur3 = document.getElementById('erreur_3');
-            const paragErreur4 = document.getElementById('erreur_4');
+            valideModifPassword(holdPassword, newPassword, confirmNewPassword, regexPassword);
 
-
-            holdPassword.addEventListener('change', (event) => {
-                if (holdPassword.value.length === 0) {
-                    paragErreur1.setAttribute('class', 'bloc__form--font--erreur');
-                    paragErreur1.innerHTML = '* champ obligatoire';
-
-                } else if (regexPassword.test(holdPassword.value) === true) {
-                    paragErreur1.setAttribute('class', 'bloc__form--font--erreur');
-                    paragErreur1.innerHTML = '* champ obligatoire';
-
-                } else if (regexPassword.test(holdPassword.value) === false) {
-                    paragErreur1.setAttribute('class', 'bloc__form--font--erreur2');
-                    paragErreur1.innerHTML = 'Format de l\'email est non  conforme !!!';
-                };
-            });
-
-            newPassword.addEventListener('change', (event) => {
-                if (newPassword.value.length === 0) {
-                    paragErreur2.setAttribute('class', 'bloc__form--font--erreur');
-                    paragErreur2.innerHTML = '* champ obligatoire';
-
-                } else if (regexPassword.test(newPassword.value) === true) {
-                    paragErreur2.setAttribute('class', 'bloc__form--font--erreur');
-                    paragErreur2.innerHTML = '* champ obligatoire';
-
-                } else if (regexPassword.test(newPassword.value) === false) {
-                    paragErreur2.setAttribute('class', 'bloc__form--font--erreur2');
-                    paragErreur2.innerHTML = 'Format de l\'email est non  conforme !!!';
-                };
-            });
-            confirmNewPassword.addEventListener('change', (event) => {
-                if (confirmNewPassword.value.length === 0) {
-                    paragErreur3.setAttribute('class', 'bloc__form--font--erreur');
-                    paragErreur3.innerHTML = '* champ obligatoire';
-                } else if (newPassword.value === confirmNewPassword.value) {
-                    paragErreur3.setAttribute('class', 'bloc__form--font--erreur');
-                    paragErreur3.innerHTML = '* champ obligatoire';
-
-                } else if (newPassword.value !== confirmNewPassword.value) {
-                    paragErreur3.setAttribute('class', 'bloc__form--font--erreur2');
-                    paragErreur3.innerHTML = 'Format de l\'email est non  conforme !!!';
-                };
-            });
             const btnModifPassword = document.getElementById('btn_modif_password');
             btnModifPassword.addEventListener('click', (event) => {
                 event.preventDefault();
