@@ -28,6 +28,7 @@ createforum = () => {
                 event.preventDefault();
 
                 modaleCreatePost(user.avatar, user.nom, user.prenom);
+
                 exitModal('btn_annule_create_post'); //modal create post
 
                 const image = document.getElementById('post_img').files;
@@ -39,7 +40,6 @@ createforum = () => {
                 validPosts(titre, contenu, regexDatas, 'erreur_posts');
 
                 const btnEnvoiPublication = document.getElementById('btn_publier_forum');
-
                 btnEnvoiPublication.addEventListener('click', (event) => {
                     event.preventDefault();
                     if (regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) !== false) {
@@ -57,8 +57,14 @@ createforum = () => {
                             data.append('posts', posts);
 
                             const postObjsect = sendAuthFormdata('http://localhost:3000/api/post/img', data);
-
                             postObjsect.then(response => {
+
+                                /* const postObjsect1 = requestAuth('http://localhost:3000/api/post');
+                                 postObjsect1.then(response => {
+
+                                     console.log(response);
+                                 });*/
+
                                 messageConfirm('Message publié');
                                 setTimeout(() => {
                                     window.location.reload();
@@ -74,6 +80,13 @@ createforum = () => {
 
                             const postObjsect = sendAuthJson('http://localhost:3000/api/post', posts);
                             postObjsect.then(response => {
+
+                                /*const postObjsect2 = requestAuth('http://localhost:3000/api/post');
+                                postObjsect2.then(response => {
+                                  
+
+                                    console.log(response[0]);
+                                });*/
                                 messageConfirm('Message publié');
                                 setTimeout(() => {
                                     window.location.reload();
@@ -114,6 +127,7 @@ createforum = () => {
                         btnSupprPublication.addEventListener('click', (event) => {
                             event.preventDefault();
 
+                            // suppression d'un post
                             const urlpostAll = 'http://localhost:3000/api/post/' + rep.postId;
                             const datas2 = deleteAuth(urlpostAll);
                             datas2.then((response) => {
@@ -126,7 +140,7 @@ createforum = () => {
                             }).catch((error => {
                                 modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
                             })); //fin catch
-                        });
+                        }); // fin de suppression d'un post
 
                         //gestion des likes
                         const btnLike = document.getElementById('like-forum' + rep.postId);
@@ -180,92 +194,115 @@ createforum = () => {
                         });
 
                         //gestion de la modification de post
-                        const btnModif = document.getElementById('btn_modif_publication' + rep.postId);
-                        btnModif.addEventListener('click', (event) => {
+                        const btnModifPost = document.getElementById('btn_modif_publication' + rep.postId);
+                        btnModifPost.addEventListener('click', (event) => {
                             event.preventDefault();
+                            const recupPost = requestAuth('http://localhost:3000/api/post/' + rep.postId);
+                            recupPost.then(response => {
 
-                            modaleCreateModifPost(rep.avatar, rep.titre, rep.contenu, rep.imageUrl, rep.nom, rep.prenom);
+                                modaleCreateModifPost(response.avatar, response.titre, response.contenu, response.imageUrl, response.nom, response.prenom);
 
-                            exitModal('btn_annule_forum'); //modal modif post
+                                exitModal('btn_annule_forum'); //modal modif post
 
-                            const image = document.getElementById('post_img').files;
-                            const titre = document.getElementById('post_forum_titre');
-                            const contenu = document.getElementById('post_forum_text');
+                                const image = document.getElementById('post_img').files;
+                                const titre = document.getElementById('post_forum_titre');
+                                const contenu = document.getElementById('post_forum_text');
 
-                            const regexDatas = /^[a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+                                const regexDatas = /^[a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
 
-                            validPosts(titre, contenu, regexDatas, 'erreur_posts');
+                                validPosts(titre, contenu, regexDatas, 'erreur_posts');
 
-                            const btnEnvoi = document.getElementById('btn_post_forum');
-                            btnEnvoi.addEventListener('click', (event) => {
-                                event.preventDefault();
+                                const btnEnvoi = document.getElementById('btn_post_forum');
+                                btnEnvoi.addEventListener('click', (event) => {
+                                    event.preventDefault();
 
-                                if (regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) !== false) {
-                                    const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId.userId;
+                                    if (regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) !== false) {
+                                        const urlUserID = 'http://localhost:3000/api/auth/' + recupUserId.userId;
 
-                                    const datas1 = requestAuth(urlUserID);
-                                    datas1.then(user => {
+                                        const datas1 = requestAuth(urlUserID);
+                                        datas1.then(user => {
 
-                                        if (image[0]) {
-                                            const posts10 = {
-                                                titre: titre.value,
-                                                contenu: contenu.value,
+                                            if (image[0]) {
+                                                const posts10 = {
+                                                    titre: titre.value,
+                                                    contenu: contenu.value,
+                                                };
+
+                                                const posts = JSON.stringify(posts10);
+
+                                                const data = new FormData();
+                                                data.append('image', image[0]);
+                                                data.append('posts', posts);
+
+                                                const postUrlImg = 'http://localhost:3000/api/post/img/' + rep.postId;
+                                                const postObjsect = putAuthFormdata(postUrlImg, data);
+                                                postObjsect.then(response => {
+
+                                                    const GETUrlImg = 'http://localhost:3000/api/post/' + rep.postId;
+                                                    const GETpostObjsect1 = requestAuth(GETUrlImg);
+                                                    GETpostObjsect1.then(resp => {
+                                                        console.log(resp);
+                                                    });
+                                                    messageConfirm('Message modifié');
+
+                                                }).catch((error => {
+                                                    modals();
+                                                })); //fin catch
+                                            } else {
+                                                const posts = {
+                                                    titre: titre.value,
+                                                    contenu: contenu.value
+                                                };
+
+                                                const urlPost = 'http://localhost:3000/api/post/' + rep.postId;
+                                                const postObjsect = putAuthJson(urlPost, posts);
+                                                postObjsect.then(response => {
+
+                                                    const GETUrlImg = 'http://localhost:3000/api/post/' + rep.postId;
+                                                    const GETpostObjsect = requestAuth(GETUrlImg);
+                                                    GETpostObjsect.then(response => {
+
+
+                                                        const titre = document.getElementById('titre' + rep.postId);
+                                                        titre.innerHTML = response.titre;
+                                                        const contenu = document.getElementById('contenu' + rep.postId);
+                                                        contenu.innerHTML = response.contenu;
+
+                                                        messageConfirm('Message modifié');
+                                                        setTimeout(() => {
+                                                            const message = document.getElementById('messageModif');
+                                                            message.setAttribute('class', ('display--none'));
+
+                                                            const modalModifPost = document.getElementById('modal1');
+                                                            modalModifPost.setAttribute('class', ('display--none'));
+
+                                                        }, 900);
+                                                    });
+
+                                                }).catch((error => {
+                                                    modals();
+                                                })); //fin catch
                                             };
-
-                                            const posts = JSON.stringify(posts10);
-
-                                            const data = new FormData();
-                                            data.append('image', image[0]);
-                                            data.append('posts', posts);
-
-                                            const postUrlImg = 'http://localhost:3000/api/post/img/' + rep.postId;
-                                            const postObjsect = putAuthFormdata(postUrlImg, data);
-
-                                            postObjsect.then(response => {
-                                                messageConfirm('Message modifié');
-                                                setTimeout(() => {
-
-
-
-
-                                                    //window.location.reload();
-                                                }, 900);
-                                                //window.location = './forum.html';
-                                            }).catch((error => {
-                                                modals();
-                                            })); //fin catch
-                                        } else {
-                                            const posts = {
-                                                titre: titre.value,
-                                                contenu: contenu.value
-                                            };
-
-                                            const urlPost = 'http://localhost:3000/api/post/' + rep.postId;
-                                            const postObjsect = putAuthJson(urlPost, posts);
-                                            postObjsect.then(response => {
-                                                messageConfirm('Message modifié');
-                                                setTimeout(() => {
-                                                    window.location.reload();
-                                                }, 900);
-                                                //window.location = './forum.html';
-                                            }).catch((error => {
-                                                modals();
-                                            })); //fin catch
-                                        };
-                                    }).catch((error => {
-                                        //modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-                                    })); //fin catch
-                                } else {
-                                    const erreurPost = document.getElementById('erreur_posts');
-                                    erreurPost.setAttribute('class', 'bloc__form--font--erreur2');
-                                    erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
-                                };
+                                        }).catch((error => {
+                                            //modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                        })); //fin catch
+                                    } else {
+                                        const erreurPost = document.getElementById('erreur_posts');
+                                        erreurPost.setAttribute('class', 'bloc__form--font--erreur2');
+                                        erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+                                    };
+                                });
                             });
-                        });
+
+
+
+
+
+                        }); //fin de la modification de post
 
                         // gestion des commentaires
 
-                        //gestion du button commenter avec l'envoie
+                        //gestion l'envoi d'un commentaire 
                         const btnCommenter = document.getElementById('btn_commenter_publication' + rep.postId);
 
                         btnCommenter.addEventListener('click', (event) => {
@@ -304,7 +341,7 @@ createforum = () => {
                                     erreurs.innerHTML = 'le champs n\'est pas rempli correctement !';
                                 };
                             });
-                        }); //fin de btn commenter
+                        }); //fin de l'envoi d'un commentaire 
 
                         coms.forEach(reps => {
 
@@ -349,7 +386,7 @@ createforum = () => {
                                 data.then(() => {
                                     messageConfirm('Commentaire supprimé');
                                     setTimeout(() => {
-                                        window.location.reload();
+
                                     }, 900);
                                 }).catch((error => {
                                     modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
@@ -362,40 +399,58 @@ createforum = () => {
                             btnModifCommentaire.addEventListener('click', (event) => {
                                 event.preventDefault();
 
-                                modifComsForm(reps.avatar, reps.nom, reps.prenom, reps.comContenu);
+                                const urlModifCom = 'http://localhost:3000/api/post/' + rep.postId + '/com/' + reps.comId;
+                                const data = requestAuth(urlModifCom);
+                                data.then(response => {
 
-                                exitModal('btn_annuler_modif_coms'); //gestion du button de fermeture de la modal modif commentaire
+                                    modifComsForm(response.avatar, response.nom, response.prenom, response.comContenu);
 
-                                const recupContenu = document.getElementById('commentaireModifCom');
-                                const regexDatas = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+                                    exitModal('btn_annuler_modif_coms'); //gestion du button de fermeture de la modal modif commentaire
 
-                                validComsModif(recupContenu, regexDatas, 'erreur_posts');
+                                    const recupContenu = document.getElementById('commentaireModifCom');
+                                    const regexDatas = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
 
-                                const btnEnvoiModifCom = document.getElementById('btnComModif');
-                                btnEnvoiModifCom.addEventListener('click', (event) => {
-                                    event.preventDefault();
-                                    if (regexDatas.test(recupContenu.value) !== false) {
+                                    validComsModif(recupContenu, regexDatas, 'erreur_posts');
 
-                                        const comModif = {
-                                            comContenu: recupContenu.value
+                                    const btnEnvoiModifCom = document.getElementById('btnComModif');
+                                    btnEnvoiModifCom.addEventListener('click', (event) => {
+                                        event.preventDefault();
+                                        if (regexDatas.test(recupContenu.value) !== false) {
+
+                                            const comModif = {
+                                                comContenu: recupContenu.value
+                                            };
+
+                                            const urlModifCom = 'http://localhost:3000/api/post/' + rep.postId + '/com/' + reps.comId;
+                                            const data = putAuthJson(urlModifCom, comModif);
+                                            data.then(() => {
+
+                                                const data = requestAuth('http://localhost:3000/api/post/' + rep.postId + '/com/' + reps.comId);
+                                                data.then(response => {
+
+                                                    messageConfirm('Commentaire modifié');
+
+                                                    const contenuCom = document.getElementById('contenuCom' + reps.comId);
+                                                    contenuCom.innerHTML = response.comContenu;
+
+                                                    setTimeout(() => {
+                                                        const modalMessage = document.getElementById('messageModif');
+                                                        modalMessage.setAttribute('class', 'display--none');
+
+                                                        const modalFormModifcom = document.getElementById('modal1');
+                                                        modalFormModifcom.setAttribute('class', 'display--none');
+                                                    }, 900);
+                                                });
+                                            }).catch((error => {
+                                                modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                                            })); //fin catch //fin then data
+                                        } else {
+                                            const erreur4 = document.getElementById('erreur_posts');
+                                            erreur4.setAttribute('class', 'bloc__form--font--erreur2');
+                                            erreur4.innerHTML = 'le champs n\'est pas rempli correctement !';
                                         };
-
-                                        const urlModifCom = 'http://localhost:3000/api/post/' + rep.postId + '/com/' + reps.comId;
-                                        const data = putAuthJson(urlModifCom, comModif);
-                                        data.then(() => {
-                                            messageConfirm('Commentaire modifié');
-                                            setTimeout(() => {
-                                                window.location.reload();
-                                            }, 900);
-                                        }).catch((error => {
-                                            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-                                        })); //fin catch //fin then data
-                                    } else {
-                                        const erreur4 = document.getElementById('erreur_posts');
-                                        erreur4.setAttribute('class', 'bloc__form--font--erreur2');
-                                        erreur4.innerHTML = 'le champs n\'est pas rempli correctement !';
-                                    };
-                                }); //fin de btn envoie de la modification du commentaire
+                                    }); //fin de btn envoie de la modification du commentaire
+                                });
                             });
 
                             // gestion des likes des commentaires
