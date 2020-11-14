@@ -99,14 +99,7 @@ displayDateInscrip = (id, repdateCrea) => {
     dateDisplay.innerHTML = 'date d\'incription : ' + jour + '/' + mois + '/' + année;
 };
 
-exitModal = (id) => {
-    const btnExitModal = document.getElementById(id);
 
-    btnExitModal.addEventListener('click', (event) => {
-        event.preventDefault();
-        window.location = './forum.html';
-    });
-};
 
 deconnection = (id) => {
     const bTnDeconnection = document.getElementById(id);
@@ -122,6 +115,15 @@ deleteImg = (repimageUrl, reppostId) => {
         const imqAltParent = document.getElementById('lien_article' + reppostId);
         const imgBalise = document.getElementById('img_post_display' + reppostId);
         imqAltParent.removeChild(imgBalise);
+        //console.log('il y a une image');
+    };
+};
+
+deletetitre = (repcontenu, reppostId) => {
+    if (repcontenu === 'vide') {
+        const contenuParent = document.getElementById('lien_article' + reppostId);
+        const contenuBalise = document.getElementById('contenu' + reppostId);
+        contenuParent.removeChild(contenuBalise);
         //console.log('il y a une image');
     };
 };

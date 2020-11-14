@@ -1,42 +1,43 @@
+//-------validation du formulaire d'inscription---------//
 valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpassword) => {
 
-    const paragErreur1 = document.getElementById('erreur1');
-    const paragErreur2 = document.getElementById('erreur2');
-    const paragErreur3 = document.getElementById('erreur3');
-    const paragErreur4 = document.getElementById('erreur4');
-    const paragErreur5 = document.getElementById('erreur5');
+    const message_1 = document.getElementById('message_1');
+    const message_2 = document.getElementById('message_2');
+    const message_3 = document.getElementById('message_3');
+    const message_4 = document.getElementById('message_4');
+    const message_5 = document.getElementById('message_5');
 
     nom.addEventListener('change', (event) => {
         event.preventDefault();
 
 
         if (nom.value.length === 0) {
-            paragErreur1.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur1.innerHTML = '* champ obligatoire';
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            message_1.innerHTML = '* Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
 
         } else if (Rnom.test(nom.value) === true) {
-            paragErreur1.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur1.innerHTML = '* champ obligatoire';
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            message_1.innerHTML = '* Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
 
         } else if (Rnom.test(nom.value) === false) {
-            paragErreur1.setAttribute('class', 'bloc__form--font--erreur2');
-            paragErreur1.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_1.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_1.innerHTML = '* Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
         };
     });
     prenom.addEventListener('change', (event) => {
         event.preventDefault();
 
         if (prenom.value.length === 0) {
-            paragErreur2.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur2.innerHTML = '* champ obligatoire';
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            message_2.innerHTML = '* Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
 
         } else if (Rnom.test(prenom.value) === true) {
-            paragErreur2.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur2.innerHTML = '* champ obligatoire';
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            message_2.innerHTML = '* Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
 
         } else if (Rnom.test(prenom.value) === false) {
-            paragErreur2.setAttribute('class', 'bloc__form--font--erreur2');
-            paragErreur2.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_2.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_2.innerHTML = '* Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
         };
     });
 
@@ -44,71 +45,72 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
         event.preventDefault();
 
         if (email.value.length === 0) {
-            paragErreur3.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur3.innerHTML = '* champ obligatoire';
+            message_3.setAttribute('class', 'bloc__form--font--message_form');
+            message_3.innerHTML = '* Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !';
 
         } else if (Remail.test(email.value) === true) {
-            paragErreur3.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur3.innerHTML = '* champ obligatoire';
+            message_3.setAttribute('class', 'bloc__form--font--message_form');
+            message_3.innerHTML = '* Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !';
 
         } else if (Remail.test(email.value) === false) {
-            paragErreur3.setAttribute('class', 'bloc__form--font--erreur2');
-            paragErreur3.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_3.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_3.innerHTML = '* Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !';
         };
     });
 
     password.addEventListener('change', (event) => {
         event.preventDefault();
         if (password.value.length === 0) {
-            paragErreur4.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur4.innerHTML = '* champ obligatoire exemple : @Modepasse';
+            message_4.setAttribute('class', 'bloc__form--font--message_form');
+            message_4.innerHTML = '* Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (Rpassword.test(password.value) === true) {
-            paragErreur4.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur4.innerHTML = '* champ obligatoire exemple : @Modepasse';
+            message_4.setAttribute('class', 'bloc__form--font--message_form');
+            message_4.innerHTML = '* Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (Rpassword.test(password.value) === false) {
-            paragErreur4.setAttribute('class', 'bloc__form--font--erreur2');
-            paragErreur4.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_4.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_4.innerHTML = '* Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
         };
     });
 
     confirmPassword.addEventListener('change', (event) => {
         event.preventDefault();
         if (confirmPassword.value.length === 0) {
-            paragErreur5.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur5.innerHTML = '* champ obligatoire';
+            message_5.setAttribute('class', 'bloc__form--font--message_form');
+            message_5.innerHTML = '* Champ obligatoire saisissez a nouveau votre mon de passe';
 
         } else if (password.value === confirmPassword.value) {
-            paragErreur5.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur5.innerHTML = '* champ obligatoire';
+            message_5.setAttribute('class', 'bloc__form--font--message_form');
+            message_5.innerHTML = '* Champ obligatoire saisissez a nouveau votre mon de passe';
 
         } else if (password.value !== confirmPassword.value) {
-            paragErreur5.setAttribute('class', 'bloc__form--font--erreur2');
-            paragErreur5.innerHTML = 'Attention les mots de passe de ne sont pas identique !';
+            message_5.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_5.innerHTML = 'Attention les mots de passe de ne sont pas identique !';
         };
     });
-}; // fin validSignup
+};
 
+//-------validation du formulaire d'authentification ---------//
 valideLogin = (email, password, Remail, Rpassword) => {
 
-    const paragErreur1 = document.getElementById('erreur1');
-    const paragErreur2 = document.getElementById('erreur2');
+    const message_1 = document.getElementById('message_1');
+    const message_2 = document.getElementById('message_2');
 
     email.addEventListener('change', (event) => {
         event.preventDefault();
 
         if (email.value.length === 0) {
-            paragErreur1.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur1.innerHTML = '* champ obligatoire';
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            message_1.innerHTML = '* champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !';
 
         } else if (Remail.test(email.value) === true) {
-            paragErreur1.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur1.innerHTML = '* champ obligatoire';
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            message_1.innerHTML = '* champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !';
 
         } else if (Remail.test(email.value) === false) {
-            paragErreur1.setAttribute('class', 'bloc__form--font--erreur2');
-            paragErreur1.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_1.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_1.innerHTML = '* champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !';
         };
     });
 
@@ -116,122 +118,122 @@ valideLogin = (email, password, Remail, Rpassword) => {
         event.preventDefault();
 
         if (password.value.length === 0) {
-            paragErreur2.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur2.innerHTML = '* champ obligatoire';
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            message_2.innerHTML = '* champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (Rpassword.test(password.value) === true) {
-            paragErreur2.setAttribute('class', 'bloc__form--font--erreur1');
-            paragErreur2.innerHTML = '* champ obligatoire';
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            message_2.innerHTML = '* champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (Rpassword.test(password.value) === false) {
-            paragErreur2.setAttribute('class', 'bloc__form--font--erreur2');
-            paragErreur2.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_2.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_2.innerHTML = '* champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
         };
     });
 };
 
-validPosts = (titre, contenu, Rdatas, idErreur) => {
+//-------validation du formulaire de création de publication ---------//
+validPosts = (titre, contenu, Rdatas, idMessage) => {
 
-    const erreurPost = document.getElementById(idErreur); // 'erreur_posts'
+    const message_1 = document.getElementById('message_1');
+    const message_2 = document.getElementById('message_2');
 
     titre.addEventListener('change', (event) => {
         event.preventDefault();
 
         if (titre.value.length === 0) {
-            erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
-            erreurPost.innerHTML = '* champ obligatoire';
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            //message_1.innerHTML = '*champ obligatoire le titre doit contenir au moins 2 characteres';
 
         } else if (Rdatas.test(titre.value) === true) {
-            erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
-            erreurPost.innerHTML = '* champ obligatoire';
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            // message_1.innerHTML = '*champ obligatoire le titre doit contenir au moins 2 characteres';
 
         } else if (Rdatas.test(titre.value) === false) {
-            erreurPost.setAttribute('class', 'bloc__form--font--erreur2');
-            erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
-
+            message_1.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_1.innerHTML = 'Ce champ est obligatoire et doit contenir au minum 2 caractères<br>sans caractères spéciaux !';
         };
     });
     contenu.addEventListener('change', (event) => {
         event.preventDefault();
 
         if (contenu.value.length === 0) {
-            erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
-            erreurPost.innerHTML = '* champ obligatoire';
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            message_2.innerHTML = '*champ obligatoire le contenu doit contenir au moins 2 characteres';
 
         } else if (Rdatas.test(contenu.value) === true) {
-            erreurPost.setAttribute('class', 'bloc__form--font--erreur3');
-            erreurPost.innerHTML = '* champ obligatoire';
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            message_2.innerHTML = '*champ obligatoire le contenu doit contenir au moins 2 characteres';
 
         } else if (Rdatas.test(contenu.value) === false) {
-            erreurPost.setAttribute('class', 'bloc__form--font--erreur2');
-            erreurPost.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_2.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_2.innerHTML = 'Ce champ est obligatoire et doit contenir au minum 2 charactères !';
         };
     });
 };
 
-
+//-------validation du formulaire de création de commentaire ---------//
 validComs = (id, contenu, Rdatas) => {
 
-    const erreurComs1 = document.getElementById(id); //'erreur_coms1'
-
+    const message_1 = document.getElementById(id);
     contenu.addEventListener('change', (event) => {
         event.preventDefault();
 
         if (contenu.value.length === 0) {
-            erreurComs1.setAttribute('class', 'bloc__form--font--erreur3');
-            erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_1.setAttribute('class', 'bloc__form--font--erreur3');
+            message_1.innerHTML = 'le champs n\'est pas rempli correctement !';
 
         } else if (Rdatas.test(contenu.value) === true) {
-            erreurComs1.setAttribute('class', 'bloc__form--font--erreur3');
-            erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_1.setAttribute('class', 'bloc__form--font--erreur3');
+            message_1.innerHTML = 'le champs n\'est pas rempli correctement !';
 
         } else if (Rdatas.test(contenu.value) === false) {
-            erreurComs1.setAttribute('class', 'bloc__form--font--erreur2');
-            erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_1.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_1.innerHTML = 'le champs n\'est pas rempli correctement !';
 
         };
     });
 };
 
+//-------validation du formulaire de modification de commentaire ---------//
 validComsModif = (contenu, Rdatas, idErreur) => {
 
-    const erreurComs1 = document.getElementById(idErreur); //'erreur_coms1'
+    const message_1 = document.getElementById(idErreur); //'erreur_coms1'
 
     contenu.addEventListener('change', (event) => {
         event.preventDefault();
 
         if (contenu.value.length === 0) {
-            erreurComs1.setAttribute('class', 'bloc__form--font--erreur3');
-            erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_1.setAttribute('class', 'bloc__form--font--message_form_3');
+            //erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
 
         } else if (Rdatas.test(contenu.value) === true) {
-            erreurComs1.setAttribute('class', 'bloc__form--font--erreur3');
-            erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_1.setAttribute('class', 'bloc__form--font--message_form_3');
+            // erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
 
         } else if (Rdatas.test(contenu.value) === false) {
-            erreurComs1.setAttribute('class', 'bloc__form--font--erreur2');
-            erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
-
+            message_1.setAttribute('class', 'bloc__form--font--message_form_4');
+            //erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
         };
     });
 };
 
-valideModifUser = (recupNom, recupPrenom, recupEmail, recupPassword, Rnom, Remail, Rpassword) => {
+//-------validation du formulaire de modification du profil utilisateur---------//
+valideModifUser = (recupNom, recupPrenom, recupEmail, regexNomPrenom, regexEmail) => {
+    const message_1 = document.getElementById('message_1');
+    const message_2 = document.getElementById('message_2');
+    const message_3 = document.getElementById('message_3');
 
-    const erreur1 = document.getElementById('erreur1');
-    const erreur2 = document.getElementById('erreur2');
-    const erreur3 = document.getElementById('erreur3');
-    const erreur4 = document.getElementById('erreur4');
 
     recupNom.addEventListener('change', (event) => {
         event.preventDefault();
 
         if (recupNom.value.length === 0) {
-            erreur1.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (Rnom.test(recupNom.value) === true) {
-            erreur1.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (Rnom.test(recupNom.value) === false) {
-            erreur1.setAttribute('class', 'bloc__form--font--erreur2');
+            message_1.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (regexNomPrenom.test(recupNom.value) === true) {
+            message_1.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (regexNomPrenom.test(recupNom.value) === false) {
+            message_1.setAttribute('class', 'bloc__form--font--message_form_4');
         };
     });
 
@@ -239,37 +241,78 @@ valideModifUser = (recupNom, recupPrenom, recupEmail, recupPassword, Rnom, Remai
         event.preventDefault();
 
         if (recupPrenom.value.length === 0) {
-            erreur2.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (Rnom.test(recupPrenom.value) === true) {
-            erreur2.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (Rnom.test(recupPrenom.value) === false) {
-            erreur2.setAttribute('class', 'bloc__form--font--erreur2');
+            message_2.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (regexNomPrenom.test(recupPrenom.value) === true) {
+            message_2.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (regexNomPrenom.test(recupPrenom.value) === false) {
+            message_2.setAttribute('class', 'bloc__form--font--message_form_4');
         };
     });
     recupEmail.addEventListener('change', (event) => {
         event.preventDefault();
 
         if (recupEmail.value.length === 0) {
-            erreur3.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (Remail.test(recupEmail.value) === true) {
-            erreur3.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (Remail.test(recupEmail.value) === false) {
-            erreur3.setAttribute('class', 'bloc__form--font--erreur2');
-        };
-    });
-    recupPassword.addEventListener('change', (event) => {
-        event.preventDefault();
-
-        if (recupPassword.value.length === 0) {
-            erreur4.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (Rpassword.test(recupPassword.value) === true) {
-            erreur4.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (Rpassword.test(recupPassword.value) === false) {
-            erreur4.setAttribute('class', 'bloc__form--font--erreur2');
+            message_3.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (regexEmail.test(recupEmail.value) === true) {
+            message_3.setAttribute('class', 'bloc__form--font--erreur');
+        } else if (regexEmail.test(recupEmail.value) === false) {
+            message_3.setAttribute('class', 'bloc__form--font--message_form_4');
         };
     });
 };
 
+//-------validation du formulaire de modification du mot de passe du profil utilisateur---------//
+valideModifPassword = (holdPassword, newPassword, confirmNewPassword, regexPassword) => {
+    const message_1 = document.getElementById('message_1');
+    const message_2 = document.getElementById('message_2');
+    const message_3 = document.getElementById('message_3');
+
+    holdPassword.addEventListener('change', (event) => {
+        if (holdPassword.value.length === 0) {
+            message_1.setAttribute('class', 'bloc__form--font--erreur');
+            message_1.innerHTML = '* champ obligatoire';
+
+        } else if (regexPassword.test(holdPassword.value) === true) {
+            message_1.setAttribute('class', 'bloc__form--font--erreur');
+            message_1.innerHTML = '* champ obligatoire';
+
+        } else if (regexPassword.test(holdPassword.value) === false) {
+            message_1.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_1.innerHTML = 'Format de l\'email est non  conforme !!!';
+        };
+    });
+
+    newPassword.addEventListener('change', (event) => {
+        if (newPassword.value.length === 0) {
+            message_2.setAttribute('class', 'bloc__form--font--erreur');
+            message_2.innerHTML = '* champ obligatoire';
+
+        } else if (regexPassword.test(newPassword.value) === true) {
+            message_2.setAttribute('class', 'bloc__form--font--erreur');
+            message_2.innerHTML = '* champ obligatoire';
+
+        } else if (regexPassword.test(newPassword.value) === false) {
+            message_2.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_2.innerHTML = 'Format de l\'email est non  conforme !!!';
+        };
+    });
+
+    confirmNewPassword.addEventListener('change', (event) => {
+        if (confirmNewPassword.value.length === 0) {
+            message_3.setAttribute('class', 'bloc__form--font--erreur');
+            message_3.innerHTML = '* champ obligatoire';
+        } else if (newPassword.value === confirmNewPassword.value) {
+            message_3.setAttribute('class', 'bloc__form--font--erreur');
+            message_3.innerHTML = '* champ obligatoire';
+
+        } else if (newPassword.value !== confirmNewPassword.value) {
+            message_3.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_3.innerHTML = 'Les mots de passe ne sont pas identique !';
+        };
+    });
+};
+
+//-------validation pour savoir si on est le créateur de la publication---------//
 valideUserCreateur = (recupUserId, repuserId, reppostId, role) => {
     if (recupUserId === repuserId || role === 1) {
         const btnModifier = document.getElementById('btn_modif_publication' + reppostId, );
@@ -281,6 +324,8 @@ valideUserCreateur = (recupUserId, repuserId, reppostId, role) => {
         btnSupprimer.setAttribute('class', 'far fa-trash-alt bloc_article_div_a--hover bloc_article_p--padding');
     };
 };
+
+//-------validation pour savoir si on est le créateur du commentaire---------//
 valideUserCreateurCom = (recupUserId, repsuserId, repscomId, role) => {
     if (recupUserId === repsuserId || role === 1) {
         const btnModifierCom = document.getElementById('btn_com_modif1' + repscomId);
@@ -291,97 +336,4 @@ valideUserCreateurCom = (recupUserId, repsuserId, repscomId, role) => {
         btnSupprimerCom.removeAttribute('class');
         btnSupprimerCom.setAttribute('class', 'far fa-trash-alt bloc_article_div_a--hover bloc_article_p--padding');
     };
-};
-
-valideModifUser = (recupNom, recupPrenom, recupEmail, regexNomPrenom, regexEmail) => {
-    const erreur1 = document.getElementById('erreur1');
-    const erreur2 = document.getElementById('erreur2');
-    const erreur3 = document.getElementById('erreur3');
-    // const erreur4 = document.getElementById('erreur4');
-
-    recupNom.addEventListener('change', (event) => {
-        event.preventDefault();
-
-        if (recupNom.value.length === 0) {
-            erreur1.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (regexNomPrenom.test(recupNom.value) === true) {
-            erreur1.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (regexNomPrenom.test(recupNom.value) === false) {
-            erreur1.setAttribute('class', 'bloc__form--font--erreur2');
-        };
-    });
-
-    recupPrenom.addEventListener('change', (event) => {
-        event.preventDefault();
-
-        if (recupPrenom.value.length === 0) {
-            erreur2.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (regexNomPrenom.test(recupPrenom.value) === true) {
-            erreur2.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (regexNomPrenom.test(recupPrenom.value) === false) {
-            erreur2.setAttribute('class', 'bloc__form--font--erreur2');
-        };
-    });
-    recupEmail.addEventListener('change', (event) => {
-        event.preventDefault();
-
-        if (recupEmail.value.length === 0) {
-            erreur3.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (regexEmail.test(recupEmail.value) === true) {
-            erreur3.setAttribute('class', 'bloc__form--font--erreur');
-        } else if (regexEmail.test(recupEmail.value) === false) {
-            erreur3.setAttribute('class', 'bloc__form--font--erreur2');
-        };
-    });
-
-};
-
-valideModifPassword = (holdPassword, newPassword, confirmNewPassword, regexPassword) => {
-    const paragErreur1 = document.getElementById('erreur_1');
-    const paragErreur2 = document.getElementById('erreur_2');
-    const paragErreur3 = document.getElementById('erreur_3');
-
-
-    holdPassword.addEventListener('change', (event) => {
-        if (holdPassword.value.length === 0) {
-            paragErreur1.setAttribute('class', 'bloc__form--font--erreur');
-            paragErreur1.innerHTML = '* champ obligatoire';
-
-        } else if (regexPassword.test(holdPassword.value) === true) {
-            paragErreur1.setAttribute('class', 'bloc__form--font--erreur');
-            paragErreur1.innerHTML = '* champ obligatoire';
-
-        } else if (regexPassword.test(holdPassword.value) === false) {
-            paragErreur1.setAttribute('class', 'bloc__form--font--erreur2');
-            paragErreur1.innerHTML = 'Format de l\'email est non  conforme !!!';
-        };
-    });
-
-    newPassword.addEventListener('change', (event) => {
-        if (newPassword.value.length === 0) {
-            paragErreur2.setAttribute('class', 'bloc__form--font--erreur');
-            paragErreur2.innerHTML = '* champ obligatoire';
-
-        } else if (regexPassword.test(newPassword.value) === true) {
-            paragErreur2.setAttribute('class', 'bloc__form--font--erreur');
-            paragErreur2.innerHTML = '* champ obligatoire';
-
-        } else if (regexPassword.test(newPassword.value) === false) {
-            paragErreur2.setAttribute('class', 'bloc__form--font--erreur2');
-            paragErreur2.innerHTML = 'Format de l\'email est non  conforme !!!';
-        };
-    });
-    confirmNewPassword.addEventListener('change', (event) => {
-        if (confirmNewPassword.value.length === 0) {
-            paragErreur3.setAttribute('class', 'bloc__form--font--erreur');
-            paragErreur3.innerHTML = '* champ obligatoire';
-        } else if (newPassword.value === confirmNewPassword.value) {
-            paragErreur3.setAttribute('class', 'bloc__form--font--erreur');
-            paragErreur3.innerHTML = '* champ obligatoire';
-
-        } else if (newPassword.value !== confirmNewPassword.value) {
-            paragErreur3.setAttribute('class', 'bloc__form--font--erreur2');
-            paragErreur3.innerHTML = 'Format de l\'email est non  conforme !!!';
-        };
-    });
 };

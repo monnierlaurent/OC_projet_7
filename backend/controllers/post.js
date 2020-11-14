@@ -2,6 +2,7 @@ const sanitize = require('mongo-sanitize');
 const fs = require('fs');
 const PostModel = require('../models/postModel');
 const LikeModel = require('../models/likeModel');
+const { response } = require('express');
 
 const postModel = new PostModel();
 const likeModel = new LikeModel();
@@ -26,7 +27,26 @@ exports.createPostImg = (req, res, next) => {
 
         postModel.saveImg(userIdAuth, postsObject.titre, postsObject.contenu, imageUrl)
             .then(() => {
-                res.status(201).json({ message: 'message enregistré !!!' });
+                postModel.findOnedate()
+                    .then(response => {
+                        console.log(response);
+                        res.status(201).json({
+                            userId: response[0].userId,
+                            titre: response[0].titre,
+                            contenu: response[0].contenu,
+                            dateCrea: response[0].dateCrea,
+                            dateModif: response[0].dateModif,
+                            imageUrl: response[0].imageUrl,
+                            likes: response[0].likes,
+                            dislikes: response[0].dislikes,
+                            postId: response[0].postId,
+                            nom: response[0].nom,
+                            prenom: response[0].prenom,
+                            avatar: response[0].avatar,
+                            message: 'message enregistré !!!'
+                        });
+                    });
+
             }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
     } else {
         fs.unlink(`${req.file.filename}`, () => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }) });
@@ -43,7 +63,25 @@ exports.createPost = (req, res, next) => {
 
     postModel.save(userIdAuth, reqBody.titre, reqBody.contenu)
         .then(() => {
-            res.status(201).json({ message: 'message enregistré !!!' });
+            postModel.findOnedate()
+                .then(response => {
+                    console.log(response[0]);
+                    res.status(201).json({
+                        userId: response[0].userId,
+                        titre: response[0].titre,
+                        contenu: response[0].contenu,
+                        dateCrea: response[0].dateCrea,
+                        dateModif: response[0].dateModif,
+                        imageUrl: response[0].imageUrl,
+                        likes: response[0].likes,
+                        dislikes: response[0].dislikes,
+                        postId: response[0].postId,
+                        nom: response[0].nom,
+                        prenom: response[0].prenom,
+                        avatar: response[0].avatar,
+                        message: 'message enregistré !!!'
+                    });
+                });
         }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
 };
 
@@ -141,7 +179,7 @@ exports.updatePostIdImg = (req, res, next) => {
 
 
 exports.updatePostId = (req, res, next) => {
-
+    console.log(req.body)
     const reqParamsId = sanitize(req.params.id);
     const userIdAuth = sanitize(req.userIdAuth);
     const reqBody = sanitize(req.body);

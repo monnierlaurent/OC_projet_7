@@ -4,7 +4,13 @@ createLogin = () => {
 
     createFormSignup();
 
-    const paragErreur6 = document.getElementById('erreur6');
+    const message_1 = document.getElementById('message_1');
+    const message_2 = document.getElementById('message_2');
+    const message_3 = document.getElementById('message_3');
+    const message_4 = document.getElementById('message_4');
+    const message_5 = document.getElementById('message_5');
+    const message_6 = document.getElementById('message_6');
+    const message_7 = document.getElementById('message_7');
 
     const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20} *$/;
     const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania.fr]+[.]{1}[a-zA-Z1-9]{2,10}$/;
@@ -56,12 +62,46 @@ createLogin = () => {
         return avatarChoix = avatar4.src;
     });
 
-
     valideSignup(nom, prenom, email, password, confirmPassword, regexNomPrenom, regexEmail, regexPassword);
 
     const btnConnection = document.getElementById('btn_inscrip_signup');
     btnConnection.addEventListener('click', (event) => {
         event.preventDefault();
+        if (regexNomPrenom.test(nom.value) === false) {
+            message_1.setAttribute('class', 'bloc__form--font--message_form_4');
+        } else {
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+        };
+        if (regexNomPrenom.test(prenom.value) === false) {
+            message_2.setAttribute('class', 'bloc__form--font--message_form_4');
+        } else {
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
+        };
+        if (regexNomPrenom.test(email.value) === false) {
+            message_3.setAttribute('class', 'bloc__form--font--message_form_4');
+        } else {
+            message_3.setAttribute('class', 'bloc__form--font--message_form');
+        };
+        if (regexNomPrenom.test(password.value) === false) {
+            message_4.setAttribute('class', 'bloc__form--font--message_form_4');
+        } else {
+            message_4.setAttribute('class', 'bloc__form--font--message_form');
+        };
+        if (regexNomPrenom.test(password.value) === false) {
+            message_4.setAttribute('class', 'bloc__form--font--message_form_4');
+        } else {
+            message_4.setAttribute('class', 'bloc__form--font--message_form');
+        };
+        if (confirmPassword.value !== password.value || confirmPassword.length === undefined) {
+            message_5.setAttribute('class', 'bloc__form--font--message_form_4');
+        } else {
+            message_5.setAttribute('class', 'bloc__form--font--message_form');
+        };
+        if (avatarChoix === undefined) {
+            message_6.setAttribute('class', 'bloc__form--font--message_form_4');
+        } else {
+            message_6.setAttribute('class', 'bloc__form--font--message_form_2');
+        };
 
         if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false, confirmPassword.value === password.value && avatarChoix !== undefined) {
             const contact = {
@@ -79,7 +119,7 @@ createLogin = () => {
 
                 if (response.error) {
 
-                    paragErreur6.setAttribute('class', 'bloc__form--font--erreur2');
+                    message_7.setAttribute('class', 'bloc__form--font--message_form_4');
                 } else {
 
                     const auth = JSON.stringify(response);
@@ -91,7 +131,7 @@ createLogin = () => {
                 modals();
             })); //fin catch
         } else {
-            paragErreur6.setAttribute('class', 'bloc__form--font--erreur2');
+            message_7.setAttribute('class', 'bloc__form--font--message_form_4');
         };
     });
 };

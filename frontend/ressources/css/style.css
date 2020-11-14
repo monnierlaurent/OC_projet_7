@@ -35,23 +35,23 @@
     }
     /*------message erreur-----*/
     
-    .bloc__form--font--erreur {
-        color: var(--gris3);
-        padding-top: 0.5em;
-    }
-    
-    .bloc__form--font--erreur1 {
+    .bloc__form--font--message_form {
         color: var(--noir);
         padding-top: 0.5em;
     }
     
-    .bloc__form--font--erreur2 {
-        color: var(--rouge);
+    .bloc__form--font--message_form_2 {
+        color: var(--gris3);
         padding-top: 0.5em;
     }
     
-    .bloc__form--font--erreur3 {
+    .bloc__form--font--message_form_3 {
         color: var(--blanc);
+        padding-top: 0.5em;
+    }
+    
+    .bloc__form--font--message_form_4 {
+        color: var(--rouge);
         padding-top: 0.5em;
     }
     /*--------header-------*/
@@ -362,7 +362,7 @@
     .bloc__form--login--flex {
         display: flex;
         flex-direction: column;
-        padding-top: 12em;
+        padding-top: 7em;
         width: 50%;
     }
     
@@ -538,10 +538,6 @@
         text-align: center;
         box-shadow: 5px 5px 5px var(--gris1);
         width: 45%;
-    }
-    
-    .bloc__form_p--style {
-        padding-top: 0.5em;
     }
     
     .bloc__login--flex {

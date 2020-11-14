@@ -8,7 +8,9 @@ createLogin = () => {
         const email = document.getElementById('email');
         const password = document.getElementById('password');
 
-        const paragErreur3 = document.getElementById('erreur3');
+        const message_1 = document.getElementById('message_1');
+        const message_2 = document.getElementById('message_2');
+        const message_3 = document.getElementById('message_3');
 
         const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania.fr]+[.]{1}[a-zA-Z1-9]{2,10}$/;
         const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{8,255}/;
@@ -19,6 +21,16 @@ createLogin = () => {
 
         newBtnConnection.addEventListener('click', (event) => {
             event.preventDefault();
+            if (regexEmail.test(email.value) === false) {
+                message_1.setAttribute('class', 'bloc__form--font--message_form_4');
+            } else {
+                message_1.setAttribute('class', 'bloc__form--font--message_form');
+            };
+            if (regexPassword.test(password.value) === false) {
+                message_2.setAttribute('class', 'bloc__form--font--message_form_4');
+            } else {
+                message_2.setAttribute('class', 'bloc__form--font--message_form');
+            };
 
             if (regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false) {
 
@@ -32,7 +44,8 @@ createLogin = () => {
                 datas.then(response => {
 
                     if (response.error) {
-                        paragErreur3.setAttribute('class', 'bloc__form--font--erreur2');
+                        message_3.innerHTML = response.error;
+                        message_3.setAttribute('class', 'bloc__form--font--message_form_4');
                     } else {
 
                         const auth = JSON.stringify(response);
@@ -41,14 +54,10 @@ createLogin = () => {
                     };
 
                 }).catch((error) => {
-
-
-
                     modals();
                 }); //fin catch
-
             } else {
-                paragErreur3.setAttribute('class', 'bloc__form--font--erreur2');
+                message_3.setAttribute('class', 'bloc__form--font--message_form_4');
             };
         });
     };
