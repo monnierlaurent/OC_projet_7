@@ -14,23 +14,23 @@ createFormSignup = () => {
 
     formPost.appendChild(createElm2('label', 'Nom :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'nom')); //
     formPost.appendChild(createElm3('input', '', 'id', 'nom', 'class', 'bloc__form--input--create--post--style-2', 'type', 'text')); //
-    formPost.appendChild(createElm2('p', 'le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !', 'id', 'message_1', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !', 'id', 'message_1', 'class', 'bloc__form--font--message_form'));
 
     formPost.appendChild(createElm2('label', 'Prenom :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'prenom')); //
     formPost.appendChild(createElm3('input', '', 'id', 'prenom', 'class', 'bloc__form--input--create--post--style-2', 'type', 'text')); //
-    formPost.appendChild(createElm2('p', 'le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !', 'id', 'message_2', 'class', 'bloc__form--font--message_form')); //
+    formPost.appendChild(createElm2('p', '*Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !', 'id', 'message_2', 'class', 'bloc__form--font--message_form')); //
 
     formPost.appendChild(createElm2('label', 'Adresse email :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'email')); //
     formPost.appendChild(createElm3('input', '', 'id', 'email', 'class', 'bloc__form--input--create--post--style-2', 'type', 'email')); //
-    formPost.appendChild(createElm2('p', '* champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !', 'id', 'message_3', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', '*Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !', 'id', 'message_3', 'class', 'bloc__form--font--message_form'));
 
     formPost.appendChild(createElm2('label', 'Mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'password')); //
     formPost.appendChild(createElm3('input', '', 'id', 'password', 'class', 'bloc__form--input--create--post--style-2', 'type', 'password')); //
-    formPost.appendChild(createElm2('p', '* champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !', 'id', 'message_4', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !', 'id', 'message_4', 'class', 'bloc__form--font--message_form'));
 
     formPost.appendChild(createElm2('label', 'Comfirmation du mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'comfirmPassword')); //
     formPost.appendChild(createElm3('input', '', 'id', 'comfirmPassword', 'class', 'bloc__form--input--create--post--style-2', 'type', 'password')); //
-    formPost.appendChild(createElm2('p', '* champ obligatoire saisissez a nouveau votre mon de passe', 'id', 'message_5', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', '*champ obligatoire saisissez a nouveau votre mon de passe', 'id', 'message_5', 'class', 'bloc__form--font--message_form'));
 
 
     formPost.appendChild(createElm1('p', 'Sélèctionner un avatar :', 'class', 'bloc__login__form--label--style--create--post')); //
@@ -46,6 +46,6 @@ createFormSignup = () => {
     const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv1.appendChild(createElm3('button', 'Inscription', 'id', 'btn_inscrip_signup', 'class', 'bloc__form--create--post--btn--post', 'title', 'Boutton de validation pour l\'inscription')); //
 
-    newDiv1.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'message_7', 'class', 'bloc__form--font--message_form_2'));
+    newDiv1.appendChild(createElm2('p', 'Un des champs n\'est pas rempli correctement !', 'id', 'message_7', 'class', 'bloc__form--font--message_form_2'));
 
 };

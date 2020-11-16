@@ -321,7 +321,7 @@
     }
     
     .modal-wrapper {
-        width: 30%;
+        width: 40%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -494,6 +494,12 @@
     
     .fa-heart-broken {
         color: var(--rouge);
+    }
+    
+    .bloc_article--icons--flex {
+        display: flex;
+        flex-direction: row;
+        align-self: flex-end;
     }
     
     .bloc_article--icons--flex:hover,

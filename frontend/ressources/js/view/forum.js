@@ -44,10 +44,10 @@ createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repConte
     newDiv8 = newarticle.appendChild(createElm2('p', 'masquer', 'id', 'display_none_forum' + repPostId, 'class', 'display--none')); //bloc_article--icons--flex
 };
 
-createDisplayComs = (avatar, nom, prenom, contenu, postId, comId, comLikes, comDislikes) => {
+createDisplayComs = (avatar, nom, prenom, contenu, comId, postId, comLikes, comDislikes) => {
     const mainPostId = document.getElementById('display_forum' + postId);
 
-    const newArticle = mainPostId.appendChild(createElm2('span', '', 'id', 'coms_display_none' + comId, 'class', 'display--none'));
+    const newArticle = mainPostId.appendChild(createElm2('span', '', 'id', 'coms_display' + comId, 'class', 'display--none'));
 
     const newDiv = newArticle.appendChild(createElm2('div', '', 'id', 'divArticleCom' + comId, 'class', 'bloc_article_div--flex--coms--0'));
 
@@ -119,9 +119,11 @@ modaleCreateModifPost = (postId, avatar, titre, contenu, imageUrl, nom, prenom) 
 
     formPost.appendChild(createElm2('label', 'Titre :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'post_forum_titre')); //
     formPost.appendChild(createInputs('input', '', 'id', 'post_forum_titre' + postId, 'class', 'bloc__form--input--create--post--style-2', 'name', 'titre', 'value', titre)); //
+    formPost.appendChild(createElm2('p', '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !', 'id', 'message_11', 'class', 'bloc__form--font--message_form'));
 
     formPost.appendChild(createElm2('label', 'Message :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'post_forum')); //
     formPost.appendChild(createInputs('textarea', contenu, 'id', 'post_forum_text' + postId, 'rows', '5', 'cols', '33', 'class', 'bloc__form--input--create--post--style-2', 'name', 'contenu')); //
+    formPost.appendChild(createElm2('p', 'Le contenu doit contenir au minum 2 charactères !', 'id', 'message_22', 'class', 'bloc__form--font--message_form'));
 
     const formPost2 = formPost.appendChild(createElm3('form', '', 'id', 'form_modif_post_2', 'class', 'bloc_form--create--post--flex--width')); //
     formPost2.appendChild(createElm2('img', '', 'class', 'bloc_article_img--width2', 'src', imageUrl, 'alt', 'affichage de l\'anciene image'));
@@ -132,15 +134,15 @@ modaleCreateModifPost = (postId, avatar, titre, contenu, imageUrl, nom, prenom) 
     const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv2.appendChild(createElm3('p', 'Publier', 'id', 'btn_post_forum_modif', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour publier un commentaire')); //
 
-    formPost.appendChild(createElm2('p', 'le champs n\'est pas rempli correctement !', 'id', 'message_modif_posts', 'class', 'bloc__form--font--message_form_3'));
+    formPost.appendChild(createElm2('p', 'Un des champs n\'est pas rempli correctement !', 'id', 'message_33', 'class', 'bloc__form--font--message_form_3'));
 };
 createComsForm = (avatar, nom, prenom) => {
     const main = document.querySelector('main');
     const newAside = main.appendChild(createElm2('aside', '', 'id', 'modal_create_commentaire', 'class', 'display--none')); //modal
     const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper')); //
-    newDivAside.appendChild(createElm3('button', '', 'id', 'btnAnnulerComs_1', 'class', 'far fa-times-circle fa-2x bloc__form--create--post--btn-annul--style', 'title', 'boutton pour annuler la creation d\'un commentaire')); //
+    newDivAside.appendChild(createElm3('button', '', 'id', 'btn_Annuler_Coms_1', 'class', 'far fa-times-circle fa-2x bloc__form--create--post--btn-annul--style', 'title', 'boutton pour annuler la creation d\'un commentaire')); //
 
-    const formPost = newDivAside.appendChild(createElm2('form', '', 'id', 'form_post', 'class', 'bloc__form--create--post--flex')); //
+    const formPost = newDivAside.appendChild(createElm2('form', '', 'id', 'form_commentaire', 'class', 'bloc__form--create--post--flex')); //
     formPost.appendChild(createElm1('h2', 'Céer un commentaire', 'class', 'bloc__login__form--label--style--create--post')); //
 
     const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', 'bloc_modal_create_post_avatar_flex'));
@@ -148,12 +150,13 @@ createComsForm = (avatar, nom, prenom) => {
     newDiv1.appendChild(createElm1('p', nom + ' ' + prenom, 'class', 'bloc__login__form--label--style--create--post')); //
 
     formPost.appendChild(createElm2('label', 'Commentaire :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'post_forum')); //
-    formPost.appendChild(createInputs('textarea', '', 'id', 'commentaire', 'rows', '5', 'cols', '33', 'class', 'bloc__form--input--create--post--style-2', 'name', 'contenu')); //
+    formPost.appendChild(createInputs('textarea', '', 'id', 'create_commentaire', 'rows', '5', 'cols', '33', 'class', 'bloc__form--input--create--post--style-2', 'name', 'contenu')); //
+    formPost.appendChild(createElm2('p', 'Le champs commentaire et obligatoire et dois contenir au minimum 2 charateres !', 'id', 'message_coms_1', 'class', 'bloc__form--font--message_form'));
 
     const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv2.appendChild(createElm3('button', 'Publier', 'id', 'btn_envoyer_coms', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour  publier d\'un commentaire')); //
 
-    formPost.appendChild(createElm2('p', 'Le champs commentaire et obligatoire et dois contenir au minimum 2 charateres!', 'id', 'message_coms_modif', 'class', 'bloc__form--font--message_form_3'));
+    formPost.appendChild(createElm2('p', 'Le champs commentaire et obligatoire et dois contenir au minimum 2 charateres!', 'id', 'message_coms_2', 'class', 'bloc__form--font--message_form_3'));
 };
 
 modifComsForm = (avatar, nom, prenom, valueTextarea) => {
@@ -171,11 +174,12 @@ modifComsForm = (avatar, nom, prenom, valueTextarea) => {
 
     formPost.appendChild(createElm2('label', 'Commentaire :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'post_forum')); //
     formPost.appendChild(createInputs('textarea', valueTextarea, 'id', 'commentaireModifCom', 'rows', '5', 'cols', '33', 'class', 'bloc__form--input--create--post--style-2', 'name', 'contenu')); //
+    formPost.appendChild(createElm2('p', 'Le champs commentaire et obligatoire et dois contenir au minimum 2 charateres!', 'id', 'message_coms_111', 'class', 'bloc__form--font--message_form'));
 
     const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv2.appendChild(createElm3('button', 'Publier', 'id', 'btnComModif', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour  publier un commentaire')); //
 
-    formPost.appendChild(createElm2('p', 'Le champs commentaire et obligatoire et dois contenir au minimum 2 charateres!', 'id', 'message_coms_modif', 'class', 'bloc__form--font--message_form_3'));
+    formPost.appendChild(createElm2('p', 'Le champs commentaire et obligatoire et dois contenir au minimum 2 charateres!', 'id', 'message_coms_222', 'class', 'bloc__form--font--message_form_3'));
 };
 
 

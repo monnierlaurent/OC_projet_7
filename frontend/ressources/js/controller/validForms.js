@@ -13,15 +13,15 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
 
         if (nom.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '* Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
+            message_1.innerHTML = '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
 
         } else if (Rnom.test(nom.value) === true) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '* Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
+            message_1.innerHTML = '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
 
         } else if (Rnom.test(nom.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_1.innerHTML = '* Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
+            message_1.innerHTML = '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
         };
     });
     prenom.addEventListener('change', (event) => {
@@ -29,15 +29,15 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
 
         if (prenom.value.length === 0) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            message_2.innerHTML = '* Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
+            message_2.innerHTML = '*Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
 
         } else if (Rnom.test(prenom.value) === true) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            message_2.innerHTML = '* Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
+            message_2.innerHTML = '*Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
 
         } else if (Rnom.test(prenom.value) === false) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_2.innerHTML = '* Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
+            message_2.innerHTML = '*Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
         };
     });
 
@@ -46,15 +46,15 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
 
         if (email.value.length === 0) {
             message_3.setAttribute('class', 'bloc__form--font--message_form');
-            message_3.innerHTML = '* Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !';
+            message_3.innerHTML = '*Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !';
 
         } else if (Remail.test(email.value) === true) {
             message_3.setAttribute('class', 'bloc__form--font--message_form');
-            message_3.innerHTML = '* Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !';
+            message_3.innerHTML = '*Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !';
 
         } else if (Remail.test(email.value) === false) {
             message_3.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_3.innerHTML = '* Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !';
+            message_3.innerHTML = '*Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !';
         };
     });
 
@@ -62,15 +62,15 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
         event.preventDefault();
         if (password.value.length === 0) {
             message_4.setAttribute('class', 'bloc__form--font--message_form');
-            message_4.innerHTML = '* Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (Rpassword.test(password.value) === true) {
             message_4.setAttribute('class', 'bloc__form--font--message_form');
-            message_4.innerHTML = '* Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (Rpassword.test(password.value) === false) {
             message_4.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_4.innerHTML = '* Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
         };
     });
 
@@ -78,11 +78,11 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
         event.preventDefault();
         if (confirmPassword.value.length === 0) {
             message_5.setAttribute('class', 'bloc__form--font--message_form');
-            message_5.innerHTML = '* Champ obligatoire saisissez a nouveau votre mon de passe';
+            message_5.innerHTML = '*Champ obligatoire saisissez a nouveau votre mon de passe';
 
         } else if (password.value === confirmPassword.value) {
             message_5.setAttribute('class', 'bloc__form--font--message_form');
-            message_5.innerHTML = '* Champ obligatoire saisissez a nouveau votre mon de passe';
+            message_5.innerHTML = '*Champ obligatoire saisissez a nouveau votre mon de passe';
 
         } else if (password.value !== confirmPassword.value) {
             message_5.setAttribute('class', 'bloc__form--font--message_form_4');
@@ -102,15 +102,15 @@ valideLogin = (email, password, Remail, Rpassword) => {
 
         if (email.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '* champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !';
+            message_1.innerHTML = '*champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !';
 
         } else if (Remail.test(email.value) === true) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '* champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !';
+            message_1.innerHTML = '*champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !';
 
         } else if (Remail.test(email.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_1.innerHTML = '* champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !';
+            message_1.innerHTML = '*champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !';
         };
     });
 
@@ -119,39 +119,39 @@ valideLogin = (email, password, Remail, Rpassword) => {
 
         if (password.value.length === 0) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            message_2.innerHTML = '* champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_2.innerHTML = '*champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (Rpassword.test(password.value) === true) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            message_2.innerHTML = '* champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_2.innerHTML = '*champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (Rpassword.test(password.value) === false) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_2.innerHTML = '* champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_2.innerHTML = '*champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
         };
     });
 };
 
 //-------validation du formulaire de création de publication ---------//
-validPosts = (titre, contenu, Rdatas, idMessage) => {
+validPosts = (titre, contenu, Rdatas) => {
 
-    const message_1 = document.getElementById('message_1');
-    const message_2 = document.getElementById('message_2');
+    const message_1 = document.getElementById('message_11');
+    const message_2 = document.getElementById('message_22');
 
     titre.addEventListener('change', (event) => {
         event.preventDefault();
 
         if (titre.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            //message_1.innerHTML = '*champ obligatoire le titre doit contenir au moins 2 characteres';
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !';
 
         } else if (Rdatas.test(titre.value) === true) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            // message_1.innerHTML = '*champ obligatoire le titre doit contenir au moins 2 characteres';
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !';
 
         } else if (Rdatas.test(titre.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_1.innerHTML = 'Ce champ est obligatoire et doit contenir au minum 2 caractères<br>sans caractères spéciaux !';
+            message_1.innerHTML = 'Ce champ est obligatoire et doit contenir au minum 2 charactères<br>sans caractères spéciaux !';
         };
     });
     contenu.addEventListener('change', (event) => {
@@ -159,15 +159,15 @@ validPosts = (titre, contenu, Rdatas, idMessage) => {
 
         if (contenu.value.length === 0) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            message_2.innerHTML = '*champ obligatoire le contenu doit contenir au moins 2 characteres';
+            message_2.innerHTML = 'Le contenu doit contenir au minum 2 charactères !';
 
         } else if (Rdatas.test(contenu.value) === true) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            message_2.innerHTML = '*champ obligatoire le contenu doit contenir au moins 2 characteres';
+            message_2.innerHTML = 'Le contenu doit contenir au minum 2 charactères !';
 
         } else if (Rdatas.test(contenu.value) === false) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_2.innerHTML = 'Ce champ est obligatoire et doit contenir au minum 2 charactères !';
+            message_2.innerHTML = 'Le contenu doit contenir au minum 2 charactères ! !';
         };
     });
 };
@@ -180,16 +180,16 @@ validComs = (id, contenu, Rdatas) => {
         event.preventDefault();
 
         if (contenu.value.length === 0) {
-            message_1.setAttribute('class', 'bloc__form--font--erreur3');
-            message_1.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            message_1.innerHTML = '*champs commentaire et obligatoire et dois contenir au minimum 2 charateres !';
 
         } else if (Rdatas.test(contenu.value) === true) {
-            message_1.setAttribute('class', 'bloc__form--font--erreur3');
-            message_1.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            message_1.innerHTML = '*champs commentaire et obligatoire et dois contenir au minimum 2 charateres !';
 
         } else if (Rdatas.test(contenu.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_1.innerHTML = 'le champs n\'est pas rempli correctement !';
+            message_1.innerHTML = 'Le champs commentaire et obligatoire et dois contenir au minimum 2 charateres !';
 
         };
     });
@@ -204,11 +204,11 @@ validComsModif = (contenu, Rdatas, idErreur) => {
         event.preventDefault();
 
         if (contenu.value.length === 0) {
-            message_1.setAttribute('class', 'bloc__form--font--message_form_3');
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
             //erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
 
         } else if (Rdatas.test(contenu.value) === true) {
-            message_1.setAttribute('class', 'bloc__form--font--message_form_3');
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
             // erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
 
         } else if (Rdatas.test(contenu.value) === false) {
@@ -270,30 +270,30 @@ valideModifPassword = (holdPassword, newPassword, confirmNewPassword, regexPassw
     holdPassword.addEventListener('change', (event) => {
         if (holdPassword.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--erreur');
-            message_1.innerHTML = '* champ obligatoire';
+            message_1.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(holdPassword.value) === true) {
             message_1.setAttribute('class', 'bloc__form--font--erreur');
-            message_1.innerHTML = '* champ obligatoire';
+            message_1.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(holdPassword.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_1.innerHTML = 'Format de l\'email est non  conforme !!!';
+            message_1.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
         };
     });
 
     newPassword.addEventListener('change', (event) => {
         if (newPassword.value.length === 0) {
             message_2.setAttribute('class', 'bloc__form--font--erreur');
-            message_2.innerHTML = '* champ obligatoire';
+            message_2.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(newPassword.value) === true) {
             message_2.setAttribute('class', 'bloc__form--font--erreur');
-            message_2.innerHTML = '* champ obligatoire';
+            message_2.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(newPassword.value) === false) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_2.innerHTML = 'Format de l\'email est non  conforme !!!';
+            message_2.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
         };
     });
 
