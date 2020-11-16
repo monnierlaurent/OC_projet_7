@@ -127,3 +127,9 @@ deletetitre = (repcontenu, reppostId) => {
         //console.log('il y a une image');
     };
 };
+
+messageConfirm2 = (message, idMain) => {
+    const main = document.getElementById(idMain);
+    const NenDiv = main.appendChild(createElm2('div', '', 'id', 'modal_message', 'class', 'modal', ));
+    NenDiv.appendChild(createElm2('p', message, 'id', 'message_confirm', 'class', 'modal-confirm-style modal-wrapper')); //'Message bien supprimé'
+};

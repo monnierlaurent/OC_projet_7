@@ -1,10 +1,11 @@
 createUsersCompte = () => {
+
     const urlUser = 'http://localhost:3000/api/auth/' + (new URL(window.location.href)).searchParams.get('id');
 
     const recupStorage = sessionStorage.getItem('repAuth');
-    const recupUserId = JSON.parse(recupStorage);
+    const recupUserId1 = JSON.parse(recupStorage);
 
-    if (!recupUserId) {
+    if (!recupUserId1) {
         window.location = './index.html';
     } else {
 
@@ -19,168 +20,289 @@ createUsersCompte = () => {
 
             deconnection('deconnection');
 
-            const btnModif = document.getElementById('btn_modif_profil_user');
+            createFormModifUser(userUnique.nom, userUnique.prenom, userUnique.emailRec)
 
-            const idUser = 'http://localhost:3000/api/auth/' + userUnique.id;
-            btnModif.addEventListener('click', (event) => {
-                event.preventDefault();
-
-                const recupForm = document.getElementById('form_modif_user');
-                recupForm.removeAttribute('class');
-                recupForm.setAttribute('class', 'bloc_section_form--flex')
-            });
-
-            const btnSuppr = document.getElementById('btn_suppr_profil_user');
-            btnSuppr.addEventListener('click', (event) => {
-                event.preventDefault();
-
-                const supprDatas = deleteAuth(idUser);
-                supprDatas.then(response => {
-                    modals('Profil supprimé !', 'Inscription', 'signup.html');
-                }).catch((error => {
-                    modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-                })); //fin catch
-            });
-        }).catch((error => {
-            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-        })); //fin catch
-        //valideModifUser();
-        const datas2 = requestAuth(urlUser);
-        datas2.then(userDatas => {
-
-            createFormModifUser(userDatas.nom, userDatas.prenom, userDatas.emailRec);
             createFormModifPassword();
 
+            //----------------------------suppression du profil utilisateur------------------------//
+            deleteProfil = () => {
 
-            const recupNom = document.getElementById('nom');
-            const recupPrenom = document.getElementById('prenom');
-            const recupEmail = document.getElementById('email');
-            //const recupPassword = document.getElementById('password');
+                const btnSuppr = document.getElementById('btn_suppr_profil_user');
+                btnSuppr.addEventListener('click', (event) => {
 
-            const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20} *$/;
-            const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania.fr]+[.]{1}[a-zA-Z1-9]{2,10}$/;
-            const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{4,255}/;
+                    event.preventDefault();
 
+                    const urlId = 'http://localhost:3000/api/auth/' + userUnique.id;
 
+                    console.log(urlId)
+                    const supprDatas = deleteAuth(urlId);
+                    supprDatas.then(response => {
 
-            const btnAnnulModif = document.getElementById('btn_annule_modif_user');
-            btnAnnulModif.addEventListener('click', (event) => {
-                event.preventDefault();
-                window.location = './compteUser.html?id=' + userDatas.id;
-            });
+                        messageConfirm2(response.message, 'main_compe_user');
 
-            // valide user
-            valideModifUser(recupNom, recupPrenom, recupEmail, regexNomPrenom, regexEmail)
+                        setTimeout(() => {
+                            const main = document.getElementById('main_compe_user');
+                            const messageHide = document.getElementById('modal_message');
+                            main.removeChild(messageHide);
 
-            const avatar1 = document.getElementById('avatars_1');
-            const avatar2 = document.getElementById('avatars_2');
-            const avatar3 = document.getElementById('avatars_3');
-            const avatar4 = document.getElementById('avatars_4');
+                            sessionStorage.clear();
 
-            let avatarChoix;
+                            window.location = './index.html';
+                        }, 900);
 
-            avatar1.addEventListener('click', (event) => {
-                event.preventDefault();
-                avatar1.setAttribute('class', 'signup--avatar--border');
-                avatar2.setAttribute('class', 'signup--avatar--style');
-                avatar3.setAttribute('class', 'signup--avatar--style');
-                avatar4.setAttribute('class', 'signup--avatar--style');
-                return avatarChoix = avatar1.src;
-            });
-            avatar2.addEventListener('click', (event) => {
-                avatar1.setAttribute('class', 'signup--avatar--style');
-                avatar2.setAttribute('class', 'signup--avatar--border');
-                avatar3.setAttribute('class', 'signup--avatar--style');
-                avatar4.setAttribute('class', 'signup--avatar--style');
-                return avatarChoix = avatar2.src;
-            });
-            avatar3.addEventListener('click', (event) => {
-                avatar1.setAttribute('class', 'signup--avatar--style');
-                avatar2.setAttribute('class', 'signup--avatar--style');
-                avatar3.setAttribute('class', 'signup--avatar--border');
-                avatar4.setAttribute('class', 'signup--avatar--style');
-                return avatarChoix = avatar3.src;
-            });
-            avatar4.addEventListener('click', (event) => {
-                avatar1.setAttribute('class', 'signup--avatar--style');
-                avatar2.setAttribute('class', 'signup--avatar--style');
-                avatar3.setAttribute('class', 'signup--avatar--style');
-                avatar4.setAttribute('class', 'signup--avatar--border');
-                return avatarChoix = avatar4.src;
-            });
+                    }).catch((error => {
+                        console.log(error);
+                    }));
+                });
+            }; // fin de deleteProfil
+            deleteProfil();
 
-            const btnModifUers = document.getElementById('btn_modif_profil_user2');
-            btnModifUers.addEventListener('click', (event) => {
-                event.preventDefault();
-                if (regexNomPrenom.test(recupNom.value) !== false && regexNomPrenom.test(recupPrenom.value) !== false && regexEmail.test(recupEmail.value) !== false && avatarChoix !== undefined) {
-                    const contact = {
-                        nom: recupNom.value,
-                        prenom: recupPrenom.value,
-                        email: recupEmail.value,
-                        avatar: avatarChoix
+            //----------------------------modification du profil utilisateur------------------------//
+            modifUser = () => {
+                const btnModifProfil = document.getElementById('btn_modif_profil_user');
+                btnModifProfil.addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    const contentModifProfil = document.getElementById('form_modif_user');
+                    contentModifProfil.setAttribute('class', 'bloc_section_form--flex');
+
+                    const formModifpassword = document.getElementById('form_modif_password');
+                    if (formModifpassword.setAttribute('class', 'display--none') !== undefined || formModifpassword.setAttribute('class', 'display--none') !== null) {
+                        formModifpassword.setAttribute('class', 'display--none');
                     };
 
-                    const postModifUser = putAuthJson('http://localhost:3000/api/auth/' + userDatas.id, contact);
+                    const btnAnnulMOdifUser = document.getElementById('btn_annule_modif_user');
+                    btnAnnulMOdifUser.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        contentModifProfil.setAttribute('class', 'display--none');
+                    });
 
-                    postModifUser.then(response => {
+                    const datas2 = requestAuth('http://localhost:3000/api/auth/' + userUnique.id);
+                    datas2.then(userDatas => {
 
-                        window.location = './compteUser.html?id=' + userDatas.id;
-                    }).catch((error => {
-                        modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-                    })); //fin catch
-                } else {
-                    const erreur5 = document.getElementById('erreur5');
-                    erreur5.setAttribute('class', 'bloc__form--font--erreur2');
-                };
-            });
+                        const recupNom = document.getElementById('nom');
+                        const recupPrenom = document.getElementById('prenom');
+                        const recupEmail = document.getElementById('email');
 
-            // gestion de l'apparietion de la fenetre de la modification du password
-            const formModifpassword = document.getElementById('form_modif_password');
+                        const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20}/;
+                        const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania]+[.]{1}[fr]{2}$/;
 
-            const btnModifPsawword = document.getElementById('btn_modif_password_1');
-            btnModifPsawword.addEventListener('click', (event) => {
-                event.preventDefault();
-                formModifpassword.setAttribute('class', 'bloc_section_form--flex');
-            });
-            const btnAnnulPsawword = document.getElementById('btn_annule_modif_password');
-            btnAnnulPsawword.addEventListener('click', (event) => {
-                event.preventDefault();
-                formModifpassword.setAttribute('class', 'display--none');
-            });
+                        const message_1 = document.getElementById('message_1');
+                        const message_2 = document.getElementById('message_2');
+                        const message_3 = document.getElementById('message_3');
+                        const message_4 = document.getElementById('message_4');
+                        const message_5 = document.getElementById('message_5');
 
-            const holdPassword = document.getElementById('holdPassword');
-            const newPassword = document.getElementById('newPassword');
-            const confirmNewPassword = document.getElementById('confirmPassword');
+                        valideModifUser(recupNom, recupPrenom, recupEmail, regexNomPrenom, regexEmail);
 
-            valideModifPassword(holdPassword, newPassword, confirmNewPassword, regexPassword);
+                        const avatar1 = document.getElementById('avatars_1');
+                        const avatar2 = document.getElementById('avatars_2');
+                        const avatar3 = document.getElementById('avatars_3');
+                        const avatar4 = document.getElementById('avatars_4');
 
-            const btnModifPassword = document.getElementById('btn_modif_password');
-            btnModifPassword.addEventListener('click', (event) => {
-                event.preventDefault();
-                if (regexPassword.test(holdPassword.value) !== false && regexPassword.test(newPassword.value) !== false && newPassword.value === confirmNewPassword.value) {
+                        let avatarChoix;
 
-                    const passwordNew = {
-                        holdPassword: holdPassword.value,
-                        newPassword: newPassword.value
+                        avatar1.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            avatar1.setAttribute('class', 'signup--avatar--border');
+                            avatar2.setAttribute('class', 'signup--avatar--style');
+                            avatar3.setAttribute('class', 'signup--avatar--style');
+                            avatar4.setAttribute('class', 'signup--avatar--style');
+                            return avatarChoix = avatar1.src;
+                        });
+                        avatar2.addEventListener('click', (event) => {
+                            avatar1.setAttribute('class', 'signup--avatar--style');
+                            avatar2.setAttribute('class', 'signup--avatar--border');
+                            avatar3.setAttribute('class', 'signup--avatar--style');
+                            avatar4.setAttribute('class', 'signup--avatar--style');
+                            return avatarChoix = avatar2.src;
+                        });
+                        avatar3.addEventListener('click', (event) => {
+                            avatar1.setAttribute('class', 'signup--avatar--style');
+                            avatar2.setAttribute('class', 'signup--avatar--style');
+                            avatar3.setAttribute('class', 'signup--avatar--border');
+                            avatar4.setAttribute('class', 'signup--avatar--style');
+                            return avatarChoix = avatar3.src;
+                        });
+                        avatar4.addEventListener('click', (event) => {
+                            avatar1.setAttribute('class', 'signup--avatar--style');
+                            avatar2.setAttribute('class', 'signup--avatar--style');
+                            avatar3.setAttribute('class', 'signup--avatar--style');
+                            avatar4.setAttribute('class', 'signup--avatar--border');
+                            return avatarChoix = avatar4.src;
+                        });
+
+                        const btnEnvoieModif = document.getElementById('btn_modif_profil_user_2');
+                        btnEnvoieModif.addEventListener('click', (event) => {
+
+                            event.preventDefault();
+                            if (regexNomPrenom.test(recupNom.value) === false) {
+                                message_1.setAttribute('class', 'bloc__form--font--message_form_4');
+                            } else {
+                                message_1.setAttribute('class', 'bloc__form--font--message_form');
+                            };
+                            if (regexNomPrenom.test(recupPrenom.value) === false) {
+                                message_2.setAttribute('class', 'bloc__form--font--message_form_4');
+                            } else {
+                                message_2.setAttribute('class', 'bloc__form--font--message_form');
+                            };
+                            if (regexEmail.test(recupEmail.value) === false) {
+                                message_3.setAttribute('class', 'bloc__form--font--message_form_4');
+                            } else {
+                                message_3.setAttribute('class', 'bloc__form--font--message_form');
+                            };
+                            if (avatarChoix === undefined) {
+                                message_4.setAttribute('class', 'bloc__form--font--message_form_4');
+                            } else {
+                                message_4.setAttribute('class', 'bloc__form--font--message_form');
+                            };
+
+                            if (regexNomPrenom.test(recupNom.value) !== false && regexNomPrenom.test(recupPrenom.value) !== false && regexEmail.test(recupEmail.value) !== false && avatarChoix !== undefined) {
+                                message_5.setAttribute('class', 'bloc__form--font--message_form_2');
+
+                                const contact = {
+                                    nom: recupNom.value,
+                                    prenom: recupPrenom.value,
+                                    email: recupEmail.value,
+                                    avatar: avatarChoix
+                                };
+
+                                const postModifUser = putAuthJson('http://localhost:3000/api/auth/' + userDatas.id, contact);
+                                postModifUser.then(response => {
+
+                                    const recupUser = requestAuth('http://localhost:3000/api/auth/' + userUnique.id);
+                                    recupUser.then(userDatas => {
+
+                                        const nom = document.getElementById('nom_user');
+                                        nom.innerHTML = 'Nom :' + ' ' + userDatas.nom;
+
+                                        const prenom = document.getElementById('prenom_user');
+                                        prenom.innerHTML = 'Prenom :' + ' ' + userDatas.prenom;
+
+                                        displayDateInscrip('user_date', userDatas.dateInscrip);
+
+                                        const email = document.getElementById('email_user');
+                                        email.innerHTML = 'Email :' + ' ' + userDatas.emailRec;
+
+                                        messageConfirm2(response.message, 'main_compe_user');
+
+                                        setTimeout(() => {
+                                            const main = document.getElementById('main_compe_user');
+
+                                            main.removeChild(contentModifProfil);
+
+                                            const messageHide = document.getElementById('modal_message');
+                                            main.removeChild(messageHide);
+                                        }, 900);
+                                    }); //fin then recupUser
+                                }); // fin postModifUser
+                            } else {
+                                message_5.setAttribute('class', 'bloc__form--font--message_form_4');
+                            };
+                        });
+                    });
+                }); //fin de btnModifProfils
+            }; //fin de modifUser
+            modifUser();
+
+            //----------------------------modification du profil utilisateur------------------------//
+            modifPassword = () => {
+
+                const formModifpassword = document.getElementById('form_modif_password');
+
+                const btnModifPsawword = document.getElementById('btn_modif_password_1');
+                btnModifPsawword.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    formModifpassword.setAttribute('class', 'bloc_section_form--flex');
+
+                    const formModifUser = document.getElementById('form_modif_user');
+                    if (formModifUser.setAttribute('class', 'display--none') !== undefined || formModifUser.setAttribute('class', 'display--none') !== null) {
+                        formModifUser.setAttribute('class', 'display--none');
                     };
 
-                    const postModifUser = putAuthJson('http://localhost:3000/api/auth/password/' + userDatas.id, passwordNew);
+                });
+                const btnAnnulPsawword = document.getElementById('btn_annule_modif_password');
+                btnAnnulPsawword.addEventListener('click', (event) => {
+                    event.preventDefault();
 
-                    postModifUser.then(response => {
+                    formModifpassword.setAttribute('class', 'display--none');
+                });
 
-                        window.location = './compteUser.html?id=' + userDatas.id;
-                    }).catch((error => {
-                        modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-                    })); //fin catch
-                } else {
-                    const erreur5 = document.getElementById('erreur_4');
-                    erreur5.setAttribute('class', 'bloc__form--font--erreur2');
-                };
-            });
+                const holdPassword = document.getElementById('holdPassword');
+                const newPassword = document.getElementById('newPassword');
+                const confirmNewPassword = document.getElementById('confirmPassword');
+
+                const message_1 = document.getElementById('message_11');
+                const message_2 = document.getElementById('message_22');
+                const message_3 = document.getElementById('message_33');
+                const message_4 = document.getElementById('message_44');
+
+                const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{8,255}/;
+
+                valideModifPassword(holdPassword, newPassword, confirmNewPassword, regexPassword);
+
+                const btnModifPassword = document.getElementById('btn_modif_password');
+                btnModifPassword.addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    if (regexPassword.test(holdPassword.value) === false) {
+                        message_1.setAttribute('class', 'bloc__form--font--message_form_4');
+                    } else {
+                        message_1.setAttribute('class', 'bloc__form--font--message_form');
+                    };
+
+                    if (regexPassword.test(newPassword.value) === false) {
+                        message_2.setAttribute('class', 'bloc__form--font--message_form_4');
+                    } else {
+                        message_2.setAttribute('class', 'bloc__form--font--message_form');
+                    };
+
+                    if (confirmNewPassword.value !== newPassword.value || regexPassword.test(confirmNewPassword.value) === false) {
+                        message_3.setAttribute('class', 'bloc__form--font--message_form_4');
+                    } else {
+                        message_3.setAttribute('class', 'bloc__form--font--message_form');
+                    };
+
+                    if (regexPassword.test(holdPassword.value) !== false && regexPassword.test(newPassword.value) !== false && newPassword.value === confirmNewPassword.value) {
+                        message_4.setAttribute('class', 'bloc__form--font--message_form_2');
+                        const passwordNew = {
+                            holdPassword: holdPassword.value,
+                            newPassword: newPassword.value
+                        };
+
+                        const postModifUser = putAuthJson('http://localhost:3000/api/auth/password/' + userUnique.id, passwordNew);
+
+                        postModifUser.then(response => {
+
+                            messageConfirm2(response.message, 'main_compe_user');
+
+                            const formModifpassword = document.getElementById('form_modif_password');
+                            formModifpassword.setAttribute('class', 'display--none');
+                            document.getElementById('form_modif_password').reset();
+
+                            setTimeout(() => {
+                                const main = document.getElementById('main_compe_user');
+                                const messageHide = document.getElementById('modal_message');
+                                main.removeChild(messageHide);
+
+                            }, 900);
+
+                        }).catch((error => {
+                            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                        })); //fin catch
+                    } else {
+
+                        message_4.setAttribute('class', 'bloc__form--font--message_form_4');
+                    };
+                });
+
+            }; //fin de modifPassword
+            modifPassword();
+
         }).catch((error => {
+
             modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-        })); //fin catch
+        })); //fin then userUnique
     };
 }; //fin de createUsersCompte
-
 createUsersCompte();

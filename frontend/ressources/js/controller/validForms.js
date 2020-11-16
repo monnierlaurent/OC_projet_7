@@ -224,14 +224,13 @@ valideModifUser = (recupNom, recupPrenom, recupEmail, regexNomPrenom, regexEmail
     const message_2 = document.getElementById('message_2');
     const message_3 = document.getElementById('message_3');
 
-
     recupNom.addEventListener('change', (event) => {
         event.preventDefault();
 
         if (recupNom.value.length === 0) {
-            message_1.setAttribute('class', 'bloc__form--font--erreur');
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
         } else if (regexNomPrenom.test(recupNom.value) === true) {
-            message_1.setAttribute('class', 'bloc__form--font--erreur');
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
         } else if (regexNomPrenom.test(recupNom.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
         };
@@ -241,9 +240,9 @@ valideModifUser = (recupNom, recupPrenom, recupEmail, regexNomPrenom, regexEmail
         event.preventDefault();
 
         if (recupPrenom.value.length === 0) {
-            message_2.setAttribute('class', 'bloc__form--font--erreur');
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
         } else if (regexNomPrenom.test(recupPrenom.value) === true) {
-            message_2.setAttribute('class', 'bloc__form--font--erreur');
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
         } else if (regexNomPrenom.test(recupPrenom.value) === false) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
         };
@@ -252,58 +251,59 @@ valideModifUser = (recupNom, recupPrenom, recupEmail, regexNomPrenom, regexEmail
         event.preventDefault();
 
         if (recupEmail.value.length === 0) {
-            message_3.setAttribute('class', 'bloc__form--font--erreur');
+            message_3.setAttribute('class', 'bloc__form--font--message_form');
         } else if (regexEmail.test(recupEmail.value) === true) {
-            message_3.setAttribute('class', 'bloc__form--font--erreur');
+            message_3.setAttribute('class', 'bloc__form--font--message_form');
         } else if (regexEmail.test(recupEmail.value) === false) {
             message_3.setAttribute('class', 'bloc__form--font--message_form_4');
         };
     });
 };
 
+
 //-------validation du formulaire de modification du mot de passe du profil utilisateur---------//
 valideModifPassword = (holdPassword, newPassword, confirmNewPassword, regexPassword) => {
-    const message_1 = document.getElementById('message_1');
-    const message_2 = document.getElementById('message_2');
-    const message_3 = document.getElementById('message_3');
+    const message_1 = document.getElementById('message_11');
+    const message_2 = document.getElementById('message_22');
+    const message_3 = document.getElementById('message_33');
 
     holdPassword.addEventListener('change', (event) => {
         if (holdPassword.value.length === 0) {
-            message_1.setAttribute('class', 'bloc__form--font--erreur');
-            message_1.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            // message_1.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(holdPassword.value) === true) {
-            message_1.setAttribute('class', 'bloc__form--font--erreur');
-            message_1.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            //message_1.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(holdPassword.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_1.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            //message_1.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
         };
     });
 
     newPassword.addEventListener('change', (event) => {
         if (newPassword.value.length === 0) {
-            message_2.setAttribute('class', 'bloc__form--font--erreur');
-            message_2.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            //message_2.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(newPassword.value) === true) {
-            message_2.setAttribute('class', 'bloc__form--font--erreur');
-            message_2.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            //message_2.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(newPassword.value) === false) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_2.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            //message_2.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
         };
     });
 
     confirmNewPassword.addEventListener('change', (event) => {
         if (confirmNewPassword.value.length === 0) {
-            message_3.setAttribute('class', 'bloc__form--font--erreur');
-            message_3.innerHTML = '* champ obligatoire';
+            message_3.setAttribute('class', 'bloc__form--font--message_form');
+            message_3.innerHTML = '*champ obligatoire saisissez a nouveau votre mon de passe';
         } else if (newPassword.value === confirmNewPassword.value) {
-            message_3.setAttribute('class', 'bloc__form--font--erreur');
-            message_3.innerHTML = '* champ obligatoire';
+            message_3.setAttribute('class', 'bloc__form--font--message_form');
+            message_3.innerHTML = '*champ obligatoire saisissez a nouveau votre mon de passe';
 
         } else if (newPassword.value !== confirmNewPassword.value) {
             message_3.setAttribute('class', 'bloc__form--font--message_form_4');

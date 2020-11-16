@@ -12,7 +12,7 @@ createLogin = () => {
         const message_2 = document.getElementById('message_2');
         const message_3 = document.getElementById('message_3');
 
-        const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania.fr]+[.]{1}[a-zA-Z1-9]{2,10}$/;
+        const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania]+[.]{1}[fr]{2}$/;
         const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{8,255}/;
 
         valideLogin(email, password, regexEmail, regexPassword);
@@ -34,6 +34,7 @@ createLogin = () => {
 
             if (regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false) {
 
+                message_3.setAttribute('class', 'bloc__form--font--message_form_4');
                 const contact = {
                     email: email.value,
                     password: password.value

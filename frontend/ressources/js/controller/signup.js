@@ -14,7 +14,7 @@ createLogin = () => {
 
     const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
     //const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20} *$/;
-    const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania.fr]+[.]{1}[a-zA-Z1-9]{2,10}$/;
+    const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania]+[.]{1}[fr]{2}$/;
     const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{4,255}/;
 
     const nom = document.getElementById('nom');
@@ -78,22 +78,22 @@ createLogin = () => {
         } else {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
         };
-        if (regexNomPrenom.test(email.value) === false) {
+        if (regexEmail.test(email.value) === false) {
             message_3.setAttribute('class', 'bloc__form--font--message_form_4');
         } else {
             message_3.setAttribute('class', 'bloc__form--font--message_form');
         };
-        if (regexNomPrenom.test(password.value) === false) {
+        if (regexPassword.test(password.value) === false) {
             message_4.setAttribute('class', 'bloc__form--font--message_form_4');
         } else {
             message_4.setAttribute('class', 'bloc__form--font--message_form');
         };
-        if (regexNomPrenom.test(password.value) === false) {
-            message_4.setAttribute('class', 'bloc__form--font--message_form_4');
+        if (confirmPassword.value !== password.value) {
+            message_5.setAttribute('class', 'bloc__form--font--message_form_4');
         } else {
-            message_4.setAttribute('class', 'bloc__form--font--message_form');
+            message_5.setAttribute('class', 'bloc__form--font--message_form');
         };
-        if (confirmPassword.value !== password.value || confirmPassword.length === undefined) {
+        if (confirmPassword.length === undefined) {
             message_5.setAttribute('class', 'bloc__form--font--message_form_4');
         } else {
             message_5.setAttribute('class', 'bloc__form--font--message_form');
@@ -101,10 +101,12 @@ createLogin = () => {
         if (avatarChoix === undefined) {
             message_6.setAttribute('class', 'bloc__form--font--message_form_4');
         } else {
-            message_6.setAttribute('class', 'bloc__form--font--message_form_2');
+            message_6.setAttribute('class', 'bloc__form--font--message_form');
         };
 
-        if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false, confirmPassword.value === password.value && avatarChoix !== undefined) {
+        if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false && confirmPassword.value === password.value && avatarChoix !== undefined) {
+
+            message_7.setAttribute('class', 'bloc__form--font--message_form_2');
             const contact = {
                 nom: nom.value,
                 prenom: prenom.value,
@@ -118,8 +120,9 @@ createLogin = () => {
 
             datas6.then(response => {
 
+                console.log(response)
                 if (response.error) {
-
+                    message_7.innerHTML = response.error;
                     message_7.setAttribute('class', 'bloc__form--font--message_form_4');
                 } else {
 
