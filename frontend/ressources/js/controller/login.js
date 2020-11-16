@@ -44,8 +44,8 @@ createLogin = () => {
 
                 datas.then(response => {
 
-                    if (response.error) {
-                        message_3.innerHTML = response.error;
+                    if (response.status === 400) {
+                        message_3.innerHTML = response.message;
                         message_3.setAttribute('class', 'bloc__form--font--message_form_4');
                     } else {
 

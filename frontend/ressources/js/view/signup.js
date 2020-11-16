@@ -30,7 +30,7 @@ createFormSignup = () => {
 
     formPost.appendChild(createElm2('label', 'Comfirmation du mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'comfirmPassword')); //
     formPost.appendChild(createElm3('input', '', 'id', 'comfirmPassword', 'class', 'bloc__form--input--create--post--style-2', 'type', 'password')); //
-    formPost.appendChild(createElm2('p', '*champ obligatoire saisissez a nouveau votre mon de passe', 'id', 'message_5', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', '*champ obligatoire saisissez a nouveau votre mot de passe', 'id', 'message_5', 'class', 'bloc__form--font--message_form'));
 
 
     formPost.appendChild(createElm1('p', 'Sélèctionner un avatar :', 'class', 'bloc__login__form--label--style--create--post')); //

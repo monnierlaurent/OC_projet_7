@@ -20,12 +20,26 @@ exports.createUser = (req, res, next) => {
     const email = reqBody.email;
     const emailVerif = email.indexOf('@groupomania.fr');
 
-    if (reqBody.nom === undefined, reqBody.prenom === undefined, reqBody.email === undefined, reqBody.password === undefined, reqBody.role === undefined, reqBody.avatar === undefined) {
-        return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+    if (reqBody.nom === undefined) {
+        return res.status(400).json({ status: 400, message: '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni caracteres spéciaux !' });
+    };
+
+    if (reqBody.prenom === undefined) {
+        return res.status(400).json({ status: 400, message: '*Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni caracteres spéciaux !' });
+    };
+    if (reqBody.email === undefined) {
+        return res.status(400).json({ status: 400, message: '*Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !' });
+    };
+    if (reqBody.password === undefined) {
+        return res.status(400).json({ status: 400, message: '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !' });
+    };
+
+    if (reqBody.avatar === undefined) {
+        return res.status(400).json({ status: 400, message: 'Vous devez choisir un avatar !' });
     };
 
     if (!emailValidator.validate(reqBody.email) || emailVerif === -1) {
-        return res.status(400).json({ error: 'L\'email ou le mot de passe est invalide !!!' });
+        return res.status(400).json({ status: 400, message: 'L\'email ou le mot de passe est invalide !!!' });
     };
 
     if (schemaPassword.validate(reqBody.password)) {
@@ -44,7 +58,7 @@ exports.createUser = (req, res, next) => {
                 });
 
                 if (tableEmail.includes(hashEmail)) {
-                    res.status(400).json({ error: 'Email déja utilisé !!!' });
+                    return res.status(400).json({ status: 400, message: 'Cet email est déja utilisé !' });
                 } else {
 
                     const encryptedEmail = cryptr.encrypt(reqBody.email); //const decryptedEmail = cryptr.decrypt(encryptedEmail);
@@ -58,13 +72,31 @@ exports.createUser = (req, res, next) => {
                         .then(hash => {
                             userModel.save(encryptedNom, encryptedPrenom, hashEmail, emailMask, hash, reqBody.role, encryptedEmail, reqBody.avatar)
                                 .then((response) => {
-                                    res.status(200).json({ message: 'Utilisateur enregistré !' });
-                                }).catch(() => res.status(500).json({ error: 'La syntaxe de la requête est erronée' }));
-                        }).catch(() => res.status(500).json({ error: 'Erreur interne du serveur ' }));
+                                    userModel.findOneLog('email', hashEmail)
+                                        .then((response) => {
+
+                                            bcrypt.compare(reqBody.password, response[0].password)
+                                                .then(valid => {
+
+                                                    if (valid === false) {
+                                                        return res.status(400).json({ status: 400, message: 'L\'email ou le mot de passe est invalide !' });
+                                                    };
+                                                    res.status(200).json({
+                                                        avatar: response[0].avatar,
+                                                        role: response[0].role,
+                                                        userId: response[0].id,
+                                                        token: jwt.sign({ userId: response[0].id },
+                                                            'eyJhbGciOiJIUzI1NiIs@InR5cCI6IkpXVCJ9.eyJz#dWIiOiIxMjM0NTY3ODkwIiw/ibmFtZSI6IkpvaG4g&RG9lIiwiYWRtaW4iOnRydWV9.TJVA95Or/M7E2cBab30RM@HrHDcEfxjoYZgeFONFh7HgQ', { expiresIn: '24h' },
+                                                        )
+                                                    });
+                                                }).catch(() => res.status(500).json({ status: 500, message: 'Erreur interne du serveur ' }));
+                                        }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
+                                }).catch(() => res.status(400).json({ status: 400, message: 'La syntaxe de la requête est erronée' }));
+                        }).catch(() => res.status(500).json({ status: 500, message: 'Erreur interne du serveur ' }));
                 };
-            }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+            }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
     } else {
-        res.status(400).json({ message: 'Le mot de passe doit comporter entre 4 et 8 caratheres maximum ,1 majuscule , 1 chiffre' });
+        res.status(400).json({ status: 400, message: 'Le mot de passe doit comporter minimum 8 charateres ,1 majuscule , 1 chiffre' });
     };
 };
 
@@ -73,7 +105,7 @@ exports.loginUser = (req, res, next) => {
     const reqBody = sanitize(req.body);
 
     if (reqBody.nom === undefined, reqBody.prenom === undefined, reqBody.email === undefined, reqBody.password === undefined) {
-        return res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+        return res.status(400).json({ status: 400, message: 'Tous les champs sont obligatoire !' });
     };
     const hashEmail = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel')
         .update(reqBody.email)
@@ -97,7 +129,7 @@ exports.loginUser = (req, res, next) => {
                             .then(valid => {
 
                                 if (valid === false) {
-                                    return res.status(401).json({ error: 'L\'email ou le mot de passe est invalide !' });
+                                    return res.status(400).json({ status: 400, message: 'L\'email ou le mot de passe est invalide !' });
                                 };
                                 res.status(200).json({
                                     avatar: response[0].avatar,
@@ -107,20 +139,20 @@ exports.loginUser = (req, res, next) => {
                                         'eyJhbGciOiJIUzI1NiIs@InR5cCI6IkpXVCJ9.eyJz#dWIiOiIxMjM0NTY3ODkwIiw/ibmFtZSI6IkpvaG4g&RG9lIiwiYWRtaW4iOnRydWV9.TJVA95Or/M7E2cBab30RM@HrHDcEfxjoYZgeFONFh7HgQ', { expiresIn: '24h' },
                                     )
                                 });
-                            }).catch(() => res.status(500).json({ error: 'Erreur interne du serveur ' }));
-                    }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !10' }));
+                            }).catch(() => res.status(500).json({ status: 500, message: 'Erreur interne du serveur ' }));
+                    }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
 
             } else {
-                res.status(400).json({ error: 'La syntaxe de la requête est erronée !' });
+                return res.status(400).json({ status: 400, message: 'Cet email n\'est n\'appartient a aucun profil utilisateur !' });
             };
-        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
 }; //fin login
 
 exports.displayUsers = (req, res, next) => {
     userModel.findAll()
         .then((response) => {
             res.status(200).json(response);
-        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
 };
 
 
@@ -141,10 +173,10 @@ exports.displayIdUser = (req, res, next) => {
                     if (userIdRec === response.id || role === 1) {
                         res.status(200).json(response);
                     } else {
-                        res.status(403).json({ error: 'vous n\'êtes pas autoridé a accéder a cette page !' });
+                        res.status(403).json({ message: 'vous n\'êtes pas autoridé a accéder a cette page !' });
                     };
-                }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
-        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+                }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
 };
 
 
@@ -164,12 +196,12 @@ exports.deleteUser = (req, res, next) => {
                         userModel.deleteOne(reqParamsId)
                             .then(() => {
                                 res.status(200).json({ message: "Utilisateur supprimé !" });
-                            }).catch(() => res.status(400).json({ error: 'La syntaxe de la requête est erronée' }));
+                            }).catch(() => res.status(400).json({ message: 'La syntaxe de la requête est erronée' }));
                     } else {
-                        res.status(403).json({ error: 'vous n\'êtes pas autoridé a supprimer un utilisateur !' });
+                        res.status(403).json({ message: 'vous n\'êtes pas autoridé a supprimer un utilisateur !' });
                     };
-                }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
-        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+                }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
 };
 
 exports.updateUser = (req, res, next) => {
@@ -207,13 +239,13 @@ exports.updateUser = (req, res, next) => {
                         .then((response) => {
                             res.status(200).json({ message: "Utilisateur mis a jour !" });
 
-                        }).catch(() => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }); });
+                        }).catch(() => { res.status(400).json({ message: 'La syntaxe de la requête est erronée' }); });
 
                     } else {
                         return res.status(403).json({ message: "Vous n'êtes pas autorisé a mettre a jour les utilsateurs !" });
                     };
-                }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
-        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+                }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
 };
 
 
@@ -244,13 +276,13 @@ exports.updatePassword = (req, res, next) => {
                                             .then((response) => {
                                                 res.status(200).json({ message: "Utilisateur mis a jour !" });
 
-                                            }).catch(() => { res.status(400).json({ error: 'La syntaxe de la requête est erronée' }); });
+                                            }).catch(() => { res.status(400).json({ message: 'La syntaxe de la requête est erronée' }); });
 
-                                    }).catch(() => res.status(500).json({ error: 'Erreur interne du serveur ' }));
-                            }).catch(() => res.status(500).json({ error: 'Erreur interne du serveur ' }));
+                                    }).catch(() => res.status(500).json({ message: 'Erreur interne du serveur ' }));
+                            }).catch(() => res.status(500).json({ message: 'Erreur interne du serveur ' }));
                     } else {
                         return res.status(403).json({ message: "Vous n'êtes pas autorisé a mettre a jour les utilsateurs !" });
                     };
-                }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
-        }).catch(() => res.status(404).json({ error: 'cette resource n\'existe pas !' }));
+                }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
 };

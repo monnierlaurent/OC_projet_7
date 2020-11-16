@@ -37,22 +37,22 @@
     
     .bloc__form--font--message_form {
         color: var(--noir);
-        padding-top: 0.5em;
+        padding-top: 0.3em;
     }
     
     .bloc__form--font--message_form_2 {
         color: var(--gris3);
-        padding-top: 0.5em;
+        padding-top: 0.3em;
     }
     
     .bloc__form--font--message_form_3 {
         color: var(--blanc);
-        padding-top: 0.5em;
+        padding-top: 0.3em;
     }
     
     .bloc__form--font--message_form_4 {
         color: var(--rouge);
-        padding-top: 0.5em;
+        padding-top: 0.3em;
     }
     /*--------header-------*/
     
@@ -213,7 +213,7 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        padding-top: 1.5em;
+        align-items: center;
     }
     
     .bloc_profil_users--flex {

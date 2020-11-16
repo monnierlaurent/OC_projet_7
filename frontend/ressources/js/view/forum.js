@@ -134,7 +134,7 @@ modaleCreateModifPost = (postId, avatar, titre, contenu, imageUrl, nom, prenom) 
     const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv2.appendChild(createElm3('p', 'Publier', 'id', 'btn_post_forum_modif', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour publier un commentaire')); //
 
-    formPost.appendChild(createElm2('p', 'Un des champs n\'est pas rempli correctement !', 'id', 'message_33', 'class', 'bloc__form--font--message_form_3'));
+    formPost.appendChild(createElm2('p', 'Le champ titre et obligatoire<br>vous devez aussi soit saisir un message soit selectionner une image !', 'id', 'message_33', 'class', 'bloc__form--font--message_form_3'));
 };
 createComsForm = (avatar, nom, prenom) => {
     const main = document.querySelector('main');

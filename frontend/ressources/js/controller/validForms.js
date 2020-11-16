@@ -78,11 +78,11 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
         event.preventDefault();
         if (confirmPassword.value.length === 0) {
             message_5.setAttribute('class', 'bloc__form--font--message_form');
-            message_5.innerHTML = '*Champ obligatoire saisissez a nouveau votre mon de passe';
+            message_5.innerHTML = '*Champ obligatoire saisissez a nouveau votre mot de passe';
 
         } else if (password.value === confirmPassword.value) {
             message_5.setAttribute('class', 'bloc__form--font--message_form');
-            message_5.innerHTML = '*Champ obligatoire saisissez a nouveau votre mon de passe';
+            message_5.innerHTML = '*Champ obligatoire saisissez a nouveau votre mot de passe';
 
         } else if (password.value !== confirmPassword.value) {
             message_5.setAttribute('class', 'bloc__form--font--message_form_4');
@@ -135,6 +135,45 @@ valideLogin = (email, password, Remail, Rpassword) => {
 //-------validation du formulaire de création de publication ---------//
 validPosts = (titre, contenu, Rdatas) => {
 
+    const message_1 = document.getElementById('message_1');
+    const message_2 = document.getElementById('message_2');
+
+    titre.addEventListener('change', (event) => {
+        event.preventDefault();
+
+        if (titre.value.length === 0) {
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !';
+
+        } else if (Rdatas.test(titre.value) === true) {
+            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !';
+
+        } else if (Rdatas.test(titre.value) === false) {
+            message_1.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !';
+        };
+    });
+    contenu.addEventListener('change', (event) => {
+        event.preventDefault();
+
+        if (contenu.value.length === 0) {
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            message_2.innerHTML = 'Le contenu doit contenir au minum 2 charactères !';
+
+        } else if (Rdatas.test(contenu.value) === true) {
+            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            message_2.innerHTML = 'Le contenu doit contenir au minum 2 charactères !';
+
+        } else if (Rdatas.test(contenu.value) === false) {
+            message_2.setAttribute('class', 'bloc__form--font--message_form_4');
+            message_2.innerHTML = 'Le contenu doit contenir au minum 2 charactères ! !';
+        };
+    });
+};
+
+validModifPosts = (titre, contenu, Rdatas) => {
+
     const message_1 = document.getElementById('message_11');
     const message_2 = document.getElementById('message_22');
 
@@ -171,6 +210,7 @@ validPosts = (titre, contenu, Rdatas) => {
         };
     });
 };
+
 
 //-------validation du formulaire de création de commentaire ---------//
 validComs = (id, contenu, Rdatas) => {

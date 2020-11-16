@@ -15,7 +15,7 @@ createLogin = () => {
     const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
     //const regexNomPrenom = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,20} *$/;
     const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania]+[.]{1}[fr]{2}$/;
-    const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{4,255}/;
+    const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{8,255}/;
 
     const nom = document.getElementById('nom');
     const prenom = document.getElementById('prenom');
@@ -93,11 +93,6 @@ createLogin = () => {
         } else {
             message_5.setAttribute('class', 'bloc__form--font--message_form');
         };
-        if (confirmPassword.length === undefined) {
-            message_5.setAttribute('class', 'bloc__form--font--message_form_4');
-        } else {
-            message_5.setAttribute('class', 'bloc__form--font--message_form');
-        };
         if (avatarChoix === undefined) {
             message_6.setAttribute('class', 'bloc__form--font--message_form_4');
         } else {
@@ -120,19 +115,22 @@ createLogin = () => {
 
             datas6.then(response => {
 
-                console.log(response)
-                if (response.error) {
-                    message_7.innerHTML = response.error;
+                console.log(response);
+                console.log(response.status);
+
+                if (response.status === 400) {
+                    message_7.innerHTML = response.message;
                     message_7.setAttribute('class', 'bloc__form--font--message_form_4');
+                    message_6.setAttribute('class', 'bloc__form--font--message_form');
                 } else {
 
                     const auth = JSON.stringify(response);
                     sessionStorage.setItem('repAuth', auth);
 
-                    window.location = './index.html';
+                    window.location = './forum.html';
                 };
             }).catch((error => {
-                modals();
+                //modals();
             })); //fin catch
         } else {
             message_7.setAttribute('class', 'bloc__form--font--message_form_4');

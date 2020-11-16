@@ -13,11 +13,11 @@ createFormLogin = () => {
 
     formPost.appendChild(createElm2('label', 'Adresse email :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'email')); //
     formPost.appendChild(createElm3('input', '', 'id', 'email', 'class', 'bloc__form--input--create--post--style-2', 'type', 'email')); //
-    formPost.appendChild(createElm2('p', '* champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !', 'id', 'message_1', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', '*champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !', 'id', 'message_1', 'class', 'bloc__form--font--message_form'));
 
     formPost.appendChild(createElm2('label', 'Mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'password')); //
     formPost.appendChild(createElm3('input', '', 'id', 'password', 'class', 'bloc__form--input--create--post--style-2', 'type', 'password')); //
-    formPost.appendChild(createElm2('p', '* champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !', 'id', 'message_2', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', '*champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !', 'id', 'message_2', 'class', 'bloc__form--font--message_form'));
 
     const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv1.appendChild(createElm3('button', 'Connection', 'id', 'btn_connect_index', 'class', 'bloc__form--create--post--btn--post', 'title', 'Boutton de connection')); //
