@@ -36,6 +36,7 @@ createLogin = () => {
         avatar2.setAttribute('class', 'signup--avatar--style');
         avatar3.setAttribute('class', 'signup--avatar--style');
         avatar4.setAttribute('class', 'signup--avatar--style');
+        message_6.setAttribute('class', 'bloc__form--font--message_form');
         return avatarChoix = avatar1.src;
     });
     avatar2.addEventListener('click', (event) => {
@@ -44,6 +45,7 @@ createLogin = () => {
         avatar2.setAttribute('class', 'signup--avatar--border');
         avatar3.setAttribute('class', 'signup--avatar--style');
         avatar4.setAttribute('class', 'signup--avatar--style');
+        message_6.setAttribute('class', 'bloc__form--font--message_form');
         return avatarChoix = avatar2.src;
     });
     avatar3.addEventListener('click', (event) => {
@@ -52,6 +54,7 @@ createLogin = () => {
         avatar2.setAttribute('class', 'signup--avatar--style');
         avatar3.setAttribute('class', 'signup--avatar--border');
         avatar4.setAttribute('class', 'signup--avatar--style');
+        message_6.setAttribute('class', 'bloc__form--font--message_form');
         return avatarChoix = avatar3.src;
     });
     avatar4.addEventListener('click', (event) => {
@@ -60,6 +63,7 @@ createLogin = () => {
         avatar2.setAttribute('class', 'signup--avatar--style');
         avatar3.setAttribute('class', 'signup--avatar--style');
         avatar4.setAttribute('class', 'signup--avatar--border');
+        message_6.setAttribute('class', 'bloc__form--font--message_form');
         return avatarChoix = avatar4.src;
     });
 
@@ -77,9 +81,8 @@ createLogin = () => {
             message_6.setAttribute('class', 'bloc__form--font--message_form_4');
         };
 
-        if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false && confirmPassword.value === password.value && avatarChoix !== undefined) {
+        if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false && confirmPassword.value === password.value) {
             message_7.setAttribute('class', 'bloc__form--font--message_form');
-
         };
     });
 
@@ -145,6 +148,7 @@ createLogin = () => {
                         const messageHide = document.getElementById('modal_message');
                         main.removeChild(messageHide);
                     }, 900);
+
                 } else if (response.status === 400) {
                     message_7.innerHTML = response.message;
                     message_7.setAttribute('class', 'bloc__form--font--message_form_4');

@@ -25,7 +25,7 @@ createDisplayUers = (nom, prenom, emailRec, avatar) => {
     newDiv2.appendChild(createElm2('p', 'Email :' + ' ' + emailRec, 'id', 'email_user', 'class', 'bloc__login__form--label--style--create--post'));
 
     const newDiv3 = newDiv1.appendChild(createElm1('div', '', 'class', ''));
-    newDiv3.appendChild(createElm3('img', '', 'src', avatar, 'class', 'bloc_dic_user_img--width', 'alt', 'avatar de l\'utilisateur qui a publier le message'));
+    newDiv3.appendChild(createElm4('img', '', 'src', avatar, 'id', 'avatar_user', 'class', 'bloc_dic_user_img--width', 'alt', 'avatar de l\'utilisateur qui a publier le message'));
 
     const newDiv4 = newSection.appendChild(createElm1('div', '', 'class', 'bloc_section_form_btn--flex--2'));
     newDiv4.appendChild(createElm3('button', 'Modifier mon profil', 'id', 'btn_modif_profil_user', 'class', 'bloc__form--btn-2', 'title', 'boutton pour modifer le compte utilisateur'));
@@ -68,7 +68,7 @@ createFormModifPassword = () => {
     const mainUsers = document.getElementById('main_compe_user');
     const newForm = mainUsers.appendChild(createElm2('form', '', 'id', 'form_modif_password', 'class', 'display--none')); //display--none bloc_section_form--flex
 
-    newForm.appendChild(createElm2('label', 'Ancient mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'holdPassword'));
+    newForm.appendChild(createElm2('label', 'Ancien mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'holdPassword'));
     newForm.appendChild(createInputs('input', '', 'id', 'holdPassword', 'class', 'bloc__login__form--input--style-2', 'type', 'password'));
     newForm.appendChild(createElm2('p', '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !', 'id', 'message_11', 'class', 'bloc__form--font--message_form'));
 

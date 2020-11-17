@@ -108,29 +108,40 @@ createUsersCompte = () => {
                             avatar2.setAttribute('class', 'signup--avatar--style');
                             avatar3.setAttribute('class', 'signup--avatar--style');
                             avatar4.setAttribute('class', 'signup--avatar--style');
+                            message_4.setAttribute('class', 'bloc__form--font--message_form');
                             return avatarChoix = avatar1.src;
                         });
                         avatar2.addEventListener('click', (event) => {
+                            event.preventDefault();
                             avatar1.setAttribute('class', 'signup--avatar--style');
                             avatar2.setAttribute('class', 'signup--avatar--border');
                             avatar3.setAttribute('class', 'signup--avatar--style');
                             avatar4.setAttribute('class', 'signup--avatar--style');
+                            message_4.setAttribute('class', 'bloc__form--font--message_form');
                             return avatarChoix = avatar2.src;
                         });
                         avatar3.addEventListener('click', (event) => {
+                            event.preventDefault();
                             avatar1.setAttribute('class', 'signup--avatar--style');
                             avatar2.setAttribute('class', 'signup--avatar--style');
                             avatar3.setAttribute('class', 'signup--avatar--border');
                             avatar4.setAttribute('class', 'signup--avatar--style');
+                            message_4.setAttribute('class', 'bloc__form--font--message_form');
                             return avatarChoix = avatar3.src;
                         });
                         avatar4.addEventListener('click', (event) => {
+                            event.preventDefault();
                             avatar1.setAttribute('class', 'signup--avatar--style');
                             avatar2.setAttribute('class', 'signup--avatar--style');
                             avatar3.setAttribute('class', 'signup--avatar--style');
                             avatar4.setAttribute('class', 'signup--avatar--border');
+                            message_4.setAttribute('class', 'bloc__form--font--message_form');
                             return avatarChoix = avatar4.src;
                         });
+
+                        /* if (regexNomPrenom.test(recupNom.value) !== false && regexNomPrenom.test(recupPrenom.value) !== false && regexEmail.test(recupEmail.value) !== false) {
+                             message_5.setAttribute('class', 'bloc__form--font--message_form_2');
+                         };*/
 
                         const btnEnvoieModif = document.getElementById('btn_modif_profil_user_2');
                         btnEnvoieModif.addEventListener('click', (event) => {
@@ -184,12 +195,16 @@ createUsersCompte = () => {
                                         const email = document.getElementById('email_user');
                                         email.innerHTML = 'Email :' + ' ' + userDatas.emailRec;
 
+                                        const avatar = document.getElementById('avatar_user')
+                                        avatar.setAttribute('src', userDatas.avatar);
+
                                         messageConfirm2(response.message, 'main_compe_user');
 
                                         setTimeout(() => {
                                             const main = document.getElementById('main_compe_user');
 
-                                            main.removeChild(contentModifProfil);
+                                            contentModifProfil.setAttribute('class', 'display--none');
+                                            document.getElementById('form_modif_password').reset();
 
                                             const messageHide = document.getElementById('modal_message');
                                             main.removeChild(messageHide);
@@ -238,8 +253,17 @@ createUsersCompte = () => {
                 const message_4 = document.getElementById('message_44');
 
                 const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{8,255}/;
+                //const regexPassword = /[a-z]{6,}[0-9]{1,}[A-Z]{1,}[\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{1,}/;
 
                 valideModifPassword(holdPassword, newPassword, confirmNewPassword, regexPassword);
+
+                const formPassword = document.getElementById('form_modif_password');
+                formPassword.addEventListener('change', () => {
+                    if (regexPassword.test(holdPassword.value) !== false && regexPassword.test(newPassword.value) !== false && newPassword.value === confirmNewPassword.value) {
+                        message_3.setAttribute('class', 'bloc__form--font--message_form_2');
+
+                    };
+                });
 
                 const btnModifPassword = document.getElementById('btn_modif_password');
                 btnModifPassword.addEventListener('click', (event) => {
@@ -265,31 +289,40 @@ createUsersCompte = () => {
 
                     if (regexPassword.test(holdPassword.value) !== false && regexPassword.test(newPassword.value) !== false && newPassword.value === confirmNewPassword.value) {
                         message_4.setAttribute('class', 'bloc__form--font--message_form_2');
+
+
+
                         const passwordNew = {
                             holdPassword: holdPassword.value,
                             newPassword: newPassword.value
                         };
 
                         const postModifUser = putAuthJson('http://localhost:3000/api/auth/password/' + userUnique.id, passwordNew);
-
                         postModifUser.then(response => {
+                            console.log(response)
 
-                            messageConfirm2(response.message, 'main_compe_user');
+                            if (response.status === 400) {
+                                message_4.innerHTML = response.message;
+                                message_4.setAttribute('class', 'bloc__form--font--message_form_4');
 
-                            const formModifpassword = document.getElementById('form_modif_password');
-                            formModifpassword.setAttribute('class', 'display--none');
-                            document.getElementById('form_modif_password').reset();
+                            } else {
+                                message_4.setAttribute('class', 'bloc__form--font--message_form_2');
+                                messageConfirm2(response.message, 'main_compe_user');
 
-                            setTimeout(() => {
-                                const main = document.getElementById('main_compe_user');
-                                const messageHide = document.getElementById('modal_message');
-                                main.removeChild(messageHide);
+                                const formModifpassword = document.getElementById('form_modif_password');
+                                formModifpassword.setAttribute('class', 'display--none');
+                                document.getElementById('form_modif_password').reset();
 
-                            }, 900);
+                                setTimeout(() => {
+                                    const main = document.getElementById('main_compe_user');
+                                    const messageHide = document.getElementById('modal_message');
+                                    main.removeChild(messageHide);
 
+                                }, 900);
+                            };
                         }).catch((error => {
                             modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
-                        })); //fin catch
+                        })); //fin catch 
                     } else {
 
                         message_4.setAttribute('class', 'bloc__form--font--message_form_4');

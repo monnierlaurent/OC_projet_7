@@ -109,46 +109,52 @@ exports.loginUser = (req, res, next) => {
     if (reqBody.nom === undefined, reqBody.prenom === undefined, reqBody.email === undefined, reqBody.password === undefined) {
         return res.status(400).json({ status: 400, message: 'Tous les champs sont obligatoire !' });
     };
-    const hashEmail = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel')
-        .update(reqBody.email)
-        .digest('hex');
 
-    userModel.findAll()
-        .then((response) => {
+    if (schemaPassword.validate(reqBody.password)) {
 
-            const tableEmail = [];
+        const hashEmail = crypto.createHmac('sha256', '@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel')
+            .update(reqBody.email)
+            .digest('hex');
 
-            response.forEach(rep => {
+        userModel.findAll()
+            .then((response) => {
 
-                tableEmail.push(rep.email);
-            });
-            if (tableEmail.includes(hashEmail)) {
+                const tableEmail = [];
 
-                userModel.findOneLog('email', hashEmail)
-                    .then((response) => {
+                response.forEach(rep => {
 
-                        bcrypt.compare(reqBody.password, response[0].password)
-                            .then(valid => {
+                    tableEmail.push(rep.email);
+                });
+                if (tableEmail.includes(hashEmail)) {
 
-                                if (valid === false) {
-                                    return res.status(400).json({ status: 400, message: 'L\'email ou le mot de passe est invalide !' });
-                                };
-                                res.status(200).json({
-                                    status: 200,
-                                    avatar: response[0].avatar,
-                                    role: response[0].role,
-                                    userId: response[0].id,
-                                    token: jwt.sign({ userId: response[0].id },
-                                        'eyJhbGciOiJIUzI1NiIs@InR5cCI6IkpXVCJ9.eyJz#dWIiOiIxMjM0NTY3ODkwIiw/ibmFtZSI6IkpvaG4g&RG9lIiwiYWRtaW4iOnRydWV9.TJVA95Or/M7E2cBab30RM@HrHDcEfxjoYZgeFONFh7HgQ', { expiresIn: '24h' },
-                                    )
-                                });
-                            }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
-                    }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
+                    userModel.findOneLog('email', hashEmail)
+                        .then((response) => {
 
-            } else {
-                return res.status(400).json({ status: 400, message: 'Cette adresse email n\'est n\'appartient a aucun profil utilisateur !' });
-            };
-        }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
+                            bcrypt.compare(reqBody.password, response[0].password)
+                                .then(valid => {
+
+                                    if (valid === false) {
+                                        return res.status(400).json({ status: 400, message: 'L\'email ou le mot de passe est invalide !' });
+                                    };
+                                    res.status(200).json({
+                                        status: 200,
+                                        avatar: response[0].avatar,
+                                        role: response[0].role,
+                                        userId: response[0].id,
+                                        token: jwt.sign({ userId: response[0].id },
+                                            'eyJhbGciOiJIUzI1NiIs@InR5cCI6IkpXVCJ9.eyJz#dWIiOiIxMjM0NTY3ODkwIiw/ibmFtZSI6IkpvaG4g&RG9lIiwiYWRtaW4iOnRydWV9.TJVA95Or/M7E2cBab30RM@HrHDcEfxjoYZgeFONFh7HgQ', { expiresIn: '24h' },
+                                        )
+                                    });
+                                }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
+                        }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
+
+                } else {
+                    return res.status(400).json({ status: 400, message: 'Cette adresse email n\'est n\'appartient a aucun profil utilisateur !' });
+                };
+            }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
+    } else {
+        res.status(400).json({ status: 400, message: 'Le mot de passe doit comporter minimum 8 charateres ,1 majuscule , 1 chiffre' });
+    };
 }; //fin login
 
 exports.displayUsers = (req, res, next) => {
@@ -271,17 +277,26 @@ exports.updatePassword = (req, res, next) => {
             userModel.findOne('id', reqParamsId)
                 .then((response) => {
                     if (userIdRec === response.id || role === 1) {
+
                         bcrypt.compare(reqBody.holdPassword, response.password)
                             .then(valid => {
-                                bcrypt.hash(reqBody.newPassword, 10)
-                                    .then(hash => {
-                                        userModel.updateOne(encryptedNom, encryptedPrenom, emailMask, hashEmail, hash, response.role, encryptedEmail, reqParamsId)
-                                            .then((response) => {
-                                                res.status(200).json({ status: 200, message: "Le mot de passe mis a jour !" });
+                                console.log(valid);
+                                if (valid === false) {
+                                    return res.status(400).json({ status: 400, message: 'Votre ancien mot de passe n\'est pas le bon !' });
+                                };
+                                if (schemaPassword.validate(reqBody.newPassword)) {
+                                    bcrypt.hash(reqBody.newPassword, 10)
+                                        .then(hash => {
+                                            userModel.updateOne(encryptedNom, encryptedPrenom, emailMask, hashEmail, hash, response.role, encryptedEmail, reqParamsId)
+                                                .then((response) => {
+                                                    res.status(200).json({ status: 200, message: "Le mot de passe mis a jour !" });
 
-                                            }).catch(() => { res.status(400).json({ status: 400, message: 'Le mot de passe na pas été mis a jour !' }); });
+                                                }).catch(() => { res.status(400).json({ status: 400, message: 'Le mot de passe na pas été mis a jour !' }); });
 
-                                    }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
+                                        }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
+                                } else {
+                                    res.status(400).json({ status: 400, message: 'Le nouveau mot de passe doit comporter minimum 8 charateres ,1 majuscule , 1 chiffre' });
+                                };
                             }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
                     } else {
                         return res.status(403).json({ status: 403, message: "Vous n'êtes pas autorisé a mettre a jour les utilsateurs !" });
