@@ -44,12 +44,20 @@ createforum = () => {
                 const contenu = document.getElementById('post_forum_text');
 
                 const message_1 = document.getElementById('message_1');
-                //const message_2 = document.getElementById('message_2');
                 const message_3 = document.getElementById('message_3');
 
                 const regexDatas = /^[a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
 
                 validPosts(titre, contenu, regexDatas);
+
+
+                const formPubli = document.getElementById('form_post');
+                formPubli.addEventListener('change', (event) => {
+
+                    if (regexDatas.test(titre.value) !== false) {
+                        message_3.setAttribute('class', 'bloc__form--font--message_form');
+                    };
+                });
 
                 const btnEnvoiePUblication = document.getElementById('btn_publier_forum');
                 btnEnvoiePUblication.addEventListener('click', (event) => {
@@ -138,12 +146,11 @@ createforum = () => {
                                 const main = document.getElementById('main_forum');
                                 const messageHide = document.getElementById('modal_message');
                                 main.removeChild(messageHide);
-                                // window.location = './forum.html';
+                                window.location = './forum.html';
                             }, 900);
                         }); //fin de then sendObjsect3
                     } else {
                         message_3.setAttribute('class', 'bloc__form--font--message_form_4');
-                        console.log('erreur');
                     };
                 }); //fin de btnEnvoiePUblication
             }; // fin de createPublication
@@ -289,9 +296,19 @@ createforum = () => {
                                         const contenu = document.getElementById('post_forum_text' + dataPubli.postId);
                                         const image = document.getElementById('post_img' + dataPubli.postId).files;
 
+                                        const message_3 = document.getElementById('message_33');
+
                                         const regexDatas = /^[a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}$/;
 
                                         validModifPosts(titre, contenu, regexDatas);
+
+                                        const formPubli = document.getElementById('modal_modif_post');
+                                        formPubli.addEventListener('change', (event) => {
+
+                                            if (regexDatas.test(titre.value) !== false) {
+                                                message_3.setAttribute('class', 'bloc__form--font--message_form');
+                                            };
+                                        });
 
                                         const btnSendModif = document.getElementById('btn_post_forum_modif');
                                         btnSendModif.addEventListener('click', (event) => {
@@ -475,9 +492,10 @@ createforum = () => {
                                     const btnHideComs = document.getElementById('display_none_forum' + dataPubli.postId);
                                     btnHideComs.addEventListener('click', (event) => {
                                         event.preventDefault();
-                                        const main = document.getElementById('main_forum');
-                                        const contentModal = document.getElementById('modal_create_commentaire');
-                                        main.removeChild(contentModal);
+                                        const createDisplayComs = document.getElementById('coms_display' + displayCommentaire.comId);
+                                        createDisplayComs.setAttribute('class', 'display--none');
+
+                                        btnHideComs.setAttribute('class', 'display--none');
                                     });
 
                                     //-------------------suppression d'un commentaire----------------------//
@@ -556,6 +574,16 @@ createforum = () => {
                                                 const regexDatas = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
 
                                                 validComsModif(recupContenu, regexDatas, 'message_coms_111');
+
+                                                const formCom = document.getElementById('form_modif_com');
+
+                                                formCom.addEventListener('change', (event) => {
+                                                    event.preventDefault();
+                                                    if (regexDatas.test(recupContenu.value) !== false) {
+                                                        const message_2 = document.getElementById('message_coms_222');
+                                                        message_2.setAttribute('class', 'bloc__form--font--message_form');
+                                                    };
+                                                });
 
                                                 const btnEnvoiModifCom = document.getElementById('btnComModif');
                                                 btnEnvoiModifCom.addEventListener('click', (event) => {
@@ -687,6 +715,17 @@ createforum = () => {
                                     const regexDatas = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
 
                                     validComs('message_coms_1', contenu, regexDatas);
+
+
+                                    const formCom = document.getElementById('form_commentaire');
+                                    formCom.addEventListener('change', (event) => {
+                                        event.preventDefault();
+                                        if (regexDatas.test(contenu.value) !== false) {
+                                            const message_2 = document.getElementById('message_coms_2');
+                                            message_2.setAttribute('class', 'bloc__form--font--message_form');
+                                        };
+                                    });
+
 
                                     const btnSendCommentaire = document.getElementById('btn_envoyer_coms');
                                     btnSendCommentaire.addEventListener('click', (event) => {
