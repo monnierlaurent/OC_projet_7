@@ -19,6 +19,14 @@ createLogin = () => {
 
         const newBtnConnection = document.getElementById('btn_connect_index');
 
+        const formLogin = document.getElementById('form_Login');
+        formLogin.addEventListener('change', () => {
+            if (regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false) {
+                message_3.setAttribute('class', 'bloc__form--font--message_form');
+
+            };
+        });
+
         newBtnConnection.addEventListener('click', (event) => {
             event.preventDefault();
             if (regexEmail.test(email.value) === false) {
@@ -34,7 +42,7 @@ createLogin = () => {
 
             if (regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false) {
 
-                message_3.setAttribute('class', 'bloc__form--font--message_form_4');
+                message_3.setAttribute('class', 'bloc__form--font--message_form');
                 const contact = {
                     email: email.value,
                     password: password.value
@@ -43,8 +51,15 @@ createLogin = () => {
                 const datas = send('http://localhost:3000/api/auth/login', contact);
 
                 datas.then(response => {
+                    if (response.status === 403 || response.status === 404 || response.status === 500) {
+                        messageConfirm2(response.message, 'mainIndex');
 
-                    if (response.status === 400) {
+                        setTimeout(() => {
+                            const main = document.getElementById('mainIndex');
+                            const messageHide = document.getElementById('modal_message');
+                            main.removeChild(messageHide);
+                        }, 900);
+                    } else if (response.status === 400) {
                         message_3.innerHTML = response.message;
                         message_3.setAttribute('class', 'bloc__form--font--message_form_4');
                     } else {
@@ -64,5 +79,4 @@ createLogin = () => {
     };
     envoiRequest();
 };
-
 createLogin();

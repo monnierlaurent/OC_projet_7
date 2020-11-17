@@ -65,6 +65,24 @@ createLogin = () => {
 
     valideSignup(nom, prenom, email, password, confirmPassword, regexNomPrenom, regexEmail, regexPassword);
 
+
+
+
+    const formSignup = document.getElementById('form_signup');
+    formSignup.addEventListener('change', (event) => {
+        event.preventDefault();
+        if (avatarChoix !== undefined) {
+            message_6.setAttribute('class', 'bloc__form--font--message_form');
+        } else {
+            message_6.setAttribute('class', 'bloc__form--font--message_form_4');
+        };
+
+        if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false && confirmPassword.value === password.value && avatarChoix !== undefined) {
+            message_7.setAttribute('class', 'bloc__form--font--message_form');
+
+        };
+    });
+
     const btnConnection = document.getElementById('btn_inscrip_signup');
     btnConnection.addEventListener('click', (event) => {
         event.preventDefault();
@@ -102,6 +120,7 @@ createLogin = () => {
         if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false && confirmPassword.value === password.value && avatarChoix !== undefined) {
 
             message_7.setAttribute('class', 'bloc__form--font--message_form_2');
+
             const contact = {
                 nom: nom.value,
                 prenom: prenom.value,
@@ -118,16 +137,32 @@ createLogin = () => {
                 console.log(response);
                 console.log(response.status);
 
-                if (response.status === 400) {
+                if (response.status === 403 || response.status === 404 || response.status === 500) {
+                    messageConfirm2(response.message, 'main_signup');
+
+                    setTimeout(() => {
+                        const main = document.getElementById('main_signup');
+                        const messageHide = document.getElementById('modal_message');
+                        main.removeChild(messageHide);
+                    }, 900);
+                } else if (response.status === 400) {
                     message_7.innerHTML = response.message;
                     message_7.setAttribute('class', 'bloc__form--font--message_form_4');
                     message_6.setAttribute('class', 'bloc__form--font--message_form');
+
                 } else {
 
                     const auth = JSON.stringify(response);
                     sessionStorage.setItem('repAuth', auth);
 
-                    window.location = './forum.html';
+                    messageConfirm2(response.message, 'main_signup');
+
+                    setTimeout(() => {
+                        const main = document.getElementById('main_signup');
+                        const messageHide = document.getElementById('modal_message');
+                        main.removeChild(messageHide);
+                        window.location = './forum.html';
+                    }, 900);
                 };
             }).catch((error => {
                 //modals();

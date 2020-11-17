@@ -8,7 +8,7 @@ createFormLogin = () => {
 
     const mainIndex = document.getElementById('mainIndex');
 
-    const formPost = mainIndex.appendChild(createElm2('form', '', 'id', '', 'class', 'bloc__form--login--flex')); //
+    const formPost = mainIndex.appendChild(createElm2('form', '', 'id', 'form_Login', 'class', 'bloc__form--login--flex')); //
     formPost.appendChild(createElm1('h2', 'Connection', 'class', 'bloc__login__form--label--style--create--post')); //
 
     formPost.appendChild(createElm2('label', 'Adresse email :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'email')); //

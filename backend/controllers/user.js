@@ -83,6 +83,7 @@ exports.createUser = (req, res, next) => {
                                                     };
                                                     res.status(200).json({
                                                         status: 200,
+                                                        message: 'Utilisateur enregisté !',
                                                         avatar: response[0].avatar,
                                                         role: response[0].role,
                                                         userId: response[0].id,
