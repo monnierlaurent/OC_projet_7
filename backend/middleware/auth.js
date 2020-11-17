@@ -21,8 +21,10 @@ module.exports = (req, res, next) => {
         // comparaison de l'id de la requête et celui récupéré du token
         if (req.body.userId && req.body.userId !== userId1) {
             // si erreur 
-            throw 'user ID non valable ! ';
-
+            return res.status(401).json({
+                status: 401,
+                message: 'user ID non valable !!!'
+            });
         } else {
             // si pas d'erreurs on passe au middelware suivant
             req.userIdAuth = userId1;
@@ -30,8 +32,9 @@ module.exports = (req, res, next) => {
         };
 
     } catch (error) {
-        res.status(401).json({
-            error: 'Requête non authentifié !!!'
-        })
+        return res.status(401).json({
+            status: 401,
+            message: 'Requête non authentifié !!!'
+        });
     };
 };

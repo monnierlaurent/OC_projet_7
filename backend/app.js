@@ -25,7 +25,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 app.use('*', (req, res) => {
-    res.status(400).json({ error: 'Cette route n\'existe pas !!' });
+    res.status(400).json({ status: 400, message: 'Cette route n\'existe pas !!' });
 });
 
 module.exports = app;

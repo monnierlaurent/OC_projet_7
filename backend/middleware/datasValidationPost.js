@@ -13,9 +13,13 @@ module.exports = async(req, res, next) => {
 
 
         // si erreur de données
-        if (valueTitre.error, valueContenu.error) {
+        if (valueTitre.error) {
 
-            res.status(400).json({ error: 'La syntaxe de la requête est erronée' });
+            return res.status(400).json({ status: 400, message: '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !' });
+
+        } else if (valueContenu.error) {
+
+            return res.status(400).json({ status: 400, message: 'Le contenu doit contenir au minum 2 charactères !' });
 
         } else {
             // si données sont conforme au schema on passe au middelware suivant
@@ -25,9 +29,9 @@ module.exports = async(req, res, next) => {
         //suppression du fichier image si erreur de modification
         if (req.file) {
             const file = req.file.path;
-            fs.unlink(`${file}`, () => { res.status(404).json({ error: 'les champs ne sont pas conformes!' }); });
+            fs.unlink(`${file}`, () => { res.status(404).json({ status: 404, message: 'L\'image est bien supprimé !' }); });
         } else {
-            res.status(404).json({ error: 'les champs ne sont pas conformes!' });
+            return res.status(400).json({ status: 400, message: 'Un des champs n\'est pas conforme !' });
         };
     };
 };

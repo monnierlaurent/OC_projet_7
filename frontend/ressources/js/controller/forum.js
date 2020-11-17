@@ -138,7 +138,7 @@ createforum = () => {
                                 const main = document.getElementById('main_forum');
                                 const messageHide = document.getElementById('modal_message');
                                 main.removeChild(messageHide);
-                                window.location = './forum.html';
+                                // window.location = './forum.html';
                             }, 900);
                         }); //fin de then sendObjsect3
                     } else {
@@ -155,6 +155,7 @@ createforum = () => {
                 dataUser.then(post => {
 
                     post.forEach(dataPubli => {
+
                         const dataCom = requestAuth('http://localhost:3000/api/post/' + dataPubli.postId + '/com'); //appel com
                         dataCom.then(coms => {
 

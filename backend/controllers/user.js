@@ -58,7 +58,7 @@ exports.createUser = (req, res, next) => {
                 });
 
                 if (tableEmail.includes(hashEmail)) {
-                    return res.status(400).json({ status: 400, message: 'Cet email est déja utilisé !' });
+                    return res.status(400).json({ status: 400, message: 'Cette adresse email est déja utilisé !' });
                 } else {
 
                     const encryptedEmail = cryptr.encrypt(reqBody.email); //const decryptedEmail = cryptr.decrypt(encryptedEmail);
@@ -82,6 +82,7 @@ exports.createUser = (req, res, next) => {
                                                         return res.status(400).json({ status: 400, message: 'L\'email ou le mot de passe est invalide !' });
                                                     };
                                                     res.status(200).json({
+                                                        status: 200,
                                                         avatar: response[0].avatar,
                                                         role: response[0].role,
                                                         userId: response[0].id,
@@ -89,12 +90,12 @@ exports.createUser = (req, res, next) => {
                                                             'eyJhbGciOiJIUzI1NiIs@InR5cCI6IkpXVCJ9.eyJz#dWIiOiIxMjM0NTY3ODkwIiw/ibmFtZSI6IkpvaG4g&RG9lIiwiYWRtaW4iOnRydWV9.TJVA95Or/M7E2cBab30RM@HrHDcEfxjoYZgeFONFh7HgQ', { expiresIn: '24h' },
                                                         )
                                                     });
-                                                }).catch(() => res.status(500).json({ status: 500, message: 'Erreur interne du serveur ' }));
-                                        }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
+                                                }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
+                                        }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
                                 }).catch(() => res.status(400).json({ status: 400, message: 'La syntaxe de la requête est erronée' }));
-                        }).catch(() => res.status(500).json({ status: 500, message: 'Erreur interne du serveur ' }));
+                        }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
                 };
-            }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
+            }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
     } else {
         res.status(400).json({ status: 400, message: 'Le mot de passe doit comporter minimum 8 charateres ,1 majuscule , 1 chiffre' });
     };
@@ -132,6 +133,7 @@ exports.loginUser = (req, res, next) => {
                                     return res.status(400).json({ status: 400, message: 'L\'email ou le mot de passe est invalide !' });
                                 };
                                 res.status(200).json({
+                                    status: 200,
                                     avatar: response[0].avatar,
                                     role: response[0].role,
                                     userId: response[0].id,
@@ -139,11 +141,11 @@ exports.loginUser = (req, res, next) => {
                                         'eyJhbGciOiJIUzI1NiIs@InR5cCI6IkpXVCJ9.eyJz#dWIiOiIxMjM0NTY3ODkwIiw/ibmFtZSI6IkpvaG4g&RG9lIiwiYWRtaW4iOnRydWV9.TJVA95Or/M7E2cBab30RM@HrHDcEfxjoYZgeFONFh7HgQ', { expiresIn: '24h' },
                                     )
                                 });
-                            }).catch(() => res.status(500).json({ status: 500, message: 'Erreur interne du serveur ' }));
+                            }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
                     }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
 
             } else {
-                return res.status(400).json({ status: 400, message: 'Cet email n\'est n\'appartient a aucun profil utilisateur !' });
+                return res.status(400).json({ status: 400, message: 'Cette adresse email n\'est n\'appartient a aucun profil utilisateur !' });
             };
         }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
 }; //fin login
@@ -152,7 +154,7 @@ exports.displayUsers = (req, res, next) => {
     userModel.findAll()
         .then((response) => {
             res.status(200).json(response);
-        }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
 };
 
 
@@ -173,10 +175,10 @@ exports.displayIdUser = (req, res, next) => {
                     if (userIdRec === response.id || role === 1) {
                         res.status(200).json(response);
                     } else {
-                        res.status(403).json({ message: 'vous n\'êtes pas autoridé a accéder a cette page !' });
+                        res.status(403).json({ status: 403, message: 'Vous n\'êtes pas autoridé a accéder a ces données !' });
                     };
-                }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
-        }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
+                }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
 };
 
 
@@ -195,13 +197,13 @@ exports.deleteUser = (req, res, next) => {
                     if (userIdRec === response.id || role === 1) {
                         userModel.deleteOne(reqParamsId)
                             .then(() => {
-                                res.status(200).json({ message: "Utilisateur supprimé !" });
-                            }).catch(() => res.status(400).json({ message: 'La syntaxe de la requête est erronée' }));
+                                res.status(200).json({ status: 200, message: "Utilisateur supprimé !" });
+                            }).catch(() => res.status(400).json({ status: 400, message: 'Utilisateur non supprimé !' }));
                     } else {
-                        res.status(403).json({ message: 'vous n\'êtes pas autoridé a supprimer un utilisateur !' });
+                        res.status(403).json({ status: 403, message: 'Vous n\'êtes pas autorisé a supprimer un utilisateur !' });
                     };
-                }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
-        }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
+                }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
 };
 
 exports.updateUser = (req, res, next) => {
@@ -237,15 +239,15 @@ exports.updateUser = (req, res, next) => {
                         userModel.updateOne(encryptedNom, encryptedPrenom, emailMask, hashEmail, hash, response.role, encryptedEmail, reqBody.avatar, reqParamsId)
 
                         .then((response) => {
-                            res.status(200).json({ message: "Utilisateur mis a jour !" });
+                            res.status(200).json({ status: 200, message: "Utilisateur mis a jour !" });
 
-                        }).catch(() => { res.status(400).json({ message: 'La syntaxe de la requête est erronée' }); });
+                        }).catch(() => { res.status(400).json({ status: 400, message: 'Utilisateur na pas été mis a jour !' }); });
 
                     } else {
-                        return res.status(403).json({ message: "Vous n'êtes pas autorisé a mettre a jour les utilsateurs !" });
+                        return res.status(403).json({ status: 403, message: "Vous n'êtes pas autorisé a modifié les utilsateurs !" });
                     };
-                }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
-        }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
+                }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
 };
 
 
@@ -274,15 +276,15 @@ exports.updatePassword = (req, res, next) => {
                                     .then(hash => {
                                         userModel.updateOne(encryptedNom, encryptedPrenom, emailMask, hashEmail, hash, response.role, encryptedEmail, reqParamsId)
                                             .then((response) => {
-                                                res.status(200).json({ message: "Utilisateur mis a jour !" });
+                                                res.status(200).json({ status: 200, message: "Le mot de passe mis a jour !" });
 
-                                            }).catch(() => { res.status(400).json({ message: 'La syntaxe de la requête est erronée' }); });
+                                            }).catch(() => { res.status(400).json({ status: 400, message: 'Le mot de passe na pas été mis a jour !' }); });
 
-                                    }).catch(() => res.status(500).json({ message: 'Erreur interne du serveur ' }));
-                            }).catch(() => res.status(500).json({ message: 'Erreur interne du serveur ' }));
+                                    }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
+                            }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
                     } else {
-                        return res.status(403).json({ message: "Vous n'êtes pas autorisé a mettre a jour les utilsateurs !" });
+                        return res.status(403).json({ status: 403, message: "Vous n'êtes pas autorisé a mettre a jour les utilsateurs !" });
                     };
-                }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
-        }).catch(() => res.status(404).json({ message: 'cette resource n\'existe pas !' }));
+                }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
 };
