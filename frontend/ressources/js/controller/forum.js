@@ -169,13 +169,25 @@ createforum = () => {
                                 const contentModalHide = document.getElementById('modal_create_post');
                                 contentModalHide.setAttribute('class', 'display--none');
 
+                                const dataUser = requestAuth('http://localhost:3000/api/post'); //appel user
+                                dataUser.then(post => {
+                                    post.forEach(rep => {
+                                        const mainForum = document.getElementById('main_forum');
+                                        const article = document.getElementById('content_article' + rep.postId);
+
+                                        if (article !== null) {
+                                            mainForum.removeChild(article);
+                                        };
+                                    });
+                                    displayPublication();
+                                });
+
                                 messageConfirm(repObjet3.message, 'main_forum');
 
                                 setTimeout(() => {
                                     const main = document.getElementById('main_forum');
                                     const messageHide = document.getElementById('modal_message');
                                     main.removeChild(messageHide);
-                                    window.location = './forum.html';
                                 }, 900);
                             };
                         }); //fin de then sendObjsect3
@@ -190,7 +202,7 @@ createforum = () => {
             displayPublication = () => {
                 const dataUser = requestAuth('http://localhost:3000/api/post'); //appel user
                 dataUser.then(post => {
-                    console.log(post)
+
                     if (post === 'La syntaxe de la requête est erronée') {
                         messageConfirm('Le forum est vide !!', 'main_forum');
                         setTimeout(() => {
@@ -483,7 +495,6 @@ createforum = () => {
                                                     const sendModifObjsect3 = putAuthJson('http://localhost:3000/api/post/' + dataPubli.postId, posts); //  
                                                     sendModifObjsect3.then(repModifObjet3 => {
 
-                                                        console.log(repModifObjet3)
                                                         if (repModifObjet3.status === 400 || repModifObjet3.status === 404 || repModifObjet3.status === 403 || repModifObjet3.status === 500) {
                                                             messageConfirm(repModifObjet3.message, 'main_forum');
                                                             setTimeout(() => {
@@ -555,7 +566,7 @@ createforum = () => {
                                         btnDysplayComs.addEventListener('click', (event) => {
                                             event.preventDefault();
                                             const createDisplayComs = document.getElementById('coms_display' + displayCommentaire.comId);
-                                            createDisplayComs.removeAttribute('class');
+                                            createDisplayComs.setAttribute('class', '');
                                             const btnMasquer = document.getElementById('display_none_forum' + dataPubli.postId);
                                             btnMasquer.setAttribute('class', 'bloc_article--icons--flex');
                                         });
@@ -707,7 +718,6 @@ createforum = () => {
                                                         } else {
                                                             const message_2 = document.getElementById('message_coms_222');
                                                             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
-                                                            //erreur4.innerHTML = 'le champs n\'est pas rempli correctement !';
                                                         };
                                                     }); //fin de btn envoie de la modification du commentaire
                                                 });
@@ -832,8 +842,22 @@ createforum = () => {
 
                                                     } else {
 
+                                                        const dataUser = requestAuth('http://localhost:3000/api/post/');
+                                                        dataUser.then(post => {
+
+                                                            post.forEach(rep => {
+                                                                const mainForum = document.getElementById('main_forum');
+                                                                const article = document.querySelector('article');
+
+                                                                if (article !== null) {
+                                                                    mainForum.removeChild(article);
+                                                                };
+                                                            });
+                                                            displayPublication();
+                                                        });
 
                                                         messageConfirm(repSendCommentaire.message, 'main_forum');
+
                                                         const main = document.querySelector('main');
                                                         const modalPubliCommentaire = document.getElementById('modal_create_commentaire');
                                                         main.removeChild(modalPubliCommentaire);
@@ -841,7 +865,7 @@ createforum = () => {
                                                         setTimeout(() => {
                                                             const message = document.getElementById('modal_message');
                                                             main.removeChild(message)
-                                                            window.location = './forum.html';
+                                                                //window.location = './forum.html';
                                                         }, 900);
                                                     };
                                                 });
