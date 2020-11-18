@@ -50,7 +50,7 @@ createFormModifUser = (nom, prenom, emailRec) => {
     newForm.appendChild(createInputs('input', '', 'id', 'email', 'class', 'bloc__login__form--input--style-2', 'type', 'email', 'value', emailRec));
     newForm.appendChild(createElm2('p', '*Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !', 'id', 'message_3', 'class', 'bloc__form--font--message_form'));
 
-    const newDiv1 = newForm.appendChild(createElm1('div', '', 'class', 'signup--avatar--flex', ));
+    const newDiv1 = newForm.appendChild(createElm2('div', '', 'id', 'form_avatar', 'class', 'signup--avatar--flex', ));
     newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_1', 'src', 'http://localhost:3000/images/avatar/avatar_01.png', 'class', 'signup--avatar--style', 'alt', 'Choix de l\'avatar 1'));
     newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_2', 'src', 'http://localhost:3000/images/avatar/avatar_02.png', 'class', 'signup--avatar--style', 'alt', 'Choix de l\'avatar 2'));
     newDiv1.appendChild(createElm4('img', '', 'id', 'avatars_3', 'src', 'http://localhost:3000/images/avatar/avatar_03.png', 'class', 'signup--avatar--style', 'alt', 'Choix de l\'avatar 3'));

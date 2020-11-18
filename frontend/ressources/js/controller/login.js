@@ -21,6 +21,7 @@ createLogin = () => {
 
         const formLogin = document.getElementById('form_Login');
         formLogin.addEventListener('change', () => {
+
             if (regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false) {
                 message_3.setAttribute('class', 'bloc__form--font--message_form');
 

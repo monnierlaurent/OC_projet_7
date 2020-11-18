@@ -34,7 +34,6 @@ createUsersCompte = () => {
 
                     const urlId = 'http://localhost:3000/api/auth/' + userUnique.id;
 
-                    console.log(urlId)
                     const supprDatas = deleteAuth(urlId);
                     supprDatas.then(response => {
 
@@ -139,12 +138,21 @@ createUsersCompte = () => {
                             return avatarChoix = avatar4.src;
                         });
 
-                        /* if (regexNomPrenom.test(recupNom.value) !== false && regexNomPrenom.test(recupPrenom.value) !== false && regexEmail.test(recupEmail.value) !== false) {
-                             message_5.setAttribute('class', 'bloc__form--font--message_form_2');
-                         };*/
+
+
+
+                        const formUser = document.getElementById('form_modif_user');
+                        formUser.addEventListener('change', (event) => {
+                            event.preventDefault();
+                            if (regexNomPrenom.test(recupNom.value) !== false && regexNomPrenom.test(recupPrenom.value) !== false && regexEmail.test(recupEmail.value) !== false) {
+                                message_5.setAttribute('class', 'bloc__form--font--message_form_2');
+                            };
+                        });
+
 
                         const btnEnvoieModif = document.getElementById('btn_modif_profil_user_2');
                         btnEnvoieModif.addEventListener('click', (event) => {
+
 
                             event.preventDefault();
                             if (regexNomPrenom.test(recupNom.value) === false) {
@@ -299,7 +307,6 @@ createUsersCompte = () => {
 
                         const postModifUser = putAuthJson('http://localhost:3000/api/auth/password/' + userUnique.id, passwordNew);
                         postModifUser.then(response => {
-                            console.log(response)
 
                             if (response.status === 400) {
                                 message_4.innerHTML = response.message;

@@ -229,7 +229,7 @@ validComs = (id, contenu, Rdatas) => {
 
         } else if (Rdatas.test(contenu.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_1.innerHTML = 'Le champs commentaire et obligatoire et dois contenir au minimum 2 charateres !';
+            message_1.innerHTML = '*champs commentaire et obligatoire et dois contenir au minimum 2 charateres !';
 
         };
     });
@@ -257,7 +257,6 @@ validComsModif = (contenu, Rdatas, idErreur) => {
         };
     });
 };
-
 //-------validation du formulaire de modification du profil utilisateur---------//
 valideModifUser = (recupNom, recupPrenom, recupEmail, regexNomPrenom, regexEmail) => {
     const message_1 = document.getElementById('message_1');

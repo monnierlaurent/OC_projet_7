@@ -184,7 +184,7 @@ exports.updatePostIdImg = (req, res, next) => {
 
 
 exports.updatePostId = (req, res, next) => {
-    console.log(req.body)
+
     const reqParamsId = sanitize(req.params.id);
     const userIdAuth = sanitize(req.userIdAuth);
     const reqBody = sanitize(req.body);

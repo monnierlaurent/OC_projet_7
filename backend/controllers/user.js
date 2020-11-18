@@ -149,7 +149,7 @@ exports.loginUser = (req, res, next) => {
                         }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
 
                 } else {
-                    return res.status(400).json({ status: 400, message: 'Cette adresse email n\'est n\'appartient a aucun profil utilisateur !' });
+                    return res.status(400).json({ status: 400, message: 'Cette adresse email n\'appartient a aucun profil utilisateur !' });
                 };
             }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
     } else {
@@ -280,7 +280,7 @@ exports.updatePassword = (req, res, next) => {
 
                         bcrypt.compare(reqBody.holdPassword, response.password)
                             .then(valid => {
-                                console.log(valid);
+
                                 if (valid === false) {
                                     return res.status(400).json({ status: 400, message: 'Votre ancien mot de passe n\'est pas le bon !' });
                                 };

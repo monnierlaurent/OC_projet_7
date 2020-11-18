@@ -53,9 +53,9 @@ createforum = () => {
 
                 const formPubli = document.getElementById('form_post');
                 formPubli.addEventListener('change', (event) => {
-
+                    event.preventDefault();
                     if (regexDatas.test(titre.value) !== false) {
-                        message_3.setAttribute('class', 'bloc__form--font--message_form');
+                        message_3.setAttribute('class', 'bloc__form--font--message_form_3');
                     };
                 });
 
@@ -261,8 +261,6 @@ createforum = () => {
                             //-------------------modification d'une publication----------------------//
                             modifPublication = () => {
 
-
-
                                 const btnModalModifPubli = document.getElementById('btn_modif_publication' + dataPubli.postId);
                                 btnModalModifPubli.addEventListener('click', (event) => {
                                     event.preventDefault();
@@ -272,7 +270,10 @@ createforum = () => {
 
                                         modaleCreateModifPost(recupModifObjet.postId, recupModifObjet.avatar, recupModifObjet.titre, recupModifObjet.contenu, recupModifObjet.imageUrl, recupModifObjet.nom, recupModifObjet.prenom);
 
-                                        const modalModifPubli = document.getElementById('modal_modif_post');
+
+
+
+                                        const modalModifPubli = document.getElementById('modal_modif_post')
                                         modalModifPubli.setAttribute('class', 'modal');
 
 
@@ -283,11 +284,6 @@ createforum = () => {
                                             const main = document.getElementById('main_forum');
                                             const modalModifPubli = document.getElementById('modal_modif_post');
                                             main.removeChild(modalModifPubli);
-                                            //const message_1 = document.getElementById('message_11');
-                                            //message_1.setAttribute('class', 'bloc__form--font--message_form');
-
-                                            // document.getElementById('form_modif_post_1').reset();
-                                            //document.getElementById('form_modif_post_2').reset();
 
                                             modalModifPubli.setAttribute('class', 'display--none');
                                         });
@@ -296,17 +292,22 @@ createforum = () => {
                                         const contenu = document.getElementById('post_forum_text' + dataPubli.postId);
                                         const image = document.getElementById('post_img' + dataPubli.postId).files;
 
+                                        if (recupModifObjet.contenu === 'vide') {
+
+                                            contenu.innerText = '';
+                                        };
+
                                         const message_3 = document.getElementById('message_33');
 
-                                        const regexDatas = /^[a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}$/;
+                                        const regexDatas = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'\.\-\ ]{2,255}$/;
 
                                         validModifPosts(titre, contenu, regexDatas);
 
                                         const formPubli = document.getElementById('modal_modif_post');
                                         formPubli.addEventListener('change', (event) => {
-
+                                            event.preventDefault();
                                             if (regexDatas.test(titre.value) !== false) {
-                                                message_3.setAttribute('class', 'bloc__form--font--message_form');
+                                                message_3.setAttribute('class', 'bloc__form--font--message_form_3');
                                             };
                                         });
 
@@ -328,10 +329,7 @@ createforum = () => {
                                                 } else {
                                                     const message_2 = document.getElementById('message_22');
                                                     message_2.setAttribute('class', 'bloc__form--font--message_form');
-
-
                                                 };
-                                                console.log('supperieur')
                                             };
 
                                             if (image[0] && regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) !== false) {
@@ -371,10 +369,12 @@ createforum = () => {
                                                             message.setAttribute('class', 'display--none');
                                                         }, 900);
                                                     }).catch((error => {
-                                                        messageConfirm2('Le forum est vide', 'main_forum')
+
+                                                        messageConfirm2('Le forum est vide', 'main_forum');
                                                     })); //fin catch
                                                 }).catch((error => {
-                                                    messageConfirm2('Le forum est vide', 'main_forum')
+
+                                                    messageConfirm2('Le forum est vide', 'main_forum');
                                                 })); //fin catch
                                             } else if (image[0] && regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) === false) {
                                                 const posts10 = {
@@ -410,10 +410,10 @@ createforum = () => {
                                                             message.setAttribute('class', 'display--none');
                                                         }, 900);
                                                     }).catch((error => {
-                                                        messageConfirm2('Le forum est vide', 'main_forum')
+                                                        messageConfirm2('Le forum est vide', 'main_forum');
                                                     })); //fin catch
                                                 }).catch((error => {
-                                                    messageConfirm2('Le forum est vide', 'main_forum')
+                                                    messageConfirm2('Le forum est vide', 'main_forum');
                                                 })); //fin catch
                                             } else if (!image[0] && regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) !== false) {
 
@@ -447,6 +447,7 @@ createforum = () => {
                                                             //window.location = './forum.html';
                                                         }, 900);
                                                     }).catch((error => {
+
                                                         messageConfirm2('Le forum est vide', 'main_forum')
                                                     })); //fin catch
                                                 }).catch((error => {
@@ -461,6 +462,7 @@ createforum = () => {
                                 }); // fin de btnModalModifPubli
                             }; // fin de modifPublication
                             modifPublication();
+
                             //-------------------ouvrir la section des commentaires d'une publication----------------------//
                             displayCommentaire = () => {
 
@@ -510,7 +512,7 @@ createforum = () => {
                                             data.then(repDelete => {
 
                                                 const mainPostid = document.getElementById('display_forum' + dataPubli.postId);
-                                                console.log(mainPostid)
+
                                                 const contentSpan = document.getElementById('coms_display' + displayCommentaire.comId);
                                                 mainPostid.removeChild(contentSpan);
 
@@ -521,7 +523,7 @@ createforum = () => {
 
                                                     const compteurComs = document.getElementById('display_coms_forum' + dataPubli.postId);
                                                     compteurComs.innerHTML = compteurCom + ' ' + 'commentaire';
-                                                    console.log(compteurCom)
+
                                                 });
 
                                                 messageConfirm(repDelete.message);
@@ -571,7 +573,7 @@ createforum = () => {
                                                 });
                                                 const message_1 = document.getElementById('message_coms_111');
                                                 const recupContenu = document.getElementById('commentaireModifCom');
-                                                const regexDatas = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+                                                const regexDatas = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
 
                                                 validComsModif(recupContenu, regexDatas, 'message_coms_111');
 
@@ -581,7 +583,7 @@ createforum = () => {
                                                     event.preventDefault();
                                                     if (regexDatas.test(recupContenu.value) !== false) {
                                                         const message_2 = document.getElementById('message_coms_222');
-                                                        message_2.setAttribute('class', 'bloc__form--font--message_form');
+                                                        message_2.setAttribute('class', 'bloc__form--font--message_form_3');
                                                     };
                                                 });
 
@@ -722,10 +724,9 @@ createforum = () => {
                                         event.preventDefault();
                                         if (regexDatas.test(contenu.value) !== false) {
                                             const message_2 = document.getElementById('message_coms_2');
-                                            message_2.setAttribute('class', 'bloc__form--font--message_form');
+                                            message_2.setAttribute('class', 'bloc__form--font--message_form_3');
                                         };
                                     });
-
 
                                     const btnSendCommentaire = document.getElementById('btn_envoyer_coms');
                                     btnSendCommentaire.addEventListener('click', (event) => {

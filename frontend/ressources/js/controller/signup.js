@@ -75,14 +75,9 @@ createLogin = () => {
     const formSignup = document.getElementById('form_signup');
     formSignup.addEventListener('change', (event) => {
         event.preventDefault();
-        if (avatarChoix !== undefined) {
-            message_6.setAttribute('class', 'bloc__form--font--message_form');
-        } else {
-            message_6.setAttribute('class', 'bloc__form--font--message_form_4');
-        };
 
         if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false && confirmPassword.value === password.value) {
-            message_7.setAttribute('class', 'bloc__form--font--message_form');
+            message_7.setAttribute('class', 'bloc__form--font--message_form_2');
         };
     });
 
@@ -137,9 +132,6 @@ createLogin = () => {
 
             datas6.then(response => {
 
-                console.log(response);
-                console.log(response.status);
-
                 if (response.status === 403 || response.status === 404 || response.status === 500) {
                     messageConfirm2(response.message, 'main_signup');
 
@@ -152,7 +144,7 @@ createLogin = () => {
                 } else if (response.status === 400) {
                     message_7.innerHTML = response.message;
                     message_7.setAttribute('class', 'bloc__form--font--message_form_4');
-                    message_6.setAttribute('class', 'bloc__form--font--message_form');
+
 
                 } else {
 

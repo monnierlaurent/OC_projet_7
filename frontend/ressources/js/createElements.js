@@ -115,7 +115,6 @@ deleteImg = (repimageUrl, reppostId) => {
         const imqAltParent = document.getElementById('lien_article' + reppostId);
         const imgBalise = document.getElementById('img_post_display' + reppostId);
         imqAltParent.removeChild(imgBalise);
-        //console.log('il y a une image');
     };
 };
 
@@ -124,7 +123,6 @@ deletetitre = (repcontenu, reppostId) => {
         const contenuParent = document.getElementById('lien_article' + reppostId);
         const contenuBalise = document.getElementById('contenu' + reppostId);
         contenuParent.removeChild(contenuBalise);
-        //console.log('il y a une image');
     };
 };
 
