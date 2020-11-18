@@ -2,6 +2,7 @@ const sanitize = require('mongo-sanitize');
 const fs = require('fs');
 const PostModel = require('../models/postModel');
 const LikeModel = require('../models/likeModel');
+const { json } = require('body-parser');
 
 const postModel = new PostModel();
 const likeModel = new LikeModel();
@@ -70,20 +71,7 @@ exports.createPost = (req, res, next) => {
         .then(() => {
             postModel.findOnedate()
                 .then(response => {
-
                     res.status(201).json({
-                        /*userId: response[0].userId,
-                        titre: response[0].titre,
-                        contenu: response[0].contenu,
-                        dateCrea: response[0].dateCrea,
-                        dateModif: response[0].dateModif,
-                        imageUrl: response[0].imageUrl,
-                        likes: response[0].likes,
-                        dislikes: response[0].dislikes,
-                        postId: response[0].postId,
-                        nom: response[0].nom,
-                        prenom: response[0].prenom,
-                        avatar: response[0].avatar,*/
                         status: 201,
                         message: 'Publication enregistré !'
                     });

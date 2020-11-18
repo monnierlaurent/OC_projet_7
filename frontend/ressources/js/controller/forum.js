@@ -171,6 +171,8 @@ createforum = () => {
 
                                 const dataUser = requestAuth('http://localhost:3000/api/post'); //appel user
                                 dataUser.then(post => {
+
+                                    console.log()
                                     post.forEach(rep => {
                                         const mainForum = document.getElementById('main_forum');
                                         const article = document.getElementById('content_article' + rep.postId);
@@ -524,7 +526,6 @@ createforum = () => {
                                                                     const main = document.getElementById('main_forum');
                                                                     const messageHide = document.getElementById('modal_message');
                                                                     main.removeChild(messageHide);
-                                                                    window.location = './forum.html';
                                                                 }, 900);
                                                             }).catch((error => {
                                                                 messageConfirm(error, 'main_forum')
@@ -865,7 +866,6 @@ createforum = () => {
                                                         setTimeout(() => {
                                                             const message = document.getElementById('modal_message');
                                                             main.removeChild(message)
-                                                                //window.location = './forum.html';
                                                         }, 900);
                                                     };
                                                 });
