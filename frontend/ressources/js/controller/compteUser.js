@@ -37,7 +37,7 @@ createUsersCompte = () => {
                     const supprDatas = deleteAuth(urlId);
                     supprDatas.then(response => {
 
-                        messageConfirm2(response.message, 'main_compe_user');
+                        messageConfirm(response.message, 'main_compe_user');
 
                         setTimeout(() => {
                             const main = document.getElementById('main_compe_user');
@@ -50,7 +50,7 @@ createUsersCompte = () => {
                         }, 900);
 
                     }).catch((error => {
-                        console.log(error);
+                        messageConfirm(error, 'main_forum');
                     }));
                 });
             }; // fin de deleteProfil
@@ -107,7 +107,7 @@ createUsersCompte = () => {
                             avatar2.setAttribute('class', 'signup--avatar--style');
                             avatar3.setAttribute('class', 'signup--avatar--style');
                             avatar4.setAttribute('class', 'signup--avatar--style');
-                            message_4.setAttribute('class', 'bloc__form--font--message_form');
+                            message_4.setAttribute('class', 'bloc__form--font--message_form_5');
                             return avatarChoix = avatar1.src;
                         });
                         avatar2.addEventListener('click', (event) => {
@@ -116,7 +116,7 @@ createUsersCompte = () => {
                             avatar2.setAttribute('class', 'signup--avatar--border');
                             avatar3.setAttribute('class', 'signup--avatar--style');
                             avatar4.setAttribute('class', 'signup--avatar--style');
-                            message_4.setAttribute('class', 'bloc__form--font--message_form');
+                            message_4.setAttribute('class', 'bloc__form--font--message_form_5');
                             return avatarChoix = avatar2.src;
                         });
                         avatar3.addEventListener('click', (event) => {
@@ -125,7 +125,7 @@ createUsersCompte = () => {
                             avatar2.setAttribute('class', 'signup--avatar--style');
                             avatar3.setAttribute('class', 'signup--avatar--border');
                             avatar4.setAttribute('class', 'signup--avatar--style');
-                            message_4.setAttribute('class', 'bloc__form--font--message_form');
+                            message_4.setAttribute('class', 'bloc__form--font--message_form_5');
                             return avatarChoix = avatar3.src;
                         });
                         avatar4.addEventListener('click', (event) => {
@@ -134,11 +134,13 @@ createUsersCompte = () => {
                             avatar2.setAttribute('class', 'signup--avatar--style');
                             avatar3.setAttribute('class', 'signup--avatar--style');
                             avatar4.setAttribute('class', 'signup--avatar--border');
-                            message_4.setAttribute('class', 'bloc__form--font--message_form');
+                            message_4.setAttribute('class', 'bloc__form--font--message_form_5');
                             return avatarChoix = avatar4.src;
                         });
 
-
+                        if (avatarChoix !== undefined) {
+                            console.log('ok');
+                        }
 
 
                         const formUser = document.getElementById('form_modif_user');
@@ -206,7 +208,7 @@ createUsersCompte = () => {
                                         const avatar = document.getElementById('avatar_user')
                                         avatar.setAttribute('src', userDatas.avatar);
 
-                                        messageConfirm2(response.message, 'main_compe_user');
+                                        messageConfirm(response.message, 'main_compe_user');
 
                                         setTimeout(() => {
                                             const main = document.getElementById('main_compe_user');
@@ -228,7 +230,7 @@ createUsersCompte = () => {
             }; //fin de modifUser
             modifUser();
 
-            //----------------------------modification du profil utilisateur------------------------//
+            //----------------------------modification du mot de passe du utilisateur------------------------//
             modifPassword = () => {
 
                 const formModifpassword = document.getElementById('form_modif_password');
@@ -268,8 +270,7 @@ createUsersCompte = () => {
                 const formPassword = document.getElementById('form_modif_password');
                 formPassword.addEventListener('change', () => {
                     if (regexPassword.test(holdPassword.value) !== false && regexPassword.test(newPassword.value) !== false && newPassword.value === confirmNewPassword.value) {
-                        message_3.setAttribute('class', 'bloc__form--font--message_form_2');
-
+                        message_4.setAttribute('class', 'bloc__form--font--message_form_2');
                     };
                 });
 
@@ -314,7 +315,7 @@ createUsersCompte = () => {
 
                             } else {
                                 message_4.setAttribute('class', 'bloc__form--font--message_form_2');
-                                messageConfirm2(response.message, 'main_compe_user');
+                                messageConfirm(response.message, 'main_compe_user');
 
                                 const formModifpassword = document.getElementById('form_modif_password');
                                 formModifpassword.setAttribute('class', 'display--none');
@@ -328,7 +329,7 @@ createUsersCompte = () => {
                                 }, 900);
                             };
                         }).catch((error => {
-                            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+                            messageConfirm(error, 'main_forum');
                         })); //fin catch 
                     } else {
 
@@ -341,7 +342,7 @@ createUsersCompte = () => {
 
         }).catch((error => {
 
-            modals('Désolé !<br>Le serveur ne repond pas', 'Connection', './index.html');
+            messageConfirm(error, 'main_forum');
         })); //fin then userUnique
     };
 }; //fin de createUsersCompte

@@ -183,8 +183,8 @@ modifComsForm = (avatar, nom, prenom, valueTextarea) => {
 };
 
 
-messageConfirm = (message) => {
+/*messageConfirm = (message) => {
     const main = document.getElementById('main_forum');
     const NenDiv = main.appendChild(createElm2('div', '', 'id', 'modal_message', 'class', 'modal', ));
     NenDiv.appendChild(createElm2('p', message, 'id', 'message_confirm', 'class', 'modal-confirm-style modal-wrapper')); //'Message bien supprimé'
-};
+};*/

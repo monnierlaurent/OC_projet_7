@@ -6,6 +6,7 @@
         --violet_alph: rgba(156, 39, 176, 0.06);
         --violet_alph2: rgba(156, 39, 176, 0.6);
         --vert: #76FF03;
+        --vert2: #00E676;
         --gris1: #616161;
         --gris2: #EFEBE9;
         --gris3: #E0E0E0;
@@ -52,6 +53,11 @@
     
     .bloc__form--font--message_form_4 {
         color: var(--rouge);
+        padding-top: 0.3em;
+    }
+    
+    .bloc__form--font--message_form_5 {
+        color: var(--vert2);
         padding-top: 0.3em;
     }
     /*--------header-------*/

@@ -4,7 +4,6 @@ createLogin = () => {
 
     createFormSignup();
 
-
     const message_1 = document.getElementById('message_1');
     const message_2 = document.getElementById('message_2');
     const message_3 = document.getElementById('message_3');
@@ -28,7 +27,7 @@ createLogin = () => {
     const avatar3 = document.getElementById('avatar_3');
     const avatar4 = document.getElementById('avatar_4');
 
-    let avatarChoix;
+    let avatarChoix = 'vide';
 
     avatar1.addEventListener('click', (event) => {
         event.preventDefault();
@@ -36,7 +35,7 @@ createLogin = () => {
         avatar2.setAttribute('class', 'signup--avatar--style');
         avatar3.setAttribute('class', 'signup--avatar--style');
         avatar4.setAttribute('class', 'signup--avatar--style');
-        message_6.setAttribute('class', 'bloc__form--font--message_form');
+        message_6.setAttribute('class', 'bloc__form--font--message_form_5');
         return avatarChoix = avatar1.src;
     });
     avatar2.addEventListener('click', (event) => {
@@ -45,7 +44,7 @@ createLogin = () => {
         avatar2.setAttribute('class', 'signup--avatar--border');
         avatar3.setAttribute('class', 'signup--avatar--style');
         avatar4.setAttribute('class', 'signup--avatar--style');
-        message_6.setAttribute('class', 'bloc__form--font--message_form');
+        message_6.setAttribute('class', 'bloc__form--font--message_form_5');
         return avatarChoix = avatar2.src;
     });
     avatar3.addEventListener('click', (event) => {
@@ -54,7 +53,7 @@ createLogin = () => {
         avatar2.setAttribute('class', 'signup--avatar--style');
         avatar3.setAttribute('class', 'signup--avatar--border');
         avatar4.setAttribute('class', 'signup--avatar--style');
-        message_6.setAttribute('class', 'bloc__form--font--message_form');
+        message_6.setAttribute('class', 'bloc__form--font--message_form_5');
         return avatarChoix = avatar3.src;
     });
     avatar4.addEventListener('click', (event) => {
@@ -63,27 +62,26 @@ createLogin = () => {
         avatar2.setAttribute('class', 'signup--avatar--style');
         avatar3.setAttribute('class', 'signup--avatar--style');
         avatar4.setAttribute('class', 'signup--avatar--border');
-        message_6.setAttribute('class', 'bloc__form--font--message_form');
+        message_6.setAttribute('class', 'bloc__form--font--message_form_5');
         return avatarChoix = avatar4.src;
     });
 
     valideSignup(nom, prenom, email, password, confirmPassword, regexNomPrenom, regexEmail, regexPassword);
 
-
-
-
     const formSignup = document.getElementById('form_signup');
     formSignup.addEventListener('change', (event) => {
         event.preventDefault();
 
-        if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false && confirmPassword.value === password.value) {
+        if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false && confirmPassword.value === password.value && avatarChoix !== 'vide') {
             message_7.setAttribute('class', 'bloc__form--font--message_form_2');
         };
     });
 
-    const btnConnection = document.getElementById('btn_inscrip_signup');
-    btnConnection.addEventListener('click', (event) => {
+    const btnInscription = document.getElementById('btn_inscrip_signup');
+    btnInscription.addEventListener('click', (event) => {
         event.preventDefault();
+
+        console.log(avatarChoix)
         if (regexNomPrenom.test(nom.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
         } else {
@@ -109,15 +107,16 @@ createLogin = () => {
         } else {
             message_5.setAttribute('class', 'bloc__form--font--message_form');
         };
-        if (avatarChoix === undefined) {
+        if (avatarChoix === 'vide') {
             message_6.setAttribute('class', 'bloc__form--font--message_form_4');
         } else {
-            message_6.setAttribute('class', 'bloc__form--font--message_form');
+            message_6.setAttribute('class', 'bloc__form--font--message_form_5');
         };
 
         if (regexNomPrenom.test(nom.value) !== false && regexNomPrenom.test(prenom.value) !== false && regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false && confirmPassword.value === password.value && avatarChoix !== undefined) {
 
             message_7.setAttribute('class', 'bloc__form--font--message_form_2');
+
 
             const contact = {
                 nom: nom.value,
@@ -133,7 +132,7 @@ createLogin = () => {
             datas6.then(response => {
 
                 if (response.status === 403 || response.status === 404 || response.status === 500) {
-                    messageConfirm2(response.message, 'main_signup');
+                    messageConfirm(response.message, 'main_signup');
 
                     setTimeout(() => {
                         const main = document.getElementById('main_signup');
@@ -145,13 +144,12 @@ createLogin = () => {
                     message_7.innerHTML = response.message;
                     message_7.setAttribute('class', 'bloc__form--font--message_form_4');
 
-
                 } else {
 
                     const auth = JSON.stringify(response);
                     sessionStorage.setItem('repAuth', auth);
 
-                    messageConfirm2(response.message, 'main_signup');
+                    messageConfirm(response.message, 'main_signup');
 
                     setTimeout(() => {
                         const main = document.getElementById('main_signup');
@@ -161,7 +159,7 @@ createLogin = () => {
                     }, 900);
                 };
             }).catch((error => {
-                //modals();
+                messageConfirm(error, 'main_forum');
             })); //fin catch
         } else {
             message_7.setAttribute('class', 'bloc__form--font--message_form_4');

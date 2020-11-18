@@ -13,7 +13,6 @@ createLogin = () => {
         const message_3 = document.getElementById('message_3');
 
         const regexEmail = /^[a-zA-Z1-9-._]+?@{1}[groupomania]+[.]{1}[fr]{2}$/;
-        //const regexPassword = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\#\$\(\)\*\+\,\!\"\%\&\'\.\/\?\[\]\^\_\:\;\§\~\|\`\@\¤\µ\/]{8,255}/;
         const regexPassword = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/;
 
         valideLogin(email, password, regexEmail, regexPassword);
@@ -24,7 +23,7 @@ createLogin = () => {
         formLogin.addEventListener('change', () => {
 
             if (regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false) {
-                message_3.setAttribute('class', 'bloc__form--font--message_form');
+                message_3.setAttribute('class', 'bloc__form--font--message_form_2');
 
             };
         });
@@ -44,23 +43,24 @@ createLogin = () => {
 
             if (regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false) {
 
-                message_3.setAttribute('class', 'bloc__form--font--message_form');
+                message_3.setAttribute('class', 'bloc__form--font--message_form_2');
                 const contact = {
                     email: email.value,
                     password: password.value
                 };
 
                 const datas = send('http://localhost:3000/api/auth/login', contact);
-
                 datas.then(response => {
                     if (response.status === 403 || response.status === 404 || response.status === 500) {
-                        messageConfirm2(response.message, 'mainIndex');
+
+                        messageConfirm(response.message, 'mainIndex');
 
                         setTimeout(() => {
                             const main = document.getElementById('mainIndex');
                             const messageHide = document.getElementById('modal_message');
                             main.removeChild(messageHide);
                         }, 900);
+
                     } else if (response.status === 400) {
                         message_3.innerHTML = response.message;
                         message_3.setAttribute('class', 'bloc__form--font--message_form_4');
@@ -72,7 +72,7 @@ createLogin = () => {
                     };
 
                 }).catch((error) => {
-                    modals();
+                    messageConfirm(error, 'main_forum');
                 }); //fin catch
             } else {
                 message_3.setAttribute('class', 'bloc__form--font--message_form_4');

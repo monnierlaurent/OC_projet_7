@@ -16,7 +16,7 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
             message_1.innerHTML = '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
 
         } else if (Rnom.test(nom.value) === true) {
-            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            message_1.setAttribute('class', 'bloc__form--font--message_form_5');
             message_1.innerHTML = '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
 
         } else if (Rnom.test(nom.value) === false) {
@@ -32,7 +32,7 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
             message_2.innerHTML = '*Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
 
         } else if (Rnom.test(prenom.value) === true) {
-            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            message_2.setAttribute('class', 'bloc__form--font--message_form_5');
             message_2.innerHTML = '*Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
 
         } else if (Rnom.test(prenom.value) === false) {
@@ -49,7 +49,7 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
             message_3.innerHTML = '*Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !';
 
         } else if (Remail.test(email.value) === true) {
-            message_3.setAttribute('class', 'bloc__form--font--message_form');
+            message_3.setAttribute('class', 'bloc__form--font--message_form_5');
             message_3.innerHTML = '*Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !';
 
         } else if (Remail.test(email.value) === false) {
@@ -65,7 +65,7 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
             message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (Rpassword.test(password.value) === true) {
-            message_4.setAttribute('class', 'bloc__form--font--message_form');
+            message_4.setAttribute('class', 'bloc__form--font--message_form_5');
             message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (Rpassword.test(password.value) === false) {
@@ -81,7 +81,7 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
             message_5.innerHTML = '*Champ obligatoire saisissez a nouveau votre mot de passe';
 
         } else if (password.value === confirmPassword.value) {
-            message_5.setAttribute('class', 'bloc__form--font--message_form');
+            message_5.setAttribute('class', 'bloc__form--font--message_form_5');
             message_5.innerHTML = '*Champ obligatoire saisissez a nouveau votre mot de passe';
 
         } else if (password.value !== confirmPassword.value) {
@@ -105,7 +105,7 @@ valideLogin = (email, password, Remail, Rpassword) => {
             message_1.innerHTML = '*champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !';
 
         } else if (Remail.test(email.value) === true) {
-            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            message_1.setAttribute('class', 'bloc__form--font--message_form_5');
             message_1.innerHTML = '*champ obligatoire l\'email doit contenir le nom de domaine @groupomania.fr !';
 
         } else if (Remail.test(email.value) === false) {
@@ -122,7 +122,7 @@ valideLogin = (email, password, Remail, Rpassword) => {
             message_2.innerHTML = '*champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (Rpassword.test(password.value) === true) {
-            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            message_2.setAttribute('class', 'bloc__form--font--message_form_5');
             message_2.innerHTML = '*champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
 
         } else if (Rpassword.test(password.value) === false) {
@@ -269,7 +269,7 @@ valideModifUser = (recupNom, recupPrenom, recupEmail, regexNomPrenom, regexEmail
         if (recupNom.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
         } else if (regexNomPrenom.test(recupNom.value) === true) {
-            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            message_1.setAttribute('class', 'bloc__form--font--message_form_5');
         } else if (regexNomPrenom.test(recupNom.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
         };
@@ -281,7 +281,7 @@ valideModifUser = (recupNom, recupPrenom, recupEmail, regexNomPrenom, regexEmail
         if (recupPrenom.value.length === 0) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
         } else if (regexNomPrenom.test(recupPrenom.value) === true) {
-            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            message_2.setAttribute('class', 'bloc__form--font--message_form_5');
         } else if (regexNomPrenom.test(recupPrenom.value) === false) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
         };
@@ -292,7 +292,7 @@ valideModifUser = (recupNom, recupPrenom, recupEmail, regexNomPrenom, regexEmail
         if (recupEmail.value.length === 0) {
             message_3.setAttribute('class', 'bloc__form--font--message_form');
         } else if (regexEmail.test(recupEmail.value) === true) {
-            message_3.setAttribute('class', 'bloc__form--font--message_form');
+            message_3.setAttribute('class', 'bloc__form--font--message_form_5');
         } else if (regexEmail.test(recupEmail.value) === false) {
             message_3.setAttribute('class', 'bloc__form--font--message_form_4');
         };
@@ -312,7 +312,7 @@ valideModifPassword = (holdPassword, newPassword, confirmNewPassword, regexPassw
             // message_1.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(holdPassword.value) === true) {
-            message_1.setAttribute('class', 'bloc__form--font--message_form');
+            message_1.setAttribute('class', 'bloc__form--font--message_form_5');
             //message_1.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(holdPassword.value) === false) {
@@ -327,7 +327,7 @@ valideModifPassword = (holdPassword, newPassword, confirmNewPassword, regexPassw
             //message_2.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(newPassword.value) === true) {
-            message_2.setAttribute('class', 'bloc__form--font--message_form');
+            message_2.setAttribute('class', 'bloc__form--font--message_form_5');
             //message_2.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(newPassword.value) === false) {
@@ -341,7 +341,7 @@ valideModifPassword = (holdPassword, newPassword, confirmNewPassword, regexPassw
             message_3.setAttribute('class', 'bloc__form--font--message_form');
             message_3.innerHTML = '*champ obligatoire saisissez a nouveau votre mon de passe';
         } else if (newPassword.value === confirmNewPassword.value) {
-            message_3.setAttribute('class', 'bloc__form--font--message_form');
+            message_3.setAttribute('class', 'bloc__form--font--message_form_5');
             message_3.innerHTML = '*champ obligatoire saisissez a nouveau votre mon de passe';
 
         } else if (newPassword.value !== confirmNewPassword.value) {
