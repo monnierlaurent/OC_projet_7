@@ -181,10 +181,3 @@ modifComsForm = (avatar, nom, prenom, valueTextarea) => {
 
     formPost.appendChild(createElm2('p', 'Le champs commentaire et obligatoire et dois contenir au minimum 2 charateres!', 'id', 'message_coms_222', 'class', 'bloc__form--font--message_form_3'));
 };
-
-
-/*messageConfirm = (message) => {
-    const main = document.getElementById('main_forum');
-    const NenDiv = main.appendChild(createElm2('div', '', 'id', 'modal_message', 'class', 'modal', ));
-    NenDiv.appendChild(createElm2('p', message, 'id', 'message_confirm', 'class', 'modal-confirm-style modal-wrapper')); //'Message bien supprimé'
-};*/

@@ -10,7 +10,6 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
     nom.addEventListener('change', (event) => {
         event.preventDefault();
 
-
         if (nom.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
             message_1.innerHTML = '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
