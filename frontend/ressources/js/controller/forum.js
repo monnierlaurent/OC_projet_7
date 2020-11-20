@@ -43,10 +43,12 @@ createforum = () => {
                 const titre = document.getElementById('post_forum_titre');
                 const contenu = document.getElementById('post_forum_text');
 
+
+
                 const message_1 = document.getElementById('message_1');
                 const message_3 = document.getElementById('message_3');
 
-                const regexDatas = /^[a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+                const regexDatas = /^[a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ&]{2,255}/;
 
                 validPosts(titre, contenu, regexDatas);
 
@@ -57,8 +59,6 @@ createforum = () => {
                         message_3.setAttribute('class', 'bloc__form--font--message_form_3');
                     };
                 });
-
-
 
                 const btnEnvoiePUblication = document.getElementById('btn_publier_forum');
                 btnEnvoiePUblication.addEventListener('click', (event) => {
@@ -103,6 +103,7 @@ createforum = () => {
                                     const main = document.getElementById('main_forum');
                                     const messageHide = document.getElementById('modal_message');
                                     main.removeChild(messageHide);
+                                    window.location = './forum.html';
                                 }, 900);
                             };
                         });
@@ -111,9 +112,9 @@ createforum = () => {
 
                         const posts10 = {
                             titre: titre.value,
-                            contenu: 'vide'
-                        };
 
+                        };
+                        console.log(posts10)
                         const posts = JSON.stringify(posts10);
 
                         const data = new FormData();
@@ -141,7 +142,7 @@ createforum = () => {
                                     const main = document.getElementById('main_forum');
                                     const messageHide = document.getElementById('modal_message');
                                     main.removeChild(messageHide);
-
+                                    window.location = './forum.html';
                                 }, 900);
                             };
                         });
@@ -169,20 +170,6 @@ createforum = () => {
                                 const contentModalHide = document.getElementById('modal_create_post');
                                 contentModalHide.setAttribute('class', 'display--none');
 
-                                const dataUser = requestAuth('http://localhost:3000/api/post'); //appel user
-                                dataUser.then(post => {
-
-                                    console.log()
-                                    post.forEach(rep => {
-                                        const mainForum = document.getElementById('main_forum');
-                                        const article = document.getElementById('content_article' + rep.postId);
-
-                                        if (article !== null) {
-                                            mainForum.removeChild(article);
-                                        };
-                                    });
-                                    displayPublication();
-                                });
 
                                 messageConfirm(repObjet3.message, 'main_forum');
 
@@ -190,6 +177,7 @@ createforum = () => {
                                     const main = document.getElementById('main_forum');
                                     const messageHide = document.getElementById('modal_message');
                                     main.removeChild(messageHide);
+                                    window.location = './forum.html';
                                 }, 900);
                             };
                         }); //fin de then sendObjsect3
@@ -342,6 +330,10 @@ createforum = () => {
                                             const contenu = document.getElementById('post_forum_text' + dataPubli.postId);
                                             const image = document.getElementById('post_img' + dataPubli.postId).files;
 
+
+                                            console.log(titre.value);
+                                            console.log(contenu.value);
+
                                             if (recupModifObjet.contenu === 'vide') {
 
                                                 contenu.innerText = '';
@@ -349,7 +341,7 @@ createforum = () => {
 
                                             const message_3 = document.getElementById('message_33');
 
-                                            const regexDatas = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'\.\-\ ]{2,255}$/;
+                                            const regexDatas = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,255}$/;
 
                                             validModifPosts(titre, contenu, regexDatas);
 
@@ -412,9 +404,6 @@ createforum = () => {
 
                                                                 const updateTitre = document.getElementById('titre' + dataPubli.postId);
                                                                 updateTitre.innerHTML = recupUpdate2.titre;
-
-                                                                const ModifContenu = document.getElementById('contenu' + dataPubli.postId);
-                                                                ModifContenu.innerHTML = recupUpdate3.contenu;
 
                                                                 const updateImage = document.getElementById('img_post_display' + dataPubli.postId);
                                                                 updateImage.setAttribute('src', recupUpdate2.imageUrl);
@@ -527,12 +516,15 @@ createforum = () => {
                                                                     const messageHide = document.getElementById('modal_message');
                                                                     main.removeChild(messageHide);
                                                                 }, 900);
+
                                                             }).catch((error => {
-                                                                messageConfirm(error, 'main_forum')
+                                                                //console.log((ReferenceError));
+                                                                messageConfirm(error, 'main_forum'); //bug ici
                                                             })); //fin catch
                                                         };
                                                     }).catch((error => {
-                                                        messageConfirm(error, 'main_forum')
+                                                        console.log(error);
+                                                        //messageConfirm(error, 'main_forum')
                                                     })); //fin catch
                                                 } else {
                                                     const message_3 = document.getElementById('message_33');
@@ -617,7 +609,8 @@ createforum = () => {
                                                         btnMasquer.setAttribute('class', 'display--none');
                                                     }, 900);
                                                 }).catch((error => {
-                                                    messageConfirm(error, 'main_forum');
+                                                    console.log(error);
+                                                    // messageConfirm(error, 'main_forum');
                                                 }));
                                             });
                                         }; //fin de deleteCommentaire
@@ -714,7 +707,8 @@ createforum = () => {
                                                                     };
                                                                 });
                                                             }).catch((error => {
-                                                                messageConfirm(error, 'main_forum');
+                                                                console.log(error);
+                                                                //messageConfirm(error, 'main_forum');
                                                             })); //fin catch //fin then data
                                                         } else {
                                                             const message_2 = document.getElementById('message_coms_222');
@@ -770,7 +764,8 @@ createforum = () => {
                                                         comDislikes.innerHTML = response.comDislikes;
                                                     });
                                                 }).catch((error => {
-                                                    messageConfirm(error, 'main_forum');
+                                                    console.log(error);
+                                                    //messageConfirm(error, 'main_forum');
                                                 })); //fin catch 
                                             });
                                         }; //fin de likeCommentaire
@@ -843,20 +838,6 @@ createforum = () => {
 
                                                     } else {
 
-                                                        const dataUser = requestAuth('http://localhost:3000/api/post/');
-                                                        dataUser.then(post => {
-
-                                                            post.forEach(rep => {
-                                                                const mainForum = document.getElementById('main_forum');
-                                                                const article = document.querySelector('article');
-
-                                                                if (article !== null) {
-                                                                    mainForum.removeChild(article);
-                                                                };
-                                                            });
-                                                            displayPublication();
-                                                        });
-
                                                         messageConfirm(repSendCommentaire.message, 'main_forum');
 
                                                         const main = document.querySelector('main');
@@ -865,7 +846,8 @@ createforum = () => {
 
                                                         setTimeout(() => {
                                                             const message = document.getElementById('modal_message');
-                                                            main.removeChild(message)
+                                                            main.removeChild(message);
+                                                            window.location = './forum.html';
                                                         }, 900);
                                                     };
                                                 });
@@ -884,7 +866,8 @@ createforum = () => {
             }; // fin de displayPublication
             displayPublication();
         }).catch((error => {
-            messageConfirm(error, 'main_forum');
+            modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+
         })); //fin catch
     }; // fin de else verif userid
 }; //fin de createforum

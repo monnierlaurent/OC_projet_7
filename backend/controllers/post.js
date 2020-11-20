@@ -8,76 +8,77 @@ const postModel = new PostModel();
 const likeModel = new LikeModel();
 
 //----enregister un post sur la table POSTS la  BDD----
-exports.createPostImg = (req, res, next) => {
-    const userIdAuth = sanitize(req.userIdAuth);
-    const reqBody = sanitize(req.body);
-
-    if (req.body.posts) {
-        const postsObject = JSON.parse(reqBody.posts);
-
-        if (postsObject.titre === undefined) {
-            return res.status(400).json({ status: 400, message: 'Le titre est obligatoire et doit contenir au minum 2 charactères<br>sans caractères spéciaux !' });
-        };
-        if (postsObject.contenu === undefined) {
-            return res.status(400).json({ status: 400, message: 'Le contenu du message doit contenir au minum 2 caractères !' });
-        };
-        if (!req.file) {
-            return res.status(400).json({ status: 400, message: 'Le message doit contenir sois une image soit un contenu d\'au minum 2 caractères !' });
-        };
-
-        const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-
-        postModel.saveImg(userIdAuth, postsObject.titre, postsObject.contenu, imageUrl)
-            .then(() => {
-                postModel.findOnedate()
-                    .then(response => {
-
-                        res.status(201).json({
-                            /* userId: response[0].userId,
-                             titre: response[0].titre,
-                             contenu: response[0].contenu,
-                             dateCrea: response[0].dateCrea,
-                             dateModif: response[0].dateModif,
-                             imageUrl: response[0].imageUrl,
-                             likes: response[0].likes,
-                             dislikes: response[0].dislikes,
-                             postId: response[0].postId,
-                             nom: response[0].nom,
-                             prenom: response[0].prenom,
-                             avatar: response[0].avatar,*/
-                            status: 201,
-                            message: 'Publication enregistré !'
-                        });
-                    });
-
-            }).catch(() => res.status(500).json({ status: 500, message: 'Une erreur est survenue,la publication n\'est pas enregisté !' }));
-    } else {
-        fs.unlink(`${req.file.filename}`, () => { res.status(400).json({ status: 400, message: 'L\image a bien été supprimé' }) });
-    };
-};
-
 exports.createPost = (req, res, next) => {
     const userIdAuth = sanitize(req.userIdAuth);
     const reqBody = sanitize(req.body);
 
-    if (reqBody.titre === undefined || reqBody.contenu === undefined) {
-        return res.status(400).json({ status: 400, message: 'Le titre est obligatoire et doit contenir au minum 2 charactères<br>sans caractères spéciaux !' });
-    };
-    if (reqBody.titre === undefined || reqBody.contenu === undefined) {
-        return res.status(400).json({ status: 400, message: 'Le contenu du message doit contenir au minum 2 caractères !' });
-    };
+    if (req.file) {
 
-    postModel.save(userIdAuth, reqBody.titre, reqBody.contenu)
-        .then(() => {
-            postModel.findOnedate()
-                .then(response => {
-                    res.status(201).json({
-                        status: 201,
-                        message: 'Publication enregistré !'
-                    });
-                });
-        }).catch(() => res.status(500).json({ status: 500, message: 'Une erreur est survenue,la publication n\'est pas enregisté !' }));
+        const postsObject = JSON.parse(reqBody.posts);
+
+        const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+
+        if (postsObject.titre && postsObject.contenu && req.file) {
+            postModel.save1(userIdAuth, postsObject.titre, postsObject.contenu, imageUrl)
+                .then(() => {
+                    postModel.findOnedate()
+                        .then(response => {
+
+                            res.status(201).json({
+                                status: 201,
+                                message: 'Publication enregistré !'
+                            });
+                        });
+
+                }).catch(() => res.status(500).json({ status: 500, message: 'Une erreur est survenue,la publication n\'est pas enregisté !' }));
+
+        } else if (postsObject.titre && req.file) {
+
+            contenu = '';
+            postModel.save1(userIdAuth, postsObject.titre, contenu, imageUrl)
+                .then(() => {
+                    postModel.findOnedate()
+                        .then(response => {
+
+                            res.status(201).json({
+                                status: 201,
+                                message: 'Publication enregistré !'
+                            });
+                        });
+
+                }).catch(() => res.status(500).json({ status: 500, message: 'Une erreur est survenue,la publication n\'est pas enregisté !' }));
+        } else {
+            fs.unlink(`images/${req.file.filename}`, () => { res.status(400).json({ status: 400, message: 'Le champ titre est obligatoire' }) });
+        };
+
+    } else if (!req.file) {
+
+        if (!reqBody.titre || reqBody.titre === undefined) {
+            return res.status(400).json({
+                status: 400,
+                message: 'le titre est obligatoire !'
+            });
+        };
+
+        if (reqBody.titre && reqBody.contenu) {
+
+            imageUrl = '';
+            postModel.save1(userIdAuth, reqBody.titre, reqBody.contenu, imageUrl)
+                .then(() => {
+                    postModel.findOnedate()
+                        .then(response => {
+
+                            res.status(201).json({
+                                status: 201,
+                                message: 'Publication enregistré !'
+                            });
+                        });
+
+                }).catch(() => res.status(500).json({ status: 500, message: 'Une erreur est survenue,la publication n\'est pas enregisté !' }));
+        };
+    };
 };
+
 
 //----recuperer tous post de la BDD----
 exports.displayPost = (req, res, next) => {

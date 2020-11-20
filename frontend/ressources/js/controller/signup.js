@@ -159,7 +159,7 @@ createLogin = () => {
                     }, 900);
                 };
             }).catch((error => {
-                messageConfirm(error, 'main_forum');
+                modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
             })); //fin catch
         } else {
             message_7.setAttribute('class', 'bloc__form--font--message_form_4');

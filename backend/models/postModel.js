@@ -6,21 +6,7 @@ const cryptr = new Cryptr('@le&Petit%Chat#BoitDu&Laid%De#Poule&Tous%Les#Noel');
 class PostsModel {
     constructor() {};
 
-    save(userId, titre, contenu, image) {
-        try {
-            const sql = `INSERT INTO posts (userid ,titre, contenu, dateCrea, dateModif,imageUrl, likes ,dislikes) VALUES ('${userId}','${titre}', '${contenu}',now(),now(),'',0,0)`;
-            return new Promise((resolve) => {
-                db.query(sql, function(err, result, fields) {
-
-                    resolve(result);
-                });
-            });
-        } catch (error) {
-            console.error(error);
-        };
-    }; //fin de save
-
-    saveImg(userId, titre, contenu, image) {
+    save1(userId, titre, contenu, image) { // titre + contenu + image
 
         try {
             const sql = `INSERT INTO posts (userid ,titre, contenu, dateCrea, dateModif,imageUrl, likes ,dislikes) VALUES ('${userId}','${titre}', '${contenu}',now(),now(),'${image}',0,0)`;
@@ -34,9 +20,6 @@ class PostsModel {
         };
 
     }; //fin de save
-
-
-
 
     findAll() {
 
@@ -53,11 +36,9 @@ class PostsModel {
 
                             const nom = rep.nom;
                             const prenom = rep.prenom;
-                            //const email = rep.emailRec;
 
                             const decryptNom = cryptr.decrypt(nom);
                             const decryptPrenom = cryptr.decrypt(prenom);
-                            //const decryptEmail = cryptr.decrypt(email);
 
                             const allPosts = {
                                 userId: rep.userId,
@@ -72,13 +53,6 @@ class PostsModel {
                                 nom: decryptNom,
                                 prenom: decryptPrenom,
                                 avatar: rep.avatar
-                                    //email: rep.email,
-                                    //emailMask: rep.emailMask,
-                                    //password: rep.password,
-                                    //dateInscrip: rep.dateInscrip,
-                                    //role: rep.role,
-                                    //id: rep.id,
-                                    //emailRec: decryptEmail
                             };
 
                             tablePost.push(allPosts);
@@ -142,13 +116,6 @@ class PostsModel {
                             nom: decryptNom,
                             prenom: decryptPrenom,
                             avatar: result[0].avatar,
-                            //email: result[0].email,
-                            //emailMask: result[0].emailMask,
-                            //password: result[0].password,
-                            //dateInscrip: result[0].dateInscrip,
-                            //role: result[0].role,
-                            //id: result[0].id,
-                            //emailRec: decryptEmail
                         };
                         resolve(allPosts);
                     };

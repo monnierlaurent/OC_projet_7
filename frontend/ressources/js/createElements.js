@@ -41,7 +41,7 @@ createInputs = (balise, value, atb1, atbVal1, atb2, atbVal2, atb3, atbVal3, atb4
     return newInput;
 };
 
-modals = (nom, prenom) => {
+modals = () => {
     const main = document.querySelector('main');
     const newAside = main.appendChild(createElm2('aside', '', 'id', 'modal1', 'class', 'modal')); //
     const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper')); //

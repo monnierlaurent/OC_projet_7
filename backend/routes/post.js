@@ -10,8 +10,7 @@ const validationPost = require('../middleware/datasValidationPost');
 const validationCom = require('../middleware/datasValidationCom');
 
 // routes messages
-router.post('/img', auth, multer, validationPost, postCtrl.createPostImg);
-router.post('/', auth, validationPost, postCtrl.createPost);
+router.post('/', auth, multer, validationPost, postCtrl.createPost);
 
 router.get('/', auth, postCtrl.displayPost);
 router.get('/:id', auth, postCtrl.displayPostId);

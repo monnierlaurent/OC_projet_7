@@ -1,7 +1,7 @@
 createNavbar = (avatar, nom, prenom, recupUserId) => {
     const navBar = document.getElementById('nav_users');
     navBar.appendChild(createElm3('img', '', 'src', avatar, 'class', 'header__nav__avatar--style', 'alt', 'avatar de l\'utilisateur connecté'));
-    navBar.appendChild(createElm4('a', nom + ' ' + prenom + '', 'id', '', 'class', 'header__nav__a--style', 'href', './compteUser.html?id=' + recupUserId, 'title', 'lien pour accéder au compte utilisateur'));
+    navBar.appendChild(createElm1('p', nom + ' ' + prenom + '', 'class', ' header__nav__a--style--1'));
 
     navBar.appendChild(createElm4('a', '', 'id', 'retourForum', 'class', 'fas fa-home class header__nav__a--style--2', 'href', './forum.html', 'title', 'lien pour accéder a la page principal'));
 
