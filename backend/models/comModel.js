@@ -51,14 +51,6 @@ class ComsModel {
                             nom: decryptNom,
                             prenom: decryptPrenom,
                             avatar: rep.avatar
-                                //email: rep.email,
-                                //emailMask: rep.emailMask,
-                                //password: rep.password,
-                                //dateInscrip: rep.dateInscrip,
-                                //role: rep.role,
-                                //id: rep.id,
-                                //dateModif: rep.dateModif,
-                                //emailRec: decryptEmail
                         };
 
                         tablePost.push(allComs);

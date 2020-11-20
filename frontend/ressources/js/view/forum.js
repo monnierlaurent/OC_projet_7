@@ -126,13 +126,16 @@ modaleCreateModifPost = (postId, avatar, titre, contenu, imageUrl, nom, prenom) 
     formPost.appendChild(createElm2('p', 'Le contenu doit contenir au minum 2 charactères !', 'id', 'message_22', 'class', 'bloc__form--font--message_form'));
 
     const formPost2 = formPost.appendChild(createElm3('form', '', 'id', 'form_modif_post_2', 'class', 'bloc_form--create--post--flex--width')); //
-    formPost2.appendChild(createElm2('img', '', 'class', 'bloc_article_img--width2', 'src', imageUrl, 'alt', 'affichage de l\'anciene image'));
+
+    const newDiv2 = formPost2.appendChild(createElm1('div', '', 'class', 'img_bloc'));
+    newDiv2.appendChild(createElm3('img', '', 'id', 'img_form_modif', 'class', 'bloc_article_img--width3', 'src', imageUrl, 'alt', 'affichage de l\'anciene image'));
+    newDiv2.appendChild(createElm2('i', '', 'id', 'btn_suppr_image', 'class', 'far fa-trash-alt'));
 
     formPost2.appendChild(createElm2('label', 'Ajouter une image :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'post_img')); //
     formPost2.appendChild(createInputs('input', '', 'class', '', 'id', 'post_img' + postId, 'type', 'file', 'accept', 'image/png, image/jpeg, image/gif', 'name', 'image'));
 
-    const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
-    newDiv2.appendChild(createElm3('p', 'Publier', 'id', 'btn_post_forum_modif', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour publier un commentaire')); //
+    const newDiv3 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
+    newDiv3.appendChild(createElm3('p', 'Publier', 'id', 'btn_post_forum_modif', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour publier un commentaire')); //
 
     formPost.appendChild(createElm2('p', 'Le champ titre et obligatoire<br>vous devez aussi soit saisir un message soit selectionner une image !', 'id', 'message_33', 'class', 'bloc__form--font--message_form_3'));
 };

@@ -261,6 +261,15 @@
         flex-direction: row;
     }
     
+    .img_bloc {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    #btn_suppr_image {
+        padding-left: 0.2em;
+    }
+    
     .bloc__modal__create--commentaire--flex {
         display: flex;
         flex-direction: row;
@@ -472,6 +481,11 @@
         width: 30%;
         height: auto;
         padding: 1.5em 0 0 0;
+    }
+    
+    .bloc_article_img--width3 {
+        width: 30%;
+        height: auto;
     }
     
     .bloc__form--btn-post {

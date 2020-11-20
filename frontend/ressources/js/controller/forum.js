@@ -11,7 +11,7 @@ createforum = () => {
         modals('Vous n\avez pas accès a cette ressource !', 'Inscription', './signup.html');
     } else {
 
-        const dataUser = requestAuth('http://localhost:3000/api/auth/' + recupUserId.userId); //appel user
+        const dataUser = requestAuth('http://localhost:3000/api/auth/' + recupUserId.userId);
         dataUser.then(user => {
 
             createNavbar = () => {
@@ -46,7 +46,7 @@ createforum = () => {
                 const message_1 = document.getElementById('message_1');
                 const message_3 = document.getElementById('message_3');
 
-                const regexDatas = /^[a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ&]{2,255}/;
+                const regexDatas = /^([a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,255})/;
 
                 validPosts(titre, contenu, regexDatas);
 
@@ -193,7 +193,9 @@ createforum = () => {
                 dataUser.then(post => {
 
                     if (post === 'La syntaxe de la requête est erronée') {
+
                         messageConfirm('Le forum est vide !!', 'main_forum');
+
                         setTimeout(() => {
                             const main = document.getElementById('main_forum');
                             const message = document.getElementById('modal_message');
@@ -325,206 +327,116 @@ createforum = () => {
                                                 modalModifPubli.setAttribute('class', 'display--none');
                                             });
 
+                                            const btnSupprImg = document.getElementById('btn_suppr_image');
+                                            btnSupprImg.addEventListener('click', (event) => {
+                                                event.preventDefault();
+
+                                                const image = {
+                                                    imageUrl: recupModifObjet.imageUrl
+                                                };
+                                                const sendModifObjsect2 = putAuthJson('http://localhost:3000/api/post/' + dataPubli.postId, image);
+                                                sendModifObjsect2.then(supprImg => {});
+                                            });
+
+                                            if (recupModifObjet.imageUrl === '') {
+                                                btnSupprImg.setAttribute('class', 'display--none');
+                                            };
+
                                             const titre = document.getElementById('post_forum_titre' + dataPubli.postId);
                                             const contenu = document.getElementById('post_forum_text' + dataPubli.postId);
                                             const image = document.getElementById('post_img' + dataPubli.postId).files;
 
-
-                                            console.log(titre.value);
-                                            console.log(contenu.value);
-
-                                            if (recupModifObjet.contenu === 'vide') {
-
-                                                contenu.innerText = '';
-                                            };
-
                                             const message_3 = document.getElementById('message_33');
+                                            const regexDatas = /^([a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ"(-_).=~#{[|`^@¤µ£$¨]}]{2,255})/;
 
-                                            const regexDatas = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,255}$/;
+                                            //const regexDatas = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,255}$/;
 
-                                            validModifPosts(titre, contenu, regexDatas);
+                                            //validModifPosts(titre, contenu, regexDatas);
 
-                                            const formPubli = document.getElementById('modal_modif_post');
+                                            /*const formPubli = document.getElementById('modal_modif_post');
                                             formPubli.addEventListener('change', (event) => {
                                                 event.preventDefault();
                                                 if (regexDatas.test(titre.value) !== false) {
                                                     message_3.setAttribute('class', 'bloc__form--font--message_form_3');
                                                 };
-                                            });
+                                            });*/
 
                                             const btnSendModif = document.getElementById('btn_post_forum_modif');
                                             btnSendModif.addEventListener('click', (event) => {
+                                                event.preventDefault();
 
-                                                if (regexDatas.test(titre.value) === false) {
-                                                    const message_1 = document.getElementById('message_11');
-                                                    message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-                                                } else {
-                                                    const message_1 = document.getElementById('message_11');
-                                                    message_1.setAttribute('class', 'bloc__form--font--message_form');
 
-                                                };
-                                                if (contenu.length < 0) {
-                                                    if (regexDatas.test(contenu.value) === false) {
-                                                        const message_2 = document.getElementById('message_22');
-                                                        message_2.setAttribute('class', 'bloc__form--font--message_form_4');
-                                                    } else {
-                                                        const message_2 = document.getElementById('message_22');
-                                                        message_2.setAttribute('class', 'bloc__form--font--message_form');
-                                                    };
-                                                };
+                                                /* if (regexDatas.test(titre.value) === false) {
+                                                     const message_1 = document.getElementById('message_11');
+                                                     message_1.setAttribute('class', 'bloc__form--font--message_form_4');
+                                                 } else {
+                                                     const message_1 = document.getElementById('message_11');
+                                                     message_1.setAttribute('class', 'bloc__form--font--message_form');
 
-                                                if (image[0] && regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) !== false) {
-                                                    const posts10 = {
+                                                 };
+                                                 if (contenu.length < 0) {
+                                                     if (regexDatas.test(contenu.value) === false) {
+                                                         const message_2 = document.getElementById('message_22');
+                                                         message_2.setAttribute('class', 'bloc__form--font--message_form_4');
+                                                     } else {
+                                                         const message_2 = document.getElementById('message_22');
+                                                         message_2.setAttribute('class', 'bloc__form--font--message_form');
+                                                     };
+                                                 };*/
+
+                                                if (image[0]) {
+
+                                                    const post10 = {
                                                         titre: titre.value,
                                                         contenu: contenu.value
                                                     };
-                                                    const posts = JSON.stringify(posts10);
+
+                                                    const posts = JSON.stringify(post10);
 
                                                     const data = new FormData();
+
                                                     data.append('image', image[0]);
                                                     data.append('posts', posts);
 
-                                                    const sendModifObjsect1 = putAuthFormdata('http://localhost:3000/api/post/img/' + dataPubli.postId, data);
+                                                    const sendModifObjsect1 = putAuthFormdata('http://localhost:3000/api/post/' + dataPubli.postId, data);
                                                     sendModifObjsect1.then(repModifObjet1 => {
 
+                                                        messageConfirm(repModifObjet1.message, 'main_forum');
+                                                        setTimeout(() => {
+                                                            const main = document.getElementById('main_forum');
+                                                            const messageHide = document.getElementById('modal_message');
+                                                            main.removeChild(messageHide);
+                                                        }, 900);
 
-                                                        if (repModifObjet1.status === 400 || repModifObjet1.status === 404 || repModifObjet1.status === 403 || repModifObjet1.status === 500) {
-                                                            messageConfirm(repModifObjet1.message, 'main_forum');
-                                                            setTimeout(() => {
-                                                                const main = document.getElementById('main_forum');
-                                                                const messageHide = document.getElementById('modal_message');
-                                                                main.removeChild(messageHide);
-                                                            }, 900);
+                                                        const modalModifPubli = document.getElementById('modal_modif_post')
+                                                        modalModifPubli.setAttribute('class', 'display--none');
+                                                        window.location = './forum.html';
 
-                                                        } else {
-
-                                                            const recupObjsect = requestAuth('http://localhost:3000/api/post/' + dataPubli.postId);
-                                                            recupObjsect.then(recupUpdate2 => {
-
-                                                                const updateTitre = document.getElementById('titre' + dataPubli.postId);
-                                                                updateTitre.innerHTML = recupUpdate2.titre;
-
-                                                                const updateImage = document.getElementById('img_post_display' + dataPubli.postId);
-                                                                updateImage.setAttribute('src', recupUpdate2.imageUrl);
-
-                                                                messageConfirm(repModifObjet1.message, 'main_forum');
-
-                                                                const main = document.getElementById('main_forum');
-                                                                const modalModifPubli = document.getElementById('modal_modif_post');
-                                                                main.removeChild(modalModifPubli);
-
-                                                                setTimeout(() => {
-                                                                    const message = document.getElementById('messageModif');
-                                                                    message.setAttribute('class', 'display--none');
-                                                                }, 900);
-
-                                                            }).catch((error => {
-                                                                messageConfirm(error, 'main_forum');
-                                                            })); //fin catch
-                                                        };
                                                     }).catch((error => {
                                                         messageConfirm(error, 'main_forum');
                                                     })); //fin catch
-                                                } else if (image[0] && regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) === false) {
-                                                    const posts10 = {
-                                                        titre: titre.value,
-                                                        contenu: 'vide'
-                                                    };
-                                                    const posts = JSON.stringify(posts10);
 
-                                                    const data = new FormData();
-                                                    data.append('image', image[0]);
-                                                    data.append('posts', posts);
-
-                                                    const sendModifObjsect2 = putAuthFormdata('http://localhost:3000/api/post/img/' + dataPubli.postId, data);
-                                                    sendModifObjsect2.then(repModifObjet2 => {
-
-                                                        if (repModifObjet2.status === 400 || repModifObjet2.status === 404 || repModifObjet2.status === 403 || repModifObjet2.status === 500) {
-                                                            messageConfirm(repModifObjet2.message, 'main_forum');
-                                                            setTimeout(() => {
-                                                                const main = document.getElementById('main_forum');
-                                                                const messageHide = document.getElementById('modal_message');
-                                                                main.removeChild(messageHide);
-                                                            }, 900);
-
-                                                        } else {
-
-                                                            const recupObjsect = requestAuth('http://localhost:3000/api/post/' + dataPubli.postId);
-                                                            recupObjsect.then(recupUpdate2 => {
-
-                                                                const updateTitre = document.getElementById('titre' + dataPubli.postId);
-                                                                updateTitre.innerHTML = recupUpdate2.titre;
-
-                                                                const updateImage = document.getElementById('img_post_display' + dataPubli.postId);
-                                                                updateImage.setAttribute('src', recupUpdate2.imageUrl);
-
-                                                                messageConfirm(repModifObjet2.message, 'main_forum');
-
-                                                                const main = document.getElementById('main_forum');
-                                                                const modalModifPubli = document.getElementById('modal_modif_post');
-                                                                main.removeChild(modalModifPubli);
-
-                                                                setTimeout(() => {
-                                                                    const message = document.getElementById('messageModif');
-                                                                    message.setAttribute('class', 'display--none');
-                                                                }, 900);
-                                                            }).catch((error => {
-                                                                messageConfirm(error, 'main_forum');
-                                                            })); //fin catch
-                                                        };
-                                                    }).catch((error => {
-                                                        messageConfirm(error, 'main_forum');
-                                                    })); //fin catch
-                                                } else if (!image[0] && regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) !== false) {
-
+                                                } else if (!image[0]) {
                                                     const posts = {
                                                         titre: titre.value,
                                                         contenu: contenu.value
                                                     };
+                                                    const sendModifObjsect2 = putAuthJson('http://localhost:3000/api/post/' + dataPubli.postId, posts);
+                                                    sendModifObjsect2.then(repModifObjet2 => {
 
-                                                    const sendModifObjsect3 = putAuthJson('http://localhost:3000/api/post/' + dataPubli.postId, posts); //  
-                                                    sendModifObjsect3.then(repModifObjet3 => {
+                                                        messageConfirm(repModifObjet2.message, 'main_forum');
 
-                                                        if (repModifObjet3.status === 400 || repModifObjet3.status === 404 || repModifObjet3.status === 403 || repModifObjet3.status === 500) {
-                                                            messageConfirm(repModifObjet3.message, 'main_forum');
-                                                            setTimeout(() => {
-                                                                const main = document.getElementById('main_forum');
-                                                                const messageHide = document.getElementById('modal_message');
-                                                                main.removeChild(messageHide);
-                                                            }, 900);
+                                                        setTimeout(() => {
+                                                            const main = document.getElementById('main_forum');
+                                                            const messageHide = document.getElementById('modal_message');
+                                                            main.removeChild(messageHide);
+                                                        }, 900);
 
-                                                        } else {
+                                                        const modalModifPubli = document.getElementById('modal_modif_post')
+                                                        modalModifPubli.setAttribute('class', 'display--none');
+                                                        window.location = './forum.html';
 
-                                                            const recupObjsect = requestAuth('http://localhost:3000/api/post/' + dataPubli.postId);
-                                                            recupObjsect.then(recupUpdate3 => {
-
-                                                                const ModifTitre = document.getElementById('titre' + dataPubli.postId);
-                                                                ModifTitre.innerHTML = recupUpdate3.titre;
-
-                                                                const ModifContenu = document.getElementById('contenu' + dataPubli.postId);
-                                                                ModifContenu.innerHTML = recupUpdate3.contenu;
-
-                                                                messageConfirm(repModifObjet3.message, 'main_forum');
-
-                                                                const main = document.getElementById('main_forum');
-                                                                const modalModifPubli = document.getElementById('modal_modif_post');
-                                                                main.removeChild(modalModifPubli);
-
-                                                                setTimeout(() => {
-                                                                    const main = document.getElementById('main_forum');
-                                                                    const messageHide = document.getElementById('modal_message');
-                                                                    main.removeChild(messageHide);
-                                                                }, 900);
-
-                                                            }).catch((error => {
-                                                                //console.log((ReferenceError));
-                                                                messageConfirm(error, 'main_forum'); //bug ici
-                                                            })); //fin catch
-                                                        };
-                                                    }).catch((error => {
-                                                        console.log(error);
-                                                        //messageConfirm(error, 'main_forum')
-                                                    })); //fin catch
+                                                    });
                                                 } else {
                                                     const message_3 = document.getElementById('message_33');
                                                     message_3.setAttribute('class', 'bloc__form--font--message_form_4');
@@ -642,7 +554,8 @@ createforum = () => {
                                                     const message_1 = document.getElementById('message_coms_111');
                                                     const recupContenu = document.getElementById('commentaireModifCom');
 
-                                                    const regexDatas = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+                                                    const regexDatas = /^([a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ"(-_).=~#{[|`^@¤µ£$¨]}]{2,255})/;
+
 
                                                     validComsModif(recupContenu, regexDatas, 'message_coms_111');
 
@@ -795,7 +708,8 @@ createforum = () => {
                                         });
 
                                         const contenu = document.getElementById('create_commentaire');
-                                        const regexDatas = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'.-]{2,255}/;
+                                        const regexDatas = /^([a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ"(-_).=~#{[|`^@¤µ£$¨]}]{2,255})/;
+
 
                                         validComs('message_coms_1', contenu, regexDatas);
 

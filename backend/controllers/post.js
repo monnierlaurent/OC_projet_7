@@ -137,6 +137,9 @@ exports.updatePostIdImg = (req, res, next) => {
 
     const reqParamsId = sanitize(req.params.id);
     const userIdAuth = sanitize(req.userIdAuth);
+    const reqBody = sanitize(req.body);
+
+    console.log(reqBody)
 
     postModel.findOne('users', 'id', userIdAuth)
         .then(response => {
@@ -149,54 +152,103 @@ exports.updatePostIdImg = (req, res, next) => {
 
                     if (response.userId === userIdRec || roleRec === 1) {
 
-                        const reqBodyParse = JSON.parse(req.body.posts);
+                        if (req.body.imageUrl) {
+                            console.log(req.body.imageUrl)
+                            const filename = response[0].imageUrl.split('/images/')[1];
+                            fs.unlink(`images/${filename}`, () => {
+                                const imageUrl = '';
+                                postModel.updateOne(response[0].titre, response[0].contenu, imageUrl, reqParamsId)
+                                    .then(() => {
+                                        res.status(200).json({ status: 200, message: 'image supprimé !' });
+                                    });
+                            });
+                        };
+                        if (req.file) {
+                            if (req.file && !req.body.posts) {
+                                // modif juste image
+                                const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
 
-                        const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+                                postModel.updateOne(response[0].titre, response[0].contenu, imageUrl, reqParamsId)
+                                    .then(() => {
+                                        const filename = response[0].imageUrl.split('/images/')[1];
+                                        fs.unlink(`images/${filename}`, () => {
+                                            res.status(200).json({ status: 200, message: 'publication modifié !' });
+                                        });
+                                    }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+                            } else
+                            if (req.file && req.body.posts) {
 
-                        const filename = response[0].imageUrl.split("/images")[1];
+                                const reqBodyParse = JSON.parse(req.body.posts);
+                                if (reqBodyParse.titre && reqBodyParse.contenu) {
 
-                        fs.unlink(`images/${filename}`, () => {
+                                    const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
 
-                            postModel.updateOne(reqBodyParse.titre, reqBodyParse.contenu, imageUrl, reqParamsId)
+                                    postModel.updateOne(reqBodyParse.titre, reqBodyParse.contenu, imageUrl, reqParamsId)
+                                        .then(() => {
+                                            const filename = response[0].imageUrl.split('/images/')[1];
+                                            fs.unlink(`images/${filename}`, () => {
+                                                res.status(200).json({ status: 200, message: 'publication modifié !' });
+                                            });
+                                        }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
 
-                            .then(() => {
-                                res.status(200).json({ status: 200, message: 'Publication modifée !' });
-                            }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
-                        });
+                                    // modif image + titre + contenu
+
+                                } else if (reqBodyParse.titre && !reqBodyParse.contenu) {
+                                    const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+
+                                    postModel.updateOne(reqBodyParse.titre, response[0].contenu, imageUrl, reqParamsId)
+                                        .then(() => {
+                                            const filename = response[0].imageUrl.split('/images/')[1];
+                                            fs.unlink(`images/${filename}`, () => {
+                                                res.status(200).json({ status: 200, message: 'publication modifié !' });
+                                            });
+                                        }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+                                    // modif image + titre
+
+                                } else if (!reqBodyParse.titre && reqBodyParse.contenu) {
+                                    const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+
+                                    postModel.updateOne(response[0].titre, reqBodyParse.contenu, imageUrl, reqParamsId)
+                                        .then(() => {
+                                            const filename = response[0].imageUrl.split('/images/')[1];
+                                            fs.unlink(`images/${filename}`, () => {
+                                                res.status(200).json({ status: 200, message: 'publication modifié !' });
+                                            });
+                                        }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+
+                                    // modif image + contenu
+                                };
+                            };
+
+                        } else if (!req.file) {
+                            if (reqBody.titre && reqBody.contenu) {
+                                const imageUrl = response[0].imageUrl;
+                                postModel.updateOne(reqBody.titre, reqBody.contenu, imageUrl, reqParamsId)
+                                    .then(() => {
+                                        res.status(200).json({ status: 200, message: 'publication modifié !' });
+                                    }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+                                // modif titre +contenu
+
+                            } else if (reqBody.titre && !reqBody.contenu) {
+                                const imageUrl = response[0].imageUrl;
+                                postModel.updateOne(reqBody.titre, response[0].contenu, imageUrl, reqParamsId)
+                                    .then(() => {
+                                        res.status(200).json({ status: 200, message: 'publication modifié !' });
+                                    }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+                                // modif titre
+
+                            } else if (!reqBody.titre && reqBody.contenu) {
+                                const imageUrl = response[0].imageUrl;
+                                postModel.updateOne(response[0].titre, reqBody.contenu, imageUrl, reqParamsId)
+                                    .then(() => {
+                                        res.status(200).json({ status: 200, message: 'publication modifié !' });
+                                    }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+                                // modif contenu
+                                console.log('contenu');
+                            }
+                        };
                     } else {
                         res.status(403).json({ status: 403, message: 'Vous ne pouvez pas modifié ce post , vous n\'êtes pas sont auteur!' });
-                    };
-                }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas ou est inaccessible pour le moment !' }));
-        });
-}; //fin exports
-
-
-exports.updatePostId = (req, res, next) => {
-
-    const reqParamsId = sanitize(req.params.id);
-    const userIdAuth = sanitize(req.userIdAuth);
-    const reqBody = sanitize(req.body);
-
-    postModel.findOne('users', 'id', userIdAuth)
-        .then(response => {
-
-            const userIdRec = response[0].id;
-            const roleRec = response[0].role;
-
-            postModel.findOne('posts', 'postId', reqParamsId)
-                .then((response) => {
-
-                    if (response[0].userId === userIdRec || roleRec === 1) {
-
-                        const imageUrl = response[0].imageUrl;
-
-                        postModel.updateOne(reqBody.titre, reqBody.contenu, imageUrl, reqParamsId)
-                            .then(() => {
-                                res.status(200).json({ status: 200, message: 'Publication modifiée !' });
-                            }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
-
-                    } else {
-                        res.status(403).json({ status: 403, message: 'Vous ne pouvez pas modifié cette publication , vous n\'êtes pas sont auteur !' });
                     };
                 }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas ou est inaccessible pour le moment !' }));
         });
