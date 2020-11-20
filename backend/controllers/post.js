@@ -2,7 +2,6 @@ const sanitize = require('mongo-sanitize');
 const fs = require('fs');
 const PostModel = require('../models/postModel');
 const LikeModel = require('../models/likeModel');
-const { json } = require('body-parser');
 
 const postModel = new PostModel();
 const likeModel = new LikeModel();
@@ -34,7 +33,7 @@ exports.createPost = (req, res, next) => {
 
         } else if (postsObject.titre && req.file) {
 
-            contenu = '';
+            contenu = 'vide';
             postModel.save1(userIdAuth, postsObject.titre, contenu, imageUrl)
                 .then(() => {
                     postModel.findOnedate()
@@ -62,8 +61,8 @@ exports.createPost = (req, res, next) => {
 
         if (reqBody.titre && reqBody.contenu) {
 
-            imageUrl = '';
-            postModel.save1(userIdAuth, reqBody.titre, reqBody.contenu, imageUrl)
+            //let imageUrl;
+            postModel.save1(userIdAuth, reqBody.titre, reqBody.contenu, '')
                 .then(() => {
                     postModel.findOnedate()
                         .then(response => {

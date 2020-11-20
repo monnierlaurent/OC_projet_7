@@ -43,8 +43,6 @@ createforum = () => {
                 const titre = document.getElementById('post_forum_titre');
                 const contenu = document.getElementById('post_forum_text');
 
-
-
                 const message_1 = document.getElementById('message_1');
                 const message_3 = document.getElementById('message_3');
 
@@ -82,7 +80,7 @@ createforum = () => {
                         data.append('image', image[0]);
                         data.append('posts', posts);
 
-                        const sendObjsect1 = sendAuthFormdata('http://localhost:3000/api/post/img', data);
+                        const sendObjsect1 = sendAuthFormdata('http://localhost:3000/api/post', data);
                         sendObjsect1.then(repObjet1 => {
                             if (repObjet1.status === 400 || repObjet1.status === 404 || repObjet1.status === 403 || repObjet1.status === 500) {
                                 messageConfirm(repObjet1.message, 'main_forum');
@@ -121,7 +119,7 @@ createforum = () => {
                         data.append('image', image[0]);
                         data.append('posts', posts);
 
-                        const sendObjsect2 = sendAuthFormdata('http://localhost:3000/api/post/img', data);
+                        const sendObjsect2 = sendAuthFormdata('http://localhost:3000/api/post', data);
                         sendObjsect2.then(repObjet2 => {
                             if (repObjet2.status === 400 || repObjet2.status === 404 || repObjet2.status === 403 || repObjet2.status === 500) {
                                 messageConfirm(repObjet2.message, 'main_forum');
@@ -158,6 +156,7 @@ createforum = () => {
                         sendObjsect3.then(repObjet3 => {
 
                             if (repObjet3.status === 400 || repObjet3.status === 404 || repObjet3.status === 403 || repObjet3.status === 500) {
+
                                 messageConfirm(repObjet3.message, 'main_forum');
                                 setTimeout(() => {
                                     const main = document.getElementById('main_forum');
@@ -218,7 +217,7 @@ createforum = () => {
 
                                     deleteImg(dataPubli.imageUrl, dataPubli.postId);
 
-                                    deletetitre(dataPubli.contenu, dataPubli.postId);
+                                    deletecontenu(dataPubli.contenu, dataPubli.postId);
                                 };
                                 createPost();
 

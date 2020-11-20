@@ -111,18 +111,20 @@ deconnection = (id) => {
 };
 
 deleteImg = (repimageUrl, reppostId) => {
-    if (!repimageUrl) {
-        const imqAltParent = document.getElementById('lien_article' + reppostId);
-        const imgBalise = document.getElementById('img_post_display' + reppostId);
-        imqAltParent.removeChild(imgBalise);
+
+    if (repimageUrl === '') {
+        const alt = document.getElementById('img_post_display' + reppostId);
+        alt.removeAttribute('src');
+        alt.removeAttribute('alt');
     };
 };
 
-deletetitre = (repcontenu, reppostId) => {
+deletecontenu = (repcontenu, reppostId) => {
     if (repcontenu === 'vide') {
-        const contenuParent = document.getElementById('lien_article' + reppostId);
+
         const contenuBalise = document.getElementById('contenu' + reppostId);
-        contenuParent.removeChild(contenuBalise);
+        contenuBalise.setAttribute('class', 'display--none');
+
     };
 };
 
