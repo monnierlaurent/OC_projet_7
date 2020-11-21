@@ -73,7 +73,6 @@ createLogin = () => {
 
                 }).catch((error) => {
                     modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
-                    //messageConfirm(error, 'main_forum');
                 }); //fin catch
             } else {
                 message_3.setAttribute('class', 'bloc__form--font--message_form_4');

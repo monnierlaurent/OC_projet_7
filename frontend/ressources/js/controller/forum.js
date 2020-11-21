@@ -46,7 +46,7 @@ createforum = () => {
                 const message_1 = document.getElementById('message_1');
                 const message_3 = document.getElementById('message_3');
 
-                const regexDatas = /^([a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,255})/;
+                const regexDatas = /^([a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.,.:!''-_#"@&$%*\/]{2,})/;
 
                 validPosts(titre, contenu, regexDatas);
 
@@ -105,7 +105,9 @@ createforum = () => {
                                     window.location = './forum.html';
                                 }, 900);
                             };
-                        });
+                        }).catch((error) => {
+                            modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                        }); //fin catch
 
                     } else if (image[0] && regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) === false) {
 
@@ -144,7 +146,9 @@ createforum = () => {
                                     window.location = './forum.html';
                                 }, 900);
                             };
-                        });
+                        }).catch((error) => {
+                            modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                        }); //fin catch
 
                     } else if (!image[0] && regexDatas.test(titre.value) !== false && regexDatas.test(contenu.value) !== false) {
 
@@ -180,7 +184,9 @@ createforum = () => {
                                     window.location = './forum.html';
                                 }, 900);
                             };
-                        }); //fin de then sendObjsect3
+                        }).catch((error) => {
+                            modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                        }); //fin catch
                     } else {
                         message_3.setAttribute('class', 'bloc__form--font--message_form_4');
                     };
@@ -245,9 +251,9 @@ createforum = () => {
                                                 const message = document.getElementById('modal_message');
                                                 main.removeChild(message);
                                             }, 900);
-                                        }).catch((error => {
-                                            messageConfirm(error, 'main_forum');
-                                        })); //fin catch
+                                        }).catch((error) => {
+                                            modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                        }); //fin catch
                                     }); // fin de suppression d'un post
                                 }; //deletePublication
                                 deletePublication();
@@ -272,9 +278,9 @@ createforum = () => {
                                                 const compteur_dislike = document.getElementById('compteur_dislike' + dataPubli.postId);
                                                 compteur_dislike.innerHTML = response.dislikes;
                                             });
-                                        }).catch((error => {
-                                            messageConfirm(error, 'main_forum');
-                                        })); //fin catch
+                                        }).catch((error) => {
+                                            modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                        }); //fin catch
                                     });
 
                                     const btnDislike = document.getElementById('dislike-forum' + dataPubli.postId);
@@ -294,10 +300,12 @@ createforum = () => {
 
                                                 const compteur_dislike = document.getElementById('compteur_dislike' + dataPubli.postId);
                                                 compteur_dislike.innerHTML = response.dislikes;
-                                            });
-                                        }).catch((error => {
-                                            messageConfirm(error, 'main_forum');
-                                        })); //fin catch
+                                            }).catch((error) => {
+                                                modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                            }); //fin catch
+                                        }).catch((error) => {
+                                            modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                        }); //fin catch
                                     });
                                 }; //fin de likePublication
                                 likePublication();
@@ -336,7 +344,14 @@ createforum = () => {
                                                     imageUrl: recupModifObjet.imageUrl
                                                 };
                                                 const sendModifObjsect2 = putAuthJson('http://localhost:3000/api/post/' + dataPubli.postId, image);
-                                                sendModifObjsect2.then(supprImg => {});
+                                                sendModifObjsect2.then(supprImg => {
+                                                    messageConfirm(supprImg.message, 'main_forum');
+                                                    setTimeout(() => {
+                                                        const main = document.getElementById('main_forum');
+                                                        const messageHide = document.getElementById('modal_message');
+                                                        main.removeChild(messageHide);
+                                                    }, 900);
+                                                });
                                             });
 
                                             if (recupModifObjet.imageUrl === '') {
@@ -350,7 +365,7 @@ createforum = () => {
                                             const message_3 = document.getElementById('message_33');
 
 
-                                            const regexDatas = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,255}$/;
+                                            const regexDatas = /^([a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.,.:!''-_#"@&$%*\/]{2,})/;
 
                                             validModifPosts(titre, contenu, regexDatas);
 
@@ -413,9 +428,9 @@ createforum = () => {
                                                         modalModifPubli.setAttribute('class', 'display--none');
                                                         window.location = './forum.html';
 
-                                                    }).catch((error => {
-                                                        messageConfirm(error, 'main_forum');
-                                                    })); //fin catch
+                                                    }).catch((error) => {
+                                                        modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                                    }); //fin catch
 
                                                 } else if (!image[0]) {
                                                     const posts = {
@@ -437,13 +452,17 @@ createforum = () => {
                                                         modalModifPubli.setAttribute('class', 'display--none');
                                                         window.location = './forum.html';
 
-                                                    });
+                                                    }).catch((error) => {
+                                                        modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                                    }); //fin catch
                                                 } else {
                                                     const message_3 = document.getElementById('message_33');
                                                     message_3.setAttribute('class', 'bloc__form--font--message_form_4');
                                                 };
                                             }); // fin de btnSendModif
-                                        });
+                                        }).catch((error) => {
+                                            modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                        }); //fin catch
                                     }); // fin de btnModalModifPubli
                                 }; // fin de modifPublication
                                 modifPublication();
@@ -509,7 +528,9 @@ createforum = () => {
                                                         const compteurComs = document.getElementById('display_coms_forum' + dataPubli.postId);
                                                         compteurComs.innerHTML = compteurCom + ' ' + 'commentaire';
 
-                                                    });
+                                                    }).catch((error) => {
+                                                        modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                                    }); //fin catch
                                                     messageConfirm(repDelete.message, 'main_forum');
 
                                                     setTimeout(() => {
@@ -520,10 +541,9 @@ createforum = () => {
                                                         const btnMasquer = document.getElementById('display_none_forum' + dataPubli.postId);
                                                         btnMasquer.setAttribute('class', 'display--none');
                                                     }, 900);
-                                                }).catch((error => {
-                                                    console.log(error);
-                                                    // messageConfirm(error, 'main_forum');
-                                                }));
+                                                }).catch((error) => {
+                                                    modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                                }); //fin catch
                                             });
                                         }; //fin de deleteCommentaire
                                         deleteCommentaire();
@@ -555,8 +575,7 @@ createforum = () => {
                                                     const message_1 = document.getElementById('message_coms_111');
                                                     const recupContenu = document.getElementById('commentaireModifCom');
 
-                                                    const regexDatas = /^([a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,255})/;
-
+                                                    const regexDatas = /^([a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.,.:!''-_#"@&$%*\/]{2,})/;
 
                                                     validComsModif(recupContenu, regexDatas, 'message_coms_111');
 
@@ -618,17 +637,23 @@ createforum = () => {
                                                                             main2.removeChild(modalMessage);
                                                                         }, 900);
                                                                     };
-                                                                });
+                                                                }).catch((error) => {
+                                                                    modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                                                }); //fin catch
                                                             }).catch((error => {
                                                                 console.log(error);
                                                                 //messageConfirm(error, 'main_forum');
-                                                            })); //fin catch //fin then data
+                                                            })).catch((error) => {
+                                                                modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                                            }); //fin catch
                                                         } else {
                                                             const message_2 = document.getElementById('message_coms_222');
                                                             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
                                                         };
                                                     }); //fin de btn envoie de la modification du commentaire
-                                                });
+                                                }).catch((error) => {
+                                                    modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                                }); //fin catch
                                             });
                                         }; //fin de modifCommentaire
                                         modifCommentaire();
@@ -652,10 +677,12 @@ createforum = () => {
                                                         comLikes.innerHTML = response.comLikes;
                                                         const comDislikes = document.getElementById('comDislikes_1' + displayCommentaire.comId)
                                                         comDislikes.innerHTML = response.comDislikes;
-                                                    });
-                                                }).catch((error => {
-                                                    messageConfirm(error, 'main_forum');
-                                                })); //fin catch
+                                                    }).catch((error) => {
+                                                        modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                                    }); //fin catch
+                                                }).catch((error) => {
+                                                    modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                                }); //fin catch
                                             });
 
                                             const btnComDislike = document.getElementById('dislike_com' + displayCommentaire.comId);
@@ -675,11 +702,12 @@ createforum = () => {
                                                         comLikes.innerHTML = response.comLikes;
                                                         const comDislikes = document.getElementById('comDislikes_1' + displayCommentaire.comId)
                                                         comDislikes.innerHTML = response.comDislikes;
-                                                    });
-                                                }).catch((error => {
-                                                    console.log(error);
-                                                    //messageConfirm(error, 'main_forum');
-                                                })); //fin catch 
+                                                    }).catch((error) => {
+                                                        modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                                    }); //fin catch
+                                                }).catch((error) => {
+                                                    modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                                }); //fin catch
                                             });
                                         }; //fin de likeCommentaire
                                         likeCommentaire();
@@ -709,7 +737,7 @@ createforum = () => {
                                         });
 
                                         const contenu = document.getElementById('create_commentaire');
-                                        const regexDatas = /^([a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,255})/;
+                                        const regexDatas = /^([a-zA-Z1-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.,.:!''-_#"@&$%*\/]{2,})/;
 
 
                                         validComs('message_coms_1', contenu, regexDatas);
@@ -764,7 +792,9 @@ createforum = () => {
                                                             window.location = './forum.html';
                                                         }, 900);
                                                     };
-                                                });
+                                                }).catch((error) => {
+                                                    modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                                }); //fin catch
                                             } else {
                                                 const message_2 = document.getElementById('message_coms_2');
                                                 message_2.setAttribute('class', 'bloc__form--font--message_form_4');
@@ -773,7 +803,9 @@ createforum = () => {
                                     });
                                 }; // fin de commentairePublication
                                 commentairePublication();
-                            }); //fin de then coms
+                            }).catch((error) => {
+                                modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                            }); //fin catch
                         });
                     };
                 });

@@ -49,9 +49,9 @@ createUsersCompte = () => {
                             window.location = './index.html';
                         }, 900);
 
-                    }).catch((error => {
-                        messageConfirm(error, 'main_forum');
-                    }));
+                    }).catch((error) => {
+                        modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                    }); //fin catch
                 });
             }; // fin de deleteProfil
             deleteProfil();
@@ -219,13 +219,19 @@ createUsersCompte = () => {
                                             const messageHide = document.getElementById('modal_message');
                                             main.removeChild(messageHide);
                                         }, 900);
-                                    }); //fin then recupUser
-                                }); // fin postModifUser
+                                    }).catch((error) => {
+                                        modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                    }); //fin catch
+                                }).catch((error) => {
+                                    modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                                }); //fin catch
                             } else {
                                 message_5.setAttribute('class', 'bloc__form--font--message_form_4');
                             };
                         });
-                    });
+                    }).catch((error) => {
+                        modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                    }); //fin catch
                 }); //fin de btnModifProfils
             }; //fin de modifUser
             modifUser();
@@ -328,9 +334,9 @@ createUsersCompte = () => {
 
                                 }, 900);
                             };
-                        }).catch((error => {
-                            messageConfirm(error, 'main_forum');
-                        })); //fin catch 
+                        }).catch((error) => {
+                            modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+                        }); //fin catch
                     } else {
 
                         message_4.setAttribute('class', 'bloc__form--font--message_form_4');
@@ -340,10 +346,9 @@ createUsersCompte = () => {
             }; //fin de modifPassword
             modifPassword();
 
-        }).catch((error => {
-
-            messageConfirm(error, 'main_forum');
-        })); //fin then userUnique
+        }).catch((error) => {
+            modals('Le serveur ne repond pas', 'Retour au catalogue', './index.html');
+        }); //fin catch
     };
 }; //fin de createUsersCompte
 createUsersCompte();
