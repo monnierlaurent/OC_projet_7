@@ -14,12 +14,12 @@ exports.createCom = (req, res, next) => {
     const reqParamsId = sanitize(req.params.id);
 
     if (reqBody.comContenu === undefined) {
-        return res.status(400).json({ message: '*Champ obligatoire, le contenu doit contenir au minimum 2 charactères !' });
+        return res.status(400).json({ message: '*Champ obligatoire, le contenu doit contenir au minimum 2 caractères !' });
     };
 
     comModel.save(userIdAuth, reqParamsId, reqBody.comContenu)
         .then(() => {
-            res.status(201).json({ status: 201, message: 'Commentaire enregisté !' });
+            res.status(201).json({ status: 201, message: 'Commentaire enregistré !' });
         }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur rencontre un problème réessayez dans un moment !' }));
 };
 
@@ -64,10 +64,10 @@ exports.deleteComId = (req, res, next) => {
                     if (response[0].userId === userIdRec || roleRec === 1) {
                         comModel.deleteOne(reqParamsComId)
                             .then(() => {
-                                res.status(200).json({ message: 'Commentaire bien supprimé !' });
-                            }).catch(() => res.status(400).json({ status: 400, message: 'Le commentaire na pas été supprimé !' }));
+                                res.status(200).json({ message: 'Commentaire supprimé !' });
+                            }).catch(() => res.status(400).json({ status: 400, message: 'Le commentaire n\'a pas été supprimé !' }));
                     } else {
-                        res.status(403).json({ status: 403, message: 'Suppression impossible ,vous n\'êtes pas sont auteur !' });
+                        res.status(403).json({ status: 403, message: 'Suppression impossible ,vous n\'êtes pas sont auteur !' }); //
                     };
                 }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas ou est inaccessible pour le moment !' }));
         }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas ou est inaccessible pour le moment !' }));
@@ -79,7 +79,7 @@ exports.updateComId = (req, res, next) => {
     const userIdAuth = sanitize(req.userIdAuth);
 
     if (reqBody.comContenu === undefined) {
-        return res.status(400).json({ message: '*champ obligatoire, le contenu doit contenir au minimum 2 charactères !' });
+        return res.status(400).json({ message: '*champ obligatoire, le contenu doit contenir au minimum 2 caractères !' });
     };
     comModel.findOne('users', 'id', userIdAuth)
         .then(response => {
@@ -94,8 +94,8 @@ exports.updateComId = (req, res, next) => {
 
                         comModel.updateOne(reqBody.comContenu, reqParamsComId)
                             .then(() => {
-                                res.status(200).json({ status: 200, message: 'Commentaire bien mis a jour !' });
-                            }).catch(() => res.status(400).json({ status: 400, message: 'Le commentaire n\'est pas mis a jour !' }));
+                                res.status(200).json({ status: 200, message: 'Commentaire mis à jour !' });
+                            }).catch(() => res.status(400).json({ status: 400, message: 'Le commentaire n\'est pas mis à jour !' }));
                     } else {
                         res.status(403).json({ status: 403, message: 'Modification impossible ,vous n\'êtes pas sont auteur !' });
                     };
@@ -110,7 +110,7 @@ exports.likeCom = (req, res, next) => {
     const userIdAuth = sanitize(req.userIdAuth);
 
     if (reqBody.userId === undefined) {
-        return res.status(400).json({ status: 400, message: 'Vous n\'etes pas identifié !' });
+        return res.status(400).json({ status: 400, message: 'Vous n\'êtes pas identifié !' });
     };
     if (reqBody.like === undefined) {
         return res.status(400).json({ status: 400, message: 'Il manque votre appréciation dans votre demande !' });

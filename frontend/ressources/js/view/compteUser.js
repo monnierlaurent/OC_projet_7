@@ -40,11 +40,11 @@ createFormModifUser = (nom, prenom, emailRec) => {
 
     newForm.appendChild(createElm2('label', 'Nom :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'nom'));
     newForm.appendChild(createInputs('input', '', 'id', 'nom', 'class', 'bloc__login__form--input--style-2', 'type', 'text', 'value', nom));
-    newForm.appendChild(createElm2('p', '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !', 'id', 'message_1', 'class', 'bloc__form--font--message_form'));
+    newForm.appendChild(createElm2('p', '*Champ obligatoire le NOM doit comporter au moins 2 caractères sans chiffres ni characteres spéciaux !', 'id', 'message_1', 'class', 'bloc__form--font--message_form'));
 
     newForm.appendChild(createElm2('label', 'Prenom :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'prenom'));
     newForm.appendChild(createInputs('input', '', 'id', 'prenom', 'class', 'bloc__login__form--input--style-2', 'type', 'text', 'value', prenom));
-    newForm.appendChild(createElm2('p', '*Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !', 'id', 'message_2', 'class', 'bloc__form--font--message_form'));
+    newForm.appendChild(createElm2('p', '*Champ obligatoire le PRENOM doit comporter au moins 2 caractères sans chiffres ni caractères spéciaux !', 'id', 'message_2', 'class', 'bloc__form--font--message_form'));
 
     newForm.appendChild(createElm2('label', 'email :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'email'));
     newForm.appendChild(createInputs('input', '', 'id', 'email', 'class', 'bloc__login__form--input--style-2', 'type', 'email', 'value', emailRec));
@@ -70,15 +70,15 @@ createFormModifPassword = () => {
 
     newForm.appendChild(createElm2('label', 'Ancien mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'holdPassword'));
     newForm.appendChild(createInputs('input', '', 'id', 'holdPassword', 'class', 'bloc__login__form--input--style-2', 'type', 'password'));
-    newForm.appendChild(createElm2('p', '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !', 'id', 'message_11', 'class', 'bloc__form--font--message_form'));
+    newForm.appendChild(createElm2('p', '*Champ obligatoire le mot de passe doit contenir au moins 8 caractères <br>1 majuscule et 1 caractère spécial !', 'id', 'message_11', 'class', 'bloc__form--font--message_form'));
 
     newForm.appendChild(createElm2('label', 'Nouveau mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'newPassword'));
     newForm.appendChild(createInputs('input', '', 'id', 'newPassword', 'class', 'bloc__login__form--input--style-2', 'type', 'password', ));
-    newForm.appendChild(createElm2('p', '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !', 'id', 'message_22', 'class', 'bloc__form--font--message_form'));
+    newForm.appendChild(createElm2('p', '*Champ obligatoire le mot de passe doit contenir au moins 8 caractères <br>1 majuscule et 1 caractère spécial !', 'id', 'message_22', 'class', 'bloc__form--font--message_form'));
 
     newForm.appendChild(createElm2('label', 'Confirmation du passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'confirmPassword'));
     newForm.appendChild(createInputs('input', '', 'id', 'confirmPassword', 'class', 'bloc__login__form--input--style-2', 'type', 'password'));
-    newForm.appendChild(createElm2('p', '*champ obligatoire saisissez a nouveau votre mon de passe', 'id', 'message_33', 'class', 'bloc__form--font--message_form'));
+    newForm.appendChild(createElm2('p', '*Champ obligatoire saisissez a nouveau votre mot de passe', 'id', 'message_33', 'class', 'bloc__form--font--message_form'));
 
     const newDiv2 = newForm.appendChild(createElm1('div', '', 'class', 'bloc_section_form_btn--flex--1'));
     newDiv2.appendChild(createElm3('button', 'Modifer', 'id', 'btn_modif_password', 'class', 'bloc__form--btn-2', 'title', 'boutton pour modifer le mot de passe'));

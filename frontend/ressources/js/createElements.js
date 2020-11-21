@@ -46,8 +46,8 @@ modals = () => {
     const newAside = main.appendChild(createElm2('aside', '', 'id', 'modal1', 'class', 'modal')); //
     const newDivAside = newAside.appendChild(createElm1('div', '', 'class', 'modal-wrapper')); //
     newDivAside.appendChild(createElm1('h2', 'Veuillez nous excuser', 'class', 'bloc__login__form--label--style--create--post')); //
-    newDivAside.appendChild(createElm1('p', 'notre serveur rencontre des problemes inattendu', 'class', 'bloc__login__form--label--style--create--post')); //
-    newDivAside.appendChild(createElm4('a', 'Connection', 'id', 'btn_envoyer_coms', 'class', 'bloc__form--create--post--btn--post', 'href', 'index.html', 'title', 'doutton de retour a la page de connection')); //
+    newDivAside.appendChild(createElm1('p', 'notre serveur rencontre des problèmes inattendus', 'class', 'bloc__login__form--label--style--create--post')); //
+    newDivAside.appendChild(createElm4('a', 'Connexion', 'id', 'btn_envoyer_coms', 'class', 'bloc__form--create--post--btn--post', 'href', 'index.html', 'title', 'Boutton de retour à la page de connexion')); //
 
 
 };

@@ -15,7 +15,7 @@ module.exports = async(req, res, next) => {
         // si erreur de données
         if (valueComContenu.error) {
 
-            return res.status(400).json({ status: 400, message: 'Le contenu doit contenir au minum 2 charactères !' });
+            return res.status(400).json({ status: 400, message: 'Le contenu doit contenir au minimum 2 caractères !' });
 
         } else {
             // si données sont conforme au schema on passe au middelware suivant
@@ -23,7 +23,7 @@ module.exports = async(req, res, next) => {
         };
     } catch {
         //suppression du fichier image si erreur de modification
-        return res.status(400).json({ status: 400, message: 'Le contenu doit contenir au minum 2 charactères !' });
+        return res.status(400).json({ status: 400, message: 'Le contenu doit contenir au minimum 2 caractères !' });
 
     };
 };

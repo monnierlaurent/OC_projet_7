@@ -15,7 +15,7 @@ createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repConte
     const newDiv = newarticle.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex'));
 
     const newDiv1 = newDiv.appendChild(createElm1('div', '', 'class', 'article__avatar--flex'));
-    newDiv1.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'Avatar de l\'utilisateur qui a publier le message'));
+    newDiv1.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'Avatar de l\'utilisateur qui a publié le message'));
     newDiv1.appendChild(createElm1('h2', repNom + ' ' + repPrenom, 'class', 'bloc_article_div_p--padding--coms'));
 
     newDiv.appendChild(createElm2('p', '0', 'id', 'date_crea_post' + repPostId, 'class', 'bloc'));
@@ -41,7 +41,7 @@ createDisplayPostImg = (repPostId, avatar, repNom, repPrenom, repTitre, repConte
     newDiv6.appendChild(createElm3('i', '', 'id', 'btn_suppr_publication' + repPostId, 'class', 'display--none', 'title', 'lien pour supprimer une publication')); // bloc_article--icons--flex bloc_article_p--padding
 
     newDiv7 = newarticle.appendChild(createElm2('div', '', 'id', 'display_forum' + repPostId, 'class', 'bloc_article_div--flex3'));
-    newDiv8 = newarticle.appendChild(createElm2('p', 'masquer', 'id', 'display_none_forum' + repPostId, 'class', 'display--none')); //bloc_article--icons--flex
+    newDiv8 = newarticle.appendChild(createElm2('p', 'Masquer', 'id', 'display_none_forum' + repPostId, 'class', 'display--none')); //bloc_article--icons--flex
 };
 
 createDisplayComs = (avatar, nom, prenom, contenu, comId, postId, comLikes, comDislikes) => {
@@ -54,7 +54,7 @@ createDisplayComs = (avatar, nom, prenom, contenu, comId, postId, comLikes, comD
     const newDiv1 = newDiv.appendChild(createElm1('div', '', 'class', 'bloc_article_div--flex--coms--1'));
 
     const newDiv2 = newDiv1.appendChild(createElm1('div', '', 'class', 'article__avatar--flex'));
-    newDiv2.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'avatar de l\'utilisateur qui a publier le message'));
+    newDiv2.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'avatar de l\'utilisateur qui a publié le message'));
     newDiv2.appendChild(createElm1('h2', nom + ' ' + prenom, 'class', 'bloc_article_div_p--padding--coms'));
 
     newDiv1.appendChild(createElm2('p', '0', 'id', 'date_crea_coms' + comId, 'class', 'bloc_article_div_p--padding--coms'));
@@ -92,7 +92,7 @@ modaleCreatePost = (avatar, nom, prenom) => {
 
     formPost.appendChild(createElm2('label', 'Message :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'post_forum')); //
     formPost.appendChild(createInputs('textarea', '', 'id', 'post_forum_text', 'rows', '5', 'cols', '33', 'class', 'bloc__form--input--create--post--style-2', 'name', 'contenu')); //
-    formPost.appendChild(createElm2('p', 'Le contenu doit contenir au minum 2 charactères !', 'id', 'message_2', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', 'Le contenu doit contenir au minimum 2 caractères !', 'id', 'message_2', 'class', 'bloc__form--font--message_form'));
 
     const formPost2 = formPost.appendChild(createElm2('form', '', 'class', 'bloc_form--create--post--flex--width')); //
     formPost2.appendChild(createElm2('label', 'Ajouter une image :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'post_img')); //
@@ -101,7 +101,7 @@ modaleCreatePost = (avatar, nom, prenom) => {
     const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv2.appendChild(createElm3('button', 'Publier', 'id', 'btn_publier_forum', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour publier le message')); //
 
-    formPost.appendChild(createElm2('p', 'Le champ titre et obligatoire<br>vous devez aussi soit saisir un message soit selectionner une image !', 'id', 'message_3', 'class', 'bloc__form--font--message_form_3'));
+    formPost.appendChild(createElm2('p', 'Le champ titre est obligatoire<br>vous devez aussi soit saisir un message soit selectionner une image !', 'id', 'message_3', 'class', 'bloc__form--font--message_form_3'));
 };
 
 modaleCreateModifPost = (postId, avatar, titre, contenu, imageUrl, nom, prenom) => {
@@ -119,11 +119,11 @@ modaleCreateModifPost = (postId, avatar, titre, contenu, imageUrl, nom, prenom) 
 
     formPost.appendChild(createElm2('label', 'Titre :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'post_forum_titre')); //
     formPost.appendChild(createInputs('input', '', 'id', 'post_forum_titre' + postId, 'class', 'bloc__form--input--create--post--style-2', 'name', 'titre', 'value', titre)); //
-    formPost.appendChild(createElm2('p', '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !', 'id', 'message_11', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', '*champ obligatoire, le titre doit contenir au minimum 2 caractères<br>sans caractères spéciaux !', 'id', 'message_11', 'class', 'bloc__form--font--message_form'));
 
     formPost.appendChild(createElm2('label', 'Message :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'post_forum')); //
     formPost.appendChild(createInputs('textarea', contenu, 'id', 'post_forum_text' + postId, 'rows', '5', 'cols', '33', 'class', 'bloc__form--input--create--post--style-2', 'name', 'contenu')); //
-    formPost.appendChild(createElm2('p', 'Le contenu doit contenir au minum 2 charactères !', 'id', 'message_22', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', 'Le contenu doit contenir au minimum 2 caractères !', 'id', 'message_22', 'class', 'bloc__form--font--message_form'));
 
     const formPost2 = formPost.appendChild(createElm3('form', '', 'id', 'form_modif_post_2', 'class', 'bloc_form--create--post--flex--width')); //
 
@@ -154,12 +154,12 @@ createComsForm = (avatar, nom, prenom) => {
 
     formPost.appendChild(createElm2('label', 'Commentaire :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'post_forum')); //
     formPost.appendChild(createInputs('textarea', '', 'id', 'create_commentaire', 'rows', '5', 'cols', '33', 'class', 'bloc__form--input--create--post--style-2', 'name', 'contenu')); //
-    formPost.appendChild(createElm2('p', '*champs commentaire et obligatoire et dois contenir au minimum 2 charateres !', 'id', 'message_coms_1', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', '*champs commentaire et obligatoire et doit contenir au minimum 2 caractères !', 'id', 'message_coms_1', 'class', 'bloc__form--font--message_form'));
 
     const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv2.appendChild(createElm3('button', 'Publier', 'id', 'btn_envoyer_coms', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour  publier d\'un commentaire')); //
 
-    formPost.appendChild(createElm2('p', 'Le champs commentaire et obligatoire et dois contenir au minimum 2 charateres!', 'id', 'message_coms_2', 'class', 'bloc__form--font--message_form_3'));
+    formPost.appendChild(createElm2('p', 'Le champs commentaire et obligatoire et doit contenir au minimum 2 caractères !', 'id', 'message_coms_2', 'class', 'bloc__form--font--message_form_3'));
 };
 
 modifComsForm = (avatar, nom, prenom, valueTextarea) => {
@@ -169,7 +169,7 @@ modifComsForm = (avatar, nom, prenom, valueTextarea) => {
     newDivAside.appendChild(createElm3('button', '', 'id', 'btn_annuler_modif_coms', 'class', 'far fa-times-circle fa-2x bloc__form--create--post--btn-annul--style', 'title', 'boutton pour annuler la creation d\'un commentaire')); //
 
     const formPost = newDivAside.appendChild(createElm2('form', '', 'id', 'form_modif_com', 'class', 'bloc__form--create--post--flex')); //
-    formPost.appendChild(createElm1('h2', 'modifier le commentaire', 'class', 'bloc__login__form--label--style--create--post')); //
+    formPost.appendChild(createElm1('h2', 'Modifier le commentaire', 'class', 'bloc__login__form--label--style--create--post')); //
 
     const newDiv1 = formPost.appendChild(createElm1('div', '', 'class', 'bloc_modal_create_post_avatar_flex'));
     newDiv1.appendChild(createElm3('img', '', 'src', avatar, 'class', 'article__avatar--style', 'alt', 'avatar de l\'utilisateur qui a publier le message'));
@@ -177,10 +177,10 @@ modifComsForm = (avatar, nom, prenom, valueTextarea) => {
 
     formPost.appendChild(createElm2('label', 'Commentaire :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'post_forum')); //
     formPost.appendChild(createInputs('textarea', valueTextarea, 'id', 'commentaireModifCom', 'rows', '5', 'cols', '33', 'class', 'bloc__form--input--create--post--style-2', 'name', 'contenu')); //
-    formPost.appendChild(createElm2('p', '*champs commentaire et obligatoire et dois contenir au minimum 2 charateres !', 'id', 'message_coms_111', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', '*champs commentaire et obligatoire et doit contenir au minimum 2 caractères !', 'id', 'message_coms_111', 'class', 'bloc__form--font--message_form'));
 
     const newDiv2 = formPost.appendChild(createElm1('div', '', 'class', '', )); //
     newDiv2.appendChild(createElm3('button', 'Publier', 'id', 'btnComModif', 'class', 'bloc__form--create--post--btn--post', 'title', 'boutton pour  publier un commentaire')); //
 
-    formPost.appendChild(createElm2('p', 'Le champs commentaire et obligatoire et dois contenir au minimum 2 charateres!', 'id', 'message_coms_222', 'class', 'bloc__form--font--message_form_3'));
+    formPost.appendChild(createElm2('p', 'Le champs commentaire et obligatoire et doit contenir au minimum 2 caractères !', 'id', 'message_coms_222', 'class', 'bloc__form--font--message_form_3'));
 };

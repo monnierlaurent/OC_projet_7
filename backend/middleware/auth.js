@@ -34,7 +34,7 @@ module.exports = (req, res, next) => {
     } catch (error) {
         return res.status(401).json({
             status: 401,
-            message: 'Requête non authentifié !!!'
+            message: 'Requête non authentifiée !!!'
         });
     };
 };

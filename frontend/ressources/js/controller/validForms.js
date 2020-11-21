@@ -12,15 +12,15 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
 
         if (nom.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
+            message_1.innerHTML = '*Champ obligatoire le NOM doit comporter au moins 2 caractères sans chiffres ni caractères spéciaux !';
 
         } else if (Rnom.test(nom.value) === true) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_5');
-            message_1.innerHTML = '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
+            message_1.innerHTML = '*Champ obligatoire le NOM doit comporter au moins 2 caractères sans chiffres ni caractères spéciaux !';
 
         } else if (Rnom.test(nom.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_1.innerHTML = '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
+            message_1.innerHTML = '*Champ obligatoire le NOM doit comporter au moins 2 caractères sans chiffres ni caractères spéciaux !';
         };
     });
     prenom.addEventListener('change', (event) => {
@@ -28,15 +28,15 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
 
         if (prenom.value.length === 0) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            message_2.innerHTML = '*Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
+            message_2.innerHTML = '*Champ obligatoire le PRENOM doit comporter au moins 2 caractères sans chiffres ni caractères spéciaux !';
 
         } else if (Rnom.test(prenom.value) === true) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_5');
-            message_2.innerHTML = '*Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
+            message_2.innerHTML = '*Champ obligatoire le PRENOM doit comporter au moins 2 caractères sans chiffres ni caractères spéciaux !';
 
         } else if (Rnom.test(prenom.value) === false) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_2.innerHTML = '*Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni characteres spéciaux !';
+            message_2.innerHTML = '*Champ obligatoire le PRENOM doit comporter au moins 2 caractères sans chiffres ni caractères spéciaux !';
         };
     });
 
@@ -61,15 +61,15 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
         event.preventDefault();
         if (password.value.length === 0) {
             message_4.setAttribute('class', 'bloc__form--font--message_form');
-            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au moins 8 caractères 1 majuscule et 1 caractère spécial !';
 
         } else if (Rpassword.test(password.value) === true) {
             message_4.setAttribute('class', 'bloc__form--font--message_form_5');
-            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au moins 8 caractères 1 majuscule et 1 caractère spécial !';
 
         } else if (Rpassword.test(password.value) === false) {
             message_4.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au moins 8 caractères 1 majuscule et 1 caractère spécial !';
         };
     });
 
@@ -85,7 +85,7 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
 
         } else if (password.value !== confirmPassword.value) {
             message_5.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_5.innerHTML = 'Attention les mots de passe de ne sont pas identique !';
+            message_5.innerHTML = 'Attention les mots de passe de ne sont pas identiques !';
         };
     });
 };
@@ -118,15 +118,15 @@ valideLogin = (email, password, Remail, Rpassword) => {
 
         if (password.value.length === 0) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            message_2.innerHTML = '*champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_2.innerHTML = '*champ obligatoire<br>le mot de passe doit contenir au mois 8 caractères 1 majuscule et 1 caractère spécial !';
 
         } else if (Rpassword.test(password.value) === true) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_5');
-            message_2.innerHTML = '*champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_2.innerHTML = '*champ obligatoire<br>le mot de passe doit contenir au mois 8 caractères 1 majuscule et 1 caractère spécial !';
 
         } else if (Rpassword.test(password.value) === false) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_2.innerHTML = '*champ obligatoire<br>le mot de passe doit contenir au mois 8 characteres 1 majuscule et 1 charactere spécial !';
+            message_2.innerHTML = '*champ obligatoire<br>le mot de passe doit contenir au mois 8 caractères 1 majuscule et 1 caractère spécial !';
         };
     });
 };
@@ -142,15 +142,15 @@ validPosts = (titre, contenu, Rdatas) => {
 
         if (titre.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !';
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 caractères<br>sans caractères spéciaux !';
 
         } else if (Rdatas.test(titre.value) === true) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !';
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 caractères<br>sans caractères spéciaux !';
 
         } else if (Rdatas.test(titre.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !';
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 caractères<br>sans caractères spéciaux !';
         };
     });
     contenu.addEventListener('change', (event) => {
@@ -158,15 +158,15 @@ validPosts = (titre, contenu, Rdatas) => {
 
         if (contenu.value.length === 0) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            message_2.innerHTML = 'Le contenu doit contenir au minum 2 charactères !';
+            message_2.innerHTML = 'Le contenu doit contenir au minum 2 caractères !';
 
         } else if (Rdatas.test(contenu.value) === true) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            message_2.innerHTML = 'Le contenu doit contenir au minum 2 charactères !';
+            message_2.innerHTML = 'Le contenu doit contenir au minum 2 caractères !';
 
         } else if (Rdatas.test(contenu.value) === false) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_2.innerHTML = 'Le contenu doit contenir au minum 2 charactères ! !';
+            message_2.innerHTML = 'Le contenu doit contenir au minum 2 caractères ! !';
         };
     });
 };
@@ -181,15 +181,15 @@ validModifPosts = (titre, contenu, Rdatas) => {
 
         if (titre.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !';
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 caractères<br>sans caractères spéciaux !';
 
         } else if (Rdatas.test(titre.value) === true) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !';
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 caractères<br>sans caractères spéciaux !';
 
         } else if (Rdatas.test(titre.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_1.innerHTML = 'Ce champ est obligatoire et doit contenir au minum 2 charactères<br>sans caractères spéciaux !';
+            message_1.innerHTML = 'Ce champ est obligatoire et doit contenir au minum 2 caractères<br>sans caractères spéciaux !';
         };
     });
     contenu.addEventListener('change', (event) => {
@@ -197,15 +197,15 @@ validModifPosts = (titre, contenu, Rdatas) => {
 
         if (contenu.value.length === 0) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            message_2.innerHTML = 'Le contenu doit contenir au minum 2 charactères !';
+            message_2.innerHTML = 'Le contenu doit contenir au minimum 2 caractères !';
 
         } else if (Rdatas.test(contenu.value) === true) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            message_2.innerHTML = 'Le contenu doit contenir au minum 2 charactères !';
+            message_2.innerHTML = 'Le contenu doit contenir au minimum 2 caractères !';
 
         } else if (Rdatas.test(contenu.value) === false) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_2.innerHTML = 'Le contenu doit contenir au minum 2 charactères ! !';
+            message_2.innerHTML = 'Le contenu doit contenir au minimum 2 caractères ! !';
         };
     });
 };
@@ -220,15 +220,15 @@ validComs = (id, contenu, Rdatas) => {
 
         if (contenu.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '*champs commentaire et obligatoire et dois contenir au minimum 2 charateres !';
+            message_1.innerHTML = '*Champs commentaire et obligatoire et doit contenir au minimum 2 caratères !';
 
         } else if (Rdatas.test(contenu.value) === true) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '*champs commentaire et obligatoire et dois contenir au minimum 2 charateres !';
+            message_1.innerHTML = '*Champs commentaire et obligatoire et doit contenir au minimum 2 caratères !';
 
         } else if (Rdatas.test(contenu.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_1.innerHTML = '*champs commentaire et obligatoire et dois contenir au minimum 2 charateres !';
+            message_1.innerHTML = '*Champs commentaire et obligatoire et doit contenir au minimum 2 caratères !';
 
         };
     });
@@ -244,15 +244,15 @@ validComsModif = (contenu, Rdatas, idErreur) => {
 
         if (contenu.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            //erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
+
 
         } else if (Rdatas.test(contenu.value) === true) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            // erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
+
 
         } else if (Rdatas.test(contenu.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            //erreurComs1.innerHTML = 'le champs n\'est pas rempli correctement !';
+
         };
     });
 };
@@ -308,30 +308,27 @@ valideModifPassword = (holdPassword, newPassword, confirmNewPassword, regexPassw
     holdPassword.addEventListener('change', (event) => {
         if (holdPassword.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            // message_1.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(holdPassword.value) === true) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_5');
-            //message_1.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(holdPassword.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            //message_1.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
+
         };
     });
 
     newPassword.addEventListener('change', (event) => {
         if (newPassword.value.length === 0) {
             message_2.setAttribute('class', 'bloc__form--font--message_form');
-            //message_2.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
 
         } else if (regexPassword.test(newPassword.value) === true) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_5');
-            //message_2.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
+
 
         } else if (regexPassword.test(newPassword.value) === false) {
             message_2.setAttribute('class', 'bloc__form--font--message_form_4');
-            //message_2.innerHTML = '*Champ obligatoire le mot de passe doit contenir au mois 8 characteres <br>1 majuscule et 1 charactere spécial !';
+
         };
     });
 
@@ -345,7 +342,7 @@ valideModifPassword = (holdPassword, newPassword, confirmNewPassword, regexPassw
 
         } else if (newPassword.value !== confirmNewPassword.value) {
             message_3.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_3.innerHTML = 'Les mots de passe ne sont pas identique !';
+            message_3.innerHTML = 'Les mots de passe ne sont pas identiques !';
         };
     });
 };

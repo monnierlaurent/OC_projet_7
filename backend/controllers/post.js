@@ -25,11 +25,11 @@ exports.createPost = (req, res, next) => {
 
                             res.status(201).json({
                                 status: 201,
-                                message: 'Publication enregistré !'
+                                message: 'Publication enregistrée !'
                             });
                         });
 
-                }).catch(() => res.status(500).json({ status: 500, message: 'Une erreur est survenue,la publication n\'est pas enregisté !' }));
+                }).catch(() => res.status(500).json({ status: 500, message: 'Une erreur est survenue,la publication n\'est pas enregistrée !' }));
 
         } else if (postsObject.titre && req.file) {
 
@@ -45,7 +45,7 @@ exports.createPost = (req, res, next) => {
                             });
                         });
 
-                }).catch(() => res.status(500).json({ status: 500, message: 'Une erreur est survenue,la publication n\'est pas enregisté !' }));
+                }).catch(() => res.status(500).json({ status: 500, message: 'Une erreur est survenue,la publication n\'est pas enregistrée !' }));
         } else {
             fs.unlink(`images/${req.file.filename}`, () => { res.status(400).json({ status: 400, message: 'Le champ titre est obligatoire' }) });
         };
@@ -55,7 +55,7 @@ exports.createPost = (req, res, next) => {
         if (!reqBody.titre || reqBody.titre === undefined) {
             return res.status(400).json({
                 status: 400,
-                message: 'le titre est obligatoire !'
+                message: 'Le titre est obligatoire !'
             });
         };
 
@@ -69,11 +69,11 @@ exports.createPost = (req, res, next) => {
 
                             res.status(201).json({
                                 status: 201,
-                                message: 'Publication enregistré !'
+                                message: 'Publication enregistrée !'
                             });
                         });
 
-                }).catch(() => res.status(500).json({ status: 500, message: 'Une erreur est survenue,la publication n\'est pas enregisté !' }));
+                }).catch(() => res.status(500).json({ status: 500, message: 'Une erreur est survenue,la publication n\'est pas enregistrée !' }));
         };
     };
 };
@@ -121,12 +121,12 @@ exports.deletePostId = (req, res, next) => {
                             .then(() => {
                                 const filename = response[0].imageUrl.split('/images/')[1];
                                 fs.unlink(`images/${filename}`, () => {
-                                    res.status(200).json({ status: 200, message: 'Publication supprimé !' });
+                                    res.status(200).json({ status: 200, message: 'Publication supprimée !' });
                                 });
-                            }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,la publication n\'est pas enregisté !' }));
+                            }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,la publication n\'est pas enregistrée !' }));
 
                     } else {
-                        res.status(403).json({ status: 403, message: 'La suppression est impossible ,vous n\'êtes pas sont auteur !' });
+                        res.status(403).json({ status: 403, message: 'La suppression est impossible ,vous n\'êtes pas son auteur !' });
                     };
                 }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas ou est inaccessible pour le moment !' }));
         }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas ou est inaccessible pour le moment !' }));
@@ -139,7 +139,6 @@ exports.updatePostIdImg = (req, res, next) => {
     const userIdAuth = sanitize(req.userIdAuth);
     const reqBody = sanitize(req.body);
 
-    console.log(reqBody)
 
     postModel.findOne('users', 'id', userIdAuth)
         .then(response => {
@@ -153,13 +152,13 @@ exports.updatePostIdImg = (req, res, next) => {
                     if (response.userId === userIdRec || roleRec === 1) {
 
                         if (req.body.imageUrl) {
-                            console.log(req.body.imageUrl)
+
                             const filename = response[0].imageUrl.split('/images/')[1];
                             fs.unlink(`images/${filename}`, () => {
                                 const imageUrl = '';
                                 postModel.updateOne(response[0].titre, response[0].contenu, imageUrl, reqParamsId)
                                     .then(() => {
-                                        res.status(200).json({ status: 200, message: 'image supprimé !' });
+                                        res.status(200).json({ status: 200, message: 'Image supprimée !' });
                                     });
                             });
                         };
@@ -172,9 +171,9 @@ exports.updatePostIdImg = (req, res, next) => {
                                     .then(() => {
                                         const filename = response[0].imageUrl.split('/images/')[1];
                                         fs.unlink(`images/${filename}`, () => {
-                                            res.status(200).json({ status: 200, message: 'publication modifié !' });
+                                            res.status(200).json({ status: 200, message: 'publication modifiée !' });
                                         });
-                                    }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+                                    }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis à jour !' }));
                             } else
                             if (req.file && req.body.posts) {
 
@@ -187,9 +186,9 @@ exports.updatePostIdImg = (req, res, next) => {
                                         .then(() => {
                                             const filename = response[0].imageUrl.split('/images/')[1];
                                             fs.unlink(`images/${filename}`, () => {
-                                                res.status(200).json({ status: 200, message: 'publication modifié !' });
+                                                res.status(200).json({ status: 200, message: 'publication modifiée !' });
                                             });
-                                        }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+                                        }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis à jour !' }));
 
                                     // modif image + titre + contenu
 
@@ -200,9 +199,9 @@ exports.updatePostIdImg = (req, res, next) => {
                                         .then(() => {
                                             const filename = response[0].imageUrl.split('/images/')[1];
                                             fs.unlink(`images/${filename}`, () => {
-                                                res.status(200).json({ status: 200, message: 'publication modifié !' });
+                                                res.status(200).json({ status: 200, message: 'publication modifiée !' });
                                             });
-                                        }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+                                        }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis à jour !' }));
                                     // modif image + titre
 
                                 } else if (!reqBodyParse.titre && reqBodyParse.contenu) {
@@ -212,9 +211,9 @@ exports.updatePostIdImg = (req, res, next) => {
                                         .then(() => {
                                             const filename = response[0].imageUrl.split('/images/')[1];
                                             fs.unlink(`images/${filename}`, () => {
-                                                res.status(200).json({ status: 200, message: 'publication modifié !' });
+                                                res.status(200).json({ status: 200, message: 'publication modifiée !' });
                                             });
-                                        }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+                                        }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis à jour !' }));
 
                                     // modif image + contenu
                                 };
@@ -225,30 +224,29 @@ exports.updatePostIdImg = (req, res, next) => {
                                 const imageUrl = response[0].imageUrl;
                                 postModel.updateOne(reqBody.titre, reqBody.contenu, imageUrl, reqParamsId)
                                     .then(() => {
-                                        res.status(200).json({ status: 200, message: 'publication modifié !' });
-                                    }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+                                        res.status(200).json({ status: 200, message: 'publication modifiée !' });
+                                    }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis à jour !' }));
                                 // modif titre +contenu
 
                             } else if (reqBody.titre && !reqBody.contenu) {
                                 const imageUrl = response[0].imageUrl;
                                 postModel.updateOne(reqBody.titre, response[0].contenu, imageUrl, reqParamsId)
                                     .then(() => {
-                                        res.status(200).json({ status: 200, message: 'publication modifié !' });
-                                    }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+                                        res.status(200).json({ status: 200, message: 'publication modifiée !' });
+                                    }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis à jour !' }));
                                 // modif titre
 
                             } else if (!reqBody.titre && reqBody.contenu) {
                                 const imageUrl = response[0].imageUrl;
                                 postModel.updateOne(response[0].titre, reqBody.contenu, imageUrl, reqParamsId)
                                     .then(() => {
-                                        res.status(200).json({ status: 200, message: 'publication modifié !' });
-                                    }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis a jour !' }));
+                                        res.status(200).json({ status: 200, message: 'publication modifiée !' });
+                                    }).catch(() => res.status(400).json({ status: 400, message: 'La publication n\'est pas mis à jour !' }));
                                 // modif contenu
-                                console.log('contenu');
-                            }
+                            };
                         };
                     } else {
-                        res.status(403).json({ status: 403, message: 'Vous ne pouvez pas modifié ce post , vous n\'êtes pas sont auteur!' });
+                        res.status(403).json({ status: 403, message: 'Vous ne pouvez pas modifié ce post , vous n\'êtes pas son auteur!' });
                     };
                 }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas ou est inaccessible pour le moment !' }));
         });
@@ -263,7 +261,7 @@ exports.likePost = (req, res, next) => {
         return res.status(400).json({ status: 400, message: 'Vous n\'etes pas identifié, vous ne pouvez pas donner d\'appréciation' });
     };
     if (reqBody.like === undefined) {
-        return res.status(400).json({ status: 400, message: 'Il manque votre appréciation dans votre demende !' });
+        return res.status(400).json({ status: 400, message: 'Il manque votre appréciation dans votre demande !' });
     };
 
     if (reqBody.like) {
@@ -278,8 +276,8 @@ exports.likePost = (req, res, next) => {
                                 likeModel.likeUpdateOne('posts', 'likes', 'likes+1', 'postId', reqParamsId)
                                     .then(() => {
                                         res.status(201).json({ status: 201, message: 'like enregistré !' });
-                                    }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas enregisté !' }));
-                            }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas enregisté !' }));
+                                    }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas enregistrée !' }));
+                            }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas enregistrée !' }));
 
                     } else if (response[0].postLikeValeur === 1) {
 
@@ -288,8 +286,8 @@ exports.likePost = (req, res, next) => {
                                 likeModel.likeUpdateOne('posts', 'likes', 'likes-1', 'postId', reqParamsId)
                                     .then(() => {
                                         res.status(201).json({ status: 201, message: 'Like supprimé !' });
-                                    }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas supprimé !' }));
-                            }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas supprimé !' }));
+                                    }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas supprimée !' }));
+                            }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas supprimée !' }));
                         //suppresion du like + mise a jout du compteur
 
                     } else if (response[0].postLikeValeur === -1) {
@@ -302,9 +300,9 @@ exports.likePost = (req, res, next) => {
                                             .then(() => {
                                                 likeModel.likeUpdateOne('posts', 'likes', 'likes+1', 'postId', reqParamsId)
                                                     .then(() => {
-                                                        res.status(201).json({ status: 201, message: 'dislike supprimé ! like enregisté !' });
-                                                    }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas enregistré !' }));
-                                            }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas enregistré !' }));
+                                                        res.status(201).json({ status: 201, message: 'dislike supprimé ! like enregistré !' });
+                                                    }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas enregistrée !' }));
+                                            }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas enregistrée !' }));
 
                                     }).catch(() => res.status(400).json({ message: 'Une erreur est survenue,le dislike  n\'est pas supprimé !' }));
                             }).catch(() => res.status(400).json({ message: 'Une erreur est survenue,le dislike  n\'est pas supprimé !' }));
@@ -318,8 +316,8 @@ exports.likePost = (req, res, next) => {
                                 likeModel.likeUpdateOne('posts', 'dislikes', 'dislikes+1', 'postId', reqParamsId)
                                     .then(() => {
                                         res.status(201).json({ status: 201, message: 'Dislike enregistré !' });
-                                    }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le dislike  n\'est pas enregistré !' }));
-                            }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le dislike  n\'est pas enregistré !' }));
+                                    }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le dislike  n\'est pas enregistrée !' }));
+                            }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le dislike  n\'est pas enregistrée !' }));
 
                     } else if (response[0].postLikeValeur === 1) {
                         //suppression du like + mise a jout du compteur
@@ -332,8 +330,8 @@ exports.likePost = (req, res, next) => {
                                                 likeModel.likeUpdateOne('posts', 'dislikes', 'dislikes+1', 'postId', reqParamsId)
                                                     .then(() => {
                                                         res.status(201).json({ status: 201, message: 'disike supprimé ! like enregisté !' });
-                                                    }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le dislike  n\'est pas enregistré !' }));
-                                            }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le dislike  n\'est pas enregistré !' }));
+                                                    }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le dislike  n\'est pas enregistrée !' }));
+                                            }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le dislike  n\'est pas enregistrée !' }));
 
                                     }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le like  n\'est pas supprimé !' }));
                             }).catch(() => res.status(400).json({ status: 400, message: 'Une erreur est survenue,le dislike  n\'est pas supprimé !' }));

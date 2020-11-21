@@ -21,11 +21,11 @@ exports.createUser = (req, res, next) => {
     const emailVerif = email.indexOf('@groupomania.fr');
 
     if (reqBody.nom === undefined) {
-        return res.status(400).json({ status: 400, message: '*Champ obligatoire le NOM dois comporter au moins 2 characteres sans chiffre ni caracteres spéciaux !' });
+        return res.status(400).json({ status: 400, message: '*Champ obligatoire le NOM doit comporter au moins 2 caractères sans chiffre ni caractères spéciaux !' });
     };
 
     if (reqBody.prenom === undefined) {
-        return res.status(400).json({ status: 400, message: '*Champ obligatoire le PRENOM dois comporter au moins 2 characteres sans chiffre ni caracteres spéciaux !' });
+        return res.status(400).json({ status: 400, message: '*Champ obligatoire le PRENOM doit comporter au moins 2 caractères sans chiffre ni caractères spéciaux !' });
     };
     if (reqBody.email === undefined) {
         return res.status(400).json({ status: 400, message: '*Champ obligatoire l\'EMAIL doit contenir le nom de domaine @groupomania.fr !' });
@@ -58,7 +58,7 @@ exports.createUser = (req, res, next) => {
                 });
 
                 if (tableEmail.includes(hashEmail)) {
-                    return res.status(400).json({ status: 400, message: 'Cette adresse email est déja utilisé !' });
+                    return res.status(400).json({ status: 400, message: 'Cette adresse email est déjà utilisée !' });
                 } else {
 
                     const encryptedEmail = cryptr.encrypt(reqBody.email); //const decryptedEmail = cryptr.decrypt(encryptedEmail);
@@ -83,7 +83,7 @@ exports.createUser = (req, res, next) => {
                                                     };
                                                     res.status(200).json({
                                                         status: 200,
-                                                        message: 'Utilisateur enregisté !',
+                                                        message: 'Utilisateur enregistré !',
                                                         avatar: response[0].avatar,
                                                         role: response[0].role,
                                                         userId: response[0].id,
@@ -92,13 +92,13 @@ exports.createUser = (req, res, next) => {
                                                         )
                                                     });
                                                 }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
-                                        }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
+                                        }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
                                 }).catch(() => res.status(400).json({ status: 400, message: 'La syntaxe de la requête est erronée' }));
-                        }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
+                        }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a rencontré un problème réessayez dans un moment !' }));
                 };
-            }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
+            }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
     } else {
-        res.status(400).json({ status: 400, message: 'Le mot de passe doit comporter minimum 8 charateres ,1 majuscule , 1 chiffre' });
+        res.status(400).json({ status: 400, message: 'Le mot de passe doit comporter minimum 8 caractères 1, majuscule ,1 chiffre' });
     };
 };
 
@@ -107,7 +107,7 @@ exports.loginUser = (req, res, next) => {
     const reqBody = sanitize(req.body);
 
     if (reqBody.nom === undefined, reqBody.prenom === undefined, reqBody.email === undefined, reqBody.password === undefined) {
-        return res.status(400).json({ status: 400, message: 'Tous les champs sont obligatoire !' });
+        return res.status(400).json({ status: 400, message: 'Tous les champs sont obligatoires !' });
     };
 
     if (schemaPassword.validate(reqBody.password)) {
@@ -145,15 +145,15 @@ exports.loginUser = (req, res, next) => {
                                             'eyJhbGciOiJIUzI1NiIs@InR5cCI6IkpXVCJ9.eyJz#dWIiOiIxMjM0NTY3ODkwIiw/ibmFtZSI6IkpvaG4g&RG9lIiwiYWRtaW4iOnRydWV9.TJVA95Or/M7E2cBab30RM@HrHDcEfxjoYZgeFONFh7HgQ', { expiresIn: '24h' },
                                         )
                                     });
-                                }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
-                        }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
+                                }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a rencontré un problème réessayez dans un moment !' }));
+                        }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
 
                 } else {
-                    return res.status(400).json({ status: 400, message: 'Cette adresse email n\'appartient a aucun profil utilisateur !' });
+                    return res.status(400).json({ status: 400, message: 'L\'email ou le mot de passe est invalide !' });
                 };
-            }).catch(() => res.status(404).json({ status: 404, message: 'cette resource n\'existe pas !' }));
+            }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
     } else {
-        res.status(400).json({ status: 400, message: 'Le mot de passe doit comporter minimum 8 charateres ,1 majuscule , 1 chiffre' });
+        res.status(400).json({ status: 400, message: 'L\'email ou le mot de passe est invalide !' });
     };
 }; //fin login
 
@@ -161,7 +161,7 @@ exports.displayUsers = (req, res, next) => {
     userModel.findAll()
         .then((response) => {
             res.status(200).json(response);
-        }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
 };
 
 
@@ -182,10 +182,10 @@ exports.displayIdUser = (req, res, next) => {
                     if (userIdRec === response.id || role === 1) {
                         res.status(200).json(response);
                     } else {
-                        res.status(403).json({ status: 403, message: 'Vous n\'êtes pas autoridé a accéder a ces données !' });
+                        res.status(403).json({ status: 403, message: 'Vous n\'êtes pas autorisé à accéder à ces données !' });
                     };
-                }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
-        }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
+                }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
 };
 
 
@@ -207,10 +207,10 @@ exports.deleteUser = (req, res, next) => {
                                 res.status(200).json({ status: 200, message: "Utilisateur supprimé !" });
                             }).catch(() => res.status(400).json({ status: 400, message: 'Utilisateur non supprimé !' }));
                     } else {
-                        res.status(403).json({ status: 403, message: 'Vous n\'êtes pas autorisé a supprimer un utilisateur !' });
+                        res.status(403).json({ status: 403, message: 'Vous n\'êtes pas autorisé à supprimer un utilisateur !' });
                     };
-                }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
-        }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
+                }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
 };
 
 exports.updateUser = (req, res, next) => {
@@ -248,13 +248,13 @@ exports.updateUser = (req, res, next) => {
                         .then((response) => {
                             res.status(200).json({ status: 200, message: "Utilisateur mis a jour !" });
 
-                        }).catch(() => { res.status(400).json({ status: 400, message: 'Utilisateur na pas été mis a jour !' }); });
+                        }).catch(() => { res.status(400).json({ status: 400, message: 'Utilisateur n\'a pas été mis à jour !' }); });
 
                     } else {
-                        return res.status(403).json({ status: 403, message: "Vous n'êtes pas autorisé a modifié les utilsateurs !" });
+                        return res.status(403).json({ status: 403, message: "Vous n'êtes pas autorisé à modifier les utilisateurs !" });
                     };
-                }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
-        }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
+                }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
 };
 
 
@@ -289,18 +289,18 @@ exports.updatePassword = (req, res, next) => {
                                         .then(hash => {
                                             userModel.updateOne(encryptedNom, encryptedPrenom, emailMask, hashEmail, hash, response.role, encryptedEmail, reqParamsId)
                                                 .then((response) => {
-                                                    res.status(200).json({ status: 200, message: "Le mot de passe mis a jour !" });
+                                                    res.status(200).json({ status: 200, message: "Le mot de passe mis à jour !" });
 
-                                                }).catch(() => { res.status(400).json({ status: 400, message: 'Le mot de passe na pas été mis a jour !' }); });
+                                                }).catch(() => { res.status(400).json({ status: 400, message: 'Le mot de passe n\'a pas été mis à jour !' }); });
 
                                         }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
                                 } else {
-                                    res.status(400).json({ status: 400, message: 'Le nouveau mot de passe doit comporter minimum 8 charateres ,1 majuscule , 1 chiffre' });
+                                    res.status(400).json({ status: 400, message: 'Le nouveau mot de passe doit comporter minimum 8 caratères ,1 majuscule , 1 chiffre' });
                                 };
                             }).catch(() => res.status(500).json({ status: 500, message: 'Le serveur a eu problème réessayez dans un moment !' }));
                     } else {
-                        return res.status(403).json({ status: 403, message: "Vous n'êtes pas autorisé a mettre a jour les utilsateurs !" });
+                        return res.status(403).json({ status: 403, message: "Vous n'êtes pas autorisé à mettre à jour les utilisateurs !" });
                     };
-                }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
-        }).catch(() => res.status(404).json({ status: 404, message: 'Cette resource n\'existe pas !' }));
+                }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
+        }).catch(() => res.status(404).json({ status: 404, message: 'Cette ressource n\'existe pas !' }));
 };

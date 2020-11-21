@@ -15,11 +15,11 @@ module.exports = async(req, res, next) => {
         // si erreur de données
         if (valueTitre.error) {
 
-            return res.status(400).json({ status: 400, message: '*champ obligatoire, le titre doit contenir au minum 2 charactères<br>sans caractères spéciaux !' });
+            return res.status(400).json({ status: 400, message: '*champ obligatoire, le titre doit contenir au minimum 2 caractères<br>sans caractères spéciaux !' });
 
         } else if (valueContenu.error) {
 
-            return res.status(400).json({ status: 400, message: 'Le contenu doit contenir au minum 2 charactères !' });
+            return res.status(400).json({ status: 400, message: 'Le contenu doit contenir au minimum 2 caractères !' });
 
         } else {
             // si données sont conforme au schema on passe au middelware suivant
@@ -29,7 +29,7 @@ module.exports = async(req, res, next) => {
         //suppression du fichier image si erreur de modification
         if (req.file) {
             const file = req.file.path;
-            fs.unlink(`${file}`, () => { res.status(404).json({ status: 404, message: 'L\'image est bien supprimé !' }); });
+            fs.unlink(`${file}`, () => { res.status(404).json({ status: 404, message: 'L\'image est bien supprimée !' }); });
         } else {
             return res.status(400).json({ status: 400, message: 'Un des champs n\'est pas conforme !' });
         };
