@@ -1,6 +1,6 @@
 createNavBar = () => {
     const navBar = document.getElementById('nav_index');
-    navBar.appendChild(createElm4('a', 'Connection', 'id', 'connexion', 'class', 'header__nav__a--style', 'href', './index.html', 'title', 'Lien pour se connecter'));
+    navBar.appendChild(createElm4('a', 'Connexion', 'id', 'connexion', 'class', 'header__nav__a--style', 'href', './index.html', 'title', 'Lien pour se connecter'));
     navBar.appendChild(createElm4('a', 'Inscription', 'id', 'inscription', 'class', 'header__nav__a--style', 'href', './signup.html', 'title', 'Lien pour s\'incrire'));
 };
 

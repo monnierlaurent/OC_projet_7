@@ -26,7 +26,7 @@ createFormSignup = () => {
 
     formPost.appendChild(createElm2('label', 'Mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'password')); //
     formPost.appendChild(createElm3('input', '', 'id', 'password', 'class', 'bloc__form--input--create--post--style-2', 'type', 'password')); //
-    formPost.appendChild(createElm2('p', '*Champ obligatoire<br>Le mot de passe doit contenir au moins 8 caractères 1 majuscule et 1 caractère spécial !', 'id', 'message_4', 'class', 'bloc__form--font--message_form'));
+    formPost.appendChild(createElm2('p', '*Champ obligatoire<br>Le mot de passe doit contenir au moins 8 caractères 1 majuscule et 1 caractère spécial et 1 chiffre !', 'id', 'message_4', 'class', 'bloc__form--font--message_form'));
 
     formPost.appendChild(createElm2('label', 'Comfirmation du mot de passe :', 'class', 'bloc__login__form--label--style--create--post', 'for', 'comfirmPassword')); //
     formPost.appendChild(createElm3('input', '', 'id', 'comfirmPassword', 'class', 'bloc__form--input--create--post--style-2', 'type', 'password')); //

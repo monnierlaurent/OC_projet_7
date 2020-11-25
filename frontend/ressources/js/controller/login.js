@@ -44,6 +44,7 @@ createLogin = () => {
             if (regexEmail.test(email.value) !== false && regexPassword.test(password.value) !== false) {
 
                 message_3.setAttribute('class', 'bloc__form--font--message_form_2');
+
                 const contact = {
                     email: email.value,
                     password: password.value

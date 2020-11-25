@@ -61,15 +61,15 @@ valideSignup = (nom, prenom, email, password, confirmPassword, Rnom, Remail, Rpa
         event.preventDefault();
         if (password.value.length === 0) {
             message_4.setAttribute('class', 'bloc__form--font--message_form');
-            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au moins 8 caractères 1 majuscule et 1 caractère spécial !';
+            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au moins 8 caractères 1 majuscule et 1 caractère spécial et 1 chiffre !';
 
         } else if (Rpassword.test(password.value) === true) {
             message_4.setAttribute('class', 'bloc__form--font--message_form_5');
-            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au moins 8 caractères 1 majuscule et 1 caractère spécial !';
+            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au moins 8 caractères 1 majuscule et 1 caractère spécial et 1 chiffre !';
 
         } else if (Rpassword.test(password.value) === false) {
             message_4.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au moins 8 caractères 1 majuscule et 1 caractère spécial !';
+            message_4.innerHTML = '*Champ obligatoire<br>le mot de passe doit contenir au moins 8 caractères 1 majuscule et 1 caractère spécial et 1 chiffre !';
         };
     });
 
@@ -142,15 +142,15 @@ validPosts = (titre, contenu, Rdatas) => {
 
         if (titre.value.length === 0) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 caractères<br>sans caractères spéciaux !';
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 caractères !';
 
         } else if (Rdatas.test(titre.value) === true) {
             message_1.setAttribute('class', 'bloc__form--font--message_form');
-            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 caractères<br>sans caractères spéciaux !';
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 caractères !';
 
         } else if (Rdatas.test(titre.value) === false) {
             message_1.setAttribute('class', 'bloc__form--font--message_form_4');
-            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 caractères<br>sans caractères spéciaux !';
+            message_1.innerHTML = '*champ obligatoire, le titre doit contenir au minum 2 caractères !';
         };
     });
     contenu.addEventListener('change', (event) => {
