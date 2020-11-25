@@ -8,7 +8,7 @@ createNavbar = () => {
 createFormSignup = () => {
 
     const mainIndex = document.getElementById('main_signup');
-    //const mainIndex = document.getElementById('main_signup');
+
 
     const formPost = mainIndex.appendChild(createElm2('form', '', 'id', 'form_signup', 'class', 'bloc__form--login--flex')); //
     formPost.appendChild(createElm1('h2', 'Inscription', 'class', 'bloc__login__form--label--style--create--post')); //
